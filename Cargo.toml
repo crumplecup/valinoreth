@@ -1,0 +1,19 @@
+[package]
+name = "valinoreth"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+path = "src/main.rs"
+name = "valinoreth"
+
+[dependencies]
+derive-new = "0.7.0"
+derive_more = { version = "2.0.1", features = ["full"] }
+serde = { version = "1.0.219", features = ["derive"] }
+strum = { version = "0.27.1", features = ["derive", "strum_macros"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
