@@ -1,5 +1,8 @@
+use crate::AttributeType;
 use std::str::FromStr;
 
+#[allow(renamed_and_removed_lints)]
+#[allow(enum_variant_names)]
 #[derive(
     Debug,
     Copy,
@@ -13,7 +16,6 @@ use std::str::FromStr;
     serde::Deserialize,
     strum::EnumIter,
     derive_more::Display,
-    derive_more::FromStr,
 )]
 pub enum Skill {
     Accounting,
@@ -31,7 +33,7 @@ pub enum Skill {
     AreaKnowledge,
     Armoury,
     Artillery,
-    Artist,
+    Artist(Artist),
     Astronomy,
     Autohypnosis,
     AxeMace,
@@ -76,7 +78,7 @@ pub enum Skill {
     Criminology,
     Crossbow,
     Cryptography,
-    CurrentAffairs,
+    CurrentAffairs(CurrentAffairs),
     Dancing,
     DetectLies,
     Diagnosis,
@@ -88,7 +90,7 @@ pub enum Skill {
     Dropping,
     Economics,
     Electrician,
-    ElectronicsOperation,
+    ElectronicsOperation(ElectronicsOperation),
     ElectronicsRepair,
     Engineer,
     Enthrallment,
@@ -96,8 +98,8 @@ pub enum Skill {
     Escape,
     EsotericMedicine,
     Exorcism,
-    ExpertSkill,
-    Explosives,
+    ExpertSkill(ExpertSkill),
+    Explosives(Explosives),
     Falconry,
     Farming,
     FastDraw,
@@ -133,7 +135,7 @@ pub enum Skill {
     HazardousMaterials,
     Heraldry,
     HerbLore,
-    HiddenLore,
+    HiddenLore(HiddenLore),
     Hiking,
     History,
     HobbySkill,
@@ -172,7 +174,7 @@ pub enum Skill {
     Makeup,
     MarketAnalysis,
     Masonry,
-    Mathematics,
+    Mathematics(Mathematics),
     Mechanic,
     Meditation,
     MeleeWeapon,
@@ -180,7 +182,7 @@ pub enum Skill {
     Merchant,
     Metallurgy,
     Meteorology,
-    Mimicry,
+    Mimicry(Mimicry),
     MindBlock,
     MonowireWhip,
     Mount,
@@ -194,13 +196,13 @@ pub enum Skill {
     Observation,
     Occultism,
     Packing,
-    Paleontology,
+    Paleontology(Paleontology),
     Panhandling,
     Parachuting,
     ParryMissileWeapons,
     Performance,
     Persuade,
-    Pharmacy,
+    Pharmacy(Pharmacy),
     Philosophy,
     Photography,
     Physician,
@@ -228,7 +230,7 @@ pub enum Skill {
     RitualMagic,
     Running,
     Saber,
-    SavoirFaire,
+    SavoirFaire(SavoirFaire),
     Scrounging,
     Scuba,
     Seamanship,
@@ -359,4 +361,322 @@ impl Family {
             Err(_) => None,
         }
     }
+}
+
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::From,
+)]
+pub enum SkillBase {
+    #[from(AttributeType)]
+    Attribute(AttributeType),
+    #[from(Skill)]
+    Skill(Skill),
+}
+
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::From,
+)]
+pub struct SkillDefault {
+    base: SkillBase,
+    modifier: i64,
+}
+
+impl SkillDefault {
+    pub fn new<T: Into<SkillBase>>(base: T, modifier: i64) -> Self {
+        let base = base.into();
+        Self { base, modifier }
+    }
+}
+
+/// Specializations for the Artist skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Artist {
+    #[default]
+    Pottery,
+    Sculpting,
+    Woodworking,
+}
+
+/// Specializations for the Current Affairs skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum CurrentAffairs {
+    #[default]
+    HighCulture,
+    PopularCulture,
+    Business,
+}
+
+/// Specializations for the Electronics Operation skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum ElectronicsOperation {
+    #[default]
+    Media,
+    Security,
+    Medical,
+    ElectronicWarfare,
+    Surveillance,
+}
+
+/// Specializations for the Expert Skill skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum ExpertSkill {
+    #[default]
+    Epidemiology,
+    MilitaryScience,
+    Hydrology,
+    NaturalPhilosophy,
+    Psionics,
+    Egyptology,
+    PoliticalScience,
+    Thanatology,
+    Xenology,
+    ComputerSecurity,
+    Demolition,
+    ExplosiveOrdnanceDisposal,
+}
+
+/// Specializations for the Explosives skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Explosives {
+    #[default]
+    Demolition,
+    ExplosiveOrdnanceDisposal,
+}
+
+/// Specializations for the Hidden Lore skill.
+#[allow(renamed_and_removed_lints)]
+#[allow(enum_variant_names)]
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum HiddenLore {
+    #[default]
+    DemonLore,
+    FaerieLore,
+    SpiritLore,
+}
+
+/// Specializations for the Mathematics skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Mathematics {
+    #[default]
+    Statistics,
+    Surveying,
+}
+
+/// Specializations for the Mimicry skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Mimicry {
+    #[default]
+    AnimalSounds,
+    BirdCalls,
+}
+
+/// Specializations for the Paleontology skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Paleontology {
+    #[default]
+    Paleobotany,
+    Paleoanthropology,
+}
+
+/// Specializations for the Pharmacy skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Pharmacy {
+    #[default]
+    Herbal,
+}
+
+/// Specializations for the Savoir-Faire skill.
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum SavoirFaire {
+    #[default]
+    HighSociety,
+    Mafia,
+    Servant,
+    Military,
+    Police,
 }
