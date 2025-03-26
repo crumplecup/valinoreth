@@ -11,7 +11,7 @@ pub use advantages::{
     AbsoluteDirection, Advantage, Disadvantage, Duty, EiditicMemory, Luck, Perk, SenseOfDuty,
     Wealth,
 };
-pub use character::{Attributes, BaseDamage, Encumbrance, Stats};
+pub use character::{AttributeType, Attributes, BaseDamage, Encumbrance, Stats};
 pub use dice::DieLevel;
 pub use free::trace_init;
 pub use players::Players;
