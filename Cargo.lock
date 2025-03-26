@@ -18,18 +18,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
-name = "combat"
-version = "0.1.0"
-dependencies = [
- "derive-new",
- "derive_more",
- "serde",
- "strum",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "convert_case"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -356,6 +344,18 @@ name = "unicode-xid"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
+
+[[package]]
+name = "valinoreth"
+version = "0.1.0"
+dependencies = [
+ "derive-new",
+ "derive_more",
+ "serde",
+ "strum",
+ "tracing",
+ "tracing-subscriber",
+]
 
 [[package]]
 name = "valuable"

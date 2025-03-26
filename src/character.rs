@@ -14,10 +14,11 @@ use crate::DieLevel;
     Eq,
     Ord,
     Hash,
-    Display,
-    EnumIter,
-    Serialize,
-    Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+    serde::Serialize,
+    serde::Deserialize,
 )]
 pub enum AttributeType {
     #[default]
@@ -29,6 +30,24 @@ pub enum AttributeType {
     Willpower,
     Perception,
     Fatigue,
+}
+
+impl AttributeType {
+    pub fn from_abbr(abbr: &str) -> Option<Self> {
+        let lwr = abbr.to_lowercase();
+        let value = match lwr.as_str() {
+            "st" => Self::Strength,
+            "dx" => Self::Dexterity,
+            "iq" => Self::Intelligence,
+            "ht" => Self::Health,
+            "hp" => Self::HitPoints,
+            "will" => Self::Willpower,
+            "per" => Self::Perception,
+            "fp" => Self::Fatigue,
+            _ => return None,
+        };
+        Some(value)
+    }
 }
 
 #[derive(
