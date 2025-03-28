@@ -680,3 +680,44 @@ pub enum SavoirFaire {
     Military,
     Police,
 }
+
+/// Used to classify skills, spells, quick contests etc.
+/// A measure of how quickly a [`Character`](crate::Character) can learn a [`Skill`].
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_more::Display,
+    derive_more::FromStr,
+    strum::EnumIter,
+)]
+pub enum Difficulty {
+    VeryEasy,
+    Easy,
+    Moderate,
+    Hard,
+    VeryHard,
+}
+
+impl Difficulty {
+    /// Parses common abbreviations for `Difficulty` used in the text references.
+    pub fn from_abbr(abbr: &str) -> Option<Self> {
+        let lwr = abbr.to_lowercase();
+        let value = match lwr.as_str() {
+            "ve" => Self::VeryEasy,
+            "e" => Self::Easy,
+            "m" => Self::Moderate,
+            "h" => Self::Hard,
+            "vh" => Self::VeryHard,
+            _ => return None,
+        };
+        Some(value)
+    }
+}
