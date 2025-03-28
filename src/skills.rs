@@ -699,11 +699,11 @@ pub enum SavoirFaire {
     strum::EnumIter,
 )]
 pub enum Difficulty {
-    VeryEasy,
     Easy,
-    Moderate,
+    Average,
     Hard,
     VeryHard,
+    Special,
 }
 
 impl Difficulty {
@@ -711,11 +711,11 @@ impl Difficulty {
     pub fn from_abbr(abbr: &str) -> Option<Self> {
         let lwr = abbr.to_lowercase();
         let value = match lwr.as_str() {
-            "ve" => Self::VeryEasy,
             "e" => Self::Easy,
-            "m" => Self::Moderate,
+            "a" => Self::Average,
             "h" => Self::Hard,
             "vh" => Self::VeryHard,
+            "varies" => Self::Special,
             _ => return None,
         };
         Some(value)
