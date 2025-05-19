@@ -13,6 +13,7 @@ name = "valinoreth"
 [dependencies]
 derive-new = "0.7.0"
 derive_more = { version = "2.0.1", features = ["full"] }
+rand = "0.9.1"
 serde = { version = "1.0.219", features = ["derive"] }
 strum = { version = "0.27.1", features = ["derive", "strum_macros"] }
 tracing = "0.1.41"
