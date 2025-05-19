@@ -1204,10 +1204,7 @@ pub enum Family {
 
 impl Family {
     pub fn from_value(value: &str) -> Option<Self> {
-        match Self::from_str(value) {
-            Ok(result) => Some(result),
-            Err(_) => None,
-        }
+        Self::from_str(value).ok()
     }
 }
 
