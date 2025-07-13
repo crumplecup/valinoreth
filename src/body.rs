@@ -41,9 +41,9 @@ impl BodyLocation for BodyArea {
     fn to_hit(&self) -> isize {
         match self {
             Self::Head => -5,
-            Self::Torso => 0,
-            Self::Arms => -2,
-            Self::Legs => -2,
+            Self::Torso => 0, // BS 399
+            Self::Arms => -2, // BS 399
+            Self::Legs => -2, // BS 399
         }
     }
 }
@@ -84,10 +84,10 @@ impl BodyLocation for Head {
 
     fn to_hit(&self) -> isize {
         match self {
-            Self::Skull => -5,
-            Self::Eyes => -7,
-            Self::Face => -5,
-            Self::Neck => -5,
+            Self::Skull => -7, // BS 399
+            Self::Eyes => -9,  // BS 399
+            Self::Face => -5,  // BS 399
+            Self::Neck => -5,  // BS 399
         }
     }
 }
@@ -110,6 +110,7 @@ pub enum Torso {
     Chest,
     Abdomen,
     Vitals,
+    Groin,
 }
 
 impl BodyLocation for Torso {
@@ -117,19 +118,20 @@ impl BodyLocation for Torso {
 
     fn from_roll(roll: usize) -> Self {
         match roll {
-            0..5 => Self::Vitals,
+            0..5 => Self::Groin,
             5..8 => Self::Abdomen,
             8..14 => Self::Chest,
-            14..17 => Self::Abdomen,
-            17.. => Self::Vitals,
+            14..17 => Self::Vitals,
+            17.. => Self::Groin,
         }
     }
 
     fn to_hit(&self) -> isize {
         match self {
             Self::Chest => -2,
-            Self::Abdomen => -3,
-            Self::Vitals => -4,
+            Self::Abdomen => -2,
+            Self::Vitals => -3, // BS 399
+            Self::Groin => -3,  // BS 399
         }
     }
 }
@@ -171,11 +173,11 @@ impl BodyLocation for Arms {
 
     fn to_hit(&self) -> isize {
         match self {
-            Self::Shoulders => -2,
-            Self::Upper => -2,
-            Self::Forearms => -2,
+            Self::Shoulders => -2, // BS 399
+            Self::Upper => -2,     // BS 399
+            Self::Forearms => -2,  // BS 399
             Self::Elbows => -3,
-            Self::Hands => -4,
+            Self::Hands => -4, // BS 399
         }
     }
 }
@@ -216,10 +218,10 @@ impl BodyLocation for Legs {
 
     fn to_hit(&self) -> isize {
         match self {
-            Self::Thighs => -2,
+            Self::Thighs => -2, // BS 399
             Self::Knees => -3,
-            Self::Shins => -2,
-            Self::Feet => -4,
+            Self::Shins => -2, // BS 399
+            Self::Feet => -4,  // BS 399
         }
     }
 }
