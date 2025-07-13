@@ -1,6 +1,7 @@
 mod advantages;
 mod body;
 mod character;
+mod cli;
 mod dice;
 mod free;
 pub mod movement;
@@ -14,6 +15,7 @@ pub use advantages::{
 };
 pub use body::BodyArea;
 pub use character::{AttributeType, Attributes, BaseDamage, CombatStats, Encumbrance, Stats};
+pub use cli::Cli;
 pub use dice::{DieLevel, Random};
 pub use free::trace_init;
 pub use players::Players;
