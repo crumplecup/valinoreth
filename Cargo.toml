@@ -11,6 +11,9 @@ path = "src/main.rs"
 name = "valinoreth"
 
 [dependencies]
+bio = "2.3.0"
+clap = { version = "4.5.41", features = ["derive"] }
+derive-getters = "0.5.0"
 derive-new = "0.7.0"
 derive_more = { version = "2.0.1", features = ["full"] }
 rand = "0.9.1"
