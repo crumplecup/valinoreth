@@ -14,11 +14,43 @@ use rand::distr::Distribution;
     serde::Deserialize,
     derive_new::new,
 )]
+pub struct Dice {
+    d1: usize,
+    d2: usize,
+    d3: usize,
+    sum: usize,
+}
+
+impl Dice {
+    pub fn from_random(random: &mut Random) -> Self {
+        let d1 = random.roll_die();
+        let d2 = random.roll_die();
+        let d3 = random.roll_die();
+        let sum = d1 + d2 + d3;
+        Self { d1, d2, d3, sum }
+    }
+}
+
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+    derive_new::new,
+)]
 pub struct DieLevel {
     dice: i64,
     pips: i64,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Random {
     range: rand::rngs::StdRng,
     die: rand::distr::Uniform<usize>,
