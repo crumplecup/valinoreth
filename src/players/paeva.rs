@@ -5,6 +5,9 @@ use crate::{
 };
 
 impl eponym::Players {
+    /// Creates and logs Paeva character stats.
+    ///
+    /// Example character with high Dexterity and social advantages.
     pub fn paeva() {
         let attributes = Attributes::from_vec(vec![8, 12, 11, 9, 9, 11, 11, 9]);
         let stats = Stats::from(attributes);

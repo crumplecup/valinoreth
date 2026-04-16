@@ -130,17 +130,31 @@ pub enum FreeAction {
     Crouch,
 }
 
-/// If you are lying (prone or face up), you must take a Change Poture maneuver to rise to a
-/// crawling, kneeling, or sitting posture first.  A second Change Psoture maneuver lets you stand
-/// from any of these postures.  Going from standing up to lying down only takes one manuever.
-/// You can switch between kneeling and standing (only) as the "step" portion of any maneuver that
-/// allows a step instead of using the step to move.
-/// Crouching does not require a Change Posture maneuver, it is a free action. BS 364
+/// Character posture affecting combat and movement.
+///
+/// # GURPS Rules
+///
+/// Posture changes require Change Posture maneuvers:
+/// - Lying → Crawling/Kneeling/Sitting: 1 maneuver
+/// - Crawling/Kneeling/Sitting → Standing: 1 maneuver
+/// - Standing → Lying: 1 maneuver
+/// - Kneeling ↔ Standing: Free as part of a step
+/// - Crouching: Free action
+///
+/// # Citations
+///
+/// BS 364 - Posture rules
 pub enum Posture {
+    /// Standing upright, no penalties. BS 364
     Standing,
+    /// Sitting, cannot attack or defend well. BS 364
     Sitting,
+    /// Kneeling, -2 to melee defense. BS 364
     Kneeling,
+    /// Crawling, Move at 1/3 speed. BS 364
     Crawling,
+    /// Lying face up, -4 to attack and defend. BS 364
     LyingProne,
+    /// Lying face down, -4 to attack and defend. BS 364
     LyingFaceDown,
 }

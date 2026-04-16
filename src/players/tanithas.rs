@@ -3,6 +3,9 @@ use crate::{
 };
 
 impl Players {
+    /// Creates and logs Tanithas character stats.
+    ///
+    /// Example character with very high Intelligence and magical abilities.
     pub fn tanithas() {
         let attributes = Attributes::from_base(8, 8, 19, 8);
         let stats = Stats::from(attributes);
