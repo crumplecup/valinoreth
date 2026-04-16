@@ -29,12 +29,15 @@ pub use advantages::{
     AbsoluteDirection, Advantage, Disadvantage, Duty, EiditicMemory, Luck, Perk, SenseOfDuty,
     Wealth,
 };
-pub use body::BodyArea;
-pub use character::{AttributeType, Attributes, BaseDamage, CombatStats, Encumbrance, Stats};
+pub use body::{Arms, BodyArea, BodyLocation, Head, Legs, Torso};
+pub use character::{
+    AttributeColumns, AttributeType, Attributes, BaseDamage, CombatStats, DamageKind, Encumbrance,
+    EncumbranceDodge, EncumbranceLevel, EncumbranceMove, EncumbranceWeight, Stats,
+};
 pub use cli::Cli;
-pub use dice::{DieLevel, Random};
+pub use dice::{DieLevel, Dice, Random};
 pub use free::trace_init;
 pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
 pub use players::Players;
-pub use skills::Skill;
+pub use skills::{Family, Skill, SkillBase, SkillDefault};
 pub use special_features::SpecialFeatures;

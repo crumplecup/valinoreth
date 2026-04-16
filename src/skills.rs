@@ -1458,54 +1458,123 @@ impl Skill {
     derive_more::Display,
     derive_more::FromStr,
 )]
+/// Skill category families.
+///
+/// Groups skills by their general purpose or field of use.
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::Family;
+///
+/// let family = Family::Combat;
+/// ```
 pub enum Family {
+    /// Animal-related skills
     Animal,
+    /// Artistic skills
     Arts,
+    /// Athletic and physical skills
     Athletic,
+    /// Business and commerce skills
     Business,
+    /// Combat skills
     Combat,
+    /// Crafting skills
     Craft,
+    /// Criminal skills
     Criminal,
+    /// Design skills
     Design,
+    /// Entertainment skills
     Entertainment,
+    /// Esoteric and supernatural skills
     Esoteric,
+    /// Common everyday skills
     Everyman,
+    /// Exploration skills
     Exploration,
+    /// Humanities knowledge
     Humanities,
+    /// Invention and creation skills
     Invention,
+    /// Knowledge skills
     Knowledge,
+    /// Magical skills
     Magical,
+    /// Maintenance skills
     Maintenance,
+    /// Medical skills
     Medical,
+    /// Military skills
     Military,
+    /// Natural science skills
     #[display("Natural Sciences")]
     NaturalSciences,
+    /// Occult and mystical skills
     Occult,
+    /// Outdoor skills
     Outdoor,
+    /// Plant-related skills
     Plant,
+    /// Police and law enforcement skills
     Police,
+    /// Ranged combat skills
     #[display("Ranged Combat")]
     RangedCombat,
+    /// Ranged weapon skills
     #[display("Ranged Weapon")]
     RangedWeapon,
+    /// Repair skills
     Repair,
+    /// Scholarly skills
     Scholarly,
+    /// Social skills
     Social,
+    /// Social science skills
     #[display("Social Sciences")]
     SocialSciences,
+    /// Spy and espionage skills
     Spy,
+    /// Street skills
     Street,
+    /// Technical skills
     Technical,
+    /// Vehicle operation skills
     Vehicle,
+    /// Weapon skills
     Weapon,
 }
 
 impl Family {
+    /// Parses a Family from a string value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use valinoreth::Family;
+    ///
+    /// let family = Family::from_value("Combat");
+    /// assert!(family.is_some());
+    /// ```
     pub fn from_value(value: &str) -> Option<Self> {
         Self::from_str(value).ok()
     }
 }
 
+/// Base for skill defaults.
+///
+/// # GURPS Rules
+///
+/// Skills can default to attributes or other skills at a penalty.
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::{SkillBase, AttributeType};
+///
+/// let base = SkillBase::Attribute(AttributeType::Dexterity);
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -1520,12 +1589,33 @@ impl Family {
     derive_more::From,
 )]
 pub enum SkillBase {
+    /// Skill defaults to an attribute
     #[from(AttributeType)]
     Attribute(AttributeType),
+    /// Skill defaults to another skill
     #[from(Skill)]
     Skill(Skill),
 }
 
+/// Skill default specification.
+///
+/// # GURPS Rules
+///
+/// When a character lacks a skill, they can use it at default level.
+/// Defaults are typically attribute-based with a penalty (e.g., DX-5).
+///
+/// # Citations
+///
+/// BS 173 - Skill defaults
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::{SkillDefault, AttributeType};
+///
+/// // Defaults to DX-5
+/// let default = SkillDefault::new(AttributeType::Dexterity, -5);
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -1540,11 +1630,22 @@ pub enum SkillBase {
     derive_more::From,
 )]
 pub struct SkillDefault {
+    /// Base attribute or skill
     base: SkillBase,
+    /// Penalty modifier
     modifier: i64,
 }
 
 impl SkillDefault {
+    /// Creates a new skill default.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use valinoreth::{SkillDefault, AttributeType};
+    ///
+    /// let default = SkillDefault::new(AttributeType::Intelligence, -4);
+    /// ```
     pub fn new<T: Into<SkillBase>>(base: T, modifier: i64) -> Self {
         let base = base.into();
         Self { base, modifier }
