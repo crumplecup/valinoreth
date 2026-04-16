@@ -1,6 +1,30 @@
+//! Character skills and skill system.
+//!
+//! # GURPS Rules
+//!
+//! Skills represent trained abilities and knowledge. Each skill:
+//! - Has a difficulty level (Easy, Average, Hard, Very Hard)
+//! - Is based on an attribute (DX, IQ, HT, etc.)
+//! - Costs points to improve
+//!
+//! # Citations
+//!
+//! - BS 170-185 - Skill system
+//! - BS 186-253 - Skill descriptions
+
 use crate::AttributeType;
 use std::str::FromStr;
 
+/// GURPS character skill.
+///
+/// # GURPS Rules
+///
+/// This enum contains all 278 skills from GURPS Basic Set.
+/// Skills can be learned and improved with character points.
+///
+/// # Citations
+///
+/// BS 186-253 - Complete skill list
 #[derive(
     Debug,
     Copy,
@@ -16,281 +40,557 @@ use std::str::FromStr;
     derive_more::Display,
 )]
 pub enum Skill {
+    /// Financial record-keeping and auditing. BS 174
     Accounting,
+    /// Gymnastic maneuvers and stunts. BS 174
     Acrobatics,
+    /// Performance and deception. BS 174
     Acting,
+    /// Managing organizations. BS 174
     Administration,
+    /// Aerial maneuvers and stunts. BS 174
     Aerobatics,
+    /// Operating lighter-than-air craft. BS 174
     Airshipman,
+    /// Magical/chemical transmutation. BS 174
     Alchemy,
+    /// Training and controlling animals. BS 175
     AnimalHandling,
+    /// Study of human cultures. BS 175
     Anthropology,
+    /// Underwater acrobatics. BS 175
     Aquabatics,
+    /// Recovering and studying ancient artifacts. BS 175
     Archaeology,
+    /// Building design. BS 175
     Architecture,
+    /// Geographic and cultural knowledge of a region. BS 176
     AreaKnowledge,
+    /// Maintaining and repairing armor and weapons. BS 176
     Armoury,
+    /// Operating heavy weapons. BS 176
     Artillery,
+    /// Creating visual art. BS 176
     Artist(Artist),
+    /// Knowledge of stars and planets. BS 177
     Astronomy,
+    /// Self-hypnosis techniques. BS 177
     Autohypnosis,
+    /// Using axes and maces in combat. BS 177
     AxeMace,
+    /// Shield attacks. BS 177
     Bashing,
+    /// Operating powered armor. BS 178
     Battlesuit,
+    /// Using energy weapons. BS 178
     BeamWeapons,
+    /// Riding bicycles. BS 178
     Bicycling,
+    /// Genetic engineering. BS 178
     Bioengineering,
+    /// Life sciences. BS 178
     Biology,
+    /// Fighting without vision. BS 178
     BlindFighting,
+    /// Using blowguns. BS 178
     Blowpipe,
+    /// Operating small watercraft. BS 179
     Boating,
+    /// Controlling bodily functions. BS 179
     BodyControl,
+    /// Reading body language. BS 179
     BodyLanguage,
+    /// Internal spatial awareness. BS 179
     BodySense,
+    /// Using bolas. BS 179
     Bolas,
+    /// Carving bone and ivory. BS 179
     BoneCarving,
+    /// Using bows. BS 179
     Bow,
+    /// Unarmed combat with fists. BS 179
     Boxing,
+    /// Hacking neural interfaces. BS 180
     BrainHacking,
+    /// Psychological manipulation. BS 180
     Brainwashing,
+    /// Unarmed combat. BS 180
     Brawling,
+    /// Breaking objects with strikes. BS 180
     BreakingBlow,
+    /// Controlling breathing. BS 180
     BreathControl,
+    /// Using broadswords. BS 180
     Broadsword,
+    /// Concealment and disguise of objects. BS 181
     Camouflage,
+    /// Enthralling an audience. BS 181
     Captivate,
+    /// Social drinking. BS 181
     Carousing,
+    /// Woodworking. BS 181
     Carpentry,
+    /// Map-making. BS 181
     Cartography,
+    /// Science of matter and reactions. BS 181
     Chemistry,
+    /// Scaling surfaces. BS 181
     Climbing,
+    /// Using a cloak as a weapon. BS 181
     Cloak,
+    /// Cinematic martial arts. BS 181
     CombatArt,
+    /// Breaking into computer systems. BS 182
     ComputerHacking,
+    /// Using computers. BS 182
     ComputerOperation,
+    /// Writing software. BS 182
     ComputerProgramming,
+    /// Appreciation of fine items. BS 182
     Connoisseur,
+    /// Preparing food. BS 182
     Cooking,
+    /// Creating forgeries. BS 182
     Counterfeiting,
+    /// Operating large spacecraft. BS 182
     Crewman,
+    /// Study of crime. BS 182
     Criminology,
+    /// Using crossbows. BS 183
     Crossbow,
+    /// Codes and ciphers. BS 183
     Cryptography,
+    /// Knowledge of current events. BS 183
     CurrentAffairs(CurrentAffairs),
+    /// Performing dances. BS 183
     Dancing,
+    /// Spotting deception. BS 183
     DetectLies,
+    /// Medical diagnosis. BS 183
     Diagnosis,
+    /// Negotiation and treaties. BS 183
     Diplomacy,
+    /// Altering appearance. BS 183
     Disguise,
+    /// Operating diving equipment. BS 184
     DivingSuit,
+    /// Lucid dreaming. BS 184
     Dreaming,
+    /// Operating ground vehicles. BS 184
     Driving,
+    /// Attacking from above. BS 184
     Dropping,
+    /// Economic theory and markets. BS 184
     Economics,
+    /// Electrical work. BS 184
     Electrician,
+    /// Operating electronic devices. BS 184
     ElectronicsOperation(ElectronicsOperation),
+    /// Repairing electronics. BS 185
     ElectronicsRepair,
+    /// Engineering knowledge. BS 185
     Engineer,
+    /// Supernatural influence. BS 185
     Enthrallment,
+    /// Sexual arts. BS 185
     EroticArt,
+    /// Getting free from bonds. BS 185
     Escape,
+    /// Mystical healing. BS 185
     EsotericMedicine,
+    /// Banishing spirits. BS 185
     Exorcism,
+    /// Deep knowledge of a subject. BS 185
     ExpertSkill(ExpertSkill),
+    /// Handling explosives. BS 185
     Explosives(Explosives),
+    /// Training hunting birds. BS 186
     Falconry,
+    /// Agriculture. BS 186
     Farming,
+    /// Quickly drawing weapons. BS 186
     FastDraw,
+    /// Deceptive persuasion. BS 186
     FastTalk,
+    /// Petty theft and pickpocketing. BS 186
     Filch,
+    /// Business and investment. BS 186
     Finance,
+    /// Swallowing and breathing fire. BS 186
     FireEating,
+    /// Emergency medical care. BS 186
     FirstAid,
+    /// Catching fish. BS 187
     Fishing,
+    /// Using flails. BS 187
     Flail,
+    /// Flying with wings. BS 187
     Flight,
+    /// Making stone tools. BS 187
     FlintKnapping,
+    /// Cinematic leaping. BS 187
     FlyingLeap,
+    /// Using energy swords. BS 187
     ForceSword,
+    /// Using energy whips. BS 187
     ForceWhip,
+    /// Breaking down doors and barriers. BS 187
     ForcedEntry,
+    /// Crime scene investigation. BS 187
     Forensics,
+    /// Creating fake documents. BS 187
     Forgery,
+    /// Predicting the future. BS 187
     FortuneTelling,
+    /// Directing artillery fire. BS 188
     ForwardObserver,
+    /// Moving in zero gravity. BS 188
     FreeFall,
+    /// Loading and unloading cargo. BS 188
     FreightHandling,
+    /// Games of chance. BS 188
     Gambling,
+    /// Playing competitive games. BS 188
     Games,
+    /// Tending plants. BS 188
     Gardening,
+    /// Strangling with a cord. BS 188
     Garrote,
+    /// Physical geography. BS 188
     Geography,
+    /// Study of rocks and minerals. BS 188
     Geology,
+    /// Non-verbal communication. BS 188
     Gesture,
+    /// Performing with a group. BS 189
     GroupPerformance,
+    /// Operating heavy weapons. BS 189
     Gunner,
+    /// Using firearms. BS 189
     Guns,
+    /// Handling dangerous substances. BS 189
     HazardousMaterials,
+    /// Coats of arms and lineage. BS 189
     Heraldry,
+    /// Medicinal plants. BS 189
     HerbLore,
+    /// Esoteric and supernatural knowledge. BS 189
     HiddenLore(HiddenLore),
+    /// Long-distance walking. BS 189
     Hiking,
+    /// Historical knowledge. BS 189
     History,
+    /// Recreational skill. BS 189
     HobbySkill(HobbySkill),
+    /// Concealing small items. BS 189
     Holdout,
+    /// Domestic management. BS 189
     Housekeeping,
+    /// Inducing hypnotic trances. BS 190
     Hypnotism,
+    /// Resisting knockback. BS 190
     ImmovableStance,
+    /// Using natural attacks. BS 190
     InnateAttack,
+    /// Analyzing intelligence data. BS 190
     IntelligenceAnalysis,
+    /// Questioning prisoners. BS 190
     Interrogation,
+    /// Threatening others. BS 190
     Intimidation,
+    /// Becoming invisible. BS 190
     InvisibilityArt,
+    /// Working with gems and jewelry. BS 190
     Jeweler,
+    /// Using jitte and sai. BS 190
     JitteSai,
+    /// Throwing and grappling art. BS 191
     Judo,
+    /// Leaping skill. BS 191
     Jumping,
+    /// Striking martial art. BS 191
     Karate,
+    /// Stunning shout. BS 191
     Kiai,
+    /// Using knives in combat. BS 191
     Knife,
+    /// Tying secure knots. BS 191
     KnotTying,
+    /// Using kusari and chain weapons. BS 191
     Kusari,
+    /// Using lances. BS 191
     Lance,
+    /// Using lassos. BS 191
     Lasso,
+    /// Legal knowledge. BS 191
     Law,
+    /// Commanding others. BS 191
     Leadership,
+    /// Working with leather. BS 192
     Leatherworking,
+    /// Lifting heavy objects. BS 192
     Lifting,
+    /// Walking on fragile surfaces. BS 192
     LightWalk,
+    /// Language study. BS 192
     Linguistics,
+    /// Reading lips. BS 192
     LipReading,
+    /// Using liquid sprayers. BS 192
     LiquidProjector,
+    /// Knowledge of literature. BS 192
     Literature,
+    /// Opening locks. BS 192
     Lockpicking,
+    /// Operating machine tools. BS 192
     Machinist,
+    /// Using off-hand daggers. BS 193
     MainGauche,
+    /// Cosmetics and disguise. BS 193
     Makeup,
+    /// Analyzing markets. BS 193
     MarketAnalysis,
+    /// Stone and brickwork. BS 193
     Masonry,
+    /// Mathematical knowledge. BS 193
     Mathematics(Mathematics),
+    /// Repairing machines. BS 193
     Mechanic,
+    /// Mental discipline. BS 193
     Meditation,
+    /// Using non-specific melee weapons. BS 193
     MeleeWeapon,
+    /// Resisting mental attacks. BS 193
     MentalStrength,
+    /// Trading and negotiation. BS 193
     Merchant,
+    /// Working with metals. BS 194
     Metallurgy,
+    /// Weather prediction. BS 194
     Meteorology,
+    /// Imitating sounds. BS 194
     Mimicry(Mimicry),
+    /// Blocking telepathy. BS 194
     MindBlock,
+    /// Using monofilament whips. BS 194
     MonowireWhip,
+    /// Riding animals. BS 194
     Mount,
+    /// Composing music. BS 194
     MusicalComposition,
+    /// Supernatural musical effects. BS 194
     MusicalInfluence,
+    /// Playing instruments. BS 194
     MusicalInstrument,
+    /// Natural history. BS 195
     Naturalist,
+    /// Finding direction and position. BS 195
     Navigation,
+    /// Operating hazmat suits. BS 195
     NBCSuit,
+    /// Using nets as weapons. BS 195
     Net,
+    /// Noticing details. BS 195
     Observation,
+    /// Study of the supernatural. BS 195
     Occultism,
+    /// Efficiently packing cargo. BS 195
     Packing,
+    /// Study of fossils. BS 195
     Paleontology(Paleontology),
+    /// Begging. BS 195
     Panhandling,
+    /// Using parachutes. BS 195
     Parachuting,
+    /// Deflecting missiles. BS 196
     ParryMissileWeapons,
+    /// Entertaining an audience. BS 196
     Performance,
+    /// Changing minds. BS 196
     Persuade,
+    /// Preparing medicines. BS 196
     Pharmacy(Pharmacy),
+    /// Philosophical knowledge. BS 196
     Philosophy,
+    /// Taking photographs. BS 196
     Photography,
+    /// Medical practice. BS 196
     Physician,
+    /// Physical science. BS 196
     Physics,
+    /// Study of body systems. BS 196
     Physiology,
+    /// Stealing from pockets. BS 197
     Pickpocket,
+    /// Operating aircraft and spacecraft. BS 197
     Piloting,
+    /// Composing poetry. BS 197
     Poetry,
+    /// Knowledge of toxins. BS 197
     Poisons,
+    /// Using pole weapons. BS 197
     Polearm,
+    /// Political knowledge and maneuvering. BS 197
     Politics,
+    /// Devastating strikes. BS 197
     PowerBlow,
+    /// Striking vital points. BS 197
     PressurePoints,
+    /// Secrets of pressure points. BS 197
     PressureSecrets,
+    /// Professional expertise. BS 197
     ProfessionalSkill(ProfessionalSkill),
+    /// Political persuasion. BS 197
     Propaganda,
+    /// Finding mineral deposits. BS 197
     Prospecting,
+    /// Study of the mind. BS 197
     Psychology,
+    /// Speaking to audiences. BS 197
     PublicSpeaking,
+    /// Telekinetic pushing. BS 198
     Push,
+    /// Using rapiers. BS 198
     Rapier,
+    /// Performing religious ceremonies. BS 198
     ReligiousRitual,
+    /// Finding information. BS 198
     Research,
+    /// Controlling riding animals. BS 198
     Riding,
+    /// Ceremonial magic. BS 198
     RitualMagic,
+    /// Long-distance running. BS 198
     Running,
+    /// Using sabers. BS 198
     Saber,
+    /// Social expertise. BS 198
     SavoirFaire(SavoirFaire),
+    /// Finding useful items. BS 199
     Scrounging,
+    /// Using scuba gear. BS 199
     Scuba,
+    /// Operating ships. BS 199
     Seamanship,
+    /// Finding hidden objects. BS 199
     Search,
+    /// Working with cloth. BS 199
     Sewing,
+    /// Romantic attraction. BS 199
     SexAppeal,
+    /// Following people. BS 199
     Shadowing,
+    /// Using shields. BS 199
     Shield,
+    /// Navigating large ships. BS 199
     Shiphandling,
+    /// Using short swords. BS 199
     Shortsword,
+    /// Vocal performance. BS 199
     Singing,
+    /// Ice or roller skating. BS 200
     Skating,
+    /// Skiing. BS 200
     Skiing,
+    /// Manual dexterity tricks. BS 200
     SleightOfHand,
+    /// Using slings. BS 200
     Sling,
+    /// Using small swords. BS 200
     Smallsword,
+    /// Metalworking. BS 200
     Smith,
+    /// Concealing contraband. BS 200
     Smuggling,
+    /// Study of societies. BS 200
     Sociology,
+    /// Military skills. BS 200
     Soldier,
+    /// Living in space. BS 200
     Spacer,
+    /// Using spears. BS 200
     Spear,
+    /// Using atlatls. BS 200
     SpearThrower,
+    /// Rapid reading. BS 201
     SpeedReading,
+    /// Athletic games. BS 201
     Sports,
+    /// Using quarterstaffs. BS 201
     Staff,
+    /// Theatrical combat. BS 201
     StageCombat,
+    /// Moving quietly. BS 201
     Stealth,
+    /// Urban underworld knowledge. BS 201
     Streetwise,
+    /// Operating submarines. BS 201
     Submarine,
+    /// Submarine crewing. BS 201
     Submariner,
+    /// Planting suggestions. BS 201
     Suggest,
+    /// Sumo wrestling art. BS 201
     SumoWrestling,
+    /// Surgical procedures. BS 201
     Surgery,
+    /// Wilderness survival. BS 201
     Survival,
+    /// Influencing emotions. BS 202
     SwayEmotions,
+    /// Swimming. BS 202
     Swimming,
+    /// Drawing magical symbols. BS 202
     SymbolDrawing,
+    /// Combat strategy. BS 202
     Tactics,
+    /// Instructing others. BS 202
     Teaching,
+    /// Driving wagons and teams. BS 202
     Teamster,
+    /// Study of magic. BS 202
     Thaumatology,
+    /// Religious study. BS 202
     Theology,
+    /// Throwing objects. BS 202
     Throwing,
+    /// Cinematic throwing. BS 202
     ThrowingArt,
+    /// Using thrown weapons. BS 202
     ThrownWeapon,
+    /// Using tonfa. BS 202
     Tonfa,
+    /// Following tracks. BS 202
     Tracking,
+    /// Building and disarming traps. BS 202
     Traps,
+    /// Using two-handed axes and maces. BS 203
     TwoHandedAxeMace,
+    /// Using two-handed flails. BS 203
     TwoHandedFlail,
+    /// Using two-handed swords. BS 203
     TwoHandedSword,
+    /// Typewriter and keyboard use. BS 203
     Typing,
+    /// Surviving in cities. BS 203
     UrbanSurvival,
+    /// Using vacuum suits. BS 203
     VaccSuit,
+    /// Throwing voice. BS 203
     Ventriloquism,
+    /// Animal medicine. BS 203
     Veterinary,
+    /// Predicting weather. BS 203
     WeatherSense,
+    /// Mad science. BS 203
     WeirdScience,
+    /// Using whips. BS 203
     Whip,
+    /// Grappling combat. BS 203
     Wrestling,
+    /// Composing text. BS 203
     Writing,
+    /// Meditative archery. BS 203
     ZenArchery,
 }
 
