@@ -20,11 +20,14 @@ pub enum Manuever {
     /// No active defense.  No dodge, parry or block.
     /// Move up to half Move, only forward.
     AllOutAttack,
+    /// Defensive maneuver with bonuses. BS 366
     AllOutDefense,
     /// Armed or unarmed attack against an opponent.  Weapons must be ready and targets must be in reach.
     /// May step and attack or attack then step.
     Attack,
+    /// Change between postures (standing, kneeling, prone, etc.). BS 364
     ChangePosture,
+    /// Focus on a mental task or maintain a spell. BS 366
     Concentrate,
     /// May attempt a HT roll to recover from physical stun or IQ roll to recover from mental stun,
     /// recovering at the end of the turn. BS 364
@@ -55,8 +58,11 @@ pub enum Manuever {
     /// Sprinting grants a bonus movement on the second and later moves.
     /// No other action but Free Actions. BS 364
     Move,
+    /// Move and attack at -4 or -2 for ranged weapons. BS 365
     MoveAndAttack,
+    /// Ready a weapon, reload, or draw/holster. BS 366
     Ready,
+    /// Wait for a trigger condition, then act. BS 366
     Wait,
 }
 
@@ -86,6 +92,16 @@ pub enum AllOutRangedAttack {
     SuppressionFire,
 }
 
+/// Success roll types.
+///
+/// # GURPS Rules
+///
+/// Success can be measured as a simple pass/fail or by margin of success.
+/// Margin affects contest outcomes and special maneuvers like Feint.
+///
+/// # Citations
+///
+/// BS 348-349 - Success rolls and margins
 pub enum Success {
     /// A skill check against a set level or threshold.
     Check,
@@ -93,10 +109,24 @@ pub enum Success {
     Margin,
 }
 
+/// Actions that can be performed without using a maneuver.
+///
+/// # GURPS Rules
+///
+/// Free actions don't count as maneuvers and can be done
+/// during any turn without penalty.
+///
+/// # Citations
+///
+/// BS 363 - Free actions
 pub enum FreeAction {
+    /// Speak a sentence or two. BS 363
     Talk,
+    /// Maintain an active spell. BS 363
     MaintainSpell,
+    /// Drop a held item. BS 363
     DropItem,
+    /// Crouch for cover. BS 363
     Crouch,
 }
 
