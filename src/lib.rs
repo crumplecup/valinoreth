@@ -18,6 +18,7 @@ mod advantages;
 mod body;
 mod character;
 mod cli;
+mod combat;
 mod dice;
 mod free;
 mod movement;
@@ -35,6 +36,7 @@ pub use character::{
     EncumbranceDodge, EncumbranceLevel, EncumbranceMove, EncumbranceWeight, Stats,
 };
 pub use cli::Cli;
+pub use combat::{CombatError, CombatErrorKind};
 pub use dice::{DieLevel, Dice, Random};
 pub use free::trace_init;
 pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
