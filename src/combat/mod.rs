@@ -13,6 +13,8 @@
 //! - BS 374-377 - Active defenses
 //! - BS 378-380 - Damage and injury
 
+mod attack;
 mod error;
 
+pub use attack::{AttackResult, AttackRoll, CombatModifiers, CombatModifiersBuilder, Modifier};
 pub use error::{CombatError, CombatErrorKind};

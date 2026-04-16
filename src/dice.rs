@@ -60,6 +60,7 @@ use rand::distr::Distribution;
     serde::Serialize,
     serde::Deserialize,
     derive_new::new,
+    derive_getters::Getters,
 )]
 pub struct Dice {
     /// First die (1-6)
