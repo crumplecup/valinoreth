@@ -1,3 +1,51 @@
+//! Character advantages and disadvantages.
+//!
+//! This module implements GURPS character advantages and disadvantages,
+//! including their point costs and variations. Advantages are beneficial
+//! traits purchased with character points, while disadvantages provide
+//! points back but impose limitations.
+//!
+//! # GURPS Rules
+//!
+//! Advantages and disadvantages are core to GURPS character creation.
+//! Each has a point cost (positive for advantages, negative for disadvantages).
+//! Standard campaigns limit disadvantages to -50 points total.
+//!
+//! # Citations
+//!
+//! - BS 100-132 - Advantages
+//! - BS 133-169 - Disadvantages
+//! - BS 11 - Point budget rules
+//!
+//! # Examples
+//!
+//! ```
+//! use valinoreth::{Advantage, Luck};
+//!
+//! let luck = Advantage::Luck(Luck::Extraordinary);
+//! assert_eq!(luck.cost(), 30);
+//! ```
+
+/// Character advantages providing beneficial traits.
+///
+/// # GURPS Rules
+///
+/// Advantages are purchased with character points during creation.
+/// They provide benefits like enhanced abilities, special talents,
+/// or unique capabilities. Each advantage has a fixed or level-based cost.
+///
+/// # Citations
+///
+/// BS 100-132 - Advantage descriptions and costs
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::{Advantage, AbsoluteDirection};
+///
+/// let advantage = Advantage::AbsoluteDirection(AbsoluteDirection::Normal);
+/// assert_eq!(advantage.cost(), 5);
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -12,87 +60,197 @@
     derive_more::Display,
 )]
 pub enum Advantage {
+    /// Innate sense of direction. BS 34
     AbsoluteDirection(AbsoluteDirection),
+    /// Enhanced hearing (+1 per level to Hearing rolls). BS 35
     AcuteHearing(usize),
+    /// Enhanced vision (+1 per level to Vision rolls). BS 35
     AcuteVision(usize),
+    /// No penalty for using off-hand. BS 39
     Ambidexterity,
+    /// +4 to handle animals, sense emotions. BS 40
     AnimalEmpathy,
+    /// +1 Reaction from attracted sex. BS 21
     Attractive,
-    // Thaumatology pg. 204
+    /// Bardic magic talent. TH 204
     BardicTalent(usize),
+    /// Bonus to influence rolls (+1 per level). BS 41
     Charisma(usize),
+    /// +1 to all active defenses, never freeze in combat. BS 43
     CombatReflexes,
-    // Thaumatology pg. 28
+    /// Reduced energy cost for spellcasting. TH 28
     EasyCasting(usize),
-    // Basic Set pg. 51
+    /// Perfect recall of information. BS 51
     EiditicMemory(EiditicMemory),
+    /// Bonus to Fright Checks and Intimidation resistance. BS 55
     Fearless(usize),
+    /// Enhanced flexibility for escape and contortion. BS 56
     Flexible(Flexible),
+    /// Bonus to death checks and survival rolls. BS 58
     HardToKill(usize),
+    /// Bonus to knockdown and stunning resistance. BS 59
     HardToSubdue(usize),
-    // Basic Set pg. 59
+    /// Manual dexterity bonus to craft and DX-based skills. BS 59
     HighManualDexterity(usize),
+    /// Regular income independent of job. BS 26
     IndependentIncome(usize),
+    /// Immune to supernatural fear and mind control. BS 60
     Indomidable,
-    // Basic Set pg. 65
+    /// Need less sleep than normal. BS 65
     LessSleep(usize),
+    /// Reroll and choose better result. BS 66
     Luck(Luck),
+    /// Magical talent and spell aptitude. BS 66
     Magery(usize),
+    /// +1 per level to musical performance. BS 69
     MusicalAbility(usize),
+    /// +4 to balance and related DX rolls. BS 74
     PerfectBalance,
+    /// +4 to handle plants, sense plant health. BS 75
     PlantEmpathy,
+    /// Recover FP and HP faster than normal. BS 80
     Recovery,
-    // Basic Set pg. 80
+    /// Need less food and water. BS 80
     ReducedConsumption(usize),
+    /// Bonus to Stealth in quiet situations. BS 85
     Silence(usize),
+    /// Communicate with animals. BS 87
     SpeakWithAnimals,
+    /// +4 to detect and communicate with spirits. BS 88
     SpiritEmpathy,
-    // Thaumatology pg. 28
+    /// Reduced penalty for rapid spellcasting. TH 28
     StableCasting,
+    /// Social standing and influence. BS 28
     Status(usize),
+    /// Bonus to unarmed damage. BS 88
     Striking(usize),
+    /// Do not age after maturity. BS 95
     Unaging,
+    /// Enhanced fitness, +3 to HT rolls. BS 96
     VeryFit,
+    /// +2 to influence via speaking or singing. BS 97
     Voice,
+    /// Starting wealth and income level. BS 25
     Wealth(Wealth),
 }
 
 impl Advantage {
+    /// Calculates the character point cost of this advantage.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Each advantage has a fixed or level-based point cost.
+    /// The cost is always positive (or zero for unimplemented variants).
+    ///
+    /// # Returns
+    ///
+    /// Character points required to purchase this advantage.
+    ///
+    /// # Citations
+    ///
+    /// BS 100-132 - Individual advantage costs
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use valinoreth::{Advantage, Luck};
+    ///
+    /// let luck = Advantage::Luck(Luck::Extraordinary);
+    /// assert_eq!(luck.cost(), 30);
+    /// ```
     pub fn cost(&self) -> i64 {
         match self {
             Self::AbsoluteDirection(level) => level.cost(),
+            // BS 39
             Self::Ambidexterity => 5,
+            // BS 40
             Self::AnimalEmpathy => 5,
-            // 5 points per level [Thaumatology - 204]
+            // BS 35
+            Self::AcuteHearing(level) => *level as i64 * 2,
+            // BS 35
+            Self::AcuteVision(level) => *level as i64 * 2,
+            // BS 21
+            Self::Attractive => 4,
+            // 5 points per level TH 204
             Self::BardicTalent(level) => *level as i64 * 5,
+            // BS 41
+            Self::Charisma(level) => *level as i64 * 5,
+            // BS 43
             Self::CombatReflexes => 15,
-            // 40% the magery cost [Thaumatology - 28]
-            // not applied to Bardic Talent
+            // 40% the magery cost TH 28 - not applied to Bardic Talent
             Self::EasyCasting(level) => *level as i64 * 14,
             Self::EiditicMemory(level) => level.cost(),
+            // BS 55
+            Self::Fearless(level) => *level as i64 * 2,
             Self::Flexible(level) => level.cost(),
+            // BS 58
+            Self::HardToKill(level) => *level as i64 * 2,
+            // BS 59
+            Self::HardToSubdue(level) => *level as i64 * 2,
             // 5 points per level BS 59
             Self::HighManualDexterity(level) => *level as i64 * 5,
+            // BS 26
             Self::IndependentIncome(level) => *level as i64,
-            // 2 points per level BS 64
+            // BS 60
+            Self::Indomidable => 15,
+            // 2 points per level BS 65
             Self::LessSleep(level) => *level as i64 * 2,
             Self::Luck(level) => level.cost(),
-            // 5 points for Magery 0, 10 pts per level BS 66
-            Self::Magery(level) => (*level as i64 * 5) + 5,
+            // 10 points per level + 5 for Magery 0 BS 66
+            Self::Magery(level) => (*level as i64 * 10) + 5,
+            // BS 69
+            Self::MusicalAbility(level) => *level as i64 * 1,
+            // BS 74
+            Self::PerfectBalance => 15,
+            // BS 75
             Self::PlantEmpathy => 5,
+            // BS 80
+            Self::Recovery => 10,
             // 2 points per level BS 80
             Self::ReducedConsumption(level) => *level as i64 * 2,
+            // BS 85
+            Self::Silence(level) => *level as i64 * 5,
+            // BS 87
             Self::SpeakWithAnimals => 25,
-            // 40% the magery cost [Thaumatology - 28]
+            // BS 88
+            Self::SpiritEmpathy => 10,
+            // 40% the magery cost TH 28
             Self::StableCasting => 20,
+            // BS 28
             Self::Status(level) => *level as i64 * 5,
+            // BS 88
+            Self::Striking(level) => *level as i64 * 5,
+            // BS 95
+            Self::Unaging => 15,
+            // BS 96
+            Self::VeryFit => 15,
+            // BS 97
             Self::Voice => 10,
             Self::Wealth(level) => level.cost(),
-            _ => 0,
         }
     }
 }
 
+/// Wealth levels determining starting money and income.
+///
+/// # GURPS Rules
+///
+/// Wealth determines starting funds and ongoing income.
+/// Below-average wealth is a disadvantage (negative cost),
+/// above-average is an advantage (positive cost).
+///
+/// # Citations
+///
+/// BS 25-26 - Wealth levels and effects
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::Wealth;
+///
+/// let wealth = Wealth::Wealthy;
+/// assert_eq!(wealth.cost(), 20);
+/// ```
 #[derive(
     Debug,
     Default,
@@ -108,19 +266,38 @@ impl Advantage {
     derive_more::Display,
 )]
 pub enum Wealth {
+    /// No starting funds, -25 points. BS 25
     DeadBroke,
+    /// 20% normal starting funds, -15 points. BS 25
     Poor,
+    /// 50% normal starting funds, -10 points. BS 25
     Struggling,
+    /// Normal starting funds (default), 0 points. BS 25
     #[default]
     Average,
+    /// 2x normal starting funds, 10 points. BS 25
     Comfortable,
+    /// 5x normal starting funds, 20 points. BS 25
     Wealthy,
+    /// 20x normal starting funds, 30 points. BS 25
     VeryWealthy,
+    /// 100x normal starting funds, 50 points. BS 25
     FilthyRich,
+    /// 1000x normal starting funds, 75 points (+25 per additional level). BS 25
     Multimillionaire,
 }
 
 impl Wealth {
+    /// Returns the character point cost for this wealth level.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Wealth below Average is a disadvantage (negative points).
+    /// Wealth above Average is an advantage (positive points).
+    ///
+    /// # Citations
+    ///
+    /// BS 25-26 - Wealth point costs
     pub fn cost(&self) -> i64 {
         match self {
             Self::DeadBroke => -25,
@@ -136,6 +313,25 @@ impl Wealth {
     }
 }
 
+/// Innate sense of direction and orientation.
+///
+/// # GURPS Rules
+///
+/// Always know which way is north and retrace your path.
+/// Spatial version works in 3D environments.
+///
+/// # Citations
+///
+/// BS 34 - Absolute Direction
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::AbsoluteDirection;
+///
+/// let direction = AbsoluteDirection::Spatial;
+/// assert_eq!(direction.cost(), 10);
+/// ```
 #[derive(
     Debug,
     Default,
@@ -151,12 +347,19 @@ impl Wealth {
     derive_more::Display,
 )]
 pub enum AbsoluteDirection {
+    /// Ground-based direction sense, 5 points. BS 34
     #[default]
     Normal,
+    /// 3D direction sense (underwater, zero-G), 10 points. BS 34
     Spatial,
 }
 
 impl AbsoluteDirection {
+    /// Returns the character point cost for this level.
+    ///
+    /// # Citations
+    ///
+    /// BS 34 - Absolute Direction costs
     pub fn cost(&self) -> i64 {
         match self {
             Self::Normal => 5,
@@ -165,6 +368,25 @@ impl AbsoluteDirection {
     }
 }
 
+/// Luck advantage allowing rerolls.
+///
+/// # GURPS Rules
+///
+/// Once per hour of play, reroll a bad die roll or force foe to reroll a good one.
+/// Higher levels allow more frequent rerolls.
+///
+/// # Citations
+///
+/// BS 66-67 - Luck levels and usage
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::Luck;
+///
+/// let luck = Luck::Extraordinary;
+/// assert_eq!(luck.cost(), 30);
+/// ```
 #[derive(
     Debug,
     Default,
@@ -180,13 +402,21 @@ impl AbsoluteDirection {
     derive_more::Display,
 )]
 pub enum Luck {
+    /// Reroll once per hour, 15 points. BS 66
     #[default]
     Normal,
+    /// Reroll once per 30 minutes, 30 points. BS 67
     Extraordinary,
+    /// Reroll once per 10 minutes, 60 points. BS 67
     Ridiculous,
 }
 
 impl Luck {
+    /// Returns the character point cost for this luck level.
+    ///
+    /// # Citations
+    ///
+    /// BS 66-67 - Luck costs
     pub fn cost(&self) -> i64 {
         match self {
             Self::Normal => 15,
@@ -196,6 +426,25 @@ impl Luck {
     }
 }
 
+/// Enhanced flexibility for escapes and contortion.
+///
+/// # GURPS Rules
+///
+/// +3 to Climbing, Escape, and Erotic Art skills.
+/// Double-Jointed adds +5 to Escape specifically.
+///
+/// # Citations
+///
+/// BS 56 - Flexibility rules
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::Flexible;
+///
+/// let flex = Flexible::DoubleJointed;
+/// assert_eq!(flex.cost(), 15);
+/// ```
 #[derive(
     Debug,
     Default,
@@ -211,12 +460,19 @@ impl Luck {
     derive_more::Display,
 )]
 pub enum Flexible {
+    /// +3 bonus to flexibility skills, 5 points. BS 56
     #[default]
     Normal,
+    /// +5 to Escape skill, 15 points total. BS 56
     DoubleJointed,
 }
 
 impl Flexible {
+    /// Returns the character point cost for this flexibility level.
+    ///
+    /// # Citations
+    ///
+    /// BS 56 - Flexibility costs
     pub fn cost(&self) -> i64 {
         match self {
             Self::Normal => 5,
@@ -225,6 +481,25 @@ impl Flexible {
     }
 }
 
+/// Perfect recall of information.
+///
+/// # GURPS Rules
+///
+/// Remember everything you see or hear with perfect accuracy.
+/// Photographic version includes ability to visualize and read from memory.
+///
+/// # Citations
+///
+/// BS 51 - Eidetic Memory rules
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::EiditicMemory;
+///
+/// let memory = EiditicMemory::Photographic;
+/// assert_eq!(memory.cost(), 10);
+/// ```
 #[derive(
     Debug,
     Default,
@@ -240,14 +515,20 @@ impl Flexible {
     derive_more::Display,
 )]
 pub enum EiditicMemory {
+    /// Perfect recall, automatic success on IQ rolls to remember, 5 points. BS 51
     #[default]
     Normal,
+    /// Visual recall, can "read" memorized text, 10 points. BS 51
     Photographic,
 }
 
 impl EiditicMemory {
+    /// Returns the character point cost for this memory level.
+    ///
+    /// # Citations
+    ///
+    /// BS 51 - Eidetic Memory costs
     pub fn cost(&self) -> i64 {
-        // Basic Set pg. 51
         match self {
             Self::Normal => 5,
             Self::Photographic => 10,
@@ -255,6 +536,24 @@ impl EiditicMemory {
     }
 }
 
+/// Minor advantages costing 1 point each.
+///
+/// # GURPS Rules
+///
+/// Perks are small advantages that provide minor benefits.
+/// Each costs exactly 1 character point.
+///
+/// # Citations
+///
+/// BS 100 - Perks overview
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::Perk;
+///
+/// let perk = Perk::DeepSleeper;
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -269,10 +568,33 @@ impl EiditicMemory {
     derive_more::Display,
 )]
 pub enum Perk {
+    /// Hard to wake, +4 to avoid being awakened. BS 101
     DeepSleeper,
+    /// +1 to Reaction when truth matters. BS 101
     HonestFace,
 }
 
+/// Character disadvantages providing points but imposing limitations.
+///
+/// # GURPS Rules
+///
+/// Disadvantages grant character points back (negative cost)
+/// but impose behavioral restrictions, social penalties, or weaknesses.
+/// Standard campaigns limit total disadvantages to -50 points.
+///
+/// # Citations
+///
+/// BS 133-169 - Disadvantage descriptions
+/// BS 11 - Disadvantage limits
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::{Disadvantage, SenseOfDuty};
+///
+/// let disadvantage = Disadvantage::SenseOfDuty(SenseOfDuty::SmallGroup);
+/// assert_eq!(disadvantage.cost(), -5);
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -287,33 +609,91 @@ pub enum Perk {
     derive_more::Display,
 )]
 pub enum Disadvantage {
+    /// Personal code of behavior, variable cost. BS 127
     CodeOfHonor(usize),
+    /// Fated for great deeds, -5 to -15 points per level. BS 131
     Destiny(usize),
+    /// Obligation to organization or cause. BS 133
     Duty(Duty),
+    /// Must obey the law and tell the truth, -10 points. BS 138
     Honesty,
+    /// Put others first, -5 points. BS 153
     Selfless,
+    /// Feel compulsion to protect group. BS 153
     SenseOfDuty(SenseOfDuty),
-    // Basic Set pg. 155
+    /// Social penalty, -5 per level (max -20). BS 155
     SocialStigma(usize),
+    /// Low social standing, -5 per level. BS 28
     Status(usize),
+    /// -1 to reactions, must make Will roll to change mind, -5 points. BS 157
     Stubborn,
 }
 
 impl Disadvantage {
+    /// Calculates the character point cost (negative) of this disadvantage.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Disadvantages provide points back (negative cost).
+    /// The magnitude represents the severity of the limitation.
+    ///
+    /// # Returns
+    ///
+    /// Negative character points (or zero for unimplemented variants).
+    ///
+    /// # Citations
+    ///
+    /// BS 133-169 - Individual disadvantage costs
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use valinoreth::{Disadvantage, Duty};
+    ///
+    /// let duty = Disadvantage::Duty(Duty::QuiteOften);
+    /// assert_eq!(duty.cost(), -10);
+    /// ```
     pub fn cost(&self) -> i64 {
         match self {
+            // BS 127
+            Self::CodeOfHonor(level) => -(*level as i64),
+            // BS 131
             Self::Destiny(level) => -(*level as i64),
             Self::Duty(level) => level.cost(),
+            // BS 138
+            Self::Honesty => -10,
+            // BS 153
             Self::Selfless => -5,
             Self::SenseOfDuty(level) => level.cost(),
             // -5 points per level, max level 4 BS 155
             Self::SocialStigma(level) => -(*level as i64 * 5),
+            // BS 28
             Self::Status(level) => -(*level as i64 * 5),
-            _ => 0,
+            // BS 157
+            Self::Stubborn => -5,
         }
     }
 }
 
+/// Compulsion to protect or aid a group.
+///
+/// # GURPS Rules
+///
+/// You feel compelled to protect members of the group,
+/// even at risk to yourself. Scope determines point value.
+///
+/// # Citations
+///
+/// BS 153 - Sense of Duty
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::SenseOfDuty;
+///
+/// let duty = SenseOfDuty::LargeGroup;
+/// assert_eq!(duty.cost(), -10);
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -328,14 +708,24 @@ impl Disadvantage {
     derive_more::Display,
 )]
 pub enum SenseOfDuty {
+    /// One person, -2 points. BS 153
     Individual,
+    /// Small group (adventuring party), -5 points. BS 153
     SmallGroup,
+    /// Large group (nation, religion), -10 points. BS 153
     LargeGroup,
+    /// Entire intelligent race, -15 points. BS 153
     EntireRace,
+    /// All living beings, -20 points. BS 153
     EveryLivingBeing,
 }
 
 impl SenseOfDuty {
+    /// Returns the character point cost for this sense of duty.
+    ///
+    /// # Citations
+    ///
+    /// BS 153 - Sense of Duty costs
     pub fn cost(&self) -> i64 {
         match self {
             Self::Individual => -2,
@@ -347,6 +737,25 @@ impl SenseOfDuty {
     }
 }
 
+/// Frequency of duty to an organization or cause.
+///
+/// # GURPS Rules
+///
+/// Duty represents an obligation that takes precedence over
+/// personal desires. Frequency determines point value.
+///
+/// # Citations
+///
+/// BS 133 - Duty disadvantage
+///
+/// # Examples
+///
+/// ```
+/// use valinoreth::Duty;
+///
+/// let duty = Duty::QuiteOften;
+/// assert_eq!(duty.cost(), -10);
+/// ```
 #[derive(
     Debug,
     Copy,
@@ -361,13 +770,22 @@ impl SenseOfDuty {
     derive_more::Display,
 )]
 pub enum Duty {
+    /// 15 or less on 3d6, -15 points. BS 133
     AlmostAlways,
+    /// 12 or less on 3d6, -10 points. BS 133
     QuiteOften,
+    /// 9 or less on 3d6, -5 points. BS 133
     FairlyOften,
+    /// 6 or less on 3d6, -2 points. BS 133
     QuiteRarely,
 }
 
 impl Duty {
+    /// Returns the character point cost for this duty frequency.
+    ///
+    /// # Citations
+    ///
+    /// BS 133 - Duty costs by frequency
     pub fn cost(&self) -> i64 {
         match self {
             Self::AlmostAlways => -15,
