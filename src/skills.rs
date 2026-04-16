@@ -1,8 +1,6 @@
 use crate::AttributeType;
 use std::str::FromStr;
 
-#[allow(renamed_and_removed_lints)]
-#[allow(enum_variant_names)]
 #[derive(
     Debug,
     Copy,
@@ -1384,8 +1382,6 @@ pub enum Explosives {
 }
 
 /// Specializations for the Hidden Lore skill.
-#[allow(renamed_and_removed_lints)]
-#[allow(enum_variant_names)]
 #[derive(
     Debug,
     Default,
