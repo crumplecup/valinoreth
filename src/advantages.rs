@@ -71,16 +71,16 @@ impl Advantage {
             Self::EasyCasting(level) => *level as i64 * 14,
             Self::EiditicMemory(level) => level.cost(),
             Self::Flexible(level) => level.cost(),
-            // 5 points per level [BS - 59]
+            // 5 points per level BS 59
             Self::HighManualDexterity(level) => *level as i64 * 5,
             Self::IndependentIncome(level) => *level as i64,
-            // 2 points per level [BS - 64]
+            // 2 points per level BS 64
             Self::LessSleep(level) => *level as i64 * 2,
             Self::Luck(level) => level.cost(),
-            // 5 points for Magery 0, 10 pts per level [BS - 66]
+            // 5 points for Magery 0, 10 pts per level BS 66
             Self::Magery(level) => (*level as i64 * 5) + 5,
             Self::PlantEmpathy => 5,
-            // 2 points per level [BS - 80]
+            // 2 points per level BS 80
             Self::ReducedConsumption(level) => *level as i64 * 2,
             Self::SpeakWithAnimals => 25,
             // 40% the magery cost [Thaumatology - 28]
@@ -306,7 +306,7 @@ impl Disadvantage {
             Self::Duty(level) => level.cost(),
             Self::Selfless => -5,
             Self::SenseOfDuty(level) => level.cost(),
-            // -5 points per level, max level 4 [BS - 155]
+            // -5 points per level, max level 4 BS 155
             Self::SocialStigma(level) => -(*level as i64 * 5),
             Self::Status(level) => -(*level as i64 * 5),
             _ => 0,

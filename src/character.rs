@@ -71,13 +71,13 @@ impl Attributes {
             dx,
             iq,
             ht,
-            // Base hit points is equal to Strength [BS - 16]
+            // Base hit points is equal to Strength BS 16
             hp: st,
-            // Base will is equal to IQ [BS - 16]
+            // Base will is equal to IQ BS 16
             will: iq,
-            // Base perception is equal to IQ [BS - 16]
+            // Base perception is equal to IQ BS 16
             per: iq,
-            // Base fatique is equal to health [BS - 16]
+            // Base fatique is equal to health BS 16
             fp: ht,
         }
     }
@@ -173,12 +173,12 @@ impl AttributeColumns {
 pub struct Stats {
     /// The maximum weight you can lift over your head with one hand one second.
     /// (ST * ST)/5
-    /// BS-15
+    /// BS 15
     basic_lift: usize,
-    /// Basic Move is Basic Speed less any fractions [BS - 17]
+    /// Basic Move is Basic Speed less any fractions BS 17
     basic_move: usize,
     /// Basic speed is (HT + DX)/4
-    /// Dodge is basic speed plus 3, dropping fractions [BS - 17]
+    /// Dodge is basic speed plus 3, dropping fractions BS 17
     basic_speed: f64,
 }
 
@@ -449,7 +449,7 @@ pub struct EncumbranceDodge {
 impl From<&Stats> for EncumbranceDodge {
     fn from(stats: &Stats) -> Self {
         // Since basic speed has a minimum of one, at extra heavy usize will not drop below zero.
-        // Dodge is basic speed plus 3, dropping fractions [BS - 17]
+        // Dodge is basic speed plus 3, dropping fractions BS 17
         let dodge = stats.basic_speed.floor() as usize + 3;
         let none = dodge;
         let light = dodge - 1;

@@ -1,11 +1,11 @@
-/// Combat time occurs second by second. BS-362
+/// Combat time occurs second by second. BS 362
 /// Multiple partipants experience combat as overlapping seconds
-/// Because they take actions in a turn order. BS-363
+/// Because they take actions in a turn order. BS 363
 /// Turn order is by highest basic speed.
-/// Ties go to highest DX (or maybe highest effective skill) BS-363
+/// Ties go to highest DX (or maybe highest effective skill) BS 363
 ///
 /// Maximum move is the characters full Move score.
-/// A "step" is 1/10 of Move, minimum one meter. BS-363
+/// A "step" is 1/10 of Move, minimum one meter. BS 363
 pub enum Manuever {
     /// Full-turn maneuver.
     /// Bracing a ranged weapon adds +1 to Acc, meaning resting a sandbag, low wall, etc.  A
@@ -15,7 +15,7 @@ pub enum Manuever {
     /// Combined bonus cannot exceed weapons base Accuracy.
     /// Cannot take a "step" with a Braced two-handed weapon.
     /// Active defense spoils an Aim bonus.
-    /// If injured, make a Will roll or lose your Aim. BS-364
+    /// If injured, make a Will roll or lose your Aim. BS 364
     Aim,
     /// No active defense.  No dodge, parry or block.
     /// Move up to half Move, only forward.
@@ -27,13 +27,13 @@ pub enum Manuever {
     ChangePosture,
     Concentrate,
     /// May attempt a HT roll to recover from physical stun or IQ roll to recover from mental stun,
-    /// recovering at the end of the turn. BS-364
+    /// recovering at the end of the turn. BS 364
     DoNothing,
     /// Melee equivalent of Aim.
     /// +1 per turn (max +3) on an Attack, Feint, All-Out Attack, or Move and Attack against a
-    /// specific opponent on the subsequent turn. BS-364/365
+    /// specific opponent on the subsequent turn. BS 364/365
     Evaluate,
-    /// Feint: BS-365
+    /// Feint: BS 365
     /// Roll a Quick Contest of Melee Weaon skills.  May use an unarmed skill, Cloak, Shield or DX
     /// if the skill level is higher.
     ///
@@ -53,14 +53,14 @@ pub enum Manuever {
     /// Move any number of meters up to your full Move score.
     /// Mounted or vehicle movement counts for full controlled movement.
     /// Sprinting grants a bonus movement on the second and later moves.
-    /// No other action but Free Actions. B-364
+    /// No other action but Free Actions. BS 364
     Move,
     MoveAndAttack,
     Ready,
     Wait,
 }
 
-/// All-Out Attack options for melee attack. BS-365
+/// All-Out Attack options for melee attack. BS 365
 pub enum AllOutMeleeAttack {
     /// Make a single attack at +4 to hit.
     Determined,
@@ -77,7 +77,7 @@ pub enum AllOutMeleeAttack {
     Strong,
 }
 
-/// All-Out Attack options for ranged attack. BS-365
+/// All-Out Attack options for ranged attack. BS 365
 pub enum AllOutRangedAttack {
     /// Make a single attack at +1 to hit.
     Determined,
@@ -105,7 +105,7 @@ pub enum FreeAction {
 /// from any of these postures.  Going from standing up to lying down only takes one manuever.
 /// You can switch between kneeling and standing (only) as the "step" portion of any maneuver that
 /// allows a step instead of using the step to move.
-/// Crouching does not require a Change Posture maneuver, it is a free action. B-364
+/// Crouching does not require a Change Posture maneuver, it is a free action. BS 364
 pub enum Posture {
     Standing,
     Sitting,
