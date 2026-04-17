@@ -199,7 +199,7 @@ impl Advantage {
             // 10 points per level + 5 for Magery 0 BS 66
             Self::Magery(level) => (*level as i64 * 10) + 5,
             // BS 69
-            Self::MusicalAbility(level) => *level as i64 * 1,
+            Self::MusicalAbility(level) => *level as i64,
             // BS 74
             Self::PerfectBalance => 15,
             // BS 75

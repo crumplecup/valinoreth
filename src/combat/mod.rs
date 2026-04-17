@@ -14,11 +14,14 @@
 //! - BS 378-380 - Damage and injury
 
 mod attack;
+mod defense;
 mod error;
 mod weapons;
 
 pub use attack::{AttackResult, AttackRoll, CombatModifiers, CombatModifiersBuilder, Modifier};
-pub use error::{CombatError, CombatErrorKind};
-pub use weapons::{
-    DamageType, MeleeWeapon, RangedWeapon, Reach, Weapon, WeaponDamage,
+pub use defense::{
+    calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense,
+    DefenseResult, RETREAT_BONUS,
 };
+pub use error::{CombatError, CombatErrorKind};
+pub use weapons::{DamageType, MeleeWeapon, RangedWeapon, Reach, Weapon, WeaponDamage};

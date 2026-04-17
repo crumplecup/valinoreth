@@ -27,8 +27,8 @@ mod skills;
 mod special_features;
 
 pub use advantages::{
-    AbsoluteDirection, Advantage, Disadvantage, Duty, EiditicMemory, Luck, Perk, SenseOfDuty,
-    Wealth,
+    AbsoluteDirection, Advantage, Disadvantage, Duty, EiditicMemory, Flexible, Luck, Perk,
+    SenseOfDuty, Wealth,
 };
 pub use body::{Arms, BodyArea, BodyLocation, Head, Legs, Torso};
 pub use character::{
@@ -37,11 +37,12 @@ pub use character::{
 };
 pub use cli::Cli;
 pub use combat::{
+    calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense,
     AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
-    CombatModifiersBuilder, DamageType, MeleeWeapon, Modifier, RangedWeapon, Reach, Weapon,
-    WeaponDamage,
+    CombatModifiersBuilder, DamageType, DefenseResult, MeleeWeapon, Modifier, RangedWeapon, Reach,
+    Weapon, WeaponDamage, RETREAT_BONUS,
 };
-pub use dice::{DieLevel, Dice, Random};
+pub use dice::{Dice, DieLevel, Random};
 pub use free::trace_init;
 pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
 pub use players::Players;

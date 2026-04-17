@@ -1032,16 +1032,7 @@ impl From<&Stats> for EncumbranceDodge {
 /// let level = EncumbranceLevel::Light;
 /// ```
 #[derive(
-    Debug,
-    Copy,
-    Clone,
-    PartialEq,
-    Eq,
-    PartialOrd,
-    Ord,
-    Hash,
-    serde::Serialize,
-    serde::Deserialize,
+    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, serde::Serialize, serde::Deserialize,
 )]
 pub enum EncumbranceLevel {
     /// No encumbrance (0 to BL). BS 17

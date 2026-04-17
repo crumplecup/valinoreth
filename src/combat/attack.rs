@@ -199,6 +199,7 @@ pub enum AttackResult {
 #[builder(setter(into))]
 pub struct CombatModifiers {
     /// List of individual modifiers
+    #[builder(default)]
     modifiers: Vec<Modifier>,
 }
 
@@ -246,7 +247,11 @@ impl CombatModifiers {
 
         let total: i32 = self.modifiers.iter().map(|m| m.value()).sum();
 
-        debug!(total, count = self.modifiers.len(), "Calculated modifier total");
+        debug!(
+            total,
+            count = self.modifiers.len(),
+            "Calculated modifier total"
+        );
         total
     }
 }
@@ -268,7 +273,7 @@ impl CombatModifiers {
 /// use valinoreth::Modifier;
 ///
 /// let modifier = Modifier::new("Darkness", -3, "BS 394");
-/// assert_eq!(modifier.value(), -3);
+/// assert_eq!(*modifier.value(), -3);
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq, Getters, derive_new::new)]
 pub struct Modifier {

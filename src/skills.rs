@@ -1801,9 +1801,9 @@ pub enum Explosives {
 )]
 pub enum HiddenLore {
     #[default]
-    DemonLore,
-    FaerieLore,
-    SpiritLore,
+    Demon,
+    Faerie,
+    Spirit,
 }
 
 #[derive(

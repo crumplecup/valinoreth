@@ -10,7 +10,10 @@ fn test_broadsword_stats() {
 
     // BS 271: Broadsword is sw+1 cutting
     match sword.damage() {
-        WeaponDamage::Swing { modifier, damage_type } => {
+        WeaponDamage::Swing {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 1);
             assert_eq!(damage_type, DamageType::Cutting);
         }
@@ -28,7 +31,10 @@ fn test_rapier_stats() {
 
     // BS 274: Rapier is thr+1 impaling
     match rapier.damage() {
-        WeaponDamage::Thrust { modifier, damage_type } => {
+        WeaponDamage::Thrust {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 1);
             assert_eq!(damage_type, DamageType::Impaling);
         }
@@ -46,7 +52,10 @@ fn test_spear_stats() {
 
     // BS 275: Spear is thr+2 impaling
     match spear.damage() {
-        WeaponDamage::Thrust { modifier, damage_type } => {
+        WeaponDamage::Thrust {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 2);
             assert_eq!(damage_type, DamageType::Impaling);
         }
@@ -64,7 +73,10 @@ fn test_axe_stats() {
 
     // BS 271: Axe is sw+2 cutting
     match axe.damage() {
-        WeaponDamage::Swing { modifier, damage_type } => {
+        WeaponDamage::Swing {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 2);
             assert_eq!(damage_type, DamageType::Cutting);
         }
@@ -82,7 +94,10 @@ fn test_fist_unarmed_stats() {
 
     // BS 271: Fist is thr-1 crushing
     match fist.damage() {
-        WeaponDamage::Thrust { modifier, damage_type } => {
+        WeaponDamage::Thrust {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, -1);
             assert_eq!(damage_type, DamageType::Crushing);
         }
@@ -100,7 +115,10 @@ fn test_quarterstaff_stats() {
 
     // BS 274: Quarterstaff is sw+2 crushing
     match staff.damage() {
-        WeaponDamage::Swing { modifier, damage_type } => {
+        WeaponDamage::Swing {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 2);
             assert_eq!(damage_type, DamageType::Crushing);
         }
@@ -118,7 +136,10 @@ fn test_knife_stats() {
 
     // BS 273: Knife is thr-1 impaling
     match knife.damage() {
-        WeaponDamage::Thrust { modifier, damage_type } => {
+        WeaponDamage::Thrust {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, -1);
             assert_eq!(damage_type, DamageType::Impaling);
         }
@@ -136,7 +157,10 @@ fn test_two_handed_sword_stats() {
 
     // BS 276: Two-Handed Sword is sw+2 cutting
     match sword.damage() {
-        WeaponDamage::Swing { modifier, damage_type } => {
+        WeaponDamage::Swing {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 2);
             assert_eq!(damage_type, DamageType::Cutting);
         }
@@ -228,7 +252,10 @@ fn test_sling_st_based_damage() {
 
     // BS 277: Sling uses swing piercing (ST-based)
     match sling.damage() {
-        WeaponDamage::Swing { modifier, damage_type } => {
+        WeaponDamage::Swing {
+            modifier,
+            damage_type,
+        } => {
             assert_eq!(modifier, 0);
             assert_eq!(damage_type, DamageType::Piercing);
         }

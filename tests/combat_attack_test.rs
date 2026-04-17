@@ -122,7 +122,10 @@ fn test_attack_result_margins() {
 
 #[test]
 fn test_combat_modifiers_empty() {
-    let modifiers = CombatModifiers::builder().modifiers(vec![]).build().unwrap();
+    let modifiers = CombatModifiers::builder()
+        .modifiers(vec![])
+        .build()
+        .unwrap();
 
     assert_eq!(modifiers.total(), 0);
 }
@@ -228,5 +231,5 @@ fn test_different_seeds_produce_different_results() {
     let same_d3 = roll1.dice().d3() == roll2.dice().d3();
 
     // At least one die should be different
-    assert!(!(same_d1 && same_d2 && same_d3) || !same_dice);
+    assert!(!(same_d1 && same_d2 && same_d3 && same_dice));
 }
