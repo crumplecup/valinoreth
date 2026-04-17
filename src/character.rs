@@ -568,6 +568,7 @@ pub enum DamageKind {
     serde::Serialize,
     serde::Deserialize,
     derive_new::new,
+    derive_getters::Getters,
 )]
 pub struct BaseDamage {
     /// Thrust damage for stabbing attacks. BS 269

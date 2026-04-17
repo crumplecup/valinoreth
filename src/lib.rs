@@ -37,10 +37,10 @@ pub use character::{
 };
 pub use cli::Cli;
 pub use combat::{
-    calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense,
-    AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
-    CombatModifiersBuilder, DamageType, DefenseResult, MeleeWeapon, Modifier, RangedWeapon, Reach,
-    Weapon, WeaponDamage, RETREAT_BONUS,
+    calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense, Armor,
+    ArmorBuilder, AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
+    CombatModifiersBuilder, DamageResolution, DamageType, DefenseResult, MeleeWeapon, Modifier,
+    RangedWeapon, Reach, Weapon, WeaponDamage, RETREAT_BONUS,
 };
 pub use dice::{Dice, DieLevel, Random};
 pub use free::trace_init;

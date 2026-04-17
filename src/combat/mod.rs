@@ -14,11 +14,13 @@
 //! - BS 378-380 - Damage and injury
 
 mod attack;
+mod damage;
 mod defense;
 mod error;
 mod weapons;
 
 pub use attack::{AttackResult, AttackRoll, CombatModifiers, CombatModifiersBuilder, Modifier};
+pub use damage::{Armor, ArmorBuilder, DamageResolution};
 pub use defense::{
     calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense,
     DefenseResult, RETREAT_BONUS,
