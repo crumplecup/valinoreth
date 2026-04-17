@@ -21,6 +21,7 @@ mod cli;
 mod combat;
 mod dice;
 mod free;
+mod magic;
 mod movement;
 mod players;
 mod skills;
@@ -44,6 +45,9 @@ pub use combat::{
 };
 pub use dice::{Dice, DieLevel, Random};
 pub use free::trace_init;
+pub use magic::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
 pub use players::Players;
 pub use skills::{Family, Skill, SkillBase, SkillDefault};
