@@ -15,6 +15,10 @@
 
 mod attack;
 mod error;
+mod weapons;
 
 pub use attack::{AttackResult, AttackRoll, CombatModifiers, CombatModifiersBuilder, Modifier};
 pub use error::{CombatError, CombatErrorKind};
+pub use weapons::{
+    DamageType, MeleeWeapon, RangedWeapon, Reach, Weapon, WeaponDamage,
+};

@@ -135,6 +135,7 @@ impl Dice {
     serde::Serialize,
     serde::Deserialize,
     derive_new::new,
+    derive_getters::Getters,
 )]
 pub struct DieLevel {
     /// Number of dice to roll

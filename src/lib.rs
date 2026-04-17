@@ -38,7 +38,8 @@ pub use character::{
 pub use cli::Cli;
 pub use combat::{
     AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
-    CombatModifiersBuilder, Modifier,
+    CombatModifiersBuilder, DamageType, MeleeWeapon, Modifier, RangedWeapon, Reach, Weapon,
+    WeaponDamage,
 };
 pub use dice::{DieLevel, Dice, Random};
 pub use free::trace_init;
