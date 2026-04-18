@@ -1,4 +1,4 @@
-//! Tests for GURPS magic spells (Knowledge college).
+//! Tests for GURPS magic spells (11 colleges implemented).
 
 use valinoreth::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
@@ -7,12 +7,28 @@ use valinoreth::{
 // ========== College Tests ==========
 
 #[test]
-fn test_all_knowledge_spells_have_correct_college() {
-    // All Knowledge college spells should return Knowledge
+fn test_all_spells_have_colleges() {
+    // All spells should have valid colleges
     use strum::IntoEnumIterator;
 
     for spell in Spell::iter() {
-        assert_eq!(spell.college(), SpellCollege::Knowledge);
+        let college = spell.college();
+        assert!(
+            college == SpellCollege::Air
+                || college == SpellCollege::BodyControl
+                || college == SpellCollege::Earth
+                || college == SpellCollege::Fire
+                || college == SpellCollege::Healing
+                || college == SpellCollege::IllusionCreation
+                || college == SpellCollege::Knowledge
+                || college == SpellCollege::MindControl
+                || college == SpellCollege::Movement
+                || college == SpellCollege::ProtectionWarning
+                || college == SpellCollege::Water,
+            "Spell {:?} has unexpected college: {:?}",
+            spell,
+            college
+        );
     }
 }
 
@@ -536,5 +552,5 @@ fn test_spell_count() {
     use strum::IntoEnumIterator;
 
     let count = Spell::iter().count();
-    assert_eq!(count, 20); // Knowledge college has 20 spells
+    assert_eq!(count, 195); // 11 colleges: Air (18) + Body Control (21) + Earth (18) + Fire (18) + Healing (18) + Illusion (17) + Knowledge (20) + Mind Control (20) + Movement (14) + Protection (13) + Water (18)
 }
