@@ -172,6 +172,22 @@ pub enum Spell {
     AlterBody,
     /// Reshape flesh and bone. M 64
     ShapeFlesh,
+    /// Increases ST temporarily. M 60
+    Might,
+    /// Increases HT temporarily. M 66
+    Vigor,
+    /// Manipulates fatigue. M 56
+    Fatigue,
+    /// Stuns target. M 65
+    Stun,
+    /// Makes target trip easily. M 66
+    Tanglefoot,
+    /// Complete paralysis. M 67
+    TotalParalysis,
+    /// Changes facial features. M 41
+    AlterVisage,
+    /// Grants climbing skill. M 35
+    Climbing,
 
     // Earth College - M 56-67
     /// Manipulates earth and stone. M 64
@@ -571,6 +587,14 @@ impl Spell {
             Self::BodyOfStone => SpellCollege::BodyControl,
             Self::AlterBody => SpellCollege::BodyControl,
             Self::ShapeFlesh => SpellCollege::BodyControl,
+            Self::Might => SpellCollege::BodyControl,
+            Self::Vigor => SpellCollege::BodyControl,
+            Self::Fatigue => SpellCollege::BodyControl,
+            Self::Stun => SpellCollege::BodyControl,
+            Self::Tanglefoot => SpellCollege::BodyControl,
+            Self::TotalParalysis => SpellCollege::BodyControl,
+            Self::AlterVisage => SpellCollege::BodyControl,
+            Self::Climbing => SpellCollege::BodyControl,
 
             // Earth College
             Self::ShapeEarth => SpellCollege::Earth,

@@ -39,6 +39,14 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::BodyOfStone => EnergyCost::Fixed(5),
         Spell::AlterBody => EnergyCost::Fixed(10),
         Spell::ShapeFlesh => EnergyCost::Fixed(6),
+        Spell::Might => EnergyCost::Fixed(2),
+        Spell::Vigor => EnergyCost::Fixed(2),
+        Spell::Fatigue => EnergyCost::Fixed(2),
+        Spell::Stun => EnergyCost::Fixed(4),
+        Spell::Tanglefoot => EnergyCost::Fixed(3),
+        Spell::TotalParalysis => EnergyCost::Fixed(6),
+        Spell::AlterVisage => EnergyCost::Fixed(5),
+        Spell::Climbing => EnergyCost::Fixed(2),
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
@@ -69,6 +77,14 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::BodyOfStone => 3,
         Spell::AlterBody => 5,
         Spell::ShapeFlesh => 3,
+        Spell::Might => 2,
+        Spell::Vigor => 2,
+        Spell::Fatigue => 1,
+        Spell::Stun => 1,
+        Spell::Tanglefoot => 1,
+        Spell::TotalParalysis => 3,
+        Spell::AlterVisage => 3,
+        Spell::Climbing => 2,
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
@@ -99,6 +115,14 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::BodyOfStone => Duration::Minutes(1),
         Spell::AlterBody => Duration::Permanent,
         Spell::ShapeFlesh => Duration::Minutes(1),
+        Spell::Might => Duration::Minutes(1),
+        Spell::Vigor => Duration::Minutes(1),
+        Spell::Fatigue => Duration::Minutes(1),
+        Spell::Stun => Duration::Minutes(1),
+        Spell::Tanglefoot => Duration::Minutes(1),
+        Spell::TotalParalysis => Duration::Minutes(1),
+        Spell::AlterVisage => Duration::Permanent,
+        Spell::Climbing => Duration::Minutes(1),
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
@@ -189,6 +213,38 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(2),
             SpellPrerequisite::SpellsInCollege(SpellCollege::BodyControl, 8),
         ],
+        Spell::Might => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Strengthen),
+        ],
+        Spell::Vigor => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::BodyControl, 6),
+        ],
+        Spell::Fatigue => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::BodyControl, 4),
+        ],
+        Spell::Stun => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Pain),
+        ],
+        Spell::Tanglefoot => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Clumsiness),
+        ],
+        Spell::TotalParalysis => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::Paralyze),
+        ],
+        Spell::AlterVisage => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::BodyControl, 4),
+        ],
+        Spell::Climbing => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::BodyControl, 4),
+        ],
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
@@ -219,6 +275,14 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::BodyOfStone => SpellType::Regular,
         Spell::AlterBody => SpellType::Regular,
         Spell::ShapeFlesh => SpellType::Regular,
+        Spell::Might => SpellType::Regular,
+        Spell::Vigor => SpellType::Regular,
+        Spell::Fatigue => SpellType::Regular,
+        Spell::Stun => SpellType::Regular,
+        Spell::Tanglefoot => SpellType::Regular,
+        Spell::TotalParalysis => SpellType::Regular,
+        Spell::AlterVisage => SpellType::Regular,
+        Spell::Climbing => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
@@ -249,6 +313,14 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::BodyOfStone => None,
         Spell::AlterBody => Some(ResistanceType::HT),
         Spell::ShapeFlesh => Some(ResistanceType::HT),
+        Spell::Might => None,
+        Spell::Vigor => None,
+        Spell::Fatigue => Some(ResistanceType::HT),
+        Spell::Stun => Some(ResistanceType::HT),
+        Spell::Tanglefoot => Some(ResistanceType::HT),
+        Spell::TotalParalysis => Some(ResistanceType::HT),
+        Spell::AlterVisage => Some(ResistanceType::HT),
+        Spell::Climbing => None,
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
@@ -279,6 +351,14 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::BodyOfStone => "M49",
         Spell::AlterBody => "M36",
         Spell::ShapeFlesh => "M64",
+        Spell::Might => "M60",
+        Spell::Vigor => "M66",
+        Spell::Fatigue => "M56",
+        Spell::Stun => "M65",
+        Spell::Tanglefoot => "M66",
+        Spell::TotalParalysis => "M67",
+        Spell::AlterVisage => "M41",
+        Spell::Climbing => "M50",
         _ => panic!("Invalid spell {:?} for Body Control college", spell),
     }
 }
