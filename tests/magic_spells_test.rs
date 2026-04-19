@@ -552,5 +552,5 @@ fn test_spell_count() {
     use strum::IntoEnumIterator;
 
     let count = Spell::iter().count();
-    assert_eq!(count, 234); // 11 colleges: Air (23) + Body Control (29) + Earth (24) + Fire (25) + Healing (25) + Illusion (23) + Knowledge (20) + Mind Control (20) + Movement (14) + Protection (13) + Water (18)
+    assert_eq!(count, 240); // 11 colleges: Air (23) + Body Control (29) + Earth (24) + Fire (25) + Healing (25) + Illusion (23) + Knowledge (26) + Mind Control (20) + Movement (14) + Protection (13) + Water (18)
 }

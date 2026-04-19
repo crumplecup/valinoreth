@@ -570,6 +570,18 @@ pub enum Spell {
     Trace,
     /// Reveals character's nature and power. M 107
     Aura,
+    /// Remote viewing through magical eye. M 113
+    WizardEye,
+    /// Perfect recall of information. M 110
+    Recall,
+    /// Shows scenes from object's past. M 109
+    ImagesOfThePast,
+    /// Precise technical measurements. M 110
+    Measurement,
+    /// Reveals hidden writing. M 111
+    RevealSecrets,
+    /// Locates specific person. M 112
+    SeekPerson,
 }
 
 impl Spell {
@@ -847,6 +859,12 @@ impl Spell {
             Self::GlassWall => SpellCollege::Knowledge,
             Self::Trace => SpellCollege::Knowledge,
             Self::Aura => SpellCollege::Knowledge,
+            Self::WizardEye => SpellCollege::Knowledge,
+            Self::Recall => SpellCollege::Knowledge,
+            Self::ImagesOfThePast => SpellCollege::Knowledge,
+            Self::Measurement => SpellCollege::Knowledge,
+            Self::RevealSecrets => SpellCollege::Knowledge,
+            Self::SeekPerson => SpellCollege::Knowledge,
         };
 
         debug!(?college, "Spell college retrieved");

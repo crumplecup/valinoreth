@@ -37,6 +37,12 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::GlassWall => EnergyCost::Fixed(2),
         Spell::Trace => EnergyCost::Fixed(2),
         Spell::Aura => EnergyCost::Fixed(2),
+        Spell::WizardEye => EnergyCost::Fixed(4),
+        Spell::Recall => EnergyCost::Fixed(6),
+        Spell::ImagesOfThePast => EnergyCost::Fixed(5),
+        Spell::Measurement => EnergyCost::Fixed(1),
+        Spell::RevealSecrets => EnergyCost::Fixed(3),
+        Spell::SeekPerson => EnergyCost::Fixed(2),
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
@@ -66,6 +72,12 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::GlassWall => 1,
         Spell::Trace => 2,
         Spell::Aura => 2,
+        Spell::WizardEye => 3,
+        Spell::Recall => 3,
+        Spell::ImagesOfThePast => 4,
+        Spell::Measurement => 1,
+        Spell::RevealSecrets => 2,
+        Spell::SeekPerson => 2,
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
@@ -95,6 +107,12 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::GlassWall => Duration::Minutes(1),
         Spell::Trace => Duration::Concentration,
         Spell::Aura => Duration::Instant,
+        Spell::WizardEye => Duration::Minutes(1),
+        Spell::Recall => Duration::Minutes(10),
+        Spell::ImagesOfThePast => Duration::Concentration,
+        Spell::Measurement => Duration::Instant,
+        Spell::RevealSecrets => Duration::Minutes(1),
+        Spell::SeekPerson => Duration::Concentration,
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
@@ -170,6 +188,30 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(1),
             SpellPrerequisite::Spell(Spell::DetectMagic),
         ],
+        Spell::WizardEye => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Knowledge, 5),
+        ],
+        Spell::Recall => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::History),
+        ],
+        Spell::ImagesOfThePast => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::History),
+        ],
+        Spell::Measurement => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::DetectMagic),
+        ],
+        Spell::RevealSecrets => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Knowledge, 4),
+        ],
+        Spell::SeekPerson => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Seeker),
+        ],
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
@@ -199,6 +241,12 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::GlassWall => SpellType::Area,
         Spell::Trace => SpellType::Information,
         Spell::Aura => SpellType::Information,
+        Spell::WizardEye => SpellType::Information,
+        Spell::Recall => SpellType::Regular,
+        Spell::ImagesOfThePast => SpellType::Information,
+        Spell::Measurement => SpellType::Information,
+        Spell::RevealSecrets => SpellType::Information,
+        Spell::SeekPerson => SpellType::Information,
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
@@ -228,6 +276,12 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::GlassWall => None,
         Spell::Trace => None,
         Spell::Aura => None,
+        Spell::WizardEye => None,
+        Spell::Recall => None,
+        Spell::ImagesOfThePast => None,
+        Spell::Measurement => None,
+        Spell::RevealSecrets => None,
+        Spell::SeekPerson => None,
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
@@ -257,6 +311,12 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::GlassWall => "M108",
         Spell::Trace => "M113",
         Spell::Aura => "M107",
+        Spell::WizardEye => "M113",
+        Spell::Recall => "M110",
+        Spell::ImagesOfThePast => "M109",
+        Spell::Measurement => "M110",
+        Spell::RevealSecrets => "M111",
+        Spell::SeekPerson => "M112",
         _ => panic!("Invalid spell {:?} for Knowledge college", spell),
     }
 }
