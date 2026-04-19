@@ -35,6 +35,12 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::Darkness => EnergyCost::Fixed(2),
         Spell::HideAura => EnergyCost::Fixed(2),
         Spell::Mirror => EnergyCost::Fixed(4),
+        Spell::ControlIllusion => EnergyCost::Fixed(2),
+        Spell::DispelIllusion => EnergyCost::Fixed(3),
+        Spell::ControlCreation => EnergyCost::Fixed(3),
+        Spell::DispelCreation => EnergyCost::Fixed(4),
+        Spell::IllusionShell => EnergyCost::Fixed(3),
+        Spell::ContinualLight => EnergyCost::Fixed(10),
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }
@@ -61,6 +67,12 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::Darkness => 1,
         Spell::HideAura => 1,
         Spell::Mirror => 2,
+        Spell::ControlIllusion => 1,
+        Spell::DispelIllusion => 1,
+        Spell::ControlCreation => 2,
+        Spell::DispelCreation => 1,
+        Spell::IllusionShell => 2,
+        Spell::ContinualLight => 5,
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }
@@ -87,6 +99,12 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::Darkness => Duration::Minutes(1),
         Spell::HideAura => Duration::Hours(1),
         Spell::Mirror => Duration::Minutes(1),
+        Spell::ControlIllusion => Duration::Minutes(1),
+        Spell::DispelIllusion => Duration::Instant,
+        Spell::ControlCreation => Duration::Minutes(1),
+        Spell::DispelCreation => Duration::Instant,
+        Spell::IllusionShell => Duration::Minutes(1),
+        Spell::ContinualLight => Duration::Permanent,
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }
@@ -158,6 +176,30 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(2),
             SpellPrerequisite::SpellsInCollege(SpellCollege::IllusionCreation, 8),
         ],
+        Spell::ControlIllusion => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::ComplexIllusion),
+        ],
+        Spell::DispelIllusion => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::ControlIllusion),
+        ],
+        Spell::ControlCreation => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Create),
+        ],
+        Spell::DispelCreation => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::ControlCreation),
+        ],
+        Spell::IllusionShell => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::IllusionCreation, 6),
+        ],
+        Spell::ContinualLight => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Light),
+        ],
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }
@@ -184,6 +226,12 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::Darkness => SpellType::Area,
         Spell::HideAura => SpellType::Regular,
         Spell::Mirror => SpellType::Blocking,
+        Spell::ControlIllusion => SpellType::Regular,
+        Spell::DispelIllusion => SpellType::Regular,
+        Spell::ControlCreation => SpellType::Regular,
+        Spell::DispelCreation => SpellType::Regular,
+        Spell::IllusionShell => SpellType::Area,
+        Spell::ContinualLight => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }
@@ -210,6 +258,12 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::Darkness => None,
         Spell::HideAura => None,
         Spell::Mirror => None,
+        Spell::ControlIllusion => None,
+        Spell::DispelIllusion => None,
+        Spell::ControlCreation => None,
+        Spell::DispelCreation => None,
+        Spell::IllusionShell => None,
+        Spell::ContinualLight => None,
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }
@@ -236,6 +290,12 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::Darkness => "M97",
         Spell::HideAura => "M98",
         Spell::Mirror => "M101",
+        Spell::ControlIllusion => "M96",
+        Spell::DispelIllusion => "M97",
+        Spell::ControlCreation => "M96",
+        Spell::DispelCreation => "M97",
+        Spell::IllusionShell => "M99",
+        Spell::ContinualLight => "M96",
         _ => panic!("Invalid spell {:?} for Illusion & Creation college", spell),
     }
 }

@@ -378,6 +378,18 @@ pub enum Spell {
     HideAura,
     /// Reflects spells back. M 101
     Mirror,
+    /// Commands illusions. M 96
+    ControlIllusion,
+    /// Removes illusions. M 97
+    DispelIllusion,
+    /// Commands creations. M 96
+    ControlCreation,
+    /// Removes creations. M 97
+    DispelCreation,
+    /// Protective illusion barrier. M 99
+    IllusionShell,
+    /// Continual light source. M 96
+    ContinualLight,
 
     // Mind Control College - M 118-144
     /// Confuses target briefly. M 122
@@ -734,6 +746,12 @@ impl Spell {
             Self::Darkness => SpellCollege::IllusionCreation,
             Self::HideAura => SpellCollege::IllusionCreation,
             Self::Mirror => SpellCollege::IllusionCreation,
+            Self::ControlIllusion => SpellCollege::IllusionCreation,
+            Self::DispelIllusion => SpellCollege::IllusionCreation,
+            Self::ControlCreation => SpellCollege::IllusionCreation,
+            Self::DispelCreation => SpellCollege::IllusionCreation,
+            Self::IllusionShell => SpellCollege::IllusionCreation,
+            Self::ContinualLight => SpellCollege::IllusionCreation,
 
             // Mind Control College
             Self::Daze => SpellCollege::MindControl,
