@@ -148,6 +148,8 @@ pub enum Duration {
     Minutes(i32),
     /// Lasts for hours
     Hours(i32),
+    /// Lasts for days
+    Days(i32),
     /// Lasts until dispelled
     Permanent,
 }

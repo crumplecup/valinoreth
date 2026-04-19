@@ -35,6 +35,13 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::CurseRemoval => EnergyCost::Fixed(5),
         Spell::Healing => EnergyCost::PerHP(2),
         Spell::RestoreYouth => EnergyCost::Fixed(100),
+        Spell::Resurrection => EnergyCost::Fixed(300),
+        Spell::Sterilize => EnergyCost::Fixed(1),
+        Spell::ShareVitality => EnergyCost::PerHP(1),
+        Spell::RegrowLimb => EnergyCost::Fixed(50),
+        Spell::PurifyFood => EnergyCost::Fixed(2),
+        Spell::InstantRecoverEnergy => EnergyCost::PerFP(3),
+        Spell::StopAging => EnergyCost::Fixed(20),
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }
@@ -62,6 +69,13 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::CurseRemoval => 2,
         Spell::Healing => 2,
         Spell::RestoreYouth => 60,
+        Spell::Resurrection => 30,
+        Spell::Sterilize => 1,
+        Spell::ShareVitality => 2,
+        Spell::RegrowLimb => 10,
+        Spell::PurifyFood => 1,
+        Spell::InstantRecoverEnergy => 1,
+        Spell::StopAging => 10,
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }
@@ -89,6 +103,13 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::CurseRemoval => Duration::Instant,
         Spell::Healing => Duration::Instant,
         Spell::RestoreYouth => Duration::Permanent,
+        Spell::Resurrection => Duration::Permanent,
+        Spell::Sterilize => Duration::Hours(1),
+        Spell::ShareVitality => Duration::Instant,
+        Spell::RegrowLimb => Duration::Permanent,
+        Spell::PurifyFood => Duration::Instant,
+        Spell::InstantRecoverEnergy => Duration::Instant,
+        Spell::StopAging => Duration::Days(30),
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }
@@ -161,6 +182,34 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(3),
             SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 12)
             ],
+        Spell::Resurrection => vec![
+            SpellPrerequisite::Magery(3),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 12)
+            ],
+        Spell::Sterilize => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::MinorHealing)
+            ],
+        Spell::ShareVitality => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::LendVitality)
+            ],
+        Spell::RegrowLimb => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::Regeneration)
+            ],
+        Spell::PurifyFood => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::NeutralizePoison)
+            ],
+        Spell::InstantRecoverEnergy => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::RecoverEnergy)
+            ],
+        Spell::StopAging => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 10)
+            ],
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }
@@ -188,6 +237,13 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::CurseRemoval => SpellType::Regular,
         Spell::Healing => SpellType::Regular,
         Spell::RestoreYouth => SpellType::Regular,
+        Spell::Resurrection => SpellType::Regular,
+        Spell::Sterilize => SpellType::Area,
+        Spell::ShareVitality => SpellType::Regular,
+        Spell::RegrowLimb => SpellType::Regular,
+        Spell::PurifyFood => SpellType::Regular,
+        Spell::InstantRecoverEnergy => SpellType::Regular,
+        Spell::StopAging => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }
@@ -215,6 +271,13 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::CurseRemoval => None,
         Spell::Healing => None,
         Spell::RestoreYouth => None,
+        Spell::Resurrection => None,
+        Spell::Sterilize => None,
+        Spell::ShareVitality => None,
+        Spell::RegrowLimb => None,
+        Spell::PurifyFood => None,
+        Spell::InstantRecoverEnergy => None,
+        Spell::StopAging => None,
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }
@@ -242,6 +305,13 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::CurseRemoval => "M91",
         Spell::Healing => "M92",
         Spell::RestoreYouth => "M102",
+        Spell::Resurrection => "M102",
+        Spell::Sterilize => "M103",
+        Spell::ShareVitality => "M103",
+        Spell::RegrowLimb => "M101",
+        Spell::PurifyFood => "M98",
+        Spell::InstantRecoverEnergy => "M101",
+        Spell::StopAging => "M103",
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }

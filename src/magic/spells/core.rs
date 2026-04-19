@@ -328,6 +328,20 @@ pub enum Spell {
     Healing,
     /// Restores youth. M 102
     RestoreYouth,
+    /// Returns dead to life. M 102
+    Resurrection,
+    /// Prevents infection. M 103
+    Sterilize,
+    /// Shares HP with willing target. M 103
+    ShareVitality,
+    /// Restore lost limb instantly. M 101
+    RegrowLimb,
+    /// Neutralizes all toxins. M 98
+    PurifyFood,
+    /// Instant energy recovery. M 101
+    InstantRecoverEnergy,
+    /// Stops aging temporarily. M 103
+    StopAging,
 
     // Illusion & Creation College - M 94-105
     /// Creates simple sound. M 100
@@ -694,6 +708,13 @@ impl Spell {
             Self::CurseRemoval => SpellCollege::Healing,
             Self::Healing => SpellCollege::Healing,
             Self::RestoreYouth => SpellCollege::Healing,
+            Self::Resurrection => SpellCollege::Healing,
+            Self::Sterilize => SpellCollege::Healing,
+            Self::ShareVitality => SpellCollege::Healing,
+            Self::RegrowLimb => SpellCollege::Healing,
+            Self::PurifyFood => SpellCollege::Healing,
+            Self::InstantRecoverEnergy => SpellCollege::Healing,
+            Self::StopAging => SpellCollege::Healing,
 
             // Illusion & Creation College
             Self::SimpleIllusion => SpellCollege::IllusionCreation,
