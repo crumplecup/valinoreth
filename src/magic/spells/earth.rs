@@ -35,6 +35,12 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::IronArm => EnergyCost::Fixed(3),
         Spell::Entombment => EnergyCost::Fixed(5),
         Spell::SummonEarthElemental => EnergyCost::Fixed(10),
+        Spell::PurifyEarth => EnergyCost::Fixed(1),
+        Spell::EssentialEarth => EnergyCost::Fixed(3),
+        Spell::BodyOfEarth => EnergyCost::Fixed(5),
+        Spell::EarthToWater => EnergyCost::Fixed(4),
+        Spell::IdentifyMetal => EnergyCost::Fixed(1),
+        Spell::ShapeMetal => EnergyCost::Fixed(3),
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }
@@ -62,6 +68,12 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::IronArm => 2,
         Spell::Entombment => 2,
         Spell::SummonEarthElemental => 5,
+        Spell::PurifyEarth => 1,
+        Spell::EssentialEarth => 2,
+        Spell::BodyOfEarth => 3,
+        Spell::EarthToWater => 2,
+        Spell::IdentifyMetal => 1,
+        Spell::ShapeMetal => 2,
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }
@@ -89,6 +101,12 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::IronArm => Duration::Minutes(1),
         Spell::Entombment => Duration::Minutes(1),
         Spell::SummonEarthElemental => Duration::Minutes(1),
+        Spell::PurifyEarth => Duration::Instant,
+        Spell::EssentialEarth => Duration::Hours(1),
+        Spell::BodyOfEarth => Duration::Minutes(1),
+        Spell::EarthToWater => Duration::Permanent,
+        Spell::IdentifyMetal => Duration::Instant,
+        Spell::ShapeMetal => Duration::Permanent,
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }
@@ -167,6 +185,27 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(2),
             SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 8)
             ],
+        Spell::PurifyEarth => vec![SpellPrerequisite::Magery(0)],
+        Spell::EssentialEarth => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6)
+            ],
+        Spell::BodyOfEarth => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6)
+            ],
+        Spell::EarthToWater => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::EarthToAir)
+            ],
+        Spell::IdentifyMetal => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::ShapeEarth)
+            ],
+        Spell::ShapeMetal => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::ShapeStone)
+            ],
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }
@@ -194,6 +233,12 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::IronArm => SpellType::Regular,
         Spell::Entombment => SpellType::Regular,
         Spell::SummonEarthElemental => SpellType::Regular,
+        Spell::PurifyEarth => SpellType::Area,
+        Spell::EssentialEarth => SpellType::Regular,
+        Spell::BodyOfEarth => SpellType::Regular,
+        Spell::EarthToWater => SpellType::Regular,
+        Spell::IdentifyMetal => SpellType::Information,
+        Spell::ShapeMetal => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }
@@ -221,6 +266,12 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::IronArm => None,
         Spell::Entombment => Some(ResistanceType::HT),
         Spell::SummonEarthElemental => None,
+        Spell::PurifyEarth => None,
+        Spell::EssentialEarth => None,
+        Spell::BodyOfEarth => None,
+        Spell::EarthToWater => None,
+        Spell::IdentifyMetal => None,
+        Spell::ShapeMetal => None,
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }
@@ -248,6 +299,12 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::IronArm => "M62",
         Spell::Entombment => "M59",
         Spell::SummonEarthElemental => "M58",
+        Spell::PurifyEarth => "M63",
+        Spell::EssentialEarth => "M60",
+        Spell::BodyOfEarth => "M48",
+        Spell::EarthToWater => "M59",
+        Spell::IdentifyMetal => "M62",
+        Spell::ShapeMetal => "M64",
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }

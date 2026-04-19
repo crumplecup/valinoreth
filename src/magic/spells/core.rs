@@ -226,6 +226,18 @@ pub enum Spell {
     Entombment,
     /// Summons earth elemental. M 58
     SummonEarthElemental,
+    /// Cleanse earth and soil. M 63
+    PurifyEarth,
+    /// Survive without earth contact. M 60
+    EssentialEarth,
+    /// Transform body to living earth. M 48
+    BodyOfEarth,
+    /// Transform earth to water. M 59
+    EarthToWater,
+    /// Analyze metal composition. M 62
+    IdentifyMetal,
+    /// Sculpt and shape metal. M 64
+    ShapeMetal,
 
     // Fire College - M 68-77
     /// Creates small flame. M 68
@@ -615,6 +627,12 @@ impl Spell {
             Self::IronArm => SpellCollege::Earth,
             Self::Entombment => SpellCollege::Earth,
             Self::SummonEarthElemental => SpellCollege::Earth,
+            Self::PurifyEarth => SpellCollege::Earth,
+            Self::EssentialEarth => SpellCollege::Earth,
+            Self::BodyOfEarth => SpellCollege::Earth,
+            Self::EarthToWater => SpellCollege::Earth,
+            Self::IdentifyMetal => SpellCollege::Earth,
+            Self::ShapeMetal => SpellCollege::Earth,
 
             // Fire College
             Self::IgniteFlame => SpellCollege::Fire,
