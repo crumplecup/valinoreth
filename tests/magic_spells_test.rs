@@ -1,4 +1,4 @@
-//! Tests for GURPS magic spells (11 colleges implemented).
+//! Tests for GURPS magic spells (14 colleges implemented).
 
 use valinoreth::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
