@@ -38,6 +38,14 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::ShieldMind => EnergyCost::Fixed(4),
         Spell::Possession => EnergyCost::Fixed(10),
         Spell::SoulJar => EnergyCost::Fixed(20),
+        Spell::Berserk => EnergyCost::Fixed(4),
+        Spell::Bravery => EnergyCost::Fixed(2),
+        Spell::EmotionControl => EnergyCost::Fixed(3),
+        Spell::SenseEmotion => EnergyCost::Fixed(2),
+        Spell::Persuasion => EnergyCost::Fixed(3),
+        Spell::MentalStun => EnergyCost::Fixed(3),
+        Spell::MassSleep => EnergyCost::Fixed(5),
+        Spell::MindWhip => EnergyCost::PerDie(2),
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }
@@ -67,6 +75,14 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::ShieldMind => 1,
         Spell::Possession => 5,
         Spell::SoulJar => 10,
+        Spell::Berserk => 2,
+        Spell::Bravery => 1,
+        Spell::EmotionControl => 2,
+        Spell::SenseEmotion => 1,
+        Spell::Persuasion => 2,
+        Spell::MentalStun => 1,
+        Spell::MassSleep => 3,
+        Spell::MindWhip => 1,
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }
@@ -96,6 +112,14 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::ShieldMind => Duration::Minutes(1),
         Spell::Possession => Duration::Concentration,
         Spell::SoulJar => Duration::Permanent,
+        Spell::Berserk => Duration::Minutes(1),
+        Spell::Bravery => Duration::Minutes(10),
+        Spell::EmotionControl => Duration::Minutes(10),
+        Spell::SenseEmotion => Duration::Instant,
+        Spell::Persuasion => Duration::Minutes(10),
+        Spell::MentalStun => Duration::Minutes(1),
+        Spell::MassSleep => Duration::Minutes(1),
+        Spell::MindWhip => Duration::Instant,
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }
@@ -184,6 +208,38 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(3),
             SpellPrerequisite::SpellsInCollege(SpellCollege::MindControl, 12),
         ],
+        Spell::Berserk => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Bravery),
+        ],
+        Spell::Bravery => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Fear),
+        ],
+        Spell::EmotionControl => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::MindControl, 6),
+        ],
+        Spell::SenseEmotion => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::MindReading),
+        ],
+        Spell::Persuasion => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Charm),
+        ],
+        Spell::MentalStun => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Daze),
+        ],
+        Spell::MassSleep => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::Sleep),
+        ],
+        Spell::MindWhip => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::MindReading),
+        ],
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }
@@ -213,6 +269,14 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::ShieldMind => SpellType::Blocking,
         Spell::Possession => SpellType::Regular,
         Spell::SoulJar => SpellType::Regular,
+        Spell::Berserk => SpellType::Regular,
+        Spell::Bravery => SpellType::Regular,
+        Spell::EmotionControl => SpellType::Regular,
+        Spell::SenseEmotion => SpellType::Information,
+        Spell::Persuasion => SpellType::Regular,
+        Spell::MentalStun => SpellType::Regular,
+        Spell::MassSleep => SpellType::Area,
+        Spell::MindWhip => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }
@@ -242,6 +306,14 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::ShieldMind => None,
         Spell::Possession => Some(ResistanceType::Will),
         Spell::SoulJar => Some(ResistanceType::Will),
+        Spell::Berserk => Some(ResistanceType::Will),
+        Spell::Bravery => None,
+        Spell::EmotionControl => Some(ResistanceType::Will),
+        Spell::SenseEmotion => Some(ResistanceType::Will),
+        Spell::Persuasion => Some(ResistanceType::Will),
+        Spell::MentalStun => Some(ResistanceType::Will),
+        Spell::MassSleep => Some(ResistanceType::Will),
+        Spell::MindWhip => Some(ResistanceType::Will),
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }
@@ -271,6 +343,14 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::ShieldMind => "M138",
         Spell::Possession => "M136",
         Spell::SoulJar => "M140",
+        Spell::Berserk => "M119",
+        Spell::Bravery => "M120",
+        Spell::EmotionControl => "M123",
+        Spell::SenseEmotion => "M134",
+        Spell::Persuasion => "M135",
+        Spell::MentalStun => "M131",
+        Spell::MassSleep => "M130",
+        Spell::MindWhip => "M132",
         _ => panic!("Invalid spell {:?} for Mind Control college", spell),
     }
 }

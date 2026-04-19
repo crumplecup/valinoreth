@@ -432,6 +432,22 @@ pub enum Spell {
     Possession,
     /// Traps soul in object. M 140
     SoulJar,
+    /// Induces berserk rage. M 119
+    Berserk,
+    /// Instills courage. M 120
+    Bravery,
+    /// Controls target's emotions. M 123
+    EmotionControl,
+    /// Detects emotional state. M 134
+    SenseEmotion,
+    /// Makes target agreeable. M 135
+    Persuasion,
+    /// Stuns target mentally. M 131
+    MentalStun,
+    /// Mass sleep effect. M 130
+    MassSleep,
+    /// Psychic damage attack. M 132
+    MindWhip,
 
     // Movement College - M 146-161
     /// Levitates object or person. M 154
@@ -786,6 +802,14 @@ impl Spell {
             Self::ShieldMind => SpellCollege::MindControl,
             Self::Possession => SpellCollege::MindControl,
             Self::SoulJar => SpellCollege::MindControl,
+            Self::Berserk => SpellCollege::MindControl,
+            Self::Bravery => SpellCollege::MindControl,
+            Self::EmotionControl => SpellCollege::MindControl,
+            Self::SenseEmotion => SpellCollege::MindControl,
+            Self::Persuasion => SpellCollege::MindControl,
+            Self::MentalStun => SpellCollege::MindControl,
+            Self::MassSleep => SpellCollege::MindControl,
+            Self::MindWhip => SpellCollege::MindControl,
 
             // Movement College
             Self::Levitation => SpellCollege::Movement,
