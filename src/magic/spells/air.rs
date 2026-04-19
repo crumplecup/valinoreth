@@ -35,6 +35,11 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::Thunderclap => EnergyCost::Fixed(3),
         Spell::AirVortex => EnergyCost::Fixed(3),
         Spell::EssentialAir => EnergyCost::Fixed(3),
+        Spell::AirVision => EnergyCost::Fixed(2),
+        Spell::Odor => EnergyCost::Fixed(1),
+        Spell::DevitalizeAir => EnergyCost::Fixed(2),
+        Spell::WallOfWind => EnergyCost::Fixed(2),
+        Spell::Sandstorm => EnergyCost::Fixed(3),
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }
@@ -62,6 +67,11 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::Thunderclap => 1,
         Spell::AirVortex => 2,
         Spell::EssentialAir => 2,
+        Spell::AirVision => 1,
+        Spell::Odor => 1,
+        Spell::DevitalizeAir => 1,
+        Spell::WallOfWind => 1,
+        Spell::Sandstorm => 1,
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }
@@ -89,6 +99,11 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::Thunderclap => Duration::Instant,
         Spell::AirVortex => Duration::Minutes(1),
         Spell::EssentialAir => Duration::Hours(1),
+        Spell::AirVision => Duration::Concentration,
+        Spell::Odor => Duration::Minutes(60),
+        Spell::DevitalizeAir => Duration::Instant,
+        Spell::WallOfWind => Duration::Minutes(1),
+        Spell::Sandstorm => Duration::Minutes(1),
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }
@@ -161,6 +176,27 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(1),
             SpellPrerequisite::SpellsInCollege(SpellCollege::Air, 6),
         ],
+        Spell::AirVision => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::ShapeAir),
+        ],
+        Spell::Odor => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::NoSmell),
+        ],
+        Spell::DevitalizeAir => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::DestroyAir),
+        ],
+        Spell::WallOfWind => vec![
+            SpellPrerequisite::Magery(3),
+            SpellPrerequisite::Spell(Spell::ShapeAir),
+        ],
+        Spell::Sandstorm => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Windstorm),
+            SpellPrerequisite::Spell(Spell::CreateEarth),
+        ],
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }
@@ -188,6 +224,11 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::Thunderclap => SpellType::Regular,
         Spell::AirVortex => SpellType::Area,
         Spell::EssentialAir => SpellType::Regular,
+        Spell::AirVision => SpellType::Information,
+        Spell::Odor => SpellType::Area,
+        Spell::DevitalizeAir => SpellType::Area,
+        Spell::WallOfWind => SpellType::Area,
+        Spell::Sandstorm => SpellType::Area,
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }
@@ -215,6 +256,11 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::Thunderclap => Some(ResistanceType::HT),
         Spell::AirVortex => None,
         Spell::EssentialAir => None,
+        Spell::AirVision => None,
+        Spell::Odor => None,
+        Spell::DevitalizeAir => None,
+        Spell::WallOfWind => None,
+        Spell::Sandstorm => None,
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }
@@ -242,6 +288,11 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::Thunderclap => "M35",
         Spell::AirVortex => "M26",
         Spell::EssentialAir => "M29",
+        Spell::AirVision => "M24",
+        Spell::Odor => "M24",
+        Spell::DevitalizeAir => "M25",
+        Spell::WallOfWind => "M24",
+        Spell::Sandstorm => "M27",
         _ => panic!("Invalid spell {:?} for Air college", spell),
     }
 }

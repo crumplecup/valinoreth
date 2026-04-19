@@ -118,6 +118,16 @@ pub enum Spell {
     AirVortex,
     /// Survive without air. M 29
     EssentialAir,
+    /// See through smoke and fog. M 24
+    AirVision,
+    /// Create any pleasant scent. M 24
+    Odor,
+    /// Remove oxygen from air. M 25
+    DevitalizeAir,
+    /// Creates barrier of wind. M 24
+    WallOfWind,
+    /// Windstorm with flying sand. M 27
+    Sandstorm,
 
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
@@ -533,6 +543,11 @@ impl Spell {
             Self::Thunderclap => SpellCollege::Air,
             Self::AirVortex => SpellCollege::Air,
             Self::EssentialAir => SpellCollege::Air,
+            Self::AirVision => SpellCollege::Air,
+            Self::Odor => SpellCollege::Air,
+            Self::DevitalizeAir => SpellCollege::Air,
+            Self::WallOfWind => SpellCollege::Air,
+            Self::Sandstorm => SpellCollege::Air,
 
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
