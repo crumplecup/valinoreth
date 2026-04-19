@@ -35,6 +35,13 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::PermanentFlame => EnergyCost::Fixed(10),
         Spell::SeekFireFire => EnergyCost::Fixed(2),
         Spell::Ignition => EnergyCost::Fixed(3),
+        Spell::EssentialFlame => EnergyCost::Fixed(3),
+        Spell::BodyOfFire => EnergyCost::Fixed(5),
+        Spell::FireVision => EnergyCost::Fixed(2),
+        Spell::Warmth => EnergyCost::Fixed(1),
+        Spell::DeflectEnergy => EnergyCost::Fixed(2),
+        Spell::ControlFireElemental => EnergyCost::Fixed(8),
+        Spell::CreateFireElemental => EnergyCost::Fixed(20),
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }
@@ -62,6 +69,13 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::PermanentFlame => 10,
         Spell::SeekFireFire => 1,
         Spell::Ignition => 1,
+        Spell::EssentialFlame => 2,
+        Spell::BodyOfFire => 3,
+        Spell::FireVision => 1,
+        Spell::Warmth => 1,
+        Spell::DeflectEnergy => 1,
+        Spell::ControlFireElemental => 3,
+        Spell::CreateFireElemental => 10,
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }
@@ -89,6 +103,13 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::PermanentFlame => Duration::Permanent,
         Spell::SeekFireFire => Duration::Concentration,
         Spell::Ignition => Duration::Instant,
+        Spell::EssentialFlame => Duration::Hours(1),
+        Spell::BodyOfFire => Duration::Minutes(1),
+        Spell::FireVision => Duration::Concentration,
+        Spell::Warmth => Duration::Minutes(10),
+        Spell::DeflectEnergy => Duration::Minutes(1),
+        Spell::ControlFireElemental => Duration::Minutes(1),
+        Spell::CreateFireElemental => Duration::Permanent,
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }
@@ -167,6 +188,34 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(1),
             SpellPrerequisite::Spell(Spell::Heat)
             ],
+        Spell::EssentialFlame => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 6)
+            ],
+        Spell::BodyOfFire => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 6)
+            ],
+        Spell::FireVision => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::ShapeFire)
+            ],
+        Spell::Warmth => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::Heat)
+            ],
+        Spell::DeflectEnergy => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::ShapeFire)
+            ],
+        Spell::ControlFireElemental => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::SummonFireElemental)
+            ],
+        Spell::CreateFireElemental => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::ControlFireElemental)
+            ],
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }
@@ -194,6 +243,13 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::PermanentFlame => SpellType::Regular,
         Spell::SeekFireFire => SpellType::Information,
         Spell::Ignition => SpellType::Regular,
+        Spell::EssentialFlame => SpellType::Regular,
+        Spell::BodyOfFire => SpellType::Regular,
+        Spell::FireVision => SpellType::Information,
+        Spell::Warmth => SpellType::Area,
+        Spell::DeflectEnergy => SpellType::Blocking,
+        Spell::ControlFireElemental => SpellType::Regular,
+        Spell::CreateFireElemental => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }
@@ -221,6 +277,13 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::PermanentFlame => None,
         Spell::SeekFireFire => None,
         Spell::Ignition => None,
+        Spell::EssentialFlame => None,
+        Spell::BodyOfFire => None,
+        Spell::FireVision => None,
+        Spell::Warmth => None,
+        Spell::DeflectEnergy => None,
+        Spell::ControlFireElemental => None,
+        Spell::CreateFireElemental => None,
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }
@@ -248,6 +311,13 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::PermanentFlame => "M74",
         Spell::SeekFireFire => "M76",
         Spell::Ignition => "M72",
+        Spell::EssentialFlame => "M71",
+        Spell::BodyOfFire => "M48",
+        Spell::FireVision => "M70",
+        Spell::Warmth => "M77",
+        Spell::DeflectEnergy => "M69",
+        Spell::ControlFireElemental => "M69",
+        Spell::CreateFireElemental => "M69",
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }

@@ -276,6 +276,20 @@ pub enum Spell {
     SeekFireFire,
     /// Ignites target at range. M 72
     Ignition,
+    /// Survive in extreme heat. M 71
+    EssentialFlame,
+    /// Transform body to living flame. M 48
+    BodyOfFire,
+    /// See through fire and smoke. M 70
+    FireVision,
+    /// Provides gentle warmth. M 77
+    Warmth,
+    /// Deflects energy attacks. M 69
+    DeflectEnergy,
+    /// Commands fire elemental. M 69
+    ControlFireElemental,
+    /// Creates permanent fire elemental. M 69
+    CreateFireElemental,
 
     // Healing College - M 90-105
     /// Transfers FP between casters. M 93
@@ -653,6 +667,13 @@ impl Spell {
             Self::PermanentFlame => SpellCollege::Fire,
             Self::SeekFireFire => SpellCollege::Fire,
             Self::Ignition => SpellCollege::Fire,
+            Self::EssentialFlame => SpellCollege::Fire,
+            Self::BodyOfFire => SpellCollege::Fire,
+            Self::FireVision => SpellCollege::Fire,
+            Self::Warmth => SpellCollege::Fire,
+            Self::DeflectEnergy => SpellCollege::Fire,
+            Self::ControlFireElemental => SpellCollege::Fire,
+            Self::CreateFireElemental => SpellCollege::Fire,
 
             // Healing College
             Self::LendEnergy => SpellCollege::Healing,
