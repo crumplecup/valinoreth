@@ -31,6 +31,12 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::Lockmaster => EnergyCost::Fixed(2),
         Spell::TelekineticBlow => EnergyCost::PerDie(1),
         Spell::HaltMovement => EnergyCost::Fixed(3),
+        Spell::DeflectMissile => EnergyCost::Fixed(1),
+        Spell::MissileShield => EnergyCost::Fixed(5),
+        Spell::GreatHaste => EnergyCost::Fixed(5),
+        Spell::ReverseMissile => EnergyCost::Fixed(3),
+        Spell::UnerringMissile => EnergyCost::Fixed(2),
+        Spell::WalkThroughWalls => EnergyCost::Fixed(6),
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }
@@ -54,6 +60,12 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::Lockmaster => 1,
         Spell::TelekineticBlow => 1,
         Spell::HaltMovement => 2,
+        Spell::DeflectMissile => 1,
+        Spell::MissileShield => 2,
+        Spell::GreatHaste => 3,
+        Spell::ReverseMissile => 2,
+        Spell::UnerringMissile => 1,
+        Spell::WalkThroughWalls => 3,
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }
@@ -77,6 +89,12 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::Lockmaster => Duration::Instant,
         Spell::TelekineticBlow => Duration::Instant,
         Spell::HaltMovement => Duration::Minutes(1),
+        Spell::DeflectMissile => Duration::Instant,
+        Spell::MissileShield => Duration::Minutes(1),
+        Spell::GreatHaste => Duration::Minutes(1),
+        Spell::ReverseMissile => Duration::Instant,
+        Spell::UnerringMissile => Duration::Minutes(1),
+        Spell::WalkThroughWalls => Duration::Minutes(1),
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }
@@ -134,6 +152,30 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(1),
             SpellPrerequisite::Spell(Spell::SlowMovement),
         ],
+        Spell::DeflectMissile => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Apportation),
+        ],
+        Spell::MissileShield => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::DeflectMissile),
+        ],
+        Spell::GreatHaste => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::HasteMovement),
+        ],
+        Spell::ReverseMissile => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::DeflectMissile),
+        ],
+        Spell::UnerringMissile => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Apportation),
+        ],
+        Spell::WalkThroughWalls => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::Spell(Spell::Levitation),
+        ],
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }
@@ -157,6 +199,12 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::Lockmaster => SpellType::Regular,
         Spell::TelekineticBlow => SpellType::Missile,
         Spell::HaltMovement => SpellType::Regular,
+        Spell::DeflectMissile => SpellType::Blocking,
+        Spell::MissileShield => SpellType::Blocking,
+        Spell::GreatHaste => SpellType::Regular,
+        Spell::ReverseMissile => SpellType::Blocking,
+        Spell::UnerringMissile => SpellType::Regular,
+        Spell::WalkThroughWalls => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }
@@ -180,6 +228,12 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::Lockmaster => None,
         Spell::TelekineticBlow => None,
         Spell::HaltMovement => Some(ResistanceType::HT),
+        Spell::DeflectMissile => None,
+        Spell::MissileShield => None,
+        Spell::GreatHaste => None,
+        Spell::ReverseMissile => None,
+        Spell::UnerringMissile => None,
+        Spell::WalkThroughWalls => None,
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }
@@ -203,6 +257,12 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::Lockmaster => "M155",
         Spell::TelekineticBlow => "M156",
         Spell::HaltMovement => "M153",
+        Spell::DeflectMissile => "M151",
+        Spell::MissileShield => "M155",
+        Spell::GreatHaste => "M153",
+        Spell::ReverseMissile => "M157",
+        Spell::UnerringMissile => "M160",
+        Spell::WalkThroughWalls => "M161",
         _ => panic!("Invalid spell {:?} for Movement college", spell),
     }
 }

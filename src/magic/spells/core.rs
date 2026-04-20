@@ -478,6 +478,18 @@ pub enum Spell {
     TelekineticBlow,
     /// Stops movement completely. M 153
     HaltMovement,
+    /// Deflects single missile. M 151
+    DeflectMissile,
+    /// Shields from all missiles. M 155
+    MissileShield,
+    /// Greatly increases speed. M 153
+    GreatHaste,
+    /// Reverses missile direction. M 157
+    ReverseMissile,
+    /// Perfect accuracy with missiles. M 160
+    UnerringMissile,
+    /// Walks through walls. M 161
+    WalkThroughWalls,
 
     // Protection & Warning College - M 162-185
     /// Basic magical shield. M 182
@@ -826,6 +838,12 @@ impl Spell {
             Self::Lockmaster => SpellCollege::Movement,
             Self::TelekineticBlow => SpellCollege::Movement,
             Self::HaltMovement => SpellCollege::Movement,
+            Self::DeflectMissile => SpellCollege::Movement,
+            Self::MissileShield => SpellCollege::Movement,
+            Self::GreatHaste => SpellCollege::Movement,
+            Self::ReverseMissile => SpellCollege::Movement,
+            Self::UnerringMissile => SpellCollege::Movement,
+            Self::WalkThroughWalls => SpellCollege::Movement,
 
             // Protection & Warning College
             Self::Shield => SpellCollege::ProtectionWarning,
