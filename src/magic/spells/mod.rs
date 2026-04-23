@@ -11,6 +11,7 @@
 //! M 10-200 - Individual spells
 
 mod air;
+mod animal;
 mod body_control;
 mod core;
 mod earth;

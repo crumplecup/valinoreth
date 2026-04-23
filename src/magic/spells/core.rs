@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, body_control, earth, fire, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, earth, fire, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -37,26 +37,52 @@ use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 pub enum SpellCollege {
     /// Air and wind manipulation spells. M 24
     Air,
+    /// Animal control and beast spells. M 16
+    Animal,
     /// Physical enhancement and affliction spells. M 36
     BodyControl,
+    /// Communication and empathy spells. M 48
+    CommunicationEmpathy,
     /// Earth and stone manipulation spells. M 56
     Earth,
+    /// Enchantment and permanent magic. M 60
+    Enchantment,
     /// Fire and heat manipulation spells. M 68
     Fire,
+    /// Food creation and preservation spells. M 78
+    Food,
+    /// Portal and teleportation circle spells. M 82
+    Gate,
     /// Healing and restoration spells. M 90
     Healing,
     /// Illusion and creation spells. M 94
     IllusionCreation,
     /// Information and divination spells. M 106
     Knowledge,
+    /// Light and darkness manipulation spells. M 114
+    LightDarkness,
+    /// Object creation and destruction spells. M 116
+    MakingBreaking,
+    /// Spell manipulation and meta-magic. M 117
+    MetaSpells,
     /// Mental influence and control spells. M 118
     MindControl,
     /// Movement and teleportation spells. M 146
     Movement,
+    /// Death magic and undead spells. M 149
+    Necromantic,
+    /// Plant control and growth spells. M 155
+    Plant,
     /// Protection and warning spells. M 162
     ProtectionWarning,
+    /// Sound manipulation spells. M 171
+    Sound,
+    /// Technology and machine spells. M 176
+    Technological,
     /// Water and ice manipulation spells. M 186
     Water,
+    /// Weather control spells. M 193
+    Weather,
 }
 
 /// GURPS magic spells (Knowledge college canary implementation).
@@ -128,6 +154,52 @@ pub enum Spell {
     WallOfWind,
     /// Windstorm with flying sand. M 27
     Sandstorm,
+
+    // Animal College - M 16-23
+    /// Calms and befriends animals. M 30
+    BeastSoother,
+    /// Communicate with animals. M 29
+    BeastSpeech,
+    /// Control mammals. M 30
+    MammalControl,
+    /// Control birds. M 29
+    BirdControl,
+    /// Control reptiles. M 33
+    ReptileControl,
+    /// Control fish. M 30
+    FishControl,
+    /// Control insects. M 31
+    InsectControl,
+    /// Summon an animal. M 29
+    BeastSummoning,
+    /// Repel animals generally. M 32
+    RepelAnimal,
+    /// Repel mammals. M 32
+    RepelMammal,
+    /// Repel birds. M 32
+    RepelBird,
+    /// Repel reptiles. M 32
+    RepelReptile,
+    /// Repel fish. M 32
+    RepelFish,
+    /// Repel insects. M 32
+    RepelInsect,
+    /// Dominate animal completely. M 31
+    Master,
+    /// Ride any animal. M 33
+    Rider,
+    /// Transform into mammal. M 34
+    Shapeshifting,
+    /// Transform into bird. M 34
+    BirdShapeshifting,
+    /// Transform into reptile. M 34
+    ReptileShapeshifting,
+    /// Transform into fish. M 34
+    FishShapeshifting,
+    /// Transform into insect. M 34
+    InsectShapeshifting,
+    /// Advanced shapeshifting. M 31
+    GreatShapeshifting,
 
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
@@ -707,6 +779,30 @@ impl Spell {
             Self::WallOfWind => SpellCollege::Air,
             Self::Sandstorm => SpellCollege::Air,
 
+            // Animal College
+            Self::BeastSoother => SpellCollege::Animal,
+            Self::BeastSpeech => SpellCollege::Animal,
+            Self::MammalControl => SpellCollege::Animal,
+            Self::BirdControl => SpellCollege::Animal,
+            Self::ReptileControl => SpellCollege::Animal,
+            Self::FishControl => SpellCollege::Animal,
+            Self::InsectControl => SpellCollege::Animal,
+            Self::BeastSummoning => SpellCollege::Animal,
+            Self::RepelAnimal => SpellCollege::Animal,
+            Self::RepelMammal => SpellCollege::Animal,
+            Self::RepelBird => SpellCollege::Animal,
+            Self::RepelReptile => SpellCollege::Animal,
+            Self::RepelFish => SpellCollege::Animal,
+            Self::RepelInsect => SpellCollege::Animal,
+            Self::Master => SpellCollege::Animal,
+            Self::Rider => SpellCollege::Animal,
+            Self::Shapeshifting => SpellCollege::Animal,
+            Self::BirdShapeshifting => SpellCollege::Animal,
+            Self::ReptileShapeshifting => SpellCollege::Animal,
+            Self::FishShapeshifting => SpellCollege::Animal,
+            Self::InsectShapeshifting => SpellCollege::Animal,
+            Self::GreatShapeshifting => SpellCollege::Animal,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -1015,6 +1111,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::base_energy_cost(self),
+            SpellCollege::Animal => return animal::base_energy_cost(self),
             SpellCollege::BodyControl => return body_control::base_energy_cost(self),
             SpellCollege::Earth => return earth::base_energy_cost(self),
             SpellCollege::Fire => return fire::base_energy_cost(self),
@@ -1025,6 +1122,7 @@ impl Spell {
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1055,6 +1153,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::casting_time(self),
+            SpellCollege::Animal => return animal::casting_time(self),
             SpellCollege::BodyControl => return body_control::casting_time(self),
             SpellCollege::Earth => return earth::casting_time(self),
             SpellCollege::Fire => return fire::casting_time(self),
@@ -1065,6 +1164,7 @@ impl Spell {
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1095,6 +1195,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::duration(self),
+            SpellCollege::Animal => return animal::duration(self),
             SpellCollege::BodyControl => return body_control::duration(self),
             SpellCollege::Earth => return earth::duration(self),
             SpellCollege::Fire => return fire::duration(self),
@@ -1105,6 +1206,7 @@ impl Spell {
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1135,6 +1237,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::prerequisites(self),
+            SpellCollege::Animal => return animal::prerequisites(self),
             SpellCollege::BodyControl => return body_control::prerequisites(self),
             SpellCollege::Earth => return earth::prerequisites(self),
             SpellCollege::Fire => return fire::prerequisites(self),
@@ -1145,6 +1248,7 @@ impl Spell {
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1175,6 +1279,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::spell_type(self),
+            SpellCollege::Animal => return animal::spell_type(self),
             SpellCollege::BodyControl => return body_control::spell_type(self),
             SpellCollege::Earth => return earth::spell_type(self),
             SpellCollege::Fire => return fire::spell_type(self),
@@ -1185,6 +1290,7 @@ impl Spell {
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1215,6 +1321,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::resistance(self),
+            SpellCollege::Animal => return animal::resistance(self),
             SpellCollege::BodyControl => return body_control::resistance(self),
             SpellCollege::Earth => return earth::resistance(self),
             SpellCollege::Fire => return fire::resistance(self),
@@ -1225,6 +1332,7 @@ impl Spell {
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1245,6 +1353,7 @@ impl Spell {
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::reference(self),
+            SpellCollege::Animal => return animal::reference(self),
             SpellCollege::BodyControl => return body_control::reference(self),
             SpellCollege::Earth => return earth::reference(self),
             SpellCollege::Fire => return fire::reference(self),
@@ -1255,6 +1364,7 @@ impl Spell {
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
+            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 }

@@ -1,4 +1,4 @@
-//! Tests for GURPS magic spells (14 colleges implemented).
+//! Tests for GURPS magic spells (12 colleges implemented, 24 total).
 
 use valinoreth::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
@@ -15,6 +15,7 @@ fn test_all_spells_have_colleges() {
         let college = spell.college();
         assert!(
             college == SpellCollege::Air
+                || college == SpellCollege::Animal
                 || college == SpellCollege::BodyControl
                 || college == SpellCollege::Earth
                 || college == SpellCollege::Fire
@@ -552,5 +553,5 @@ fn test_spell_count() {
     use strum::IntoEnumIterator;
 
     let count = Spell::iter().count();
-    assert_eq!(count, 279); // 11 colleges: Air (23) + Body Control (29) + Earth (24) + Fire (25) + Healing (25) + Illusion (23) + Knowledge (26) + Mind Control (28) + Movement (20) + Protection (27) + Water (29)
+    assert_eq!(count, 301); // 12 colleges: Air (23) + Animal (22) + Body Control (29) + Earth (24) + Fire (25) + Healing (25) + Illusion (23) + Knowledge (26) + Mind Control (28) + Movement (20) + Protection (27) + Water (29)
 }
