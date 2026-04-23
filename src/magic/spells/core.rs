@@ -584,6 +584,28 @@ pub enum Spell {
     SummonWaterElemental,
     /// Breathe underwater. M 189
     BreatheWaterWater,
+    /// Essence of water element. M 192
+    EssentialWater,
+    /// See through water clearly. M 200
+    WaterVision,
+    /// See through ice and fog. M 194
+    IceVision,
+    /// Creates obscuring fog. M 193
+    Fog,
+    /// Chills target with frost. M 193
+    Frost,
+    /// Creates erupting water. M 193
+    Geyser,
+    /// Hailstorm attack. M 193
+    Hail,
+    /// Creates spinning water vortex. M 200
+    Whirlpool,
+    /// Creates water vapor. M 191
+    CreateSteam,
+    /// Protects from water damage. M 198
+    ResistWater,
+    /// Breathe air while underwater. M 189
+    BreatheAir,
 
     // Knowledge College - M 106-113
     /// Reveals presence of magic within radius. M 107
@@ -921,6 +943,17 @@ impl Spell {
             Self::Swim => SpellCollege::Water,
             Self::SummonWaterElemental => SpellCollege::Water,
             Self::BreatheWaterWater => SpellCollege::Water,
+            Self::EssentialWater => SpellCollege::Water,
+            Self::WaterVision => SpellCollege::Water,
+            Self::IceVision => SpellCollege::Water,
+            Self::Fog => SpellCollege::Water,
+            Self::Frost => SpellCollege::Water,
+            Self::Geyser => SpellCollege::Water,
+            Self::Hail => SpellCollege::Water,
+            Self::Whirlpool => SpellCollege::Water,
+            Self::CreateSteam => SpellCollege::Water,
+            Self::ResistWater => SpellCollege::Water,
+            Self::BreatheAir => SpellCollege::Water,
 
             // Knowledge College
             Self::DetectMagic => SpellCollege::Knowledge,

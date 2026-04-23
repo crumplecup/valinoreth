@@ -35,6 +35,17 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::Swim => EnergyCost::Fixed(2),
         Spell::SummonWaterElemental => EnergyCost::Fixed(10),
         Spell::BreatheWaterWater => EnergyCost::Fixed(3),
+        Spell::EssentialWater => EnergyCost::Fixed(4),
+        Spell::WaterVision => EnergyCost::Fixed(2),
+        Spell::IceVision => EnergyCost::Fixed(2),
+        Spell::Fog => EnergyCost::Fixed(2),
+        Spell::Frost => EnergyCost::Fixed(2),
+        Spell::Geyser => EnergyCost::Fixed(3),
+        Spell::Hail => EnergyCost::PerDie(1),
+        Spell::Whirlpool => EnergyCost::Fixed(4),
+        Spell::CreateSteam => EnergyCost::Fixed(2),
+        Spell::ResistWater => EnergyCost::Fixed(2),
+        Spell::BreatheAir => EnergyCost::Fixed(3),
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
@@ -62,6 +73,17 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::Swim => 2,
         Spell::SummonWaterElemental => 5,
         Spell::BreatheWaterWater => 2,
+        Spell::EssentialWater => 3,
+        Spell::WaterVision => 2,
+        Spell::IceVision => 1,
+        Spell::Fog => 2,
+        Spell::Frost => 1,
+        Spell::Geyser => 2,
+        Spell::Hail => 2,
+        Spell::Whirlpool => 3,
+        Spell::CreateSteam => 1,
+        Spell::ResistWater => 2,
+        Spell::BreatheAir => 2,
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
@@ -89,6 +111,17 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::Swim => Duration::Minutes(10),
         Spell::SummonWaterElemental => Duration::Minutes(1),
         Spell::BreatheWaterWater => Duration::Minutes(10),
+        Spell::EssentialWater => Duration::Instant,
+        Spell::WaterVision => Duration::Minutes(1),
+        Spell::IceVision => Duration::Minutes(1),
+        Spell::Fog => Duration::Minutes(1),
+        Spell::Frost => Duration::Instant,
+        Spell::Geyser => Duration::Instant,
+        Spell::Hail => Duration::Instant,
+        Spell::Whirlpool => Duration::Concentration,
+        Spell::CreateSteam => Duration::Permanent,
+        Spell::ResistWater => Duration::Minutes(1),
+        Spell::BreatheAir => Duration::Minutes(10),
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
@@ -167,6 +200,50 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(1),
             SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
             ],
+        Spell::EssentialWater => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 8)
+            ],
+        Spell::WaterVision => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
+            ],
+        Spell::IceVision => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::Freeze)
+            ],
+        Spell::Fog => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::CreateWater)
+            ],
+        Spell::Frost => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::Freeze)
+            ],
+        Spell::Geyser => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::WaterJet)
+            ],
+        Spell::Hail => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::IceSphere)
+            ],
+        Spell::Whirlpool => vec![
+            SpellPrerequisite::Magery(2),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 6)
+            ],
+        Spell::CreateSteam => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::Spell(Spell::Boil)
+            ],
+        Spell::ResistWater => vec![
+            SpellPrerequisite::Magery(0),
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
+            ],
+        Spell::BreatheAir => vec![
+            SpellPrerequisite::Magery(1),
+            SpellPrerequisite::Spell(Spell::BreatheWaterWater)
+            ],
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
@@ -194,6 +271,17 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::Swim => SpellType::Regular,
         Spell::SummonWaterElemental => SpellType::Regular,
         Spell::BreatheWaterWater => SpellType::Regular,
+        Spell::EssentialWater => SpellType::Information,
+        Spell::WaterVision => SpellType::Regular,
+        Spell::IceVision => SpellType::Regular,
+        Spell::Fog => SpellType::Area,
+        Spell::Frost => SpellType::Regular,
+        Spell::Geyser => SpellType::Area,
+        Spell::Hail => SpellType::Area,
+        Spell::Whirlpool => SpellType::Area,
+        Spell::CreateSteam => SpellType::Regular,
+        Spell::ResistWater => SpellType::Regular,
+        Spell::BreatheAir => SpellType::Regular,
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
@@ -221,6 +309,17 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::Swim => None,
         Spell::SummonWaterElemental => None,
         Spell::BreatheWaterWater => None,
+        Spell::EssentialWater => None,
+        Spell::WaterVision => None,
+        Spell::IceVision => None,
+        Spell::Fog => None,
+        Spell::Frost => None,
+        Spell::Geyser => None,
+        Spell::Hail => None,
+        Spell::Whirlpool => None,
+        Spell::CreateSteam => None,
+        Spell::ResistWater => None,
+        Spell::BreatheAir => None,
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
@@ -248,6 +347,17 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::Swim => "M199",
         Spell::SummonWaterElemental => "M199",
         Spell::BreatheWaterWater => "M189",
+        Spell::EssentialWater => "M192",
+        Spell::WaterVision => "M200",
+        Spell::IceVision => "M194",
+        Spell::Fog => "M193",
+        Spell::Frost => "M193",
+        Spell::Geyser => "M193",
+        Spell::Hail => "M193",
+        Spell::Whirlpool => "M200",
+        Spell::CreateSteam => "M191",
+        Spell::ResistWater => "M198",
+        Spell::BreatheAir => "M189",
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }
