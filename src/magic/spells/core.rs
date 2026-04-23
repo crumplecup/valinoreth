@@ -518,6 +518,34 @@ pub enum Spell {
     AnchorSpell,
     /// Alerts to approaching beings. M 185
     WatchdogSpell,
+    /// Grants damage resistance. M 163
+    Armor,
+    /// Creates physical barrier wall. M 169
+    ForceWall,
+    /// Creates physical barrier dome. M 169
+    ForceDome,
+    /// Physical and magical barrier wall. M 183
+    UtterWall,
+    /// Physical and magical barrier dome. M 184
+    UtterDome,
+    /// Blocks spell penetration. M 183
+    SpellWall,
+    /// Personal anti-spell shield. M 181
+    SpellShield,
+    /// Magically locks doors. M 170
+    Magelock,
+    /// Alerts when triggered. M 165
+    Alarm,
+    /// Creates confusion fog. M 171
+    MysticMist,
+    /// Blocks teleportation into area. M 182
+    TeleportShield,
+    /// Protects from weather. M 185
+    WeatherDome,
+    /// Improves blocking. M 166
+    Block,
+    /// Protects sleeping area. M 171
+    Nightingale,
 
     // Water College - M 186-200
     /// Purifies water quality. M 196
@@ -859,6 +887,20 @@ impl Spell {
             Self::ArmorEnchantment => SpellCollege::ProtectionWarning,
             Self::AnchorSpell => SpellCollege::ProtectionWarning,
             Self::WatchdogSpell => SpellCollege::ProtectionWarning,
+            Self::Armor => SpellCollege::ProtectionWarning,
+            Self::ForceWall => SpellCollege::ProtectionWarning,
+            Self::ForceDome => SpellCollege::ProtectionWarning,
+            Self::UtterWall => SpellCollege::ProtectionWarning,
+            Self::UtterDome => SpellCollege::ProtectionWarning,
+            Self::SpellWall => SpellCollege::ProtectionWarning,
+            Self::SpellShield => SpellCollege::ProtectionWarning,
+            Self::Magelock => SpellCollege::ProtectionWarning,
+            Self::Alarm => SpellCollege::ProtectionWarning,
+            Self::MysticMist => SpellCollege::ProtectionWarning,
+            Self::TeleportShield => SpellCollege::ProtectionWarning,
+            Self::WeatherDome => SpellCollege::ProtectionWarning,
+            Self::Block => SpellCollege::ProtectionWarning,
+            Self::Nightingale => SpellCollege::ProtectionWarning,
 
             // Water College
             Self::PurifyWater => SpellCollege::Water,
