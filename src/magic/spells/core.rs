@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, earth, fire, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, earth, fire, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -200,6 +200,40 @@ pub enum Spell {
     InsectShapeshifting,
     /// Advanced shapeshifting. M 31
     GreatShapeshifting,
+
+    // Communication & Empathy College - M 48-55
+    /// Detects emotional state. M 52
+    SenseEmotion,
+    /// Makes target agreeable. M 51
+    Persuasion,
+    /// Controls target's emotions. M 50
+    EmotionControl,
+    /// Detect lies and truth. M 49
+    Truthsayer,
+    /// Sense nearby life. M 52
+    SenseLife,
+    /// Sense hostile intent. M 52
+    SenseFoes,
+    /// Share language temporarily. M 50
+    LendLanguage,
+    /// Learn language temporarily. M 48
+    BorrowLanguage,
+    /// Permanent language knowledge. M 49
+    GiftOfTongues,
+    /// Literacy in any language. M 49
+    GiftOfLetters,
+    /// Understand written text. M 50
+    Comprehend,
+    /// Translate speech. M 54
+    Translate,
+    /// Permanent translation. M 54
+    PermanentTranslation,
+    /// Project voice over distance. M 51
+    ProjectVoice,
+    /// Silent communication. M 53
+    SilentCommunication,
+    /// Group telepathic link. M 49
+    LinkMind,
 
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
@@ -508,12 +542,6 @@ pub enum Spell {
     Berserk,
     /// Instills courage. M 120
     Bravery,
-    /// Controls target's emotions. M 123
-    EmotionControl,
-    /// Detects emotional state. M 134
-    SenseEmotion,
-    /// Makes target agreeable. M 135
-    Persuasion,
     /// Stuns target mentally. M 131
     MentalStun,
     /// Mass sleep effect. M 130
@@ -803,6 +831,24 @@ impl Spell {
             Self::InsectShapeshifting => SpellCollege::Animal,
             Self::GreatShapeshifting => SpellCollege::Animal,
 
+            // Communication & Empathy College
+            Self::SenseEmotion => SpellCollege::CommunicationEmpathy,
+            Self::Persuasion => SpellCollege::CommunicationEmpathy,
+            Self::EmotionControl => SpellCollege::CommunicationEmpathy,
+            Self::Truthsayer => SpellCollege::CommunicationEmpathy,
+            Self::SenseLife => SpellCollege::CommunicationEmpathy,
+            Self::SenseFoes => SpellCollege::CommunicationEmpathy,
+            Self::LendLanguage => SpellCollege::CommunicationEmpathy,
+            Self::BorrowLanguage => SpellCollege::CommunicationEmpathy,
+            Self::GiftOfTongues => SpellCollege::CommunicationEmpathy,
+            Self::GiftOfLetters => SpellCollege::CommunicationEmpathy,
+            Self::Comprehend => SpellCollege::CommunicationEmpathy,
+            Self::Translate => SpellCollege::CommunicationEmpathy,
+            Self::PermanentTranslation => SpellCollege::CommunicationEmpathy,
+            Self::ProjectVoice => SpellCollege::CommunicationEmpathy,
+            Self::SilentCommunication => SpellCollege::CommunicationEmpathy,
+            Self::LinkMind => SpellCollege::CommunicationEmpathy,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -962,9 +1008,6 @@ impl Spell {
             Self::SoulJar => SpellCollege::MindControl,
             Self::Berserk => SpellCollege::MindControl,
             Self::Bravery => SpellCollege::MindControl,
-            Self::EmotionControl => SpellCollege::MindControl,
-            Self::SenseEmotion => SpellCollege::MindControl,
-            Self::Persuasion => SpellCollege::MindControl,
             Self::MentalStun => SpellCollege::MindControl,
             Self::MassSleep => SpellCollege::MindControl,
             Self::MindWhip => SpellCollege::MindControl,
@@ -1113,6 +1156,7 @@ impl Spell {
             SpellCollege::Air => return air::base_energy_cost(self),
             SpellCollege::Animal => return animal::base_energy_cost(self),
             SpellCollege::BodyControl => return body_control::base_energy_cost(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::base_energy_cost(self),
             SpellCollege::Earth => return earth::base_energy_cost(self),
             SpellCollege::Fire => return fire::base_energy_cost(self),
             SpellCollege::Healing => return healing::base_energy_cost(self),
@@ -1155,6 +1199,7 @@ impl Spell {
             SpellCollege::Air => return air::casting_time(self),
             SpellCollege::Animal => return animal::casting_time(self),
             SpellCollege::BodyControl => return body_control::casting_time(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::casting_time(self),
             SpellCollege::Earth => return earth::casting_time(self),
             SpellCollege::Fire => return fire::casting_time(self),
             SpellCollege::Healing => return healing::casting_time(self),
@@ -1197,6 +1242,7 @@ impl Spell {
             SpellCollege::Air => return air::duration(self),
             SpellCollege::Animal => return animal::duration(self),
             SpellCollege::BodyControl => return body_control::duration(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::duration(self),
             SpellCollege::Earth => return earth::duration(self),
             SpellCollege::Fire => return fire::duration(self),
             SpellCollege::Healing => return healing::duration(self),
@@ -1239,6 +1285,7 @@ impl Spell {
             SpellCollege::Air => return air::prerequisites(self),
             SpellCollege::Animal => return animal::prerequisites(self),
             SpellCollege::BodyControl => return body_control::prerequisites(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::prerequisites(self),
             SpellCollege::Earth => return earth::prerequisites(self),
             SpellCollege::Fire => return fire::prerequisites(self),
             SpellCollege::Healing => return healing::prerequisites(self),
@@ -1281,6 +1328,7 @@ impl Spell {
             SpellCollege::Air => return air::spell_type(self),
             SpellCollege::Animal => return animal::spell_type(self),
             SpellCollege::BodyControl => return body_control::spell_type(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::spell_type(self),
             SpellCollege::Earth => return earth::spell_type(self),
             SpellCollege::Fire => return fire::spell_type(self),
             SpellCollege::Healing => return healing::spell_type(self),
@@ -1323,6 +1371,7 @@ impl Spell {
             SpellCollege::Air => return air::resistance(self),
             SpellCollege::Animal => return animal::resistance(self),
             SpellCollege::BodyControl => return body_control::resistance(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::resistance(self),
             SpellCollege::Earth => return earth::resistance(self),
             SpellCollege::Fire => return fire::resistance(self),
             SpellCollege::Healing => return healing::resistance(self),
@@ -1355,6 +1404,7 @@ impl Spell {
             SpellCollege::Air => return air::reference(self),
             SpellCollege::Animal => return animal::reference(self),
             SpellCollege::BodyControl => return body_control::reference(self),
+            SpellCollege::CommunicationEmpathy => return communication_empathy::reference(self),
             SpellCollege::Earth => return earth::reference(self),
             SpellCollege::Fire => return fire::reference(self),
             SpellCollege::Healing => return healing::reference(self),
