@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -398,6 +398,50 @@ pub enum Spell {
     ShadowForm,
     /// See heat signatures. M 111
     Infravision,
+
+    // Making & Breaking College - M 116-125
+    /// Repairs damaged objects. M 118
+    Repair,
+    /// Shatters brittle objects. M 122
+    Shatter,
+    /// Hardens and stiffens material. M 123
+    Stiffen,
+    /// Softens rigid material. M 123
+    Soften,
+    /// Restores rusted metal. M 121
+    Restore,
+    /// Causes metal to rust. M 121
+    Rust,
+    /// Transforms object's material. M 124
+    TransformObject,
+    /// Creates copy of object. M 117
+    Copy,
+    /// Colors and dyes objects. M 117
+    Dye,
+    /// Creates magical knot. M 119
+    Knot,
+    /// Fastens objects together. M 118
+    Fasten,
+    /// Extends object's length. M 118
+    ExtendObject,
+    /// Shrinks object's size. M 122
+    ShrinkObject,
+    /// Polishes surfaces. M 120
+    Polish,
+    /// Makes object explode. M 118
+    Explode,
+    /// Finds structural weaknesses. M 119
+    FindWeakness,
+    /// Creates simple object. M 116
+    CreateObject,
+    /// Destroys object completely. M 117
+    DestroyObject,
+    /// Advanced object reconstruction. M 120
+    Rebuild,
+    /// Writes magical inscriptions. M 119
+    Inscribe,
+    /// Gives object limited animation. M 116
+    AnimateObject,
 
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
@@ -1081,6 +1125,29 @@ impl Spell {
             Self::ShadowForm => SpellCollege::LightDarkness,
             Self::Infravision => SpellCollege::LightDarkness,
 
+            // Making & Breaking College
+            Self::Repair => SpellCollege::MakingBreaking,
+            Self::Shatter => SpellCollege::MakingBreaking,
+            Self::Stiffen => SpellCollege::MakingBreaking,
+            Self::Soften => SpellCollege::MakingBreaking,
+            Self::Restore => SpellCollege::MakingBreaking,
+            Self::Rust => SpellCollege::MakingBreaking,
+            Self::TransformObject => SpellCollege::MakingBreaking,
+            Self::Copy => SpellCollege::MakingBreaking,
+            Self::Dye => SpellCollege::MakingBreaking,
+            Self::Knot => SpellCollege::MakingBreaking,
+            Self::Fasten => SpellCollege::MakingBreaking,
+            Self::ExtendObject => SpellCollege::MakingBreaking,
+            Self::ShrinkObject => SpellCollege::MakingBreaking,
+            Self::Polish => SpellCollege::MakingBreaking,
+            Self::Explode => SpellCollege::MakingBreaking,
+            Self::FindWeakness => SpellCollege::MakingBreaking,
+            Self::CreateObject => SpellCollege::MakingBreaking,
+            Self::DestroyObject => SpellCollege::MakingBreaking,
+            Self::Rebuild => SpellCollege::MakingBreaking,
+            Self::Inscribe => SpellCollege::MakingBreaking,
+            Self::AnimateObject => SpellCollege::MakingBreaking,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -1389,6 +1456,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::base_energy_cost(self),
             SpellCollege::Knowledge => return knowledge::base_energy_cost(self),
             SpellCollege::LightDarkness => return light_darkness::base_energy_cost(self),
+            SpellCollege::MakingBreaking => return making_breaking::base_energy_cost(self),
             SpellCollege::MindControl => return mind_control::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
@@ -1436,6 +1504,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::casting_time(self),
             SpellCollege::Knowledge => return knowledge::casting_time(self),
             SpellCollege::LightDarkness => return light_darkness::casting_time(self),
+            SpellCollege::MakingBreaking => return making_breaking::casting_time(self),
             SpellCollege::MindControl => return mind_control::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
@@ -1483,6 +1552,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::duration(self),
             SpellCollege::Knowledge => return knowledge::duration(self),
             SpellCollege::LightDarkness => return light_darkness::duration(self),
+            SpellCollege::MakingBreaking => return making_breaking::duration(self),
             SpellCollege::MindControl => return mind_control::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
@@ -1530,6 +1600,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::prerequisites(self),
             SpellCollege::Knowledge => return knowledge::prerequisites(self),
             SpellCollege::LightDarkness => return light_darkness::prerequisites(self),
+            SpellCollege::MakingBreaking => return making_breaking::prerequisites(self),
             SpellCollege::MindControl => return mind_control::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
@@ -1577,6 +1648,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::spell_type(self),
             SpellCollege::Knowledge => return knowledge::spell_type(self),
             SpellCollege::LightDarkness => return light_darkness::spell_type(self),
+            SpellCollege::MakingBreaking => return making_breaking::spell_type(self),
             SpellCollege::MindControl => return mind_control::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
@@ -1624,6 +1696,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::resistance(self),
             SpellCollege::Knowledge => return knowledge::resistance(self),
             SpellCollege::LightDarkness => return light_darkness::resistance(self),
+            SpellCollege::MakingBreaking => return making_breaking::resistance(self),
             SpellCollege::MindControl => return mind_control::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
@@ -1661,6 +1734,7 @@ impl Spell {
             SpellCollege::IllusionCreation => return illusion_creation::reference(self),
             SpellCollege::Knowledge => return knowledge::reference(self),
             SpellCollege::LightDarkness => return light_darkness::reference(self),
+            SpellCollege::MakingBreaking => return making_breaking::reference(self),
             SpellCollege::MindControl => return mind_control::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
