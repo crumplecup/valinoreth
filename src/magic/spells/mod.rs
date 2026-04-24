@@ -17,6 +17,7 @@ mod communication_empathy;
 mod core;
 mod enchantment;
 mod earth;
+mod food;
 mod fire;
 mod healing;
 mod illusion_creation;

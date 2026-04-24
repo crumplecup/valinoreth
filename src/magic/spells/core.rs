@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -277,6 +277,48 @@ pub enum Spell {
     /// Traps soul in gem. M 71
     SoulStone,
 
+    // Food College - M 72-80
+    /// Spoils and rots food. M 77
+    Decay,
+    /// Detects poison and spoilage. M 78
+    TestFood,
+    /// Removes toxins from food. M 78
+    PurifyFood,
+    /// Magically creates food. M 77
+    CreateFood,
+    /// Prevents food spoilage. M 78
+    PreserveFood,
+    /// Instantly cooks food. M 77
+    Cook,
+    /// Enhances food flavor. M 78
+    Season,
+    /// Changes food taste. M 77
+    Flavor,
+    /// Field-dresses game. M 78
+    PrepareGame,
+    /// Contaminates food with toxin. M 78
+    PoisonFood,
+    /// Reveals recipe of dish. M 77
+    KnowRecipe,
+    /// Ages food or drink. M 77
+    Mature,
+    /// Creates feast from ingredients. M 77
+    Banquet,
+    /// Creates minimal nutrition. M 77
+    EssentialFood,
+    /// Purifies and concentrates alcohol. M 77
+    Distill,
+    /// Ferments sugars into alcohol. M 77
+    Ferment,
+    /// Transforms water to wine. M 79
+    WaterToWine,
+    /// Inflicts hunger pangs. M 77
+    Hunger,
+    /// Causes extreme thirst. M 79
+    Thirst,
+    /// Protects organic material from decay. M 78
+    Rotproof,
+
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
     Itch,
@@ -484,8 +526,6 @@ pub enum Spell {
     ShareVitality,
     /// Restore lost limb instantly. M 101
     RegrowLimb,
-    /// Neutralizes all toxins. M 98
-    PurifyFood,
     /// Instant energy recovery. M 101
     InstantRecoverEnergy,
     /// Stops aging temporarily. M 103
@@ -913,6 +953,28 @@ impl Spell {
             Self::CrystalBall => SpellCollege::Enchantment,
             Self::SoulStone => SpellCollege::Enchantment,
 
+            // Food College
+            Self::Decay => SpellCollege::Food,
+            Self::TestFood => SpellCollege::Food,
+            Self::PurifyFood => SpellCollege::Food,
+            Self::CreateFood => SpellCollege::Food,
+            Self::PreserveFood => SpellCollege::Food,
+            Self::Cook => SpellCollege::Food,
+            Self::Season => SpellCollege::Food,
+            Self::Flavor => SpellCollege::Food,
+            Self::PrepareGame => SpellCollege::Food,
+            Self::PoisonFood => SpellCollege::Food,
+            Self::KnowRecipe => SpellCollege::Food,
+            Self::Mature => SpellCollege::Food,
+            Self::Banquet => SpellCollege::Food,
+            Self::EssentialFood => SpellCollege::Food,
+            Self::Distill => SpellCollege::Food,
+            Self::Ferment => SpellCollege::Food,
+            Self::WaterToWine => SpellCollege::Food,
+            Self::Hunger => SpellCollege::Food,
+            Self::Thirst => SpellCollege::Food,
+            Self::Rotproof => SpellCollege::Food,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -1020,7 +1082,6 @@ impl Spell {
             Self::Sterilize => SpellCollege::Healing,
             Self::ShareVitality => SpellCollege::Healing,
             Self::RegrowLimb => SpellCollege::Healing,
-            Self::PurifyFood => SpellCollege::Healing,
             Self::InstantRecoverEnergy => SpellCollege::Healing,
             Self::StopAging => SpellCollege::Healing,
 
@@ -1224,6 +1285,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::base_energy_cost(self),
             SpellCollege::Earth => return earth::base_energy_cost(self),
             SpellCollege::Fire => return fire::base_energy_cost(self),
+            SpellCollege::Food => return food::base_energy_cost(self),
             SpellCollege::Healing => return healing::base_energy_cost(self),
             SpellCollege::IllusionCreation => return illusion_creation::base_energy_cost(self),
             SpellCollege::Knowledge => return knowledge::base_energy_cost(self),
@@ -1268,6 +1330,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::casting_time(self),
             SpellCollege::Earth => return earth::casting_time(self),
             SpellCollege::Fire => return fire::casting_time(self),
+            SpellCollege::Food => return food::casting_time(self),
             SpellCollege::Healing => return healing::casting_time(self),
             SpellCollege::IllusionCreation => return illusion_creation::casting_time(self),
             SpellCollege::Knowledge => return knowledge::casting_time(self),
@@ -1312,6 +1375,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::duration(self),
             SpellCollege::Earth => return earth::duration(self),
             SpellCollege::Fire => return fire::duration(self),
+            SpellCollege::Food => return food::duration(self),
             SpellCollege::Healing => return healing::duration(self),
             SpellCollege::IllusionCreation => return illusion_creation::duration(self),
             SpellCollege::Knowledge => return knowledge::duration(self),
@@ -1356,6 +1420,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::prerequisites(self),
             SpellCollege::Earth => return earth::prerequisites(self),
             SpellCollege::Fire => return fire::prerequisites(self),
+            SpellCollege::Food => return food::prerequisites(self),
             SpellCollege::Healing => return healing::prerequisites(self),
             SpellCollege::IllusionCreation => return illusion_creation::prerequisites(self),
             SpellCollege::Knowledge => return knowledge::prerequisites(self),
@@ -1400,6 +1465,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::spell_type(self),
             SpellCollege::Earth => return earth::spell_type(self),
             SpellCollege::Fire => return fire::spell_type(self),
+            SpellCollege::Food => return food::spell_type(self),
             SpellCollege::Healing => return healing::spell_type(self),
             SpellCollege::IllusionCreation => return illusion_creation::spell_type(self),
             SpellCollege::Knowledge => return knowledge::spell_type(self),
@@ -1444,6 +1510,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::resistance(self),
             SpellCollege::Earth => return earth::resistance(self),
             SpellCollege::Fire => return fire::resistance(self),
+            SpellCollege::Food => return food::resistance(self),
             SpellCollege::Healing => return healing::resistance(self),
             SpellCollege::IllusionCreation => return illusion_creation::resistance(self),
             SpellCollege::Knowledge => return knowledge::resistance(self),
@@ -1478,6 +1545,7 @@ impl Spell {
             SpellCollege::Enchantment => return enchantment::reference(self),
             SpellCollege::Earth => return earth::reference(self),
             SpellCollege::Fire => return fire::reference(self),
+            SpellCollege::Food => return food::reference(self),
             SpellCollege::Healing => return healing::reference(self),
             SpellCollege::IllusionCreation => return illusion_creation::reference(self),
             SpellCollege::Knowledge => return knowledge::reference(self),
