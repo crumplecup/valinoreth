@@ -22,6 +22,7 @@ fn test_all_spells_have_colleges() {
                 || college == SpellCollege::Earth
                 || college == SpellCollege::Fire
                 || college == SpellCollege::Food
+                || college == SpellCollege::Gate
                 || college == SpellCollege::Healing
                 || college == SpellCollege::IllusionCreation
                 || college == SpellCollege::Knowledge
@@ -556,5 +557,5 @@ fn test_spell_count() {
     use strum::IntoEnumIterator;
 
     let count = Spell::iter().count();
-    assert_eq!(count, 353); // 15 colleges: Air (23) + Animal (22) + Body Control (29) + Communication & Empathy (16) + Enchantment (20) + Earth (24) + Fire (25) + Food (20) + Healing (24) + Illusion (23) + Knowledge (26) + Mind Control (25) + Movement (20) + Protection (27) + Water (29)
+    assert_eq!(count, 369); // 16 colleges: Air (23) + Animal (22) + Body Control (29) + Communication & Empathy (16) + Enchantment (20) + Earth (24) + Fire (25) + Food (20) + Gate (20) + Healing (24) + Illusion (23) + Knowledge (26) + Mind Control (25) + Movement (16) + Protection (27) + Water (29)
 }

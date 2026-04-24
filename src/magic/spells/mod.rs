@@ -18,6 +18,7 @@ mod core;
 mod enchantment;
 mod earth;
 mod food;
+mod gate;
 mod fire;
 mod healing;
 mod illusion_creation;

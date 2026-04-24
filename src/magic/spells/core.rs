@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -318,6 +318,48 @@ pub enum Spell {
     Thirst,
     /// Protects organic material from decay. M 78
     Rotproof,
+
+    // Gate College - M 80-86
+    /// Instantly transport to known location. M 147
+    Teleport,
+    /// Short-range random teleport. M 80
+    Blink,
+    /// Move small objects at distance. M 80
+    Apportation,
+    /// Lift and move objects with magic. M 80
+    Levitation,
+    /// Teleport another person. M 147
+    TeleportOther,
+    /// Marks location for easy return. M 83
+    Beacon,
+    /// Detect teleportation events. M 84
+    TraceTeleport,
+    /// Redirect incoming teleports. M 84
+    DivertTeleport,
+    /// Summon being from other plane. M 82
+    PlanarSummons,
+    /// Visit other planes of existence. M 82
+    PlanarVisit,
+    /// Shift to parallel dimension. M 83
+    PlaneShift,
+    /// Send others to other planes. M 83
+    PlaneShiftOther,
+    /// Become partially ethereal. M 83
+    Phase,
+    /// Make others partially ethereal. M 83
+    PhaseOther,
+    /// Locate magical gates. M 85
+    SeekGate,
+    /// Manipulate existing gates. M 85
+    ControlGate,
+    /// Creates dimensional portal. M 85
+    CreateGate,
+    /// View through distant gates. M 85
+    ScryGate,
+    /// Hides object in pocket dimension. M 86
+    HideObject,
+    /// Creates protected pocket dimension. M 86
+    Sanctuary,
 
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
@@ -632,14 +674,8 @@ pub enum Spell {
     MindWhip,
 
     // Movement College - M 146-161
-    /// Levitates object or person. M 154
-    Levitation,
     /// Flies through the air. M 152
     Flight,
-    /// Teleports short distance. M 159
-    Blink,
-    /// Teleports to known location. M 160
-    Teleport,
     /// Creates teleport portal. M 159
     Teleportation,
     /// Increases movement speed. M 153
@@ -650,8 +686,6 @@ pub enum Spell {
     Cling,
     /// Jump to great heights. M 154
     Jump,
-    /// Instantly swap positions. M 160
-    Apportation,
     /// Summons object to hand. M 147
     Poltergeist,
     /// Opens locks remotely. M 155
@@ -975,6 +1009,28 @@ impl Spell {
             Self::Thirst => SpellCollege::Food,
             Self::Rotproof => SpellCollege::Food,
 
+            // Gate College
+            Self::Teleport => SpellCollege::Gate,
+            Self::Blink => SpellCollege::Gate,
+            Self::Apportation => SpellCollege::Gate,
+            Self::Levitation => SpellCollege::Gate,
+            Self::TeleportOther => SpellCollege::Gate,
+            Self::Beacon => SpellCollege::Gate,
+            Self::TraceTeleport => SpellCollege::Gate,
+            Self::DivertTeleport => SpellCollege::Gate,
+            Self::PlanarSummons => SpellCollege::Gate,
+            Self::PlanarVisit => SpellCollege::Gate,
+            Self::PlaneShift => SpellCollege::Gate,
+            Self::PlaneShiftOther => SpellCollege::Gate,
+            Self::Phase => SpellCollege::Gate,
+            Self::PhaseOther => SpellCollege::Gate,
+            Self::SeekGate => SpellCollege::Gate,
+            Self::ControlGate => SpellCollege::Gate,
+            Self::CreateGate => SpellCollege::Gate,
+            Self::ScryGate => SpellCollege::Gate,
+            Self::HideObject => SpellCollege::Gate,
+            Self::Sanctuary => SpellCollege::Gate,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -1138,16 +1194,12 @@ impl Spell {
             Self::MindWhip => SpellCollege::MindControl,
 
             // Movement College
-            Self::Levitation => SpellCollege::Movement,
             Self::Flight => SpellCollege::Movement,
-            Self::Blink => SpellCollege::Movement,
-            Self::Teleport => SpellCollege::Movement,
             Self::Teleportation => SpellCollege::Movement,
             Self::HasteMovement => SpellCollege::Movement,
             Self::SlowMovement => SpellCollege::Movement,
             Self::Cling => SpellCollege::Movement,
             Self::Jump => SpellCollege::Movement,
-            Self::Apportation => SpellCollege::Movement,
             Self::Poltergeist => SpellCollege::Movement,
             Self::Lockmaster => SpellCollege::Movement,
             Self::TelekineticBlow => SpellCollege::Movement,
@@ -1286,6 +1338,7 @@ impl Spell {
             SpellCollege::Earth => return earth::base_energy_cost(self),
             SpellCollege::Fire => return fire::base_energy_cost(self),
             SpellCollege::Food => return food::base_energy_cost(self),
+            SpellCollege::Gate => return gate::base_energy_cost(self),
             SpellCollege::Healing => return healing::base_energy_cost(self),
             SpellCollege::IllusionCreation => return illusion_creation::base_energy_cost(self),
             SpellCollege::Knowledge => return knowledge::base_energy_cost(self),
@@ -1331,6 +1384,7 @@ impl Spell {
             SpellCollege::Earth => return earth::casting_time(self),
             SpellCollege::Fire => return fire::casting_time(self),
             SpellCollege::Food => return food::casting_time(self),
+            SpellCollege::Gate => return gate::casting_time(self),
             SpellCollege::Healing => return healing::casting_time(self),
             SpellCollege::IllusionCreation => return illusion_creation::casting_time(self),
             SpellCollege::Knowledge => return knowledge::casting_time(self),
@@ -1376,6 +1430,7 @@ impl Spell {
             SpellCollege::Earth => return earth::duration(self),
             SpellCollege::Fire => return fire::duration(self),
             SpellCollege::Food => return food::duration(self),
+            SpellCollege::Gate => return gate::duration(self),
             SpellCollege::Healing => return healing::duration(self),
             SpellCollege::IllusionCreation => return illusion_creation::duration(self),
             SpellCollege::Knowledge => return knowledge::duration(self),
@@ -1421,6 +1476,7 @@ impl Spell {
             SpellCollege::Earth => return earth::prerequisites(self),
             SpellCollege::Fire => return fire::prerequisites(self),
             SpellCollege::Food => return food::prerequisites(self),
+            SpellCollege::Gate => return gate::prerequisites(self),
             SpellCollege::Healing => return healing::prerequisites(self),
             SpellCollege::IllusionCreation => return illusion_creation::prerequisites(self),
             SpellCollege::Knowledge => return knowledge::prerequisites(self),
@@ -1466,6 +1522,7 @@ impl Spell {
             SpellCollege::Earth => return earth::spell_type(self),
             SpellCollege::Fire => return fire::spell_type(self),
             SpellCollege::Food => return food::spell_type(self),
+            SpellCollege::Gate => return gate::spell_type(self),
             SpellCollege::Healing => return healing::spell_type(self),
             SpellCollege::IllusionCreation => return illusion_creation::spell_type(self),
             SpellCollege::Knowledge => return knowledge::spell_type(self),
@@ -1511,6 +1568,7 @@ impl Spell {
             SpellCollege::Earth => return earth::resistance(self),
             SpellCollege::Fire => return fire::resistance(self),
             SpellCollege::Food => return food::resistance(self),
+            SpellCollege::Gate => return gate::resistance(self),
             SpellCollege::Healing => return healing::resistance(self),
             SpellCollege::IllusionCreation => return illusion_creation::resistance(self),
             SpellCollege::Knowledge => return knowledge::resistance(self),
@@ -1546,6 +1604,7 @@ impl Spell {
             SpellCollege::Earth => return earth::reference(self),
             SpellCollege::Fire => return fire::reference(self),
             SpellCollege::Food => return food::reference(self),
+            SpellCollege::Gate => return gate::reference(self),
             SpellCollege::Healing => return healing::reference(self),
             SpellCollege::IllusionCreation => return illusion_creation::reference(self),
             SpellCollege::Knowledge => return knowledge::reference(self),
