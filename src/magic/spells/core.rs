@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -361,6 +361,44 @@ pub enum Spell {
     /// Creates protected pocket dimension. M 86
     Sanctuary,
 
+    // Light & Darkness College - M 110-116
+    /// Creates magical light. M 110
+    Light,
+    /// Creates magical darkness. M 110
+    Darkness,
+    /// Permanent light source. M 110
+    ContinualLight,
+    /// Changes object colors. M 110
+    Colors,
+    /// Eliminates shadows. M 110
+    RemoveShadow,
+    /// See in darkness. M 111
+    NightVision,
+    /// See in total darkness. M 111
+    DarkVision,
+    /// Makes target hard to see. M 113
+    Blur,
+    /// Detect invisible objects. M 113
+    SeeInvisible,
+    /// Creates reflective surface. M 112
+    Mirror,
+    /// Projects damaging light beam. M 112
+    LightJet,
+    /// Extinguishes all light. M 112
+    Blackout,
+    /// Creates wall of light. M 113
+    WallOfLight,
+    /// Creates wall of darkness. M 113
+    WallOfDarkness,
+    /// Blinds with bright flash. M 112
+    Flash,
+    /// Transform into living shadow. M 114
+    BodyOfShadow,
+    /// Become shadow-like. M 114
+    ShadowForm,
+    /// See heat signatures. M 111
+    Infravision,
+
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
     Itch,
@@ -600,14 +638,8 @@ pub enum Spell {
     Phantasm,
     /// Silent image projection. M 100
     SilentImage,
-    /// Creates glowing light. M 99
-    Light,
-    /// Creates magical darkness. M 97
-    Darkness,
     /// Hides aura from detection. M 98
     HideAura,
-    /// Reflects spells back. M 101
-    Mirror,
     /// Commands illusions. M 96
     ControlIllusion,
     /// Removes illusions. M 97
@@ -618,8 +650,6 @@ pub enum Spell {
     DispelCreation,
     /// Protective illusion barrier. M 99
     IllusionShell,
-    /// Continual light source. M 96
-    ContinualLight,
 
     // Mind Control College - M 118-144
     /// Confuses target briefly. M 122
@@ -1031,6 +1061,26 @@ impl Spell {
             Self::HideObject => SpellCollege::Gate,
             Self::Sanctuary => SpellCollege::Gate,
 
+            // Light & Darkness College
+            Self::Light => SpellCollege::LightDarkness,
+            Self::Darkness => SpellCollege::LightDarkness,
+            Self::ContinualLight => SpellCollege::LightDarkness,
+            Self::Colors => SpellCollege::LightDarkness,
+            Self::RemoveShadow => SpellCollege::LightDarkness,
+            Self::NightVision => SpellCollege::LightDarkness,
+            Self::DarkVision => SpellCollege::LightDarkness,
+            Self::Blur => SpellCollege::LightDarkness,
+            Self::SeeInvisible => SpellCollege::LightDarkness,
+            Self::Mirror => SpellCollege::LightDarkness,
+            Self::LightJet => SpellCollege::LightDarkness,
+            Self::Blackout => SpellCollege::LightDarkness,
+            Self::WallOfLight => SpellCollege::LightDarkness,
+            Self::WallOfDarkness => SpellCollege::LightDarkness,
+            Self::Flash => SpellCollege::LightDarkness,
+            Self::BodyOfShadow => SpellCollege::LightDarkness,
+            Self::ShadowForm => SpellCollege::LightDarkness,
+            Self::Infravision => SpellCollege::LightDarkness,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -1155,16 +1205,12 @@ impl Spell {
             Self::Duplicate => SpellCollege::IllusionCreation,
             Self::Phantasm => SpellCollege::IllusionCreation,
             Self::SilentImage => SpellCollege::IllusionCreation,
-            Self::Light => SpellCollege::IllusionCreation,
-            Self::Darkness => SpellCollege::IllusionCreation,
             Self::HideAura => SpellCollege::IllusionCreation,
-            Self::Mirror => SpellCollege::IllusionCreation,
             Self::ControlIllusion => SpellCollege::IllusionCreation,
             Self::DispelIllusion => SpellCollege::IllusionCreation,
             Self::ControlCreation => SpellCollege::IllusionCreation,
             Self::DispelCreation => SpellCollege::IllusionCreation,
             Self::IllusionShell => SpellCollege::IllusionCreation,
-            Self::ContinualLight => SpellCollege::IllusionCreation,
 
             // Mind Control College
             Self::Daze => SpellCollege::MindControl,
@@ -1342,6 +1388,7 @@ impl Spell {
             SpellCollege::Healing => return healing::base_energy_cost(self),
             SpellCollege::IllusionCreation => return illusion_creation::base_energy_cost(self),
             SpellCollege::Knowledge => return knowledge::base_energy_cost(self),
+            SpellCollege::LightDarkness => return light_darkness::base_energy_cost(self),
             SpellCollege::MindControl => return mind_control::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
@@ -1388,6 +1435,7 @@ impl Spell {
             SpellCollege::Healing => return healing::casting_time(self),
             SpellCollege::IllusionCreation => return illusion_creation::casting_time(self),
             SpellCollege::Knowledge => return knowledge::casting_time(self),
+            SpellCollege::LightDarkness => return light_darkness::casting_time(self),
             SpellCollege::MindControl => return mind_control::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
@@ -1434,6 +1482,7 @@ impl Spell {
             SpellCollege::Healing => return healing::duration(self),
             SpellCollege::IllusionCreation => return illusion_creation::duration(self),
             SpellCollege::Knowledge => return knowledge::duration(self),
+            SpellCollege::LightDarkness => return light_darkness::duration(self),
             SpellCollege::MindControl => return mind_control::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
@@ -1480,6 +1529,7 @@ impl Spell {
             SpellCollege::Healing => return healing::prerequisites(self),
             SpellCollege::IllusionCreation => return illusion_creation::prerequisites(self),
             SpellCollege::Knowledge => return knowledge::prerequisites(self),
+            SpellCollege::LightDarkness => return light_darkness::prerequisites(self),
             SpellCollege::MindControl => return mind_control::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
@@ -1526,6 +1576,7 @@ impl Spell {
             SpellCollege::Healing => return healing::spell_type(self),
             SpellCollege::IllusionCreation => return illusion_creation::spell_type(self),
             SpellCollege::Knowledge => return knowledge::spell_type(self),
+            SpellCollege::LightDarkness => return light_darkness::spell_type(self),
             SpellCollege::MindControl => return mind_control::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
@@ -1572,6 +1623,7 @@ impl Spell {
             SpellCollege::Healing => return healing::resistance(self),
             SpellCollege::IllusionCreation => return illusion_creation::resistance(self),
             SpellCollege::Knowledge => return knowledge::resistance(self),
+            SpellCollege::LightDarkness => return light_darkness::resistance(self),
             SpellCollege::MindControl => return mind_control::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
@@ -1608,6 +1660,7 @@ impl Spell {
             SpellCollege::Healing => return healing::reference(self),
             SpellCollege::IllusionCreation => return illusion_creation::reference(self),
             SpellCollege::Knowledge => return knowledge::reference(self),
+            SpellCollege::LightDarkness => return light_darkness::reference(self),
             SpellCollege::MindControl => return mind_control::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),

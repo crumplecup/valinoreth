@@ -19,6 +19,7 @@ mod enchantment;
 mod earth;
 mod food;
 mod gate;
+mod light_darkness;
 mod fire;
 mod healing;
 mod illusion_creation;
