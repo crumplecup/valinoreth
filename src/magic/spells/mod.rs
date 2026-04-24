@@ -15,6 +15,7 @@ mod animal;
 mod body_control;
 mod communication_empathy;
 mod core;
+mod enchantment;
 mod earth;
 mod fire;
 mod healing;
