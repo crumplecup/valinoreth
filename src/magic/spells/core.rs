@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -442,6 +442,40 @@ pub enum Spell {
     Inscribe,
     /// Gives object limited animation. M 116
     AnimateObject,
+
+    // Meta-Spells College - M 126-133
+    /// Cancels enemy spell being cast. M 126
+    Counterspell,
+    /// Removes existing spell effect. M 127
+    DispelMagic,
+    /// Temporarily pauses spell effect. M 132
+    SuspendSpell,
+    /// Allows continuous spell maintenance. M 130
+    MaintainSpell,
+    /// Lengthens spell duration. M 128
+    ExtendSpell,
+    /// Speeds up spell casting. M 129
+    HasteSpell,
+    /// Combines multiple spell effects. M 130
+    Link,
+    /// Makes spell effect permanent. M 131
+    Permanency,
+    /// Drains energy from target. M 132
+    StealEnergy,
+    /// Pulls mana from environment. M 127
+    DrawPower,
+    /// Stores spell in gem. M 132
+    SpellStone,
+    /// Bounces spell back. M 131
+    Reflect,
+    /// Creates protective barrier. M 133
+    Ward,
+    /// Increases spell effectiveness. M 126
+    Augment,
+    /// Decreases spell effectiveness. M 127
+    Diminish,
+    /// Allows spell delay. M 128
+    Delay,
 
     // Body Control College - M 36-67
     /// Causes minor itching. M 59
@@ -1148,6 +1182,24 @@ impl Spell {
             Self::Inscribe => SpellCollege::MakingBreaking,
             Self::AnimateObject => SpellCollege::MakingBreaking,
 
+            // Meta-Spells College
+            Self::Counterspell => SpellCollege::MetaSpells,
+            Self::DispelMagic => SpellCollege::MetaSpells,
+            Self::SuspendSpell => SpellCollege::MetaSpells,
+            Self::MaintainSpell => SpellCollege::MetaSpells,
+            Self::ExtendSpell => SpellCollege::MetaSpells,
+            Self::HasteSpell => SpellCollege::MetaSpells,
+            Self::Link => SpellCollege::MetaSpells,
+            Self::Permanency => SpellCollege::MetaSpells,
+            Self::StealEnergy => SpellCollege::MetaSpells,
+            Self::DrawPower => SpellCollege::MetaSpells,
+            Self::SpellStone => SpellCollege::MetaSpells,
+            Self::Reflect => SpellCollege::MetaSpells,
+            Self::Ward => SpellCollege::MetaSpells,
+            Self::Augment => SpellCollege::MetaSpells,
+            Self::Diminish => SpellCollege::MetaSpells,
+            Self::Delay => SpellCollege::MetaSpells,
+
             // Body Control College
             Self::Itch => SpellCollege::BodyControl,
             Self::Spasm => SpellCollege::BodyControl,
@@ -1457,6 +1509,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::base_energy_cost(self),
             SpellCollege::LightDarkness => return light_darkness::base_energy_cost(self),
             SpellCollege::MakingBreaking => return making_breaking::base_energy_cost(self),
+            SpellCollege::MetaSpells => return meta_spells::base_energy_cost(self),
             SpellCollege::MindControl => return mind_control::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
@@ -1505,6 +1558,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::casting_time(self),
             SpellCollege::LightDarkness => return light_darkness::casting_time(self),
             SpellCollege::MakingBreaking => return making_breaking::casting_time(self),
+            SpellCollege::MetaSpells => return meta_spells::casting_time(self),
             SpellCollege::MindControl => return mind_control::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
@@ -1553,6 +1607,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::duration(self),
             SpellCollege::LightDarkness => return light_darkness::duration(self),
             SpellCollege::MakingBreaking => return making_breaking::duration(self),
+            SpellCollege::MetaSpells => return meta_spells::duration(self),
             SpellCollege::MindControl => return mind_control::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
@@ -1601,6 +1656,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::prerequisites(self),
             SpellCollege::LightDarkness => return light_darkness::prerequisites(self),
             SpellCollege::MakingBreaking => return making_breaking::prerequisites(self),
+            SpellCollege::MetaSpells => return meta_spells::prerequisites(self),
             SpellCollege::MindControl => return mind_control::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
@@ -1649,6 +1705,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::spell_type(self),
             SpellCollege::LightDarkness => return light_darkness::spell_type(self),
             SpellCollege::MakingBreaking => return making_breaking::spell_type(self),
+            SpellCollege::MetaSpells => return meta_spells::spell_type(self),
             SpellCollege::MindControl => return mind_control::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
@@ -1697,6 +1754,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::resistance(self),
             SpellCollege::LightDarkness => return light_darkness::resistance(self),
             SpellCollege::MakingBreaking => return making_breaking::resistance(self),
+            SpellCollege::MetaSpells => return meta_spells::resistance(self),
             SpellCollege::MindControl => return mind_control::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
@@ -1735,6 +1793,7 @@ impl Spell {
             SpellCollege::Knowledge => return knowledge::reference(self),
             SpellCollege::LightDarkness => return light_darkness::reference(self),
             SpellCollege::MakingBreaking => return making_breaking::reference(self),
+            SpellCollege::MetaSpells => return meta_spells::reference(self),
             SpellCollege::MindControl => return mind_control::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
