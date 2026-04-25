@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, sound, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -959,6 +959,58 @@ pub enum Spell {
     /// Extracts life from plants. M 157
     LifeFromPlant,
 
+    // Sound College - M 171-178
+    /// Prevents sound in area. M 175
+    SilenceSound,
+    /// Amplifies voice volume. M 173
+    GreatVoice,
+    /// Projects voice elsewhere. M 177
+    Voices,
+    /// Creates repeating echoes. M 172
+    Echo,
+    /// Perceives via sound waves. M 176
+    SoundVision,
+    /// Distorts speech clarity. M 173
+    Garble,
+    /// Creates animal roar. M 175
+    Roar,
+    /// Produces painful screech. M 176
+    Screech,
+    /// Muffles all sounds. M 174
+    Hush,
+    /// Grants enhanced hearing. M 174
+    PerfectHearing,
+    /// Creates sonic blast. M 176
+    SonicBoom,
+    /// Directs focused sound. M 176
+    SoundJet,
+    /// Creates sound barrier. M 176
+    SoundWall,
+    /// Causes intense vibration. M 177
+    Vibration,
+    /// Creates chaotic noise. M 172
+    Cacophony,
+    /// Produces harmonious music. M 173
+    Harmony,
+    /// Enables quiet communication. M 177
+    Whisper,
+    /// Blocks sound transmission. M 176
+    Soundproof,
+    /// Weaponizes sound waves. M 176
+    SonicWeapon,
+    /// Causes temporary deafness. M 172
+    Deafen,
+    /// Throws voice remotely. M 177
+    Ventriloquism,
+    /// Creates musical sounds. M 174
+    Music,
+    /// Produces rhythmic patterns. M 175
+    Rhythm,
+    /// Causes resonant frequency. M 175
+    Resonance,
+    /// Shields from sonic damage. M 176
+    SonicShield,
+
     // Protection & Warning College - M 162-185
     /// Basic magical shield. M 182
     Shield,
@@ -1594,6 +1646,33 @@ impl Spell {
             Self::LifeToPlant => SpellCollege::Plant,
             Self::LifeFromPlant => SpellCollege::Plant,
 
+            // Sound College
+            Self::SilenceSound => SpellCollege::Sound,
+            Self::GreatVoice => SpellCollege::Sound,
+            Self::Voices => SpellCollege::Sound,
+            Self::Echo => SpellCollege::Sound,
+            Self::SoundVision => SpellCollege::Sound,
+            Self::Garble => SpellCollege::Sound,
+            Self::Roar => SpellCollege::Sound,
+            Self::Screech => SpellCollege::Sound,
+            Self::Hush => SpellCollege::Sound,
+            Self::PerfectHearing => SpellCollege::Sound,
+            Self::SonicBoom => SpellCollege::Sound,
+            Self::SoundJet => SpellCollege::Sound,
+            Self::SoundWall => SpellCollege::Sound,
+            Self::Vibration => SpellCollege::Sound,
+            Self::Cacophony => SpellCollege::Sound,
+            Self::Harmony => SpellCollege::Sound,
+            Self::Whisper => SpellCollege::Sound,
+            Self::Soundproof => SpellCollege::Sound,
+            Self::SonicWeapon => SpellCollege::Sound,
+            Self::Deafen => SpellCollege::Sound,
+            Self::Ventriloquism => SpellCollege::Sound,
+            Self::Music => SpellCollege::Sound,
+            Self::Rhythm => SpellCollege::Sound,
+            Self::Resonance => SpellCollege::Sound,
+            Self::SonicShield => SpellCollege::Sound,
+
             // Protection & Warning College
             Self::Shield => SpellCollege::ProtectionWarning,
             Self::Deflect => SpellCollege::ProtectionWarning,
@@ -1731,6 +1810,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::base_energy_cost(self),
             SpellCollege::Necromantic => return necromantic::base_energy_cost(self),
             SpellCollege::Plant => return plant::base_energy_cost(self),
+            SpellCollege::Sound => return sound::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
@@ -1782,6 +1862,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::casting_time(self),
             SpellCollege::Necromantic => return necromantic::casting_time(self),
             SpellCollege::Plant => return plant::casting_time(self),
+            SpellCollege::Sound => return sound::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
@@ -1833,6 +1914,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::duration(self),
             SpellCollege::Necromantic => return necromantic::duration(self),
             SpellCollege::Plant => return plant::duration(self),
+            SpellCollege::Sound => return sound::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
@@ -1884,6 +1966,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::prerequisites(self),
             SpellCollege::Necromantic => return necromantic::prerequisites(self),
             SpellCollege::Plant => return plant::prerequisites(self),
+            SpellCollege::Sound => return sound::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
@@ -1935,6 +2018,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::spell_type(self),
             SpellCollege::Necromantic => return necromantic::spell_type(self),
             SpellCollege::Plant => return plant::spell_type(self),
+            SpellCollege::Sound => return sound::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
@@ -1986,6 +2070,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::resistance(self),
             SpellCollege::Necromantic => return necromantic::resistance(self),
             SpellCollege::Plant => return plant::resistance(self),
+            SpellCollege::Sound => return sound::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
@@ -2027,6 +2112,7 @@ impl Spell {
             SpellCollege::MindControl => return mind_control::reference(self),
             SpellCollege::Necromantic => return necromantic::reference(self),
             SpellCollege::Plant => return plant::reference(self),
+            SpellCollege::Sound => return sound::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
