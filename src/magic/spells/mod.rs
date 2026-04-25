@@ -26,6 +26,7 @@ mod necromantic;
 mod plant;
 mod sound;
 mod technological;
+mod weather;
 mod fire;
 mod healing;
 mod illusion_creation;

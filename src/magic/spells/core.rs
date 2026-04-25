@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, sound, technological, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, sound, technological, water, weather};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -1167,6 +1167,50 @@ pub enum Spell {
     /// Breathe air while underwater. M 189
     BreatheAir,
 
+    // Weather College - M 193-200
+    /// Predicts future weather. M 196
+    PredictWeather,
+    /// Creates rainfall. M 197
+    Rain,
+    /// Creates snowfall. M 198
+    Snow,
+    /// Creates cloud cover. M 194
+    Clouds,
+    /// Creates strong winds. M 200
+    Wind,
+    /// Summons powerful storm. M 199
+    Storm,
+    /// Clears weather conditions. M 194
+    ClearWeather,
+    /// Stops precipitation. M 199
+    StopRain,
+    /// Summons weather elemental. M 199
+    SummonWeatherElemental,
+    /// Controls all weather. M 194
+    ControlWeather,
+    /// Creates weather barrier. M 200
+    WeatherShield,
+    /// Alters climate in area. M 193
+    ClimateControl,
+    /// Creates ice storm. M 195
+    IceStorm,
+    /// Summons tornado. M 199
+    Tornado,
+    /// Predicts storms. M 197
+    StormSense,
+    /// Creates aurora effects. M 193
+    Aurora,
+    /// Prevents weather damage. M 198
+    WeatherProof,
+    /// Creates localized weather. M 195
+    MicroClimate,
+    /// Dissipates fog and clouds. M 195
+    DispelClouds,
+    /// Creates persistent drought. M 195
+    Drought,
+    /// Ends drought conditions. M 195
+    EndDrought,
+
     // Knowledge College - M 106-113
     /// Reveals presence of magic within radius. M 107
     DetectMagic,
@@ -1794,6 +1838,29 @@ impl Spell {
             Self::ResistWater => SpellCollege::Water,
             Self::BreatheAir => SpellCollege::Water,
 
+            // Weather College
+            Self::PredictWeather => SpellCollege::Weather,
+            Self::Rain => SpellCollege::Weather,
+            Self::Snow => SpellCollege::Weather,
+            Self::Clouds => SpellCollege::Weather,
+            Self::Wind => SpellCollege::Weather,
+            Self::Storm => SpellCollege::Weather,
+            Self::ClearWeather => SpellCollege::Weather,
+            Self::StopRain => SpellCollege::Weather,
+            Self::SummonWeatherElemental => SpellCollege::Weather,
+            Self::ControlWeather => SpellCollege::Weather,
+            Self::WeatherShield => SpellCollege::Weather,
+            Self::ClimateControl => SpellCollege::Weather,
+            Self::IceStorm => SpellCollege::Weather,
+            Self::Tornado => SpellCollege::Weather,
+            Self::StormSense => SpellCollege::Weather,
+            Self::Aurora => SpellCollege::Weather,
+            Self::WeatherProof => SpellCollege::Weather,
+            Self::MicroClimate => SpellCollege::Weather,
+            Self::DispelClouds => SpellCollege::Weather,
+            Self::Drought => SpellCollege::Weather,
+            Self::EndDrought => SpellCollege::Weather,
+
             // Knowledge College
             Self::DetectMagic => SpellCollege::Knowledge,
             Self::AnalyzeMagic => SpellCollege::Knowledge,
@@ -1873,6 +1940,7 @@ impl Spell {
             SpellCollege::Plant => return plant::base_energy_cost(self),
             SpellCollege::Sound => return sound::base_energy_cost(self),
             SpellCollege::Technological => return technological::base_energy_cost(self),
+            SpellCollege::Weather => return weather::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
@@ -1926,6 +1994,7 @@ impl Spell {
             SpellCollege::Plant => return plant::casting_time(self),
             SpellCollege::Sound => return sound::casting_time(self),
             SpellCollege::Technological => return technological::casting_time(self),
+            SpellCollege::Weather => return weather::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
@@ -1979,6 +2048,7 @@ impl Spell {
             SpellCollege::Plant => return plant::duration(self),
             SpellCollege::Sound => return sound::duration(self),
             SpellCollege::Technological => return technological::duration(self),
+            SpellCollege::Weather => return weather::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
@@ -2032,6 +2102,7 @@ impl Spell {
             SpellCollege::Plant => return plant::prerequisites(self),
             SpellCollege::Sound => return sound::prerequisites(self),
             SpellCollege::Technological => return technological::prerequisites(self),
+            SpellCollege::Weather => return weather::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
@@ -2085,6 +2156,7 @@ impl Spell {
             SpellCollege::Plant => return plant::spell_type(self),
             SpellCollege::Sound => return sound::spell_type(self),
             SpellCollege::Technological => return technological::spell_type(self),
+            SpellCollege::Weather => return weather::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
@@ -2138,6 +2210,7 @@ impl Spell {
             SpellCollege::Plant => return plant::resistance(self),
             SpellCollege::Sound => return sound::resistance(self),
             SpellCollege::Technological => return technological::resistance(self),
+            SpellCollege::Weather => return weather::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
@@ -2181,6 +2254,7 @@ impl Spell {
             SpellCollege::Plant => return plant::reference(self),
             SpellCollege::Sound => return sound::reference(self),
             SpellCollege::Technological => return technological::reference(self),
+            SpellCollege::Weather => return weather::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
