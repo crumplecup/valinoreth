@@ -32,6 +32,7 @@ fn test_all_spells_have_colleges() {
                 || college == SpellCollege::MindControl
                 || college == SpellCollege::Movement
                 || college == SpellCollege::Necromantic
+                || college == SpellCollege::Plant
                 || college == SpellCollege::ProtectionWarning
                 || college == SpellCollege::Water,
             "Spell {:?} has unexpected college: {:?}",
@@ -561,5 +562,5 @@ fn test_spell_count() {
     use strum::IntoEnumIterator;
 
     let count = Spell::iter().count();
-    assert_eq!(count, 458); // 20 colleges: Air (23) + Animal (22) + Body Control (29) + Communication & Empathy (16) + Enchantment (20) + Earth (24) + Fire (25) + Food (20) + Gate (20) + Healing (24) + Illusion (19) + Knowledge (26) + Light & Darkness (18) + Making & Breaking (21) + Meta-Spells (16) + Mind Control (25) + Movement (16) + Necromantic (38) + Protection (27) + Water (29)
+    assert_eq!(count, 490); // 21 colleges: Air (23) + Animal (22) + Body Control (29) + Communication & Empathy (16) + Enchantment (20) + Earth (24) + Fire (25) + Food (20) + Gate (20) + Healing (24) + Illusion (19) + Knowledge (26) + Light & Darkness (18) + Making & Breaking (21) + Meta-Spells (16) + Mind Control (25) + Movement (16) + Necromantic (38) + Plant (32) + Protection (27) + Water (29)
 }

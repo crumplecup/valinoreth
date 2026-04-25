@@ -23,6 +23,7 @@ mod light_darkness;
 mod making_breaking;
 mod meta_spells;
 mod necromantic;
+mod plant;
 mod fire;
 mod healing;
 mod illusion_creation;

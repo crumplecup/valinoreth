@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -893,6 +893,72 @@ pub enum Spell {
     /// Mass animation. M 152
     AnimateDead,
 
+    // Plant College - M 155-170
+    /// Identifies plant species. M 155
+    IdentifyPlant,
+    /// Locates specific plant. M 156
+    SeekPlantPlant,
+    /// Accelerates plant growth. M 156
+    PlantGrowth,
+    /// Heals damaged plants. M 155
+    HealPlant,
+    /// Kills plants instantly. M 156
+    WitherPlant,
+    /// Shapes living wood. M 159
+    ShapeWood,
+    /// Commands plant creatures. M 155
+    ControlPlant,
+    /// Animates plants. M 155
+    AnimatePlant,
+    /// Creates entangling vines. M 156
+    Entangle,
+    /// Creates thorny barrier. M 159
+    ThornWall,
+    /// Enhances plant fertility. M 156
+    FertileSoil,
+    /// Ruins soil fertility. M 156
+    Blight,
+    /// Creates edible fruit. M 156
+    FruitBearing,
+    /// Summons plant elemental. M 160
+    SummonPlantElemental,
+    /// Controls plant elemental. M 155
+    ControlPlantElemental,
+    /// Creates permanent plant elemental. M 155
+    CreatePlantElemental,
+    /// Transforms into plant. M 160
+    PlantForm,
+    /// Speaks with plants. M 159
+    SpeakWithPlants,
+    /// Senses through plants. M 159
+    PlantVision,
+    /// Creates mobile plant servant. M 160
+    Treant,
+    /// Awakens plant intelligence. M 155
+    AwakenPlant,
+    /// Protects plants from harm. M 158
+    ProtectPlant,
+    /// Creates poison from plants. M 158
+    PoisonExtract,
+    /// Purifies plant toxins. M 158
+    PurifyPlant,
+    /// Creates medicinal herbs. M 157
+    HerbLore,
+    /// Commands entire forest. M 156
+    ForestControl,
+    /// Creates impenetrable hedge. M 157
+    HedgeWall,
+    /// Causes rapid decomposition. M 155
+    Decompose,
+    /// Prevents plant decomposition. M 158
+    PreservePlant,
+    /// Creates mobile vine servant. M 160
+    VineServant,
+    /// Transfers life to plants. M 160
+    LifeToPlant,
+    /// Extracts life from plants. M 157
+    LifeFromPlant,
+
     // Protection & Warning College - M 162-185
     /// Basic magical shield. M 182
     Shield,
@@ -1494,6 +1560,40 @@ impl Spell {
             Self::RestoreBody => SpellCollege::Necromantic,
             Self::AnimateDead => SpellCollege::Necromantic,
 
+            // Plant College
+            Self::IdentifyPlant => SpellCollege::Plant,
+            Self::SeekPlantPlant => SpellCollege::Plant,
+            Self::PlantGrowth => SpellCollege::Plant,
+            Self::HealPlant => SpellCollege::Plant,
+            Self::WitherPlant => SpellCollege::Plant,
+            Self::ShapeWood => SpellCollege::Plant,
+            Self::ControlPlant => SpellCollege::Plant,
+            Self::AnimatePlant => SpellCollege::Plant,
+            Self::Entangle => SpellCollege::Plant,
+            Self::ThornWall => SpellCollege::Plant,
+            Self::FertileSoil => SpellCollege::Plant,
+            Self::Blight => SpellCollege::Plant,
+            Self::FruitBearing => SpellCollege::Plant,
+            Self::SummonPlantElemental => SpellCollege::Plant,
+            Self::ControlPlantElemental => SpellCollege::Plant,
+            Self::CreatePlantElemental => SpellCollege::Plant,
+            Self::PlantForm => SpellCollege::Plant,
+            Self::SpeakWithPlants => SpellCollege::Plant,
+            Self::PlantVision => SpellCollege::Plant,
+            Self::Treant => SpellCollege::Plant,
+            Self::AwakenPlant => SpellCollege::Plant,
+            Self::ProtectPlant => SpellCollege::Plant,
+            Self::PoisonExtract => SpellCollege::Plant,
+            Self::PurifyPlant => SpellCollege::Plant,
+            Self::HerbLore => SpellCollege::Plant,
+            Self::ForestControl => SpellCollege::Plant,
+            Self::HedgeWall => SpellCollege::Plant,
+            Self::Decompose => SpellCollege::Plant,
+            Self::PreservePlant => SpellCollege::Plant,
+            Self::VineServant => SpellCollege::Plant,
+            Self::LifeToPlant => SpellCollege::Plant,
+            Self::LifeFromPlant => SpellCollege::Plant,
+
             // Protection & Warning College
             Self::Shield => SpellCollege::ProtectionWarning,
             Self::Deflect => SpellCollege::ProtectionWarning,
@@ -1630,6 +1730,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::base_energy_cost(self),
             SpellCollege::MindControl => return mind_control::base_energy_cost(self),
             SpellCollege::Necromantic => return necromantic::base_energy_cost(self),
+            SpellCollege::Plant => return plant::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
@@ -1680,6 +1781,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::casting_time(self),
             SpellCollege::MindControl => return mind_control::casting_time(self),
             SpellCollege::Necromantic => return necromantic::casting_time(self),
+            SpellCollege::Plant => return plant::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
@@ -1730,6 +1832,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::duration(self),
             SpellCollege::MindControl => return mind_control::duration(self),
             SpellCollege::Necromantic => return necromantic::duration(self),
+            SpellCollege::Plant => return plant::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
@@ -1780,6 +1883,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::prerequisites(self),
             SpellCollege::MindControl => return mind_control::prerequisites(self),
             SpellCollege::Necromantic => return necromantic::prerequisites(self),
+            SpellCollege::Plant => return plant::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
@@ -1830,6 +1934,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::spell_type(self),
             SpellCollege::MindControl => return mind_control::spell_type(self),
             SpellCollege::Necromantic => return necromantic::spell_type(self),
+            SpellCollege::Plant => return plant::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
@@ -1880,6 +1985,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::resistance(self),
             SpellCollege::MindControl => return mind_control::resistance(self),
             SpellCollege::Necromantic => return necromantic::resistance(self),
+            SpellCollege::Plant => return plant::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
@@ -1920,6 +2026,7 @@ impl Spell {
             SpellCollege::MetaSpells => return meta_spells::reference(self),
             SpellCollege::MindControl => return mind_control::reference(self),
             SpellCollege::Necromantic => return necromantic::reference(self),
+            SpellCollege::Plant => return plant::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
