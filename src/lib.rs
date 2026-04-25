@@ -20,6 +20,7 @@ mod character;
 mod cli;
 mod combat;
 mod dice;
+mod disadvantages;
 mod free;
 mod magic;
 mod movement;
@@ -27,10 +28,8 @@ mod players;
 mod skills;
 mod special_features;
 
-pub use advantages::{
-    AbsoluteDirection, Advantage, Disadvantage, Duty, EiditicMemory, Flexible, Luck, Perk,
-    SenseOfDuty, Wealth,
-};
+pub use advantages::{AbsoluteDirection, Advantage, EiditicMemory, Flexible, Luck, Perk, Wealth};
+pub use disadvantages::{Disadvantage, Duty, SenseOfDuty};
 pub use body::{Arms, BodyArea, BodyLocation, Head, Legs, Torso};
 pub use character::{
     AttributeColumns, AttributeType, Attributes, BaseDamage, CombatStats, DamageKind, Encumbrance,
