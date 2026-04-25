@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, protection_warning, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, protection_warning, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -815,6 +815,84 @@ pub enum Spell {
     /// Walks through walls. M 161
     WalkThroughWalls,
 
+    // Necromantic College - M 149-161
+    /// Detects corpses and remains. M 149
+    DeathVision,
+    /// Animates single corpse. M 149
+    Zombie,
+    /// Animates skeleton. M 159
+    Skeleton,
+    /// Controls existing undead. M 151
+    ControlZombie,
+    /// Turns undead away. M 161
+    TurnZombie,
+    /// Creates permanent zombie. M 149
+    PermanentZombie,
+    /// Summons spirit. M 160
+    SummonSpirit,
+    /// Commands summoned spirit. M 160
+    ControlSpirit,
+    /// Banishes spirit. M 160
+    BanishSpirit,
+    /// Speaks with dead. M 160
+    SpeakWithDead,
+    /// Sees spirits and ghosts. M 159
+    SpiritVision,
+    /// Prevents resurrection. M 157
+    PreventResurrection,
+    /// Steals HP from target. M 151
+    StealHealth,
+    /// Ages target rapidly. M 149
+    AgeSpell,
+    /// Reverses aging. M 161
+    Youth,
+    /// Preserves corpse. M 157
+    PreserveCorpse,
+    /// Causes disease. M 149
+    Pestilence,
+    /// Transforms to undead form. M 150
+    LichForm,
+    /// Creates spectral servant. M 159
+    SummonShade,
+    /// Fear of death. M 150
+    FearOfDeath,
+    /// Sense death nearby. M 152
+    SenseDeath,
+    /// Drains vitality. M 151
+    DrainVitality,
+    /// Restores drained vitality. M 158
+    RestoreVitality,
+    /// Creates ghost. M 150
+    CreateGhost,
+    /// Binds ghost to location. M 150
+    BindSpirit,
+    /// Frees bound spirit. M 150
+    FreeSpirit,
+    /// Raises corpse as intelligent undead. M 158
+    CreateVampire,
+    /// Destroys undead utterly. M 149
+    FinalDeath,
+    /// Protects from undead. M 157
+    WardAgainstUndead,
+    /// Creates death energy. M 149
+    NegativeEnergy,
+    /// Converts to positive energy. M 157
+    PositiveEnergy,
+    /// Senses souls. M 159
+    SenseSoul,
+    /// Tears soul from body. M 160
+    SoulTear,
+    /// Repairs torn soul. M 158
+    RestoreSoul,
+    /// Necromantic blast. M 152
+    NecromanticBlast,
+    /// Withers body parts. M 161
+    Wither,
+    /// Heals withering. M 158
+    RestoreBody,
+    /// Mass animation. M 152
+    AnimateDead,
+
     // Protection & Warning College - M 162-185
     /// Basic magical shield. M 182
     Shield,
@@ -1376,6 +1454,46 @@ impl Spell {
             Self::UnerringMissile => SpellCollege::Movement,
             Self::WalkThroughWalls => SpellCollege::Movement,
 
+            // Necromantic College
+            Self::DeathVision => SpellCollege::Necromantic,
+            Self::Zombie => SpellCollege::Necromantic,
+            Self::Skeleton => SpellCollege::Necromantic,
+            Self::ControlZombie => SpellCollege::Necromantic,
+            Self::TurnZombie => SpellCollege::Necromantic,
+            Self::PermanentZombie => SpellCollege::Necromantic,
+            Self::SummonSpirit => SpellCollege::Necromantic,
+            Self::ControlSpirit => SpellCollege::Necromantic,
+            Self::BanishSpirit => SpellCollege::Necromantic,
+            Self::SpeakWithDead => SpellCollege::Necromantic,
+            Self::SpiritVision => SpellCollege::Necromantic,
+            Self::PreventResurrection => SpellCollege::Necromantic,
+            Self::StealHealth => SpellCollege::Necromantic,
+            Self::AgeSpell => SpellCollege::Necromantic,
+            Self::Youth => SpellCollege::Necromantic,
+            Self::PreserveCorpse => SpellCollege::Necromantic,
+            Self::Pestilence => SpellCollege::Necromantic,
+            Self::LichForm => SpellCollege::Necromantic,
+            Self::SummonShade => SpellCollege::Necromantic,
+            Self::FearOfDeath => SpellCollege::Necromantic,
+            Self::SenseDeath => SpellCollege::Necromantic,
+            Self::DrainVitality => SpellCollege::Necromantic,
+            Self::RestoreVitality => SpellCollege::Necromantic,
+            Self::CreateGhost => SpellCollege::Necromantic,
+            Self::BindSpirit => SpellCollege::Necromantic,
+            Self::FreeSpirit => SpellCollege::Necromantic,
+            Self::CreateVampire => SpellCollege::Necromantic,
+            Self::FinalDeath => SpellCollege::Necromantic,
+            Self::WardAgainstUndead => SpellCollege::Necromantic,
+            Self::NegativeEnergy => SpellCollege::Necromantic,
+            Self::PositiveEnergy => SpellCollege::Necromantic,
+            Self::SenseSoul => SpellCollege::Necromantic,
+            Self::SoulTear => SpellCollege::Necromantic,
+            Self::RestoreSoul => SpellCollege::Necromantic,
+            Self::NecromanticBlast => SpellCollege::Necromantic,
+            Self::Wither => SpellCollege::Necromantic,
+            Self::RestoreBody => SpellCollege::Necromantic,
+            Self::AnimateDead => SpellCollege::Necromantic,
+
             // Protection & Warning College
             Self::Shield => SpellCollege::ProtectionWarning,
             Self::Deflect => SpellCollege::ProtectionWarning,
@@ -1511,6 +1629,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::base_energy_cost(self),
             SpellCollege::MetaSpells => return meta_spells::base_energy_cost(self),
             SpellCollege::MindControl => return mind_control::base_energy_cost(self),
+            SpellCollege::Necromantic => return necromantic::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
@@ -1560,6 +1679,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::casting_time(self),
             SpellCollege::MetaSpells => return meta_spells::casting_time(self),
             SpellCollege::MindControl => return mind_control::casting_time(self),
+            SpellCollege::Necromantic => return necromantic::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
@@ -1609,6 +1729,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::duration(self),
             SpellCollege::MetaSpells => return meta_spells::duration(self),
             SpellCollege::MindControl => return mind_control::duration(self),
+            SpellCollege::Necromantic => return necromantic::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
@@ -1658,6 +1779,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::prerequisites(self),
             SpellCollege::MetaSpells => return meta_spells::prerequisites(self),
             SpellCollege::MindControl => return mind_control::prerequisites(self),
+            SpellCollege::Necromantic => return necromantic::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
@@ -1707,6 +1829,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::spell_type(self),
             SpellCollege::MetaSpells => return meta_spells::spell_type(self),
             SpellCollege::MindControl => return mind_control::spell_type(self),
+            SpellCollege::Necromantic => return necromantic::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
@@ -1756,6 +1879,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::resistance(self),
             SpellCollege::MetaSpells => return meta_spells::resistance(self),
             SpellCollege::MindControl => return mind_control::resistance(self),
+            SpellCollege::Necromantic => return necromantic::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
@@ -1795,6 +1919,7 @@ impl Spell {
             SpellCollege::MakingBreaking => return making_breaking::reference(self),
             SpellCollege::MetaSpells => return meta_spells::reference(self),
             SpellCollege::MindControl => return mind_control::reference(self),
+            SpellCollege::Necromantic => return necromantic::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
