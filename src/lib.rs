@@ -28,8 +28,12 @@ mod players;
 mod skills;
 mod special_features;
 
-pub use advantages::{AbsoluteDirection, Advantage, EiditicMemory, Flexible, Luck, Perk, Wealth};
-pub use disadvantages::{Disadvantage, Duty, SenseOfDuty};
+pub use advantages::{
+    AbsoluteDirection, Advantage, Appearance, Claws, EiditicMemory, Flight, Flexible,
+    InjuryTolerance, Luck, Perk, ProtectedSense, Regeneration, Resistant, SocialRegard, Striker,
+    Teeth, Wealth,
+};
+pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use body::{Arms, BodyArea, BodyLocation, Head, Legs, Torso};
 pub use character::{
     AttributeColumns, AttributeType, Attributes, BaseDamage, CombatStats, DamageKind, Encumbrance,
