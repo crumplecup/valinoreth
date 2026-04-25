@@ -12,7 +12,7 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, sound, water};
+use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, sound, technological, water};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -1067,6 +1067,46 @@ pub enum Spell {
     /// Protects sleeping area. M 171
     Nightingale,
 
+    // Technological College - M 176-185
+    /// Identifies mechanical devices. M 176
+    IdentifyMachine,
+    /// Analyzes technological function. M 176
+    AnalyzeMachine,
+    /// Repairs damaged machinery. M 178
+    RepairMachine,
+    /// Damages mechanical devices. M 177
+    JamMachine,
+    /// Controls simple machines. M 177
+    ControlMachine,
+    /// Powers unpowered devices. M 178
+    PowerMachine,
+    /// Drains device power. M 177
+    DrainPower,
+    /// Enhances machine efficiency. M 177
+    EnhanceMachine,
+    /// Creates simple tools. M 176
+    CreateTool,
+    /// Understands device operation. M 180
+    MachineThought,
+    /// Communicates with AI/computers. M 176
+    MachineSpeech,
+    /// Shields from technology. M 179
+    TechShield,
+    /// Disrupts electronic signals. M 177
+    Jamming,
+    /// Detects surveillance devices. M 177
+    DetectSurveillance,
+    /// Overcomes electronic locks. M 178
+    BypassSecurity,
+    /// Creates holographic illusion. M 178
+    Hologram,
+    /// Interfaces mind with machine. M 178
+    Cybermeld,
+    /// Animates mechanical construct. M 176
+    AnimateMachine,
+    /// Protects from radiation. M 179
+    RadiationShield,
+
     // Water College - M 186-200
     /// Purifies water quality. M 196
     PurifyWater,
@@ -1702,6 +1742,27 @@ impl Spell {
             Self::Block => SpellCollege::ProtectionWarning,
             Self::Nightingale => SpellCollege::ProtectionWarning,
 
+            // Technological College
+            Self::IdentifyMachine => SpellCollege::Technological,
+            Self::AnalyzeMachine => SpellCollege::Technological,
+            Self::RepairMachine => SpellCollege::Technological,
+            Self::JamMachine => SpellCollege::Technological,
+            Self::ControlMachine => SpellCollege::Technological,
+            Self::PowerMachine => SpellCollege::Technological,
+            Self::DrainPower => SpellCollege::Technological,
+            Self::EnhanceMachine => SpellCollege::Technological,
+            Self::CreateTool => SpellCollege::Technological,
+            Self::MachineThought => SpellCollege::Technological,
+            Self::MachineSpeech => SpellCollege::Technological,
+            Self::TechShield => SpellCollege::Technological,
+            Self::Jamming => SpellCollege::Technological,
+            Self::DetectSurveillance => SpellCollege::Technological,
+            Self::BypassSecurity => SpellCollege::Technological,
+            Self::Hologram => SpellCollege::Technological,
+            Self::Cybermeld => SpellCollege::Technological,
+            Self::AnimateMachine => SpellCollege::Technological,
+            Self::RadiationShield => SpellCollege::Technological,
+
             // Water College
             Self::PurifyWater => SpellCollege::Water,
             Self::CreateWater => SpellCollege::Water,
@@ -1811,6 +1872,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::base_energy_cost(self),
             SpellCollege::Plant => return plant::base_energy_cost(self),
             SpellCollege::Sound => return sound::base_energy_cost(self),
+            SpellCollege::Technological => return technological::base_energy_cost(self),
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
@@ -1863,6 +1925,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::casting_time(self),
             SpellCollege::Plant => return plant::casting_time(self),
             SpellCollege::Sound => return sound::casting_time(self),
+            SpellCollege::Technological => return technological::casting_time(self),
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
@@ -1915,6 +1978,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::duration(self),
             SpellCollege::Plant => return plant::duration(self),
             SpellCollege::Sound => return sound::duration(self),
+            SpellCollege::Technological => return technological::duration(self),
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
@@ -1967,6 +2031,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::prerequisites(self),
             SpellCollege::Plant => return plant::prerequisites(self),
             SpellCollege::Sound => return sound::prerequisites(self),
+            SpellCollege::Technological => return technological::prerequisites(self),
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
@@ -2019,6 +2084,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::spell_type(self),
             SpellCollege::Plant => return plant::spell_type(self),
             SpellCollege::Sound => return sound::spell_type(self),
+            SpellCollege::Technological => return technological::spell_type(self),
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
@@ -2071,6 +2137,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::resistance(self),
             SpellCollege::Plant => return plant::resistance(self),
             SpellCollege::Sound => return sound::resistance(self),
+            SpellCollege::Technological => return technological::resistance(self),
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
@@ -2113,6 +2180,7 @@ impl Spell {
             SpellCollege::Necromantic => return necromantic::reference(self),
             SpellCollege::Plant => return plant::reference(self),
             SpellCollege::Sound => return sound::reference(self),
+            SpellCollege::Technological => return technological::reference(self),
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
