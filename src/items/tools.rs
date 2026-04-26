@@ -28,6 +28,16 @@ pub(super) fn base_cost(item: &Item) -> Currency {
         Item::Saw => Currency::dollars(150.0),
         Item::Shovel => Currency::dollars(12.0),
         Item::MagnifyingGlass => Currency::dollars(100.0),
+        Item::Pickaxe => Currency::dollars(15.0),
+        Item::ToolHatchet => Currency::dollars(40.0),
+        Item::Chisel => Currency::dollars(5.0),
+        Item::File => Currency::dollars(5.0),
+        Item::Pliers => Currency::dollars(15.0),
+        Item::Wrench => Currency::dollars(20.0),
+        Item::Screwdriver => Currency::dollars(5.0),
+        Item::Ladder => Currency::dollars(30.0),
+        Item::BlockAndTackle => Currency::dollars(50.0),
+        Item::Compass => Currency::dollars(50.0),
         _ => {
             tracing::error!(item = ?item, "Non-tool item in tools::base_cost");
             Currency::dollars(0.0)
@@ -50,6 +60,16 @@ pub(super) fn weight(item: &Item) -> Weight {
         Item::Saw => Weight::pounds(3.0),
         Item::Shovel => Weight::pounds(6.0),
         Item::MagnifyingGlass => Weight::pounds(0.25),
+        Item::Pickaxe => Weight::pounds(5.0),
+        Item::ToolHatchet => Weight::pounds(2.0),
+        Item::Chisel => Weight::pounds(0.5),
+        Item::File => Weight::pounds(0.5),
+        Item::Pliers => Weight::pounds(1.0),
+        Item::Wrench => Weight::pounds(2.0),
+        Item::Screwdriver => Weight::pounds(0.25),
+        Item::Ladder => Weight::pounds(20.0),
+        Item::BlockAndTackle => Weight::pounds(4.0),
+        Item::Compass => Weight::pounds(0.5),
         _ => {
             tracing::error!(item = ?item, "Non-tool item in tools::weight");
             Weight::pounds(0.0)
@@ -72,6 +92,16 @@ pub(super) fn tech_level(item: &Item) -> TechLevel {
         Item::Saw => TechLevel::new(2),         // Medieval
         Item::Shovel => TechLevel::new(1),      // Bronze Age
         Item::MagnifyingGlass => TechLevel::new(4), // Renaissance
+        Item::Pickaxe => TechLevel::new(0),     // Stone Age
+        Item::ToolHatchet => TechLevel::new(0), // Stone Age
+        Item::Chisel => TechLevel::new(0),      // Stone Age
+        Item::File => TechLevel::new(2),        // Medieval
+        Item::Pliers => TechLevel::new(3),      // Renaissance
+        Item::Wrench => TechLevel::new(4),      // Age of Sail
+        Item::Screwdriver => TechLevel::new(3), // Renaissance
+        Item::Ladder => TechLevel::new(0),      // Stone Age
+        Item::BlockAndTackle => TechLevel::new(1), // Bronze Age
+        Item::Compass => TechLevel::new(4),     // Age of Sail
         _ => {
             tracing::error!(item = ?item, "Non-tool item in tools::tech_level");
             TechLevel::new(0)

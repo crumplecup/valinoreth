@@ -321,6 +321,26 @@ pub enum Item {
     Shovel,
     /// Magnifying Glass. BS 289. $100, 0.25 lbs, TL 4
     MagnifyingGlass,
+    /// Pickaxe. BS 289. $15, 5 lbs, TL 0
+    Pickaxe,
+    /// Hatchet (tool). BS 289. $40, 2 lbs, TL 0
+    ToolHatchet,
+    /// Chisel (wood). BS 289. $5, 0.5 lbs, TL 0
+    Chisel,
+    /// File (metal). BS 289. $5, 0.5 lbs, TL 2
+    File,
+    /// Pliers. BS 289. $15, 1 lb, TL 3
+    Pliers,
+    /// Wrench. BS 289. $20, 2 lbs, TL 4
+    Wrench,
+    /// Screwdriver. BS 289. $5, 0.25 lbs, TL 3
+    Screwdriver,
+    /// Ladder (10 ft). BS 289. $30, 20 lbs, TL 0
+    Ladder,
+    /// Block and Tackle (pulley). BS 289. $50, 4 lbs, TL 1
+    BlockAndTackle,
+    /// Compass. BS 289. $50, 0.5 lbs, TL 4
+    Compass,
 
     // Survival Gear (10 variants)
     /// Torch (burns 1 hour). BS 288. $3, 1 lb, TL 0
@@ -503,7 +523,17 @@ impl Item {
             | Self::Hammer
             | Self::Saw
             | Self::Shovel
-            | Self::MagnifyingGlass => ItemCategory::Tools,
+            | Self::MagnifyingGlass
+            | Self::Pickaxe
+            | Self::ToolHatchet
+            | Self::Chisel
+            | Self::File
+            | Self::Pliers
+            | Self::Wrench
+            | Self::Screwdriver
+            | Self::Ladder
+            | Self::BlockAndTackle
+            | Self::Compass => ItemCategory::Tools,
 
             Self::Torch
             | Self::Tent
