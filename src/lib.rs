@@ -22,6 +22,7 @@ mod combat;
 mod dice;
 mod disadvantages;
 mod free;
+mod items;
 mod magic;
 mod movement;
 mod players;
@@ -48,6 +49,7 @@ pub use combat::{
 };
 pub use dice::{Dice, DieLevel, Random};
 pub use free::trace_init;
+pub use items::{Capacity, Currency, Item, ItemCategory, Quality, TechLevel, Weight};
 pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
 };
