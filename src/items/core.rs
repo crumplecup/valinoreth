@@ -89,6 +89,36 @@ pub enum Item {
     TwoHandedSword,
     /// Warhammer, swing+3 impaling. BS 276. $100, 7 lbs, TL 2
     Warhammer,
+    /// Katana, swing+1 cutting. LT 66. $650, 2.5 lbs, TL 3
+    Katana,
+    /// Scimitar, swing+1 cutting. LT 66. $500, 3 lbs, TL 2
+    Scimitar,
+    /// Cutlass, swing+1 cutting. LT 67. $400, 2 lbs, TL 4
+    Cutlass,
+    /// Longsword, swing+1 cutting. LT 66. $500, 3 lbs, TL 2
+    Longsword,
+    /// Bastard Sword, swing+2 cutting. LT 66. $650, 5 lbs, TL 2
+    BastardSword,
+    /// Wakizashi, swing cutting. LT 66. $400, 1.5 lbs, TL 3
+    Wakizashi,
+    /// Nunchaku, swing+1 crushing. MA 231. $20, 1.5 lbs, TL 2
+    Nunchaku,
+    /// Sai, thrust-1 impaling. MA 231. $20, 1 lb, TL 2
+    Sai,
+    /// Katar (punch dagger), thrust+1 impaling. LT 67. $40, 1 lb, TL 2
+    Katar,
+    /// Tonfa, swing+1 crushing. MA 232. $20, 1.5 lbs, TL 0
+    Tonfa,
+    /// Estoc (thrusting sword), thrust+2 impaling. LT 66. $600, 3.5 lbs, TL 3
+    Estoc,
+    /// Falchion, swing+2 cutting. LT 66. $400, 3.5 lbs, TL 2
+    Falchion,
+    /// Gladius, swing cutting. LT 67. $200, 2 lbs, TL 1
+    Gladius,
+    /// Maul (great hammer), swing+4 crushing. LT 67. $80, 12 lbs, TL 1
+    Maul,
+    /// Pick (war pick), swing+2 impaling. LT 67. $70, 3 lbs, TL 2
+    Pick,
 
     // Ranged Weapons (7 variants from existing RangedWeapon enum)
     /// Bow, 1d impaling. BS 276. $100, 2 lbs, TL 0
@@ -249,7 +279,22 @@ impl Item {
             | Self::Spear
             | Self::Staff
             | Self::TwoHandedSword
-            | Self::Warhammer => ItemCategory::MeleeWeapon,
+            | Self::Warhammer
+            | Self::Katana
+            | Self::Scimitar
+            | Self::Cutlass
+            | Self::Longsword
+            | Self::BastardSword
+            | Self::Wakizashi
+            | Self::Nunchaku
+            | Self::Sai
+            | Self::Katar
+            | Self::Tonfa
+            | Self::Estoc
+            | Self::Falchion
+            | Self::Gladius
+            | Self::Maul
+            | Self::Pick => ItemCategory::MeleeWeapon,
 
             Self::Bow
             | Self::Crossbow

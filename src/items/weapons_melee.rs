@@ -46,6 +46,21 @@ pub(super) fn base_cost(item: &Item) -> Currency {
         Item::Staff => Currency::dollars(5.0),
         Item::TwoHandedSword => Currency::dollars(900.0),
         Item::Warhammer => Currency::dollars(100.0),
+        Item::Katana => Currency::dollars(650.0),
+        Item::Scimitar => Currency::dollars(500.0),
+        Item::Cutlass => Currency::dollars(400.0),
+        Item::Longsword => Currency::dollars(500.0),
+        Item::BastardSword => Currency::dollars(650.0),
+        Item::Wakizashi => Currency::dollars(400.0),
+        Item::Nunchaku => Currency::dollars(20.0),
+        Item::Sai => Currency::dollars(20.0),
+        Item::Katar => Currency::dollars(40.0),
+        Item::Tonfa => Currency::dollars(20.0),
+        Item::Estoc => Currency::dollars(600.0),
+        Item::Falchion => Currency::dollars(400.0),
+        Item::Gladius => Currency::dollars(200.0),
+        Item::Maul => Currency::dollars(80.0),
+        Item::Pick => Currency::dollars(70.0),
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::base_cost");
             Currency::dollars(0.0)
@@ -86,6 +101,21 @@ pub(super) fn weight(item: &Item) -> Weight {
         Item::Staff => Weight::pounds(4.0),
         Item::TwoHandedSword => Weight::pounds(7.0),
         Item::Warhammer => Weight::pounds(7.0),
+        Item::Katana => Weight::pounds(2.5),
+        Item::Scimitar => Weight::pounds(3.0),
+        Item::Cutlass => Weight::pounds(2.0),
+        Item::Longsword => Weight::pounds(3.0),
+        Item::BastardSword => Weight::pounds(5.0),
+        Item::Wakizashi => Weight::pounds(1.5),
+        Item::Nunchaku => Weight::pounds(1.5),
+        Item::Sai => Weight::pounds(1.0),
+        Item::Katar => Weight::pounds(1.0),
+        Item::Tonfa => Weight::pounds(1.5),
+        Item::Estoc => Weight::pounds(3.5),
+        Item::Falchion => Weight::pounds(3.5),
+        Item::Gladius => Weight::pounds(2.0),
+        Item::Maul => Weight::pounds(12.0),
+        Item::Pick => Weight::pounds(3.0),
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::weight");
             Weight::pounds(0.0)
@@ -126,6 +156,21 @@ pub(super) fn tech_level(item: &Item) -> TechLevel {
         Item::Staff => TechLevel::new(0),        // Stone Age
         Item::TwoHandedSword => TechLevel::new(2), // Medieval
         Item::Warhammer => TechLevel::new(2),    // Medieval
+        Item::Katana => TechLevel::new(3),       // Medieval Japan
+        Item::Scimitar => TechLevel::new(2),     // Medieval
+        Item::Cutlass => TechLevel::new(4),      // Age of Sail
+        Item::Longsword => TechLevel::new(2),    // Medieval
+        Item::BastardSword => TechLevel::new(2), // Medieval
+        Item::Wakizashi => TechLevel::new(3),    // Medieval Japan
+        Item::Nunchaku => TechLevel::new(2),     // Medieval
+        Item::Sai => TechLevel::new(2),          // Medieval
+        Item::Katar => TechLevel::new(2),        // Medieval India
+        Item::Tonfa => TechLevel::new(0),        // Stone Age
+        Item::Estoc => TechLevel::new(3),        // Late Medieval
+        Item::Falchion => TechLevel::new(2),     // Medieval
+        Item::Gladius => TechLevel::new(1),      // Roman/Iron Age
+        Item::Maul => TechLevel::new(1),         // Bronze/Iron Age
+        Item::Pick => TechLevel::new(2),         // Medieval
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::tech_level");
             TechLevel::new(0)
@@ -250,6 +295,66 @@ pub(super) fn damage(item: &Item) -> WeaponDamage {
             modifier: 3,
             damage_type: DamageType::Impaling,
         },
+        Item::Katana => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Scimitar => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Cutlass => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Longsword => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Cutting,
+        },
+        Item::BastardSword => WeaponDamage::Swing {
+            modifier: 2,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Wakizashi => WeaponDamage::Swing {
+            modifier: 0,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Nunchaku => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Crushing,
+        },
+        Item::Sai => WeaponDamage::Thrust {
+            modifier: -1,
+            damage_type: DamageType::Impaling,
+        },
+        Item::Katar => WeaponDamage::Thrust {
+            modifier: 1,
+            damage_type: DamageType::Impaling,
+        },
+        Item::Tonfa => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Crushing,
+        },
+        Item::Estoc => WeaponDamage::Thrust {
+            modifier: 2,
+            damage_type: DamageType::Impaling,
+        },
+        Item::Falchion => WeaponDamage::Swing {
+            modifier: 2,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Gladius => WeaponDamage::Swing {
+            modifier: 0,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Maul => WeaponDamage::Swing {
+            modifier: 4,
+            damage_type: DamageType::Crushing,
+        },
+        Item::Pick => WeaponDamage::Swing {
+            modifier: 2,
+            damage_type: DamageType::Impaling,
+        },
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::damage");
             WeaponDamage::Thrust {
@@ -293,6 +398,21 @@ pub(super) fn reach(item: &Item) -> Reach {
         Item::Staff => Reach::OneTwo,
         Item::TwoHandedSword => Reach::OneTwo,
         Item::Warhammer => Reach::OneTwo,
+        Item::Katana => Reach::One,
+        Item::Scimitar => Reach::One,
+        Item::Cutlass => Reach::One,
+        Item::Longsword => Reach::One,
+        Item::BastardSword => Reach::OneTwo,
+        Item::Wakizashi => Reach::One,
+        Item::Nunchaku => Reach::One,
+        Item::Sai => Reach::Close,
+        Item::Katar => Reach::Close,
+        Item::Tonfa => Reach::One,
+        Item::Estoc => Reach::One,
+        Item::Falchion => Reach::One,
+        Item::Gladius => Reach::One,
+        Item::Maul => Reach::OneTwo,
+        Item::Pick => Reach::One,
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::reach");
             Reach::Close
@@ -333,6 +453,21 @@ pub(super) fn parry_modifier(item: &Item) -> i32 {
         Item::Staff => 2,
         Item::TwoHandedSword => 0,
         Item::Warhammer => -1,
+        Item::Katana => 0,
+        Item::Scimitar => 0,
+        Item::Cutlass => 0,
+        Item::Longsword => 0,
+        Item::BastardSword => 0,
+        Item::Wakizashi => 0,
+        Item::Nunchaku => -2,
+        Item::Sai => 1,
+        Item::Katar => 0,
+        Item::Tonfa => 1,
+        Item::Estoc => 1,
+        Item::Falchion => 0,
+        Item::Gladius => 0,
+        Item::Maul => -2,
+        Item::Pick => -1,
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::parry_modifier");
             0
@@ -373,6 +508,21 @@ pub(super) fn required_skill(item: &Item) -> Skill {
         Item::Staff => Skill::Staff,
         Item::TwoHandedSword => Skill::TwoHandedSword,
         Item::Warhammer => Skill::TwoHandedAxeMace,
+        Item::Katana => Skill::TwoHandedSword,
+        Item::Scimitar => Skill::Broadsword,
+        Item::Cutlass => Skill::Broadsword,
+        Item::Longsword => Skill::Broadsword,
+        Item::BastardSword => Skill::Broadsword,
+        Item::Wakizashi => Skill::Shortsword,
+        Item::Nunchaku => Skill::Flail,
+        Item::Sai => Skill::Knife,
+        Item::Katar => Skill::Knife,
+        Item::Tonfa => Skill::Shortsword,
+        Item::Estoc => Skill::Rapier,
+        Item::Falchion => Skill::Broadsword,
+        Item::Gladius => Skill::Shortsword,
+        Item::Maul => Skill::TwoHandedAxeMace,
+        Item::Pick => Skill::AxeMace,
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::required_skill");
             Skill::Brawling
