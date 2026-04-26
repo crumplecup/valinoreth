@@ -26,4 +26,4 @@ pub use defense::{
     DefenseResult, RETREAT_BONUS,
 };
 pub use error::{CombatError, CombatErrorKind};
-pub use weapons::{DamageType, MeleeWeapon, RangedWeapon, Reach, Weapon, WeaponDamage};
+pub use weapons::{DamageType, Reach, WeaponDamage};

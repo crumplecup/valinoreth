@@ -44,8 +44,8 @@ pub use cli::Cli;
 pub use combat::{
     calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense, Armor,
     ArmorBuilder, AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
-    CombatModifiersBuilder, DamageResolution, DamageType, DefenseResult, MeleeWeapon, Modifier,
-    RangedWeapon, Reach, Weapon, WeaponDamage, RETREAT_BONUS,
+    CombatModifiersBuilder, DamageResolution, DamageType, DefenseResult, Modifier, Reach,
+    WeaponDamage, RETREAT_BONUS,
 };
 pub use dice::{Dice, DieLevel, Random};
 pub use free::trace_init;

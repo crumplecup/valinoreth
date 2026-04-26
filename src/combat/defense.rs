@@ -14,7 +14,7 @@
 //! - BS 376 - Parry
 //! - BS 377 - Block
 
-use crate::{MeleeWeapon, Random};
+use crate::{Item, Random};
 use tracing::{debug, info, instrument};
 
 /// Active defense type and value.
@@ -49,8 +49,8 @@ pub enum ActiveDefense {
     Parry {
         /// Parry value to roll under
         value: i32,
-        /// Weapon used for parry
-        weapon: MeleeWeapon,
+        /// Weapon used for parry (must be a melee weapon item)
+        weapon: Item,
     },
     /// Block defense (Shield Skill / 2 + 3). BS 377
     Block {
@@ -177,17 +177,19 @@ pub enum DefenseResult {
 /// # Examples
 ///
 /// ```
-/// use valinoreth::{calculate_parry, MeleeWeapon};
+/// use valinoreth::{calculate_parry, Item};
 ///
 /// // Broadsword skill 14, parry modifier 0
-/// let parry = calculate_parry(14, MeleeWeapon::Broadsword);
+/// let parry = calculate_parry(14, &Item::Broadsword);
 /// assert_eq!(parry, 10); // (14/2) + 3 + 0 = 10
 /// ```
 #[instrument]
-pub fn calculate_parry(skill: i32, weapon: MeleeWeapon) -> i32 {
+pub fn calculate_parry(skill: i32, weapon: &Item) -> i32 {
     debug!(skill, ?weapon, "Calculating parry value");
 
-    let weapon_modifier = weapon.parry_modifier();
+    let weapon_modifier = weapon
+        .parry_modifier()
+        .expect("Parry calculation requires a melee weapon item");
     let base_parry = (skill / 2) + 3;
     let parry = base_parry + weapon_modifier;
 
