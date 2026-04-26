@@ -297,6 +297,26 @@ pub enum Item {
     Apron,
     /// Tabard (heraldic). BS 266. $25, 1 lb, TL 2
     Tabard,
+    /// Breeches (medieval pants). BS 266. $35, 1.5 lbs, TL 2
+    Breeches,
+    /// Stockings (leg wear). BS 266. $5, 0.25 lbs, TL 1
+    Stockings,
+    /// Jacket. BS 266. $50, 2 lbs, TL 3
+    Jacket,
+    /// Coat (heavy). BS 266. $75, 4 lbs, TL 4
+    Coat,
+    /// Mantle (formal cloak). BS 266. $60, 3 lbs, TL 2
+    Mantle,
+    /// Fine Gloves (silk/leather). BS 266. $40, 0.25 lbs, TL 2
+    FineGloves,
+    /// Riding Boots (tall). BS 266. $120, 3 lbs, TL 2
+    RidingBoots,
+    /// Sash (waist). BS 266. $10, 0.5 lbs, TL 1
+    Sash,
+    /// Wimple (head covering). BS 266. $5, 0.25 lbs, TL 2
+    Wimple,
+    /// Doublet (fitted jacket). BS 266. $40, 1.5 lbs, TL 3
+    Doublet,
 
     // Containers (10 variants)
     /// Small Pouch. BS 288. $10, 0.2 lbs, 3 lbs capacity, TL 0
@@ -571,7 +591,17 @@ impl Item {
             | Self::Scarf
             | Self::Vest
             | Self::Apron
-            | Self::Tabard => ItemCategory::Clothing,
+            | Self::Tabard
+            | Self::Breeches
+            | Self::Stockings
+            | Self::Jacket
+            | Self::Coat
+            | Self::Mantle
+            | Self::FineGloves
+            | Self::RidingBoots
+            | Self::Sash
+            | Self::Wimple
+            | Self::Doublet => ItemCategory::Clothing,
 
             Self::SmallPouch
             | Self::Pouch
