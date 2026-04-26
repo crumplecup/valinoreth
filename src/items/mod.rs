@@ -25,6 +25,7 @@ mod armor;
 mod clothing;
 mod containers;
 mod core;
+mod tools;
 mod types;
 
 // Category modules
