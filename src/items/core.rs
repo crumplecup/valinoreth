@@ -135,6 +135,34 @@ pub enum Item {
     Sling,
     /// Throwing Knife, thrust-1 impaling. BS 277. $30, 0.5 lbs, TL 0
     ThrowingKnife,
+    /// Longbow, 1d+2 impaling. BS 276. $200, 3 lbs, TL 0
+    Longbow,
+    /// Composite Bow, 1d+3 impaling. BS 276. $900, 2 lbs, TL 2
+    CompositeBow,
+    /// Short Bow, 1d-1 impaling. LT 77. $50, 1 lb, TL 0
+    ShortBow,
+    /// Light Crossbow, 1d+2 impaling. LT 77. $150, 4 lbs, TL 2
+    LightCrossbow,
+    /// Heavy Crossbow, 1d+5 impaling. LT 77. $200, 8 lbs, TL 2
+    HeavyCrossbow,
+    /// Throwing Axe, swing+2 cutting. LT 78. $60, 2 lbs, TL 0
+    ThrowingAxe,
+    /// Shuriken (throwing star), thrust impaling. MA 229. $5, 0.1 lbs, TL 2
+    Shuriken,
+    /// Dart, thrust-1 impaling. BS 277. $10, 0.1 lbs, TL 0
+    Dart,
+    /// Revolver (.38), 2d piercing. HT 102. $300, 2 lbs, TL 6
+    Revolver,
+    /// SMG (9mm), 2d+2 piercing. HT 104. $450, 7 lbs, TL 6
+    SMG,
+    /// Assault Rifle (5.56mm), 5d piercing. HT 105. $900, 9 lbs, TL 7
+    AssaultRifle,
+    /// Sniper Rifle (.308), 7d piercing. HT 106. $3500, 11 lbs, TL 7
+    SniperRifle,
+    /// Blowgun, 1d-3 impaling. BS 277. $30, 1 lb, TL 0
+    Blowgun,
+    /// Atlatl (spear thrower), thrust+3 impaling. LT 78. $20, 1 lb, TL 0
+    Atlatl,
 
     // Armor (5 variants from existing Armor struct tests)
     /// No armor, DR 0. BS 279. $0, 0 lbs, TL 0
@@ -302,7 +330,21 @@ impl Item {
             | Self::Rifle
             | Self::Shotgun
             | Self::Sling
-            | Self::ThrowingKnife => ItemCategory::RangedWeapon,
+            | Self::ThrowingKnife
+            | Self::Longbow
+            | Self::CompositeBow
+            | Self::ShortBow
+            | Self::LightCrossbow
+            | Self::HeavyCrossbow
+            | Self::ThrowingAxe
+            | Self::Shuriken
+            | Self::Dart
+            | Self::Revolver
+            | Self::SMG
+            | Self::AssaultRifle
+            | Self::SniperRifle
+            | Self::Blowgun
+            | Self::Atlatl => ItemCategory::RangedWeapon,
 
             Self::NoArmor
             | Self::LeatherArmor
