@@ -237,6 +237,26 @@ pub enum Item {
     HeavyBoots,
     /// Reinforced Gloves. BS 266. $50, 0.75 lbs, TL 2
     ReinforcedGloves,
+    /// Tunic (simple). BS 266. $30, 1 lb, TL 0
+    Tunic,
+    /// Shirt (cloth). BS 266. $20, 0.5 lbs, TL 1
+    Shirt,
+    /// Pants (cloth). BS 266. $30, 1 lb, TL 1
+    Pants,
+    /// Dress (simple). BS 266. $40, 2 lbs, TL 1
+    Dress,
+    /// Cape (short). BS 266. $20, 1 lb, TL 0
+    Cape,
+    /// Hood (cloth). BS 266. $5, 0.25 lbs, TL 0
+    Hood,
+    /// Scarf. BS 266. $5, 0.1 lbs, TL 0
+    Scarf,
+    /// Vest (cloth). BS 266. $25, 0.5 lbs, TL 1
+    Vest,
+    /// Apron (work). BS 266. $15, 0.75 lbs, TL 1
+    Apron,
+    /// Tabard (heraldic). BS 266. $25, 1 lb, TL 2
+    Tabard,
 
     // Containers (10 variants)
     /// Small Pouch. BS 288. $10, 0.2 lbs, 3 lbs capacity, TL 0
@@ -421,7 +441,17 @@ impl Item {
             | Self::Robe
             | Self::Sandals
             | Self::HeavyBoots
-            | Self::ReinforcedGloves => ItemCategory::Clothing,
+            | Self::ReinforcedGloves
+            | Self::Tunic
+            | Self::Shirt
+            | Self::Pants
+            | Self::Dress
+            | Self::Cape
+            | Self::Hood
+            | Self::Scarf
+            | Self::Vest
+            | Self::Apron
+            | Self::Tabard => ItemCategory::Clothing,
 
             Self::SmallPouch
             | Self::Pouch

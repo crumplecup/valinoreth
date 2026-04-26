@@ -29,6 +29,16 @@ pub(super) fn base_cost(item: &Item) -> Currency {
         Item::Sandals => Currency::dollars(25.0),
         Item::HeavyBoots => Currency::dollars(100.0),
         Item::ReinforcedGloves => Currency::dollars(50.0),
+        Item::Tunic => Currency::dollars(30.0),
+        Item::Shirt => Currency::dollars(20.0),
+        Item::Pants => Currency::dollars(30.0),
+        Item::Dress => Currency::dollars(40.0),
+        Item::Cape => Currency::dollars(20.0),
+        Item::Hood => Currency::dollars(5.0),
+        Item::Scarf => Currency::dollars(5.0),
+        Item::Vest => Currency::dollars(25.0),
+        Item::Apron => Currency::dollars(15.0),
+        Item::Tabard => Currency::dollars(25.0),
         _ => {
             tracing::error!(item = ?item, "Non-clothing item in clothing::base_cost");
             Currency::dollars(0.0)
@@ -51,6 +61,16 @@ pub(super) fn weight(item: &Item) -> Weight {
         Item::Sandals => Weight::pounds(0.5),
         Item::HeavyBoots => Weight::pounds(3.0),
         Item::ReinforcedGloves => Weight::pounds(0.75),
+        Item::Tunic => Weight::pounds(1.0),
+        Item::Shirt => Weight::pounds(0.5),
+        Item::Pants => Weight::pounds(1.0),
+        Item::Dress => Weight::pounds(2.0),
+        Item::Cape => Weight::pounds(1.0),
+        Item::Hood => Weight::pounds(0.25),
+        Item::Scarf => Weight::pounds(0.1),
+        Item::Vest => Weight::pounds(0.5),
+        Item::Apron => Weight::pounds(0.75),
+        Item::Tabard => Weight::pounds(1.0),
         _ => {
             tracing::error!(item = ?item, "Non-clothing item in clothing::weight");
             Weight::pounds(0.0)
@@ -73,6 +93,16 @@ pub(super) fn tech_level(item: &Item) -> TechLevel {
         Item::Sandals => TechLevel::new(0),          // Stone Age
         Item::HeavyBoots => TechLevel::new(2),       // Medieval
         Item::ReinforcedGloves => TechLevel::new(2), // Medieval
+        Item::Tunic => TechLevel::new(0),            // Stone Age
+        Item::Shirt => TechLevel::new(1),            // Bronze Age
+        Item::Pants => TechLevel::new(1),            // Bronze Age
+        Item::Dress => TechLevel::new(1),            // Bronze Age
+        Item::Cape => TechLevel::new(0),             // Stone Age
+        Item::Hood => TechLevel::new(0),             // Stone Age
+        Item::Scarf => TechLevel::new(0),            // Stone Age
+        Item::Vest => TechLevel::new(1),             // Bronze Age
+        Item::Apron => TechLevel::new(1),            // Bronze Age
+        Item::Tabard => TechLevel::new(2),           // Medieval
         _ => {
             tracing::error!(item = ?item, "Non-clothing item in clothing::tech_level");
             TechLevel::new(0)
