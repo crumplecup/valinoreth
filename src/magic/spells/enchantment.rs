@@ -10,7 +10,9 @@
 //!
 //! M 56-71 - Enchantment college
 
-use crate::{Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType};
+use crate::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 use tracing::{debug, instrument};
 
 /// Returns base energy cost for Enchantment spells.
@@ -49,24 +51,24 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
     match spell {
         Spell::Enchant => 86400, // 1 day
         Spell::TemporaryEnchantment => 10,
-        Spell::Hex => 300, // 5 minutes
-        Spell::Scroll => 60, // 1 minute
-        Spell::Power => 3600, // 1 hour
+        Spell::Hex => 300,          // 5 minutes
+        Spell::Scroll => 60,        // 1 minute
+        Spell::Power => 3600,       // 1 hour
         Spell::Powerstone => 86400, // 1 day
         Spell::RemoveEnchantment => 60,
         Spell::ResistEnchantment => 2,
-        Spell::Golem => 28800, // 8 hours
-        Spell::Malefice => 300, // 5 minutes
-        Spell::Ensorcel => 600, // 10 minutes
+        Spell::Golem => 28800,           // 8 hours
+        Spell::Malefice => 300,          // 5 minutes
+        Spell::Ensorcel => 600,          // 10 minutes
         Spell::ImpressionBlocker => 300, // 5 minutes
         Spell::LesserWish => 60,
         Spell::Wish => 600,
         Spell::GreatWish => 3600,
-        Spell::Manastone => 172800, // 2 days
-        Spell::Staff => 43200, // 12 hours
-        Spell::Wand => 21600, // 6 hours
+        Spell::Manastone => 172800,  // 2 days
+        Spell::Staff => 43200,       // 12 hours
+        Spell::Wand => 21600,        // 6 hours
         Spell::CrystalBall => 86400, // 1 day
-        Spell::SoulStone => 259200, // 3 days
+        Spell::SoulStone => 259200,  // 3 days
         _ => panic!("Invalid spell {:?} for Enchantment college", spell),
     }
 }

@@ -77,8 +77,16 @@ fn test_all_expanded_melee_have_properties() {
 
     for item in expanded_weapons {
         assert_eq!(item.category(), ItemCategory::MeleeWeapon);
-        assert!(item.base_cost().amount() > 0.0, "{:?} has invalid cost", item);
-        assert!(item.weight().amount() >= 0.0, "{:?} has invalid weight", item);
+        assert!(
+            item.base_cost().amount() > 0.0,
+            "{:?} has invalid cost",
+            item
+        );
+        assert!(
+            item.weight().amount() >= 0.0,
+            "{:?} has invalid weight",
+            item
+        );
         assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
         assert!(item.weapon_damage().is_some(), "{:?} missing damage", item);
         assert!(item.reach().is_some(), "{:?} missing reach", item);

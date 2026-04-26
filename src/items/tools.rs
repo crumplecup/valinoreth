@@ -62,15 +62,15 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting tool tech level");
     match item {
-        Item::Lockpicks => TechLevel::new(3),       // Medieval/Renaissance
-        Item::FirstAidKit => TechLevel::new(5),     // Industrial
-        Item::Toolkit => TechLevel::new(1),         // Bronze Age (basic tools)
-        Item::Rope => TechLevel::new(0),            // Stone Age
-        Item::Grapnel => TechLevel::new(2),         // Medieval
-        Item::Crowbar => TechLevel::new(1),         // Bronze Age
-        Item::Hammer => TechLevel::new(0),          // Stone Age
-        Item::Saw => TechLevel::new(2),             // Medieval
-        Item::Shovel => TechLevel::new(1),          // Bronze Age
+        Item::Lockpicks => TechLevel::new(3),   // Medieval/Renaissance
+        Item::FirstAidKit => TechLevel::new(5), // Industrial
+        Item::Toolkit => TechLevel::new(1),     // Bronze Age (basic tools)
+        Item::Rope => TechLevel::new(0),        // Stone Age
+        Item::Grapnel => TechLevel::new(2),     // Medieval
+        Item::Crowbar => TechLevel::new(1),     // Bronze Age
+        Item::Hammer => TechLevel::new(0),      // Stone Age
+        Item::Saw => TechLevel::new(2),         // Medieval
+        Item::Shovel => TechLevel::new(1),      // Bronze Age
         Item::MagnifyingGlass => TechLevel::new(4), // Renaissance
         _ => {
             tracing::error!(item = ?item, "Non-tool item in tools::tech_level");

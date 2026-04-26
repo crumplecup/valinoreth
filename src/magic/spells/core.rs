@@ -12,7 +12,12 @@
 
 use tracing::{debug, instrument};
 
-use super::{air, animal, body_control, communication_empathy, enchantment, earth, fire, food, gate, healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells, mind_control, movement, necromantic, plant, protection_warning, sound, technological, water, weather};
+use super::{
+    air, animal, body_control, communication_empathy, earth, enchantment, fire, food, gate,
+    healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells,
+    mind_control, movement, necromantic, plant, protection_warning, sound, technological, water,
+    weather,
+};
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// Magic spell colleges.
@@ -1917,13 +1922,15 @@ impl Spell {
     #[instrument]
     pub fn base_energy_cost(&self) -> EnergyCost {
         debug!("Getting base energy cost");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::base_energy_cost(self),
             SpellCollege::Animal => return animal::base_energy_cost(self),
             SpellCollege::BodyControl => return body_control::base_energy_cost(self),
-            SpellCollege::CommunicationEmpathy => return communication_empathy::base_energy_cost(self),
+            SpellCollege::CommunicationEmpathy => {
+                return communication_empathy::base_energy_cost(self)
+            }
             SpellCollege::Enchantment => return enchantment::base_energy_cost(self),
             SpellCollege::Earth => return earth::base_energy_cost(self),
             SpellCollege::Fire => return fire::base_energy_cost(self),
@@ -1970,7 +1977,7 @@ impl Spell {
     #[instrument]
     pub fn casting_time(&self) -> i32 {
         debug!("Getting casting time");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::casting_time(self),
@@ -2023,7 +2030,7 @@ impl Spell {
     #[instrument]
     pub fn duration(&self) -> Duration {
         debug!("Getting spell duration");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::duration(self),
@@ -2076,13 +2083,15 @@ impl Spell {
     #[instrument]
     pub fn prerequisites(&self) -> Vec<SpellPrerequisite> {
         debug!("Getting spell prerequisites");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::prerequisites(self),
             SpellCollege::Animal => return animal::prerequisites(self),
             SpellCollege::BodyControl => return body_control::prerequisites(self),
-            SpellCollege::CommunicationEmpathy => return communication_empathy::prerequisites(self),
+            SpellCollege::CommunicationEmpathy => {
+                return communication_empathy::prerequisites(self)
+            }
             SpellCollege::Enchantment => return enchantment::prerequisites(self),
             SpellCollege::Earth => return earth::prerequisites(self),
             SpellCollege::Fire => return fire::prerequisites(self),
@@ -2129,7 +2138,7 @@ impl Spell {
     #[instrument]
     pub fn spell_type(&self) -> SpellType {
         debug!("Getting spell type");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::spell_type(self),
@@ -2182,7 +2191,7 @@ impl Spell {
     #[instrument]
     pub fn resistance(&self) -> Option<ResistanceType> {
         debug!("Getting resistance type");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::resistance(self),
@@ -2225,7 +2234,7 @@ impl Spell {
     #[instrument]
     pub fn reference(&self) -> &'static str {
         debug!("Getting spell reference");
-        
+
         // Delegate to college modules
         match self.college() {
             SpellCollege::Air => return air::reference(self),
@@ -2255,4 +2264,3 @@ impl Spell {
         }
     }
 }
-

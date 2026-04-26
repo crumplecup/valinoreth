@@ -53,18 +53,10 @@ fn test_all_ranged_weapons_have_properties() {
                 "{:?} has invalid weight",
                 item
             );
-            assert!(
-                item.tech_level().level() <= 12,
-                "{:?} has invalid TL",
-                item
-            );
+            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
             assert!(item.weapon_damage().is_some(), "{:?} missing damage", item);
             assert!(item.accuracy().is_some(), "{:?} missing accuracy", item);
-            assert!(
-                item.required_skill().is_some(),
-                "{:?} missing skill",
-                item
-            );
+            assert!(item.required_skill().is_some(), "{:?} missing skill", item);
 
             // Ranged weapons don't have melee properties
             assert!(item.reach().is_none(), "{:?} should not have reach", item);
@@ -139,16 +131,8 @@ fn test_all_armor_have_properties() {
                 "{:?} has invalid weight",
                 item
             );
-            assert!(
-                item.tech_level().level() <= 12,
-                "{:?} has invalid TL",
-                item
-            );
-            assert!(
-                item.damage_resistance().is_some(),
-                "{:?} missing DR",
-                item
-            );
+            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
+            assert!(item.damage_resistance().is_some(), "{:?} missing DR", item);
 
             // Armor doesn't have weapon properties
             assert!(

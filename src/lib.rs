@@ -30,11 +30,10 @@ mod skills;
 mod special_features;
 
 pub use advantages::{
-    AbsoluteDirection, Advantage, Appearance, Claws, EiditicMemory, Flight, Flexible,
+    AbsoluteDirection, Advantage, Appearance, Claws, EiditicMemory, Flexible, Flight,
     InjuryTolerance, Luck, Perk, ProtectedSense, Regeneration, Resistant, SocialRegard, Striker,
     Teeth, Wealth,
 };
-pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use body::{Arms, BodyArea, BodyLocation, Head, Legs, Torso};
 pub use character::{
     AttributeColumns, AttributeType, Attributes, BaseDamage, CombatStats, DamageKind, Encumbrance,
@@ -48,6 +47,7 @@ pub use combat::{
     WeaponDamage, RETREAT_BONUS,
 };
 pub use dice::{Dice, DieLevel, Random};
+pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use free::trace_init;
 pub use items::{Capacity, Currency, Item, ItemCategory, Quality, TechLevel, Weight};
 pub use magic::{

@@ -10,9 +10,7 @@
 //!
 //! BS 276-278 - Ranged weapons table
 
-use crate::{
-    Currency, DamageType, DieLevel, Item, Skill, TechLevel, Weight, WeaponDamage,
-};
+use crate::{Currency, DamageType, DieLevel, Item, Skill, TechLevel, WeaponDamage, Weight};
 use tracing::{debug, instrument};
 
 /// Returns base cost for ranged weapons.
@@ -86,27 +84,27 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting ranged weapon tech level");
     match item {
-        Item::Bow => TechLevel::new(0),          // Stone Age
-        Item::Crossbow => TechLevel::new(2),     // Medieval
-        Item::Pistol => TechLevel::new(6),       // Atomic Age
-        Item::Rifle => TechLevel::new(6),        // Atomic Age
-        Item::Shotgun => TechLevel::new(5),      // Mechanized Age
-        Item::Sling => TechLevel::new(0),        // Stone Age
+        Item::Bow => TechLevel::new(0),           // Stone Age
+        Item::Crossbow => TechLevel::new(2),      // Medieval
+        Item::Pistol => TechLevel::new(6),        // Atomic Age
+        Item::Rifle => TechLevel::new(6),         // Atomic Age
+        Item::Shotgun => TechLevel::new(5),       // Mechanized Age
+        Item::Sling => TechLevel::new(0),         // Stone Age
         Item::ThrowingKnife => TechLevel::new(0), // Stone Age
-        Item::Longbow => TechLevel::new(0),      // Stone Age
-        Item::CompositeBow => TechLevel::new(2), // Medieval
-        Item::ShortBow => TechLevel::new(0),     // Stone Age
+        Item::Longbow => TechLevel::new(0),       // Stone Age
+        Item::CompositeBow => TechLevel::new(2),  // Medieval
+        Item::ShortBow => TechLevel::new(0),      // Stone Age
         Item::LightCrossbow => TechLevel::new(2), // Medieval
         Item::HeavyCrossbow => TechLevel::new(2), // Medieval
-        Item::ThrowingAxe => TechLevel::new(0),  // Stone Age
-        Item::Shuriken => TechLevel::new(2),     // Medieval Japan
-        Item::Dart => TechLevel::new(0),         // Stone Age
-        Item::Revolver => TechLevel::new(6),     // Atomic Age
-        Item::SMG => TechLevel::new(6),          // Atomic Age
-        Item::AssaultRifle => TechLevel::new(7), // Digital Age
-        Item::SniperRifle => TechLevel::new(7),  // Digital Age
-        Item::Blowgun => TechLevel::new(0),      // Stone Age
-        Item::Atlatl => TechLevel::new(0),       // Stone Age
+        Item::ThrowingAxe => TechLevel::new(0),   // Stone Age
+        Item::Shuriken => TechLevel::new(2),      // Medieval Japan
+        Item::Dart => TechLevel::new(0),          // Stone Age
+        Item::Revolver => TechLevel::new(6),      // Atomic Age
+        Item::SMG => TechLevel::new(6),           // Atomic Age
+        Item::AssaultRifle => TechLevel::new(7),  // Digital Age
+        Item::SniperRifle => TechLevel::new(7),   // Digital Age
+        Item::Blowgun => TechLevel::new(0),       // Stone Age
+        Item::Atlatl => TechLevel::new(0),        // Stone Age
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::tech_level");
             TechLevel::new(0)

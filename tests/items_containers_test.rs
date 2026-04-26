@@ -53,16 +53,8 @@ fn test_all_containers_have_properties() {
                 "{:?} has invalid weight",
                 item
             );
-            assert!(
-                item.tech_level().level() <= 12,
-                "{:?} has invalid TL",
-                item
-            );
-            assert!(
-                item.capacity().is_some(),
-                "{:?} should have capacity",
-                item
-            );
+            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
+            assert!(item.capacity().is_some(), "{:?} should have capacity", item);
 
             // Containers don't have weapon or armor properties
             assert!(

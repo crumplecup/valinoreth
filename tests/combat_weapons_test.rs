@@ -355,7 +355,10 @@ fn test_poor_parry_weapons() {
 #[test]
 fn test_weapon_skill_linkage() {
     // Verify weapons correctly link to their skills
-    assert_eq!(Item::Broadsword.required_skill().unwrap(), Skill::Broadsword);
+    assert_eq!(
+        Item::Broadsword.required_skill().unwrap(),
+        Skill::Broadsword
+    );
     assert_eq!(Item::Rapier.required_skill().unwrap(), Skill::Rapier);
     assert_eq!(Item::Spear.required_skill().unwrap(), Skill::Spear);
     assert_eq!(Item::Axe.required_skill().unwrap(), Skill::AxeMace);

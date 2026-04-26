@@ -9,7 +9,9 @@
 //!
 //! M 76-87 - Healing college
 
-use crate::{Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType};
+use crate::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 use tracing::{debug, instrument};
 
 /// Returns base energy cost for Healing spells.
@@ -122,94 +124,94 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
         Spell::LendEnergy => vec![SpellPrerequisite::Magery(0)],
         Spell::LendVitality => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::LendEnergy)
-            ],
+            SpellPrerequisite::Spell(Spell::LendEnergy),
+        ],
         Spell::RecoverEnergy => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::LendEnergy)
-            ],
+            SpellPrerequisite::Spell(Spell::LendEnergy),
+        ],
         Spell::MinorHealing => vec![SpellPrerequisite::Magery(0)],
         Spell::MajorHealing => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::MinorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MinorHealing),
+        ],
         Spell::GreatHealing => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::MajorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MajorHealing),
+        ],
         Spell::Awaken => vec![SpellPrerequisite::Magery(0)],
         Spell::CureDisease => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 4),
+        ],
         Spell::NeutralizePoison => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::MinorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MinorHealing),
+        ],
         Spell::InstantNeutralizePoison => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::NeutralizePoison)
-            ],
+            SpellPrerequisite::Spell(Spell::NeutralizePoison),
+        ],
         Spell::StopBleeding => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::MinorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MinorHealing),
+        ],
         Spell::Regeneration => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::MajorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MajorHealing),
+        ],
         Spell::Restoration => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 8)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 8),
+        ],
         Spell::SuspendCurse => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 4),
+        ],
         Spell::RemoveCurse => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::SuspendCurse)
-            ],
+            SpellPrerequisite::Spell(Spell::SuspendCurse),
+        ],
         Spell::CurseRemoval => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 4),
+        ],
         Spell::Healing => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::MajorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MajorHealing),
+        ],
         Spell::RestoreYouth => vec![
             SpellPrerequisite::Magery(3),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 12)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 12),
+        ],
         Spell::Resurrection => vec![
             SpellPrerequisite::Magery(3),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 12)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 12),
+        ],
         Spell::Sterilize => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::MinorHealing)
-            ],
+            SpellPrerequisite::Spell(Spell::MinorHealing),
+        ],
         Spell::ShareVitality => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::LendVitality)
-            ],
+            SpellPrerequisite::Spell(Spell::LendVitality),
+        ],
         Spell::RegrowLimb => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::Regeneration)
-            ],
+            SpellPrerequisite::Spell(Spell::Regeneration),
+        ],
         Spell::PurifyFood => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::NeutralizePoison)
-            ],
+            SpellPrerequisite::Spell(Spell::NeutralizePoison),
+        ],
         Spell::InstantRecoverEnergy => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::RecoverEnergy)
-            ],
+            SpellPrerequisite::Spell(Spell::RecoverEnergy),
+        ],
         Spell::StopAging => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 10)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Healing, 10),
+        ],
         _ => panic!("Invalid spell {:?} for Healing college", spell),
     }
 }

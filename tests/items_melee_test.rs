@@ -95,11 +95,7 @@ fn test_all_melee_weapons_have_properties() {
                 "{:?} has invalid weight",
                 item
             );
-            assert!(
-                item.tech_level().level() <= 12,
-                "{:?} has invalid TL",
-                item
-            );
+            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
 
             // All melee weapons must have weapon-specific properties
             assert!(item.weapon_damage().is_some(), "{:?} missing damage", item);
@@ -109,11 +105,7 @@ fn test_all_melee_weapons_have_properties() {
                 "{:?} missing parry modifier",
                 item
             );
-            assert!(
-                item.required_skill().is_some(),
-                "{:?} missing skill",
-                item
-            );
+            assert!(item.required_skill().is_some(), "{:?} missing skill", item);
         }
     }
 }

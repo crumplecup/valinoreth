@@ -1509,4 +1509,3 @@ pub enum Perk {
     /// +1 to Reaction when truth matters. BS 101
     HonestFace,
 }
-

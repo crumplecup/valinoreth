@@ -9,7 +9,9 @@
 //!
 //! M 36-45 - Earth college
 
-use crate::{Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType};
+use crate::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 use tracing::{debug, instrument};
 
 /// Returns base energy cost for Earth spells.
@@ -119,93 +121,93 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
         Spell::ShapeEarth => vec![SpellPrerequisite::Magery(0)],
         Spell::EarthToStone => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::ShapeEarth)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeEarth),
+        ],
         Spell::StoneToEarth => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::EarthToStone)
-            ],
+            SpellPrerequisite::Spell(Spell::EarthToStone),
+        ],
         Spell::CreateEarth => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::ShapeEarth)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeEarth),
+        ],
         Spell::DestroyEarth => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::CreateEarth)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateEarth),
+        ],
         Spell::EarthVision => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::ShapeEarth)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeEarth),
+        ],
         Spell::WalkThroughEarth => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 4),
+        ],
         Spell::Earthquake => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 8)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 8),
+        ],
         Spell::ShapeStone => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::EarthToStone)
-            ],
+            SpellPrerequisite::Spell(Spell::EarthToStone),
+        ],
         Spell::EarthToAir => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6),
+        ],
         Spell::StoneMissile => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeStone)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeStone),
+        ],
         Spell::CreateStone => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::EarthToStone)
-            ],
+            SpellPrerequisite::Spell(Spell::EarthToStone),
+        ],
         Spell::SandJet => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeEarth)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeEarth),
+        ],
         Spell::FleshToStone => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6),
+        ],
         Spell::StoneToFlesh => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::FleshToStone)
-            ],
+            SpellPrerequisite::Spell(Spell::FleshToStone),
+        ],
         Spell::IronArm => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 4),
+        ],
         Spell::Entombment => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 4),
+        ],
         Spell::SummonEarthElemental => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 8)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 8),
+        ],
         Spell::PurifyEarth => vec![SpellPrerequisite::Magery(0)],
         Spell::EssentialEarth => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6),
+        ],
         Spell::BodyOfEarth => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Earth, 6),
+        ],
         Spell::EarthToWater => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::EarthToAir)
-            ],
+            SpellPrerequisite::Spell(Spell::EarthToAir),
+        ],
         Spell::IdentifyMetal => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::ShapeEarth)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeEarth),
+        ],
         Spell::ShapeMetal => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeStone)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeStone),
+        ],
         _ => panic!("Invalid spell {:?} for Earth college", spell),
     }
 }

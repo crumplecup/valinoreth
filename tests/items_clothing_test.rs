@@ -49,11 +49,7 @@ fn test_all_clothing_have_properties() {
                 "{:?} has invalid weight",
                 item
             );
-            assert!(
-                item.tech_level().level() <= 12,
-                "{:?} has invalid TL",
-                item
-            );
+            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
 
             // Clothing doesn't have weapon or armor properties
             assert!(

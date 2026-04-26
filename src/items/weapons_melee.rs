@@ -10,7 +10,7 @@
 //!
 //! BS 271-276 - Melee weapons table
 
-use crate::{Currency, DamageType, Item, Reach, Skill, TechLevel, Weight, WeaponDamage};
+use crate::{Currency, DamageType, Item, Reach, Skill, TechLevel, WeaponDamage, Weight};
 use tracing::{debug, instrument};
 
 /// Returns base cost for melee weapons.
@@ -128,49 +128,49 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting melee weapon tech level");
     match item {
-        Item::Axe => TechLevel::new(0),          // Stone Age
-        Item::Baton => TechLevel::new(5),        // Modern (police baton)
-        Item::BrassKnuckles => TechLevel::new(3), // Industrial
-        Item::Broadsword => TechLevel::new(2),   // Medieval
-        Item::Dagger => TechLevel::new(1),       // Bronze Age
-        Item::Fist => TechLevel::new(0),         // Stone Age
-        Item::Flail => TechLevel::new(2),        // Medieval
-        Item::GreatAxe => TechLevel::new(1),     // Bronze/Iron Age
-        Item::Halberd => TechLevel::new(2),      // Medieval
-        Item::Hatchet => TechLevel::new(0),      // Stone Age
-        Item::Javelin => TechLevel::new(0),      // Stone Age
-        Item::Kick => TechLevel::new(0),         // Stone Age
-        Item::Knife => TechLevel::new(0),        // Stone Age
-        Item::Kusari => TechLevel::new(2),       // Medieval Japan
-        Item::Lance => TechLevel::new(2),        // Medieval
-        Item::LongSpear => TechLevel::new(1),    // Bronze Age
-        Item::Mace => TechLevel::new(1),         // Bronze Age
-        Item::MainGauche => TechLevel::new(4),   // Renaissance
-        Item::Morningstar => TechLevel::new(2),  // Medieval
-        Item::Quarterstaff => TechLevel::new(0), // Stone Age
-        Item::Rapier => TechLevel::new(4),       // Renaissance
-        Item::Saber => TechLevel::new(4),        // Age of Sail
-        Item::Shortsword => TechLevel::new(1),   // Bronze Age
-        Item::Smallsword => TechLevel::new(4),   // Renaissance
-        Item::Spear => TechLevel::new(0),        // Stone Age
-        Item::Staff => TechLevel::new(0),        // Stone Age
+        Item::Axe => TechLevel::new(0),            // Stone Age
+        Item::Baton => TechLevel::new(5),          // Modern (police baton)
+        Item::BrassKnuckles => TechLevel::new(3),  // Industrial
+        Item::Broadsword => TechLevel::new(2),     // Medieval
+        Item::Dagger => TechLevel::new(1),         // Bronze Age
+        Item::Fist => TechLevel::new(0),           // Stone Age
+        Item::Flail => TechLevel::new(2),          // Medieval
+        Item::GreatAxe => TechLevel::new(1),       // Bronze/Iron Age
+        Item::Halberd => TechLevel::new(2),        // Medieval
+        Item::Hatchet => TechLevel::new(0),        // Stone Age
+        Item::Javelin => TechLevel::new(0),        // Stone Age
+        Item::Kick => TechLevel::new(0),           // Stone Age
+        Item::Knife => TechLevel::new(0),          // Stone Age
+        Item::Kusari => TechLevel::new(2),         // Medieval Japan
+        Item::Lance => TechLevel::new(2),          // Medieval
+        Item::LongSpear => TechLevel::new(1),      // Bronze Age
+        Item::Mace => TechLevel::new(1),           // Bronze Age
+        Item::MainGauche => TechLevel::new(4),     // Renaissance
+        Item::Morningstar => TechLevel::new(2),    // Medieval
+        Item::Quarterstaff => TechLevel::new(0),   // Stone Age
+        Item::Rapier => TechLevel::new(4),         // Renaissance
+        Item::Saber => TechLevel::new(4),          // Age of Sail
+        Item::Shortsword => TechLevel::new(1),     // Bronze Age
+        Item::Smallsword => TechLevel::new(4),     // Renaissance
+        Item::Spear => TechLevel::new(0),          // Stone Age
+        Item::Staff => TechLevel::new(0),          // Stone Age
         Item::TwoHandedSword => TechLevel::new(2), // Medieval
-        Item::Warhammer => TechLevel::new(2),    // Medieval
-        Item::Katana => TechLevel::new(3),       // Medieval Japan
-        Item::Scimitar => TechLevel::new(2),     // Medieval
-        Item::Cutlass => TechLevel::new(4),      // Age of Sail
-        Item::Longsword => TechLevel::new(2),    // Medieval
-        Item::BastardSword => TechLevel::new(2), // Medieval
-        Item::Wakizashi => TechLevel::new(3),    // Medieval Japan
-        Item::Nunchaku => TechLevel::new(2),     // Medieval
-        Item::Sai => TechLevel::new(2),          // Medieval
-        Item::Katar => TechLevel::new(2),        // Medieval India
-        Item::Tonfa => TechLevel::new(0),        // Stone Age
-        Item::Estoc => TechLevel::new(3),        // Late Medieval
-        Item::Falchion => TechLevel::new(2),     // Medieval
-        Item::Gladius => TechLevel::new(1),      // Roman/Iron Age
-        Item::Maul => TechLevel::new(1),         // Bronze/Iron Age
-        Item::Pick => TechLevel::new(2),         // Medieval
+        Item::Warhammer => TechLevel::new(2),      // Medieval
+        Item::Katana => TechLevel::new(3),         // Medieval Japan
+        Item::Scimitar => TechLevel::new(2),       // Medieval
+        Item::Cutlass => TechLevel::new(4),        // Age of Sail
+        Item::Longsword => TechLevel::new(2),      // Medieval
+        Item::BastardSword => TechLevel::new(2),   // Medieval
+        Item::Wakizashi => TechLevel::new(3),      // Medieval Japan
+        Item::Nunchaku => TechLevel::new(2),       // Medieval
+        Item::Sai => TechLevel::new(2),            // Medieval
+        Item::Katar => TechLevel::new(2),          // Medieval India
+        Item::Tonfa => TechLevel::new(0),          // Stone Age
+        Item::Estoc => TechLevel::new(3),          // Late Medieval
+        Item::Falchion => TechLevel::new(2),       // Medieval
+        Item::Gladius => TechLevel::new(1),        // Roman/Iron Age
+        Item::Maul => TechLevel::new(1),           // Bronze/Iron Age
+        Item::Pick => TechLevel::new(2),           // Medieval
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::tech_level");
             TechLevel::new(0)

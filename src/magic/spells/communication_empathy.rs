@@ -9,7 +9,9 @@
 //!
 //! M 48-55 - Communication & Empathy college
 
-use crate::{Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType};
+use crate::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 use tracing::{debug, instrument};
 
 /// Returns base energy cost for Communication & Empathy spells.
@@ -33,7 +35,10 @@ pub(super) fn base_energy_cost(spell: &Spell) -> EnergyCost {
         Spell::ProjectVoice => EnergyCost::Fixed(1),
         Spell::SilentCommunication => EnergyCost::Fixed(2),
         Spell::LinkMind => EnergyCost::Fixed(4),
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }
 
@@ -58,7 +63,10 @@ pub(super) fn casting_time(spell: &Spell) -> i32 {
         Spell::ProjectVoice => 1,
         Spell::SilentCommunication => 1,
         Spell::LinkMind => 3,
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }
 
@@ -83,7 +91,10 @@ pub(super) fn duration(spell: &Spell) -> Duration {
         Spell::ProjectVoice => Duration::Minutes(1),
         Spell::SilentCommunication => Duration::Minutes(1),
         Spell::LinkMind => Duration::Minutes(10),
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }
 
@@ -144,7 +155,10 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
             SpellPrerequisite::Magery(2),
             SpellPrerequisite::SpellsInCollege(SpellCollege::CommunicationEmpathy, 6),
         ],
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }
 
@@ -169,7 +183,10 @@ pub(super) fn spell_type(spell: &Spell) -> SpellType {
         Spell::ProjectVoice => SpellType::Regular,
         Spell::SilentCommunication => SpellType::Regular,
         Spell::LinkMind => SpellType::Regular,
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }
 
@@ -194,7 +211,10 @@ pub(super) fn resistance(spell: &Spell) -> Option<ResistanceType> {
         Spell::ProjectVoice => None,
         Spell::SilentCommunication => None,
         Spell::LinkMind => None,
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }
 
@@ -219,6 +239,9 @@ pub(super) fn reference(spell: &Spell) -> &'static str {
         Spell::ProjectVoice => "M51",
         Spell::SilentCommunication => "M53",
         Spell::LinkMind => "M50",
-        _ => panic!("Invalid spell {:?} for Communication & Empathy college", spell),
+        _ => panic!(
+            "Invalid spell {:?} for Communication & Empathy college",
+            spell
+        ),
     }
 }

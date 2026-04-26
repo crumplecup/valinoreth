@@ -83,11 +83,12 @@ impl TechLevel {
 /// # Citations
 ///
 /// BS 274 - Quality
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, Default)]
 pub enum Quality {
     /// Cheap quality: ×0.4 cost, no bonus, BS 274
     Cheap,
     /// Good quality: ×1.0 cost, no bonus (default)
+    #[default]
     Good,
     /// Fine quality: ×4 cost, +1 bonus, BS 274
     Fine,
@@ -120,12 +121,6 @@ impl Quality {
             Self::Fine => 1,
             Self::VeryFine => 2,
         }
-    }
-}
-
-impl Default for Quality {
-    fn default() -> Self {
-        Self::Good
     }
 }
 

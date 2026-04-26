@@ -9,7 +9,9 @@
 //!
 //! M 59-75 - Fire college
 
-use crate::{Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType};
+use crate::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 use tracing::{debug, instrument};
 
 /// Returns base energy cost for Fire spells.
@@ -122,100 +124,100 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
         Spell::IgniteFlame => vec![SpellPrerequisite::Magery(0)],
         Spell::CreateFire => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::IgniteFlame)
-            ],
+            SpellPrerequisite::Spell(Spell::IgniteFlame),
+        ],
         Spell::ExtinguishFire => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::IgniteFlame)
-            ],
+            SpellPrerequisite::Spell(Spell::IgniteFlame),
+        ],
         Spell::ShapeFire => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::IgniteFlame)
-            ],
+            SpellPrerequisite::Spell(Spell::IgniteFlame),
+        ],
         Spell::Fireball => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::CreateFire)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateFire),
+        ],
         Spell::ExplosiveFireball => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::Fireball)
-            ],
+            SpellPrerequisite::Spell(Spell::Fireball),
+        ],
         Spell::FlameJet => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeFire)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeFire),
+        ],
         Spell::Heat => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::IgniteFlame)
-            ],
+            SpellPrerequisite::Spell(Spell::IgniteFlame),
+        ],
         Spell::Cold => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Heat)
-            ],
+            SpellPrerequisite::Spell(Spell::Heat),
+        ],
         Spell::ResistFire => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Heat)
-            ],
+            SpellPrerequisite::Spell(Spell::Heat),
+        ],
         Spell::ResistCold => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Cold)
-            ],
+            SpellPrerequisite::Spell(Spell::Cold),
+        ],
         Spell::PurifyAir => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::CreateFire)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateFire),
+        ],
         Spell::Frostbite => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::Cold)
-            ],
+            SpellPrerequisite::Spell(Spell::Cold),
+        ],
         Spell::WallOfFire => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeFire)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeFire),
+        ],
         Spell::SummonFireElemental => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 8)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 8),
+        ],
         Spell::PermanentFlame => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 4),
+        ],
         Spell::SeekFireFire => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::IgniteFlame)
-            ],
+            SpellPrerequisite::Spell(Spell::IgniteFlame),
+        ],
         Spell::Ignition => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::Heat)
-            ],
+            SpellPrerequisite::Spell(Spell::Heat),
+        ],
         Spell::EssentialFlame => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 6),
+        ],
         Spell::BodyOfFire => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Fire, 6),
+        ],
         Spell::FireVision => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::ShapeFire)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeFire),
+        ],
         Spell::Warmth => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Heat)
-            ],
+            SpellPrerequisite::Spell(Spell::Heat),
+        ],
         Spell::DeflectEnergy => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeFire)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeFire),
+        ],
         Spell::ControlFireElemental => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::SummonFireElemental)
-            ],
+            SpellPrerequisite::Spell(Spell::SummonFireElemental),
+        ],
         Spell::CreateFireElemental => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::Spell(Spell::ControlFireElemental)
-            ],
+            SpellPrerequisite::Spell(Spell::ControlFireElemental),
+        ],
         _ => panic!("Invalid spell {:?} for Fire college", spell),
     }
 }

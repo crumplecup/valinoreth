@@ -61,16 +61,16 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting container tech level");
     match item {
-        Item::SmallPouch => TechLevel::new(0),     // Stone Age
-        Item::Pouch => TechLevel::new(0),          // Stone Age
-        Item::LargePouch => TechLevel::new(0),     // Stone Age
-        Item::SmallBackpack => TechLevel::new(1),  // Bronze Age
-        Item::Backpack => TechLevel::new(1),       // Bronze Age
-        Item::LargeBackpack => TechLevel::new(2),  // Medieval
-        Item::SmallSack => TechLevel::new(0),      // Stone Age
-        Item::LargeSack => TechLevel::new(0),      // Stone Age
-        Item::SmallChest => TechLevel::new(1),     // Bronze Age
-        Item::LargeChest => TechLevel::new(1),     // Bronze Age
+        Item::SmallPouch => TechLevel::new(0),    // Stone Age
+        Item::Pouch => TechLevel::new(0),         // Stone Age
+        Item::LargePouch => TechLevel::new(0),    // Stone Age
+        Item::SmallBackpack => TechLevel::new(1), // Bronze Age
+        Item::Backpack => TechLevel::new(1),      // Bronze Age
+        Item::LargeBackpack => TechLevel::new(2), // Medieval
+        Item::SmallSack => TechLevel::new(0),     // Stone Age
+        Item::LargeSack => TechLevel::new(0),     // Stone Age
+        Item::SmallChest => TechLevel::new(1),    // Bronze Age
+        Item::LargeChest => TechLevel::new(1),    // Bronze Age
         _ => {
             tracing::error!(item = ?item, "Non-container item in containers::tech_level");
             TechLevel::new(0)

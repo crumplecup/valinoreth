@@ -45,9 +45,9 @@ pub(super) fn weight(item: &Item) -> Weight {
         Item::LargeTent => Weight::pounds(30.0),
         Item::Blanket => Weight::pounds(4.0),
         Item::Rations => Weight::pounds(0.5),
-        Item::Waterskin => Weight::pounds(0.25),  // Empty weight
+        Item::Waterskin => Weight::pounds(0.25), // Empty weight
         Item::Bedroll => Weight::pounds(3.0),
-        Item::Canteen => Weight::pounds(0.5),     // Empty weight
+        Item::Canteen => Weight::pounds(0.5), // Empty weight
         Item::Lantern => Weight::pounds(2.0),
         Item::Candle => Weight::pounds(0.1),
         _ => {
@@ -62,16 +62,16 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting survival gear tech level");
     match item {
-        Item::Torch => TechLevel::new(0),      // Stone Age
-        Item::Tent => TechLevel::new(0),       // Stone Age
-        Item::LargeTent => TechLevel::new(1),  // Bronze Age
-        Item::Blanket => TechLevel::new(0),    // Stone Age
-        Item::Rations => TechLevel::new(0),    // Stone Age (preserved food)
-        Item::Waterskin => TechLevel::new(0),  // Stone Age
-        Item::Bedroll => TechLevel::new(0),    // Stone Age
-        Item::Canteen => TechLevel::new(3),    // Medieval (metal canteen)
-        Item::Lantern => TechLevel::new(2),    // Medieval (oil lantern)
-        Item::Candle => TechLevel::new(1),     // Bronze Age
+        Item::Torch => TechLevel::new(0),     // Stone Age
+        Item::Tent => TechLevel::new(0),      // Stone Age
+        Item::LargeTent => TechLevel::new(1), // Bronze Age
+        Item::Blanket => TechLevel::new(0),   // Stone Age
+        Item::Rations => TechLevel::new(0),   // Stone Age (preserved food)
+        Item::Waterskin => TechLevel::new(0), // Stone Age
+        Item::Bedroll => TechLevel::new(0),   // Stone Age
+        Item::Canteen => TechLevel::new(3),   // Medieval (metal canteen)
+        Item::Lantern => TechLevel::new(2),   // Medieval (oil lantern)
+        Item::Candle => TechLevel::new(1),    // Bronze Age
         _ => {
             tracing::error!(item = ?item, "Non-survival item in survival::tech_level");
             TechLevel::new(0)

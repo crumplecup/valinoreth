@@ -13,7 +13,7 @@
 //! - Property modules handle the actual data (weapons_melee.rs, armor.rs, etc.)
 
 use crate::{
-    Capacity, Currency, ItemCategory, Quality, Reach, Skill, TechLevel, Weight, WeaponDamage,
+    Capacity, Currency, ItemCategory, Quality, Reach, Skill, TechLevel, WeaponDamage, Weight,
 };
 use tracing::{debug, instrument};
 
@@ -175,6 +175,46 @@ pub enum Item {
     PlateArmor,
     /// Heavy Plate, DR 8. BS 279. $6000, 60 lbs, TL 3
     HeavyPlate,
+    /// Cloth Armor (heavy fabric), DR 1. LT 103. $30, 6 lbs, TL 1
+    ClothArmor,
+    /// Light Leather, DR 1. LT 103. $50, 5 lbs, TL 0
+    LightLeather,
+    /// Heavy Leather, DR 2. LT 103. $150, 15 lbs, TL 1
+    HeavyLeather,
+    /// Scale Mail, DR 4. LT 104. $420, 42 lbs, TL 2
+    ScaleMail,
+    /// Splint Mail, DR 5. LT 104. $700, 45 lbs, TL 2
+    SplintMail,
+    /// Half Plate, DR 5. LT 105. $1500, 30 lbs, TL 3
+    HalfPlate,
+    /// Mail Hauberk (long chainmail), DR 4. LT 104. $600, 45 lbs, TL 2
+    MailHauberk,
+    /// Mail Shirt (short chainmail), DR 4. LT 104. $350, 25 lbs, TL 2
+    MailShirt,
+    /// Brigandine, DR 4. LT 105. $500, 25 lbs, TL 3
+    Brigandine,
+    /// Lamellar Armor, DR 4. LT 104. $500, 35 lbs, TL 1
+    LamellarArmor,
+    /// Bronze Plate, DR 5. LT 105. $2400, 60 lbs, TL 1
+    BronzePlate,
+    /// Light Scale, DR 3. LT 104. $280, 28 lbs, TL 2
+    LightScale,
+    /// Ballistic Vest, DR 10/4. HT 178. $400, 2 lbs, TL 7
+    BallisticVest,
+    /// Tactical Vest, DR 18/6. HT 179. $900, 9 lbs, TL 8
+    TacticalVest,
+    /// Flak Jacket, DR 7/2. HT 178. $500, 20 lbs, TL 6
+    FlakJacket,
+    /// Small Shield, DB 1. BS 287. $40, 8 lbs, TL 1
+    SmallShield,
+    /// Medium Shield, DB 2. BS 287. $60, 15 lbs, TL 1
+    MediumShield,
+    /// Large Shield, DB 3. BS 287. $90, 25 lbs, TL 1
+    LargeShield,
+    /// Buckler, DB 1. BS 287. $25, 5 lbs, TL 2
+    Buckler,
+    /// Tower Shield, DB 4. LT 106. $150, 45 lbs, TL 2
+    TowerShield,
 
     // Clothing (10 variants)
     /// Ordinary Clothing. BS 266. $120, 2 lbs, TL 1
@@ -350,7 +390,27 @@ impl Item {
             | Self::LeatherArmor
             | Self::Chainmail
             | Self::PlateArmor
-            | Self::HeavyPlate => ItemCategory::Armor,
+            | Self::HeavyPlate
+            | Self::ClothArmor
+            | Self::LightLeather
+            | Self::HeavyLeather
+            | Self::ScaleMail
+            | Self::SplintMail
+            | Self::HalfPlate
+            | Self::MailHauberk
+            | Self::MailShirt
+            | Self::Brigandine
+            | Self::LamellarArmor
+            | Self::BronzePlate
+            | Self::LightScale
+            | Self::BallisticVest
+            | Self::TacticalVest
+            | Self::FlakJacket
+            | Self::SmallShield
+            | Self::MediumShield
+            | Self::LargeShield
+            | Self::Buckler
+            | Self::TowerShield => ItemCategory::Armor,
 
             Self::Clothing
             | Self::Boots

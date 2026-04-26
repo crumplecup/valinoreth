@@ -9,7 +9,9 @@
 //!
 //! M 186-200 - Water college
 
-use crate::{Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType};
+use crate::{
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
+};
 use tracing::{debug, instrument};
 
 /// Returns base energy cost for Water spells.
@@ -134,116 +136,116 @@ pub(super) fn prerequisites(spell: &Spell) -> Vec<SpellPrerequisite> {
         Spell::PurifyWater => vec![SpellPrerequisite::Magery(0)],
         Spell::CreateWater => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::PurifyWater)
-            ],
+            SpellPrerequisite::Spell(Spell::PurifyWater),
+        ],
         Spell::DestroyWater => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::CreateWater)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateWater),
+        ],
         Spell::ShapeWater => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::CreateWater)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateWater),
+        ],
         Spell::Freeze => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::CreateWater)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateWater),
+        ],
         Spell::Boil => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::CreateWater)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateWater),
+        ],
         Spell::WalkOnWater => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4),
+        ],
         Spell::WaterJet => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::ShapeWater)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeWater),
+        ],
         Spell::IceSphere => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::Freeze)
-            ],
+            SpellPrerequisite::Spell(Spell::Freeze),
+        ],
         Spell::IceSlick => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Freeze)
-            ],
+            SpellPrerequisite::Spell(Spell::Freeze),
+        ],
         Spell::BodyOfWater => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 6),
+        ],
         Spell::Dehydrate => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::DestroyWater)
-            ],
+            SpellPrerequisite::Spell(Spell::DestroyWater),
+        ],
         Spell::CreateIce => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::Freeze)
-            ],
+            SpellPrerequisite::Spell(Spell::Freeze),
+        ],
         Spell::CondenseSteam => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::CreateWater)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateWater),
+        ],
         Spell::IceDagger => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::CreateIce)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateIce),
+        ],
         Spell::Swim => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::ShapeWater)
-            ],
+            SpellPrerequisite::Spell(Spell::ShapeWater),
+        ],
         Spell::SummonWaterElemental => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 8)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 8),
+        ],
         Spell::BreatheWaterWater => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4),
+        ],
         Spell::EssentialWater => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 8)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 8),
+        ],
         Spell::WaterVision => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4),
+        ],
         Spell::IceVision => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::Freeze)
-            ],
+            SpellPrerequisite::Spell(Spell::Freeze),
+        ],
         Spell::Fog => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::CreateWater)
-            ],
+            SpellPrerequisite::Spell(Spell::CreateWater),
+        ],
         Spell::Frost => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Freeze)
-            ],
+            SpellPrerequisite::Spell(Spell::Freeze),
+        ],
         Spell::Geyser => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::WaterJet)
-            ],
+            SpellPrerequisite::Spell(Spell::WaterJet),
+        ],
         Spell::Hail => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::IceSphere)
-            ],
+            SpellPrerequisite::Spell(Spell::IceSphere),
+        ],
         Spell::Whirlpool => vec![
             SpellPrerequisite::Magery(2),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 6)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 6),
+        ],
         Spell::CreateSteam => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::Spell(Spell::Boil)
-            ],
+            SpellPrerequisite::Spell(Spell::Boil),
+        ],
         Spell::ResistWater => vec![
             SpellPrerequisite::Magery(0),
-            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4)
-            ],
+            SpellPrerequisite::SpellsInCollege(SpellCollege::Water, 4),
+        ],
         Spell::BreatheAir => vec![
             SpellPrerequisite::Magery(1),
-            SpellPrerequisite::Spell(Spell::BreatheWaterWater)
-            ],
+            SpellPrerequisite::Spell(Spell::BreatheWaterWater),
+        ],
         _ => panic!("Invalid spell {:?} for Water college", spell),
     }
 }

@@ -63,15 +63,15 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting clothing tech level");
     match item {
-        Item::Clothing => TechLevel::new(1),       // Bronze Age
-        Item::Boots => TechLevel::new(1),          // Bronze Age
-        Item::Gloves => TechLevel::new(1),         // Bronze Age
-        Item::Cloak => TechLevel::new(1),          // Bronze Age
-        Item::Hat => TechLevel::new(1),            // Bronze Age
-        Item::Belt => TechLevel::new(0),           // Stone Age
-        Item::Robe => TechLevel::new(1),           // Bronze Age
-        Item::Sandals => TechLevel::new(0),        // Stone Age
-        Item::HeavyBoots => TechLevel::new(2),     // Medieval
+        Item::Clothing => TechLevel::new(1),         // Bronze Age
+        Item::Boots => TechLevel::new(1),            // Bronze Age
+        Item::Gloves => TechLevel::new(1),           // Bronze Age
+        Item::Cloak => TechLevel::new(1),            // Bronze Age
+        Item::Hat => TechLevel::new(1),              // Bronze Age
+        Item::Belt => TechLevel::new(0),             // Stone Age
+        Item::Robe => TechLevel::new(1),             // Bronze Age
+        Item::Sandals => TechLevel::new(0),          // Stone Age
+        Item::HeavyBoots => TechLevel::new(2),       // Medieval
         Item::ReinforcedGloves => TechLevel::new(2), // Medieval
         _ => {
             tracing::error!(item = ?item, "Non-clothing item in clothing::tech_level");

@@ -50,11 +50,7 @@ fn test_all_tools_have_properties() {
                 "{:?} has invalid weight",
                 item
             );
-            assert!(
-                item.tech_level().level() <= 12,
-                "{:?} has invalid TL",
-                item
-            );
+            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
 
             // Tools don't have weapon, armor, or container properties
             assert!(
