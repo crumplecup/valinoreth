@@ -119,6 +119,26 @@ pub enum Item {
     Maul,
     /// Pick (war pick), swing+2 impaling. LT 67. $70, 3 lbs, TL 2
     Pick,
+    /// Trident, thrust+2 impaling. LT 67. $100, 4 lbs, TL 0
+    Trident,
+    /// Whip, swing-1 cutting (reach 1-2). BS 274. $20, 2 lbs, TL 1
+    Whip,
+    /// Combat Net (entangling). BS 274. $40, 5 lbs, TL 1
+    CombatNet,
+    /// Bola (thrown entangle), swing crushing. BS 277. $20, 1 lb, TL 0
+    Bola,
+    /// War Fan (tessen), swing crushing. MA 230. $50, 1 lb, TL 3
+    WarFan,
+    /// Kopesh (Egyptian sword), swing+1 cutting. LT 66. $200, 3.5 lbs, TL 1
+    Kopesh,
+    /// Claymore (Scottish greatsword), swing+2 cutting. LT 66. $500, 7 lbs, TL 3
+    Claymore,
+    /// Tanto (Japanese knife), thrust impaling. MA 230. $30, 0.5 lbs, TL 3
+    Tanto,
+    /// Chakram (throwing ring), swing cutting. LT 78. $15, 0.5 lbs, TL 2
+    Chakram,
+    /// Battle Axe, swing+3 cutting. BS 274. $50, 6 lbs, TL 1
+    BattleAxe,
 
     // Ranged Weapons (7 variants from existing RangedWeapon enum)
     /// Bow, 1d impaling. BS 276. $100, 2 lbs, TL 0
@@ -442,7 +462,17 @@ impl Item {
             | Self::Falchion
             | Self::Gladius
             | Self::Maul
-            | Self::Pick => ItemCategory::MeleeWeapon,
+            | Self::Pick
+            | Self::Trident
+            | Self::Whip
+            | Self::CombatNet
+            | Self::Bola
+            | Self::WarFan
+            | Self::Kopesh
+            | Self::Claymore
+            | Self::Tanto
+            | Self::Chakram
+            | Self::BattleAxe => ItemCategory::MeleeWeapon,
 
             Self::Bow
             | Self::Crossbow

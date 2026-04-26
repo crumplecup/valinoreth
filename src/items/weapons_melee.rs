@@ -61,6 +61,16 @@ pub(super) fn base_cost(item: &Item) -> Currency {
         Item::Gladius => Currency::dollars(200.0),
         Item::Maul => Currency::dollars(80.0),
         Item::Pick => Currency::dollars(70.0),
+        Item::Trident => Currency::dollars(100.0),
+        Item::Whip => Currency::dollars(20.0),
+        Item::CombatNet => Currency::dollars(40.0),
+        Item::Bola => Currency::dollars(20.0),
+        Item::WarFan => Currency::dollars(50.0),
+        Item::Kopesh => Currency::dollars(200.0),
+        Item::Claymore => Currency::dollars(500.0),
+        Item::Tanto => Currency::dollars(30.0),
+        Item::Chakram => Currency::dollars(15.0),
+        Item::BattleAxe => Currency::dollars(50.0),
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::base_cost");
             Currency::dollars(0.0)
@@ -116,6 +126,16 @@ pub(super) fn weight(item: &Item) -> Weight {
         Item::Gladius => Weight::pounds(2.0),
         Item::Maul => Weight::pounds(12.0),
         Item::Pick => Weight::pounds(3.0),
+        Item::Trident => Weight::pounds(4.0),
+        Item::Whip => Weight::pounds(2.0),
+        Item::CombatNet => Weight::pounds(5.0),
+        Item::Bola => Weight::pounds(1.0),
+        Item::WarFan => Weight::pounds(1.0),
+        Item::Kopesh => Weight::pounds(3.5),
+        Item::Claymore => Weight::pounds(7.0),
+        Item::Tanto => Weight::pounds(0.5),
+        Item::Chakram => Weight::pounds(0.5),
+        Item::BattleAxe => Weight::pounds(6.0),
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::weight");
             Weight::pounds(0.0)
@@ -171,6 +191,16 @@ pub(super) fn tech_level(item: &Item) -> TechLevel {
         Item::Gladius => TechLevel::new(1),        // Roman/Iron Age
         Item::Maul => TechLevel::new(1),           // Bronze/Iron Age
         Item::Pick => TechLevel::new(2),           // Medieval
+        Item::Trident => TechLevel::new(0),        // Stone Age
+        Item::Whip => TechLevel::new(1),           // Bronze Age
+        Item::CombatNet => TechLevel::new(1),      // Bronze Age
+        Item::Bola => TechLevel::new(0),           // Stone Age
+        Item::WarFan => TechLevel::new(3),         // Japanese Renaissance
+        Item::Kopesh => TechLevel::new(1),         // Egyptian Bronze Age
+        Item::Claymore => TechLevel::new(3),       // Scottish Renaissance
+        Item::Tanto => TechLevel::new(3),          // Japanese
+        Item::Chakram => TechLevel::new(2),        // Medieval Indian
+        Item::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::tech_level");
             TechLevel::new(0)
@@ -355,6 +385,46 @@ pub(super) fn damage(item: &Item) -> WeaponDamage {
             modifier: 2,
             damage_type: DamageType::Impaling,
         },
+        Item::Trident => WeaponDamage::Thrust {
+            modifier: 2,
+            damage_type: DamageType::Impaling,
+        },
+        Item::Whip => WeaponDamage::Swing {
+            modifier: -1,
+            damage_type: DamageType::Cutting,
+        },
+        Item::CombatNet => WeaponDamage::Swing {
+            modifier: -2,
+            damage_type: DamageType::Crushing, // Entangling, minimal damage
+        },
+        Item::Bola => WeaponDamage::Swing {
+            modifier: 0,
+            damage_type: DamageType::Crushing,
+        },
+        Item::WarFan => WeaponDamage::Swing {
+            modifier: 0,
+            damage_type: DamageType::Crushing,
+        },
+        Item::Kopesh => WeaponDamage::Swing {
+            modifier: 1,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Claymore => WeaponDamage::Swing {
+            modifier: 2,
+            damage_type: DamageType::Cutting,
+        },
+        Item::Tanto => WeaponDamage::Thrust {
+            modifier: 0,
+            damage_type: DamageType::Impaling,
+        },
+        Item::Chakram => WeaponDamage::Swing {
+            modifier: 0,
+            damage_type: DamageType::Cutting,
+        },
+        Item::BattleAxe => WeaponDamage::Swing {
+            modifier: 3,
+            damage_type: DamageType::Cutting,
+        },
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::damage");
             WeaponDamage::Thrust {
@@ -413,6 +483,16 @@ pub(super) fn reach(item: &Item) -> Reach {
         Item::Gladius => Reach::One,
         Item::Maul => Reach::OneTwo,
         Item::Pick => Reach::One,
+        Item::Trident => Reach::OneTwo,
+        Item::Whip => Reach::OneTwo,
+        Item::CombatNet => Reach::One,
+        Item::Bola => Reach::One,
+        Item::WarFan => Reach::Close,
+        Item::Kopesh => Reach::One,
+        Item::Claymore => Reach::OneTwo,
+        Item::Tanto => Reach::Close,
+        Item::Chakram => Reach::One,
+        Item::BattleAxe => Reach::One,
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::reach");
             Reach::Close
@@ -468,6 +548,16 @@ pub(super) fn parry_modifier(item: &Item) -> i32 {
         Item::Gladius => 0,
         Item::Maul => -2,
         Item::Pick => -1,
+        Item::Trident => 0,
+        Item::Whip => -1,
+        Item::CombatNet => -2,
+        Item::Bola => -2,
+        Item::WarFan => 1,
+        Item::Kopesh => 0,
+        Item::Claymore => 0,
+        Item::Tanto => -1,
+        Item::Chakram => -2,
+        Item::BattleAxe => -1,
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::parry_modifier");
             0
@@ -523,6 +613,16 @@ pub(super) fn required_skill(item: &Item) -> Skill {
         Item::Gladius => Skill::Shortsword,
         Item::Maul => Skill::TwoHandedAxeMace,
         Item::Pick => Skill::AxeMace,
+        Item::Trident => Skill::Spear,
+        Item::Whip => Skill::Shortsword,
+        Item::CombatNet => Skill::ThrownWeapon,
+        Item::Bola => Skill::ThrownWeapon,
+        Item::WarFan => Skill::Shortsword,
+        Item::Kopesh => Skill::Broadsword,
+        Item::Claymore => Skill::TwoHandedSword,
+        Item::Tanto => Skill::Knife,
+        Item::Chakram => Skill::ThrownWeapon,
+        Item::BattleAxe => Skill::AxeMace,
         _ => {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::required_skill");
             Skill::Brawling
