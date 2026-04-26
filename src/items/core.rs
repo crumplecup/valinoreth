@@ -363,6 +363,26 @@ pub enum Item {
     Lantern,
     /// Candle (burns 1 hour). BS 288. $0.5, 0.1 lbs, TL 1
     Candle,
+    /// Tinder (fire starting). BS 288. $0.5, 0.1 lbs, TL 0
+    Tinder,
+    /// Flint and Steel. BS 288. $5, 0.5 lbs, TL 0
+    FlintAndSteel,
+    /// Sleeping Bag. BS 288. $40, 8 lbs, TL 5
+    SleepingBag,
+    /// Cooking Pot. BS 288. $20, 3 lbs, TL 0
+    CookingPot,
+    /// Matches (20). BS 288. $0.5, 0.1 lbs, TL 5
+    Matches,
+    /// Map (regional). BS 288. $20, 0.1 lbs, TL 3
+    Map,
+    /// Fishing Kit (line and hooks). BS 288. $5, 0.5 lbs, TL 0
+    FishingKit,
+    /// Snare Wire (10 yards). BS 288. $5, 0.5 lbs, TL 1
+    SnareWire,
+    /// Signal Whistle. BS 288. $5, 0.1 lbs, TL 2
+    SignalWhistle,
+    /// Tarp (waterproof). BS 288. $50, 5 lbs, TL 5
+    Tarp,
 }
 
 impl Item {
@@ -544,7 +564,17 @@ impl Item {
             | Self::Bedroll
             | Self::Canteen
             | Self::Lantern
-            | Self::Candle => ItemCategory::Survival,
+            | Self::Candle
+            | Self::Tinder
+            | Self::FlintAndSteel
+            | Self::SleepingBag
+            | Self::CookingPot
+            | Self::Matches
+            | Self::Map
+            | Self::FishingKit
+            | Self::SnareWire
+            | Self::SignalWhistle
+            | Self::Tarp => ItemCategory::Survival,
         }
     }
 
