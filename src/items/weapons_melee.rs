@@ -90,7 +90,6 @@ pub(super) fn weight(item: &Item) -> Weight {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::weight");
             Weight::pounds(0.0)
         }
-        _ => unreachable!("Non-melee item {:?} in weapons_melee module", item),
     }
 }
 
@@ -131,7 +130,6 @@ pub(super) fn tech_level(item: &Item) -> TechLevel {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::tech_level");
             TechLevel::new(0)
         }
-        _ => unreachable!("Non-melee item {:?} in weapons_melee module", item),
     }
 }
 
@@ -259,7 +257,6 @@ pub(super) fn damage(item: &Item) -> WeaponDamage {
                 damage_type: DamageType::Crushing,
             }
         }
-        _ => unreachable!("Non-melee item {:?} in weapons_melee module", item),
     }
 }
 
@@ -300,7 +297,6 @@ pub(super) fn reach(item: &Item) -> Reach {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::reach");
             Reach::Close
         }
-        _ => unreachable!("Non-melee item {:?} in weapons_melee module", item),
     }
 }
 
@@ -341,7 +337,6 @@ pub(super) fn parry_modifier(item: &Item) -> i32 {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::parry_modifier");
             0
         }
-        _ => unreachable!("Non-melee item {:?} in weapons_melee module", item),
     }
 }
 
@@ -382,6 +377,5 @@ pub(super) fn required_skill(item: &Item) -> Skill {
             tracing::error!(item = ?item, "Non-melee item in weapons_melee::required_skill");
             Skill::Brawling
         }
-        _ => unreachable!("Non-melee item {:?} in weapons_melee module", item),
     }
 }

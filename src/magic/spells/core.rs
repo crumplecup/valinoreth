@@ -1944,7 +1944,6 @@ impl Spell {
             SpellCollege::Movement => return movement::base_energy_cost(self),
             SpellCollege::ProtectionWarning => return protection_warning::base_energy_cost(self),
             SpellCollege::Water => return water::base_energy_cost(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -1998,7 +1997,6 @@ impl Spell {
             SpellCollege::Movement => return movement::casting_time(self),
             SpellCollege::ProtectionWarning => return protection_warning::casting_time(self),
             SpellCollege::Water => return water::casting_time(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -2052,7 +2050,6 @@ impl Spell {
             SpellCollege::Movement => return movement::duration(self),
             SpellCollege::ProtectionWarning => return protection_warning::duration(self),
             SpellCollege::Water => return water::duration(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -2106,7 +2103,6 @@ impl Spell {
             SpellCollege::Movement => return movement::prerequisites(self),
             SpellCollege::ProtectionWarning => return protection_warning::prerequisites(self),
             SpellCollege::Water => return water::prerequisites(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -2160,7 +2156,6 @@ impl Spell {
             SpellCollege::Movement => return movement::spell_type(self),
             SpellCollege::ProtectionWarning => return protection_warning::spell_type(self),
             SpellCollege::Water => return water::spell_type(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -2214,7 +2209,6 @@ impl Spell {
             SpellCollege::Movement => return movement::resistance(self),
             SpellCollege::ProtectionWarning => return protection_warning::resistance(self),
             SpellCollege::Water => return water::resistance(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 
@@ -2258,7 +2252,6 @@ impl Spell {
             SpellCollege::Movement => return movement::reference(self),
             SpellCollege::ProtectionWarning => return protection_warning::reference(self),
             SpellCollege::Water => return water::reference(self),
-            _ => panic!("Unimplemented college: {:?}", self.college()),
         }
     }
 }

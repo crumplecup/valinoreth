@@ -12,7 +12,9 @@
 //! - Category-specific properties: Return `Option<T>` for type safety
 //! - Property modules handle the actual data (weapons_melee.rs, armor.rs, etc.)
 
-use crate::{Currency, ItemCategory, Quality, Reach, Skill, TechLevel, Weight, WeaponDamage};
+use crate::{
+    Capacity, Currency, ItemCategory, Quality, Reach, Skill, TechLevel, Weight, WeaponDamage,
+};
 use tracing::{debug, instrument};
 
 /// All GURPS items enumerated.
@@ -137,6 +139,28 @@ pub enum Item {
     HeavyBoots,
     /// Reinforced Gloves. BS 266. $50, 0.75 lbs, TL 2
     ReinforcedGloves,
+
+    // Containers (10 variants)
+    /// Small Pouch. BS 288. $10, 0.2 lbs, 3 lbs capacity, TL 0
+    SmallPouch,
+    /// Pouch. BS 288. $10, 0.2 lbs, 6 lbs capacity, TL 0
+    Pouch,
+    /// Large Pouch. BS 288. $20, 0.5 lbs, 12 lbs capacity, TL 0
+    LargePouch,
+    /// Backpack (small). BS 288. $60, 3 lbs, 40 lbs capacity, TL 1
+    SmallBackpack,
+    /// Backpack. BS 288. $60, 3 lbs, 40 lbs capacity, TL 1
+    Backpack,
+    /// Large Backpack. BS 288. $100, 6 lbs, 60 lbs capacity, TL 2
+    LargeBackpack,
+    /// Sack (small). BS 288. $30, 3 lbs, 40 lbs capacity, TL 0
+    SmallSack,
+    /// Sack (large). BS 288. $50, 6 lbs, 80 lbs capacity, TL 0
+    LargeSack,
+    /// Chest (small). BS 288. $100, 10 lbs, 100 lbs capacity, TL 1
+    SmallChest,
+    /// Chest (large). BS 288. $300, 30 lbs, 200 lbs capacity, TL 1
+    LargeChest,
 }
 
 impl Item {
@@ -207,6 +231,17 @@ impl Item {
             | Self::Sandals
             | Self::HeavyBoots
             | Self::ReinforcedGloves => ItemCategory::Clothing,
+
+            Self::SmallPouch
+            | Self::Pouch
+            | Self::LargePouch
+            | Self::SmallBackpack
+            | Self::Backpack
+            | Self::LargeBackpack
+            | Self::SmallSack
+            | Self::LargeSack
+            | Self::SmallChest
+            | Self::LargeChest => ItemCategory::Containers,
         }
     }
 
@@ -225,13 +260,14 @@ impl Item {
     #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!(item = ?self, "Getting item base cost");
-        use super::{armor, clothing, weapons_melee, weapons_ranged};
+        use super::{armor, clothing, containers, weapons_melee, weapons_ranged};
 
         match self.category() {
             ItemCategory::MeleeWeapon => weapons_melee::base_cost(self),
             ItemCategory::RangedWeapon => weapons_ranged::base_cost(self),
             ItemCategory::Armor => armor::base_cost(self),
             ItemCategory::Clothing => clothing::base_cost(self),
+            ItemCategory::Containers => containers::base_cost(self),
             _ => {
                 tracing::error!(item = ?self, category = ?self.category(), "Unimplemented category in base_cost");
                 Currency::dollars(0.0)
@@ -274,13 +310,14 @@ impl Item {
     #[instrument]
     pub fn weight(&self) -> Weight {
         debug!(item = ?self, "Getting item weight");
-        use super::{armor, clothing, weapons_melee, weapons_ranged};
+        use super::{armor, clothing, containers, weapons_melee, weapons_ranged};
 
         match self.category() {
             ItemCategory::MeleeWeapon => weapons_melee::weight(self),
             ItemCategory::RangedWeapon => weapons_ranged::weight(self),
             ItemCategory::Armor => armor::weight(self),
             ItemCategory::Clothing => clothing::weight(self),
+            ItemCategory::Containers => containers::weight(self),
             _ => {
                 tracing::error!(item = ?self, category = ?self.category(), "Unimplemented category in weight");
                 Weight::pounds(0.0)
@@ -300,14 +337,15 @@ impl Item {
     /// ```
     #[instrument]
     pub fn tech_level(&self) -> TechLevel {
-        debug!(item = ?self, "Getting item tech level");
-        use super::{armor, clothing, weapons_melee, weapons_ranged};
+        debug!(item = ?self, category = ?self.category(), "Getting item tech level");
+        use super::{armor, clothing, containers, weapons_melee, weapons_ranged};
 
         match self.category() {
             ItemCategory::MeleeWeapon => weapons_melee::tech_level(self),
             ItemCategory::RangedWeapon => weapons_ranged::tech_level(self),
             ItemCategory::Armor => armor::tech_level(self),
             ItemCategory::Clothing => clothing::tech_level(self),
+            ItemCategory::Containers => containers::tech_level(self),
             _ => {
                 tracing::error!(item = ?self, category = ?self.category(), "Unimplemented category in tech_level");
                 TechLevel::new(0)
@@ -454,6 +492,31 @@ impl Item {
 
         match self.category() {
             ItemCategory::Armor => Some(armor::damage_resistance(self)),
+            _ => None,
+        }
+    }
+
+    /// Returns capacity (containers only).
+    ///
+    /// # GURPS Rules
+    ///
+    /// Capacity indicates how much weight a container can hold in pounds.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use valinoreth::Item;
+    ///
+    /// let backpack = Item::Backpack;
+    /// assert_eq!(backpack.capacity().unwrap().amount(), 40.0);
+    /// ```
+    #[instrument]
+    pub fn capacity(&self) -> Option<Capacity> {
+        debug!(item = ?self, "Getting container capacity");
+        use super::containers;
+
+        match self.category() {
+            ItemCategory::Containers => Some(containers::capacity(self)),
             _ => None,
         }
     }
