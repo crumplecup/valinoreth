@@ -25,6 +25,7 @@ mod armor;
 mod clothing;
 mod containers;
 mod core;
+mod survival;
 mod tools;
 mod types;
 
