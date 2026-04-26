@@ -115,6 +115,28 @@ pub enum Item {
     PlateArmor,
     /// Heavy Plate, DR 8. BS 279. $6000, 60 lbs, TL 3
     HeavyPlate,
+
+    // Clothing (10 variants)
+    /// Ordinary Clothing. BS 266. $120, 2 lbs, TL 1
+    Clothing,
+    /// Boots (leather). BS 266. $80, 2 lbs, TL 1
+    Boots,
+    /// Gloves (leather). BS 266. $30, 0.5 lbs, TL 1
+    Gloves,
+    /// Cloak (heavy). BS 266. $50, 4 lbs, TL 1
+    Cloak,
+    /// Hat (any). BS 266. $10, 0.5 lbs, TL 1
+    Hat,
+    /// Belt (leather). BS 266. $15, 0.25 lbs, TL 0
+    Belt,
+    /// Robe. BS 266. $20, 2 lbs, TL 1
+    Robe,
+    /// Sandals. BS 266. $25, 0.5 lbs, TL 0
+    Sandals,
+    /// Heavy Boots. BS 266. $100, 3 lbs, TL 2
+    HeavyBoots,
+    /// Reinforced Gloves. BS 266. $50, 0.75 lbs, TL 2
+    ReinforcedGloves,
 }
 
 impl Item {
@@ -174,6 +196,17 @@ impl Item {
             | Self::Chainmail
             | Self::PlateArmor
             | Self::HeavyPlate => ItemCategory::Armor,
+
+            Self::Clothing
+            | Self::Boots
+            | Self::Gloves
+            | Self::Cloak
+            | Self::Hat
+            | Self::Belt
+            | Self::Robe
+            | Self::Sandals
+            | Self::HeavyBoots
+            | Self::ReinforcedGloves => ItemCategory::Clothing,
         }
     }
 
@@ -192,13 +225,17 @@ impl Item {
     #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!(item = ?self, "Getting item base cost");
-        use super::{armor, weapons_melee, weapons_ranged};
+        use super::{armor, clothing, weapons_melee, weapons_ranged};
 
         match self.category() {
             ItemCategory::MeleeWeapon => weapons_melee::base_cost(self),
             ItemCategory::RangedWeapon => weapons_ranged::base_cost(self),
             ItemCategory::Armor => armor::base_cost(self),
-            _ => unreachable!("Category {:?} not yet implemented", self.category()),
+            ItemCategory::Clothing => clothing::base_cost(self),
+            _ => {
+                tracing::error!(item = ?self, category = ?self.category(), "Unimplemented category in base_cost");
+                Currency::dollars(0.0)
+            }
         }
     }
 
@@ -237,13 +274,17 @@ impl Item {
     #[instrument]
     pub fn weight(&self) -> Weight {
         debug!(item = ?self, "Getting item weight");
-        use super::{armor, weapons_melee, weapons_ranged};
+        use super::{armor, clothing, weapons_melee, weapons_ranged};
 
         match self.category() {
             ItemCategory::MeleeWeapon => weapons_melee::weight(self),
             ItemCategory::RangedWeapon => weapons_ranged::weight(self),
             ItemCategory::Armor => armor::weight(self),
-            _ => unreachable!("Category {:?} not yet implemented", self.category()),
+            ItemCategory::Clothing => clothing::weight(self),
+            _ => {
+                tracing::error!(item = ?self, category = ?self.category(), "Unimplemented category in weight");
+                Weight::pounds(0.0)
+            }
         }
     }
 
@@ -260,13 +301,17 @@ impl Item {
     #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!(item = ?self, "Getting item tech level");
-        use super::{armor, weapons_melee, weapons_ranged};
+        use super::{armor, clothing, weapons_melee, weapons_ranged};
 
         match self.category() {
             ItemCategory::MeleeWeapon => weapons_melee::tech_level(self),
             ItemCategory::RangedWeapon => weapons_ranged::tech_level(self),
             ItemCategory::Armor => armor::tech_level(self),
-            _ => unreachable!("Category {:?} not yet implemented", self.category()),
+            ItemCategory::Clothing => clothing::tech_level(self),
+            _ => {
+                tracing::error!(item = ?self, category = ?self.category(), "Unimplemented category in tech_level");
+                TechLevel::new(0)
+            }
         }
     }
 

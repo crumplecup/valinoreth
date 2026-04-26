@@ -22,6 +22,7 @@
 //! LT - Low-Tech supplement
 
 mod armor;
+mod clothing;
 mod core;
 mod types;
 
