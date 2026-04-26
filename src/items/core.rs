@@ -279,6 +279,26 @@ pub enum Item {
     SmallChest,
     /// Chest (large). BS 288. $300, 30 lbs, 200 lbs capacity, TL 1
     LargeChest,
+    /// Belt Pouch. BS 288. $15, 0.25 lbs, 2 lbs capacity, TL 0
+    BeltPouch,
+    /// Barrel (40 gallon). BS 288. $50, 30 lbs, 150 lbs capacity, TL 0
+    Barrel,
+    /// Crate (wooden). BS 288. $40, 20 lbs, 120 lbs capacity, TL 1
+    Crate,
+    /// Trunk (travel). BS 288. $150, 25 lbs, 150 lbs capacity, TL 2
+    Trunk,
+    /// Money Belt. BS 288. $45, 0.5 lbs, 1 lb capacity, TL 2
+    MoneyBelt,
+    /// Quiver (arrow). BS 288. $10, 0.5 lbs, 3 lbs capacity, TL 0
+    Quiver,
+    /// Flask (hip). BS 288. $10, 0.5 lbs, 1 lb capacity, TL 1
+    Flask,
+    /// Basket (wicker). BS 288. $20, 2 lbs, 20 lbs capacity, TL 0
+    Basket,
+    /// Box (small). BS 288. $20, 2 lbs, 15 lbs capacity, TL 1
+    BoxSmall,
+    /// Haversack (military). BS 288. $75, 4 lbs, 50 lbs capacity, TL 3
+    Haversack,
 
     // Tools (10 variants)
     /// Lockpicks. BS 289. $50, 0.1 lbs, TL 3
@@ -462,7 +482,17 @@ impl Item {
             | Self::SmallSack
             | Self::LargeSack
             | Self::SmallChest
-            | Self::LargeChest => ItemCategory::Containers,
+            | Self::LargeChest
+            | Self::BeltPouch
+            | Self::Barrel
+            | Self::Crate
+            | Self::Trunk
+            | Self::MoneyBelt
+            | Self::Quiver
+            | Self::Flask
+            | Self::Basket
+            | Self::BoxSmall
+            | Self::Haversack => ItemCategory::Containers,
 
             Self::Lockpicks
             | Self::FirstAidKit
