@@ -183,6 +183,26 @@ pub enum Item {
     Blowgun,
     /// Atlatl (spear thrower), thrust+3 impaling. LT 78. $20, 1 lb, TL 0
     Atlatl,
+    /// Musket (.75 ball), 4d piercing. HT 97. $300, 10 lbs, TL 4
+    Musket,
+    /// Derringer (.41), 1d+2 piercing. HT 99. $100, 0.5 lbs, TL 5
+    Derringer,
+    /// Hunting Rifle (.30-06), 7d piercing. HT 101. $700, 9 lbs, TL 5
+    HuntingRifle,
+    /// Machine Gun (.30), 7d piercing. HT 108. $4000, 30 lbs, TL 6
+    MachineGun,
+    /// Grenade (frag), 3d×2 crushing. HT 179. $30, 1 lb, TL 6
+    Grenade,
+    /// Flamethrower, spec burning. HT 123. $1000, 70 lbs, TL 6
+    Flamethrower,
+    /// Rocket Launcher, spec crushing. HT 180. $2000, 15 lbs, TL 7
+    RocketLauncher,
+    /// Staff Sling, swing+2 piercing. LT 78. $20, 1 lb, TL 1
+    StaffSling,
+    /// Pellet Bow (modern compound), 1d+4 impaling. HT 100. $400, 3 lbs, TL 7
+    PelletBow,
+    /// Hand Crossbow, 1d impaling. LT 77. $150, 3 lbs, TL 2
+    HandCrossbow,
 
     // Armor (5 variants from existing Armor struct tests)
     /// No armor, DR 0. BS 279. $0, 0 lbs, TL 0
@@ -494,7 +514,17 @@ impl Item {
             | Self::AssaultRifle
             | Self::SniperRifle
             | Self::Blowgun
-            | Self::Atlatl => ItemCategory::RangedWeapon,
+            | Self::Atlatl
+            | Self::Musket
+            | Self::Derringer
+            | Self::HuntingRifle
+            | Self::MachineGun
+            | Self::Grenade
+            | Self::Flamethrower
+            | Self::RocketLauncher
+            | Self::StaffSling
+            | Self::PelletBow
+            | Self::HandCrossbow => ItemCategory::RangedWeapon,
 
             Self::NoArmor
             | Self::LeatherArmor

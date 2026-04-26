@@ -39,6 +39,16 @@ pub(super) fn base_cost(item: &Item) -> Currency {
         Item::SniperRifle => Currency::dollars(3500.0),
         Item::Blowgun => Currency::dollars(30.0),
         Item::Atlatl => Currency::dollars(20.0),
+        Item::Musket => Currency::dollars(300.0),
+        Item::Derringer => Currency::dollars(100.0),
+        Item::HuntingRifle => Currency::dollars(700.0),
+        Item::MachineGun => Currency::dollars(4000.0),
+        Item::Grenade => Currency::dollars(30.0),
+        Item::Flamethrower => Currency::dollars(1000.0),
+        Item::RocketLauncher => Currency::dollars(2000.0),
+        Item::StaffSling => Currency::dollars(20.0),
+        Item::PelletBow => Currency::dollars(400.0),
+        Item::HandCrossbow => Currency::dollars(150.0),
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::base_cost");
             Currency::dollars(0.0)
@@ -72,6 +82,16 @@ pub(super) fn weight(item: &Item) -> Weight {
         Item::SniperRifle => Weight::pounds(11.0),
         Item::Blowgun => Weight::pounds(1.0),
         Item::Atlatl => Weight::pounds(1.0),
+        Item::Musket => Weight::pounds(10.0),
+        Item::Derringer => Weight::pounds(0.5),
+        Item::HuntingRifle => Weight::pounds(9.0),
+        Item::MachineGun => Weight::pounds(30.0),
+        Item::Grenade => Weight::pounds(1.0),
+        Item::Flamethrower => Weight::pounds(70.0),
+        Item::RocketLauncher => Weight::pounds(15.0),
+        Item::StaffSling => Weight::pounds(1.0),
+        Item::PelletBow => Weight::pounds(3.0),
+        Item::HandCrossbow => Weight::pounds(3.0),
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::weight");
             Weight::pounds(0.0)
@@ -84,27 +104,37 @@ pub(super) fn weight(item: &Item) -> Weight {
 pub(super) fn tech_level(item: &Item) -> TechLevel {
     debug!("Getting ranged weapon tech level");
     match item {
-        Item::Bow => TechLevel::new(0),           // Stone Age
-        Item::Crossbow => TechLevel::new(2),      // Medieval
-        Item::Pistol => TechLevel::new(6),        // Atomic Age
-        Item::Rifle => TechLevel::new(6),         // Atomic Age
-        Item::Shotgun => TechLevel::new(5),       // Mechanized Age
-        Item::Sling => TechLevel::new(0),         // Stone Age
-        Item::ThrowingKnife => TechLevel::new(0), // Stone Age
-        Item::Longbow => TechLevel::new(0),       // Stone Age
-        Item::CompositeBow => TechLevel::new(2),  // Medieval
-        Item::ShortBow => TechLevel::new(0),      // Stone Age
-        Item::LightCrossbow => TechLevel::new(2), // Medieval
-        Item::HeavyCrossbow => TechLevel::new(2), // Medieval
-        Item::ThrowingAxe => TechLevel::new(0),   // Stone Age
-        Item::Shuriken => TechLevel::new(2),      // Medieval Japan
-        Item::Dart => TechLevel::new(0),          // Stone Age
-        Item::Revolver => TechLevel::new(6),      // Atomic Age
-        Item::SMG => TechLevel::new(6),           // Atomic Age
-        Item::AssaultRifle => TechLevel::new(7),  // Digital Age
-        Item::SniperRifle => TechLevel::new(7),   // Digital Age
-        Item::Blowgun => TechLevel::new(0),       // Stone Age
-        Item::Atlatl => TechLevel::new(0),        // Stone Age
+        Item::Bow => TechLevel::new(0),            // Stone Age
+        Item::Crossbow => TechLevel::new(2),       // Medieval
+        Item::Pistol => TechLevel::new(6),         // Atomic Age
+        Item::Rifle => TechLevel::new(6),          // Atomic Age
+        Item::Shotgun => TechLevel::new(5),        // Mechanized Age
+        Item::Sling => TechLevel::new(0),          // Stone Age
+        Item::ThrowingKnife => TechLevel::new(0),  // Stone Age
+        Item::Longbow => TechLevel::new(0),        // Stone Age
+        Item::CompositeBow => TechLevel::new(2),   // Medieval
+        Item::ShortBow => TechLevel::new(0),       // Stone Age
+        Item::LightCrossbow => TechLevel::new(2),  // Medieval
+        Item::HeavyCrossbow => TechLevel::new(2),  // Medieval
+        Item::ThrowingAxe => TechLevel::new(0),    // Stone Age
+        Item::Shuriken => TechLevel::new(2),       // Medieval Japan
+        Item::Dart => TechLevel::new(0),           // Stone Age
+        Item::Revolver => TechLevel::new(6),       // Atomic Age
+        Item::SMG => TechLevel::new(6),            // Atomic Age
+        Item::AssaultRifle => TechLevel::new(7),   // Digital Age
+        Item::SniperRifle => TechLevel::new(7),    // Digital Age
+        Item::Blowgun => TechLevel::new(0),        // Stone Age
+        Item::Atlatl => TechLevel::new(0),         // Stone Age
+        Item::Musket => TechLevel::new(4),         // Age of Sail
+        Item::Derringer => TechLevel::new(5),      // Mechanized Age
+        Item::HuntingRifle => TechLevel::new(5),   // Mechanized Age
+        Item::MachineGun => TechLevel::new(6),     // Atomic Age
+        Item::Grenade => TechLevel::new(6),        // Atomic Age
+        Item::Flamethrower => TechLevel::new(6),   // Atomic Age
+        Item::RocketLauncher => TechLevel::new(7), // Digital Age
+        Item::StaffSling => TechLevel::new(1),     // Bronze Age
+        Item::PelletBow => TechLevel::new(7),      // Digital Age
+        Item::HandCrossbow => TechLevel::new(2),   // Medieval
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::tech_level");
             TechLevel::new(0)
@@ -201,6 +231,46 @@ pub(super) fn damage(item: &Item) -> WeaponDamage {
             modifier: 3,
             damage_type: DamageType::Impaling,
         },
+        Item::Musket => WeaponDamage::Fixed {
+            dice: DieLevel::new(4, 0),
+            damage_type: DamageType::Piercing,
+        },
+        Item::Derringer => WeaponDamage::Fixed {
+            dice: DieLevel::new(1, 2),
+            damage_type: DamageType::Piercing,
+        },
+        Item::HuntingRifle => WeaponDamage::Fixed {
+            dice: DieLevel::new(7, 0),
+            damage_type: DamageType::Piercing,
+        },
+        Item::MachineGun => WeaponDamage::Fixed {
+            dice: DieLevel::new(7, 0),
+            damage_type: DamageType::Piercing,
+        },
+        Item::Grenade => WeaponDamage::Fixed {
+            dice: DieLevel::new(3, 0), // 3d×2 fragmentation
+            damage_type: DamageType::Crushing,
+        },
+        Item::Flamethrower => WeaponDamage::Fixed {
+            dice: DieLevel::new(3, 0),
+            damage_type: DamageType::Crushing, // Burning damage
+        },
+        Item::RocketLauncher => WeaponDamage::Fixed {
+            dice: DieLevel::new(6, 0),
+            damage_type: DamageType::Crushing,
+        },
+        Item::StaffSling => WeaponDamage::Swing {
+            modifier: 2,
+            damage_type: DamageType::Piercing,
+        },
+        Item::PelletBow => WeaponDamage::Fixed {
+            dice: DieLevel::new(1, 4),
+            damage_type: DamageType::Impaling,
+        },
+        Item::HandCrossbow => WeaponDamage::Fixed {
+            dice: DieLevel::new(1, 0),
+            damage_type: DamageType::Impaling,
+        },
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::damage");
             WeaponDamage::Fixed {
@@ -237,6 +307,16 @@ pub(super) fn accuracy(item: &Item) -> i32 {
         Item::SniperRifle => 6,
         Item::Blowgun => 1,
         Item::Atlatl => 2,
+        Item::Musket => 3,
+        Item::Derringer => 1,
+        Item::HuntingRifle => 5,
+        Item::MachineGun => 4,
+        Item::Grenade => 1,
+        Item::Flamethrower => 2,
+        Item::RocketLauncher => 4,
+        Item::StaffSling => 1,
+        Item::PelletBow => 4,
+        Item::HandCrossbow => 3,
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::accuracy");
             0
@@ -270,6 +350,16 @@ pub(super) fn required_skill(item: &Item) -> Skill {
         Item::SniperRifle => Skill::Guns,
         Item::Blowgun => Skill::Blowpipe,
         Item::Atlatl => Skill::ThrownWeapon,
+        Item::Musket => Skill::Guns,
+        Item::Derringer => Skill::Guns,
+        Item::HuntingRifle => Skill::Guns,
+        Item::MachineGun => Skill::Guns,
+        Item::Grenade => Skill::ThrownWeapon,
+        Item::Flamethrower => Skill::Guns,
+        Item::RocketLauncher => Skill::Guns,
+        Item::StaffSling => Skill::Sling,
+        Item::PelletBow => Skill::Bow,
+        Item::HandCrossbow => Skill::Crossbow,
         _ => {
             tracing::error!(item = ?item, "Non-ranged item in weapons_ranged::required_skill");
             Skill::Brawling
