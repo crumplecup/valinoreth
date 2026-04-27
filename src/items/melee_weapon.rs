@@ -40,6 +40,8 @@ pub enum MeleeWeapon {
     Club,
     /// Combat net, swing-2 crushing, reach 1. BS 271
     CombatNet,
+    /// Crowbar, swing+2 crushing, reach 1. BS 289
+    Crowbar,
     /// Cutlass, swing+1 cutting, reach 1. BS 271
     Cutlass,
     /// Dagger, thrust-1 impaling, reach C. BS 271
@@ -54,6 +56,8 @@ pub enum MeleeWeapon {
     Flail,
     /// Gladius, swing cutting, reach 1. BS 271
     Gladius,
+    /// Garrote, special, reach C. BS 271
+    Garrote,
     /// Glaive, swing+2 cutting, reach 2-3. BS 271
     Glaive,
     /// Great axe, swing+3 cutting, reach 1-2. BS 271
@@ -64,6 +68,8 @@ pub enum MeleeWeapon {
     Hatchet,
     /// Javelin, thrust+1 impaling, reach 1. BS 271
     Javelin,
+    /// Jitte, thrust-1 impaling, reach 1. BS 271
+    Jitte,
     /// Katana, swing+1 cutting, reach 1. BS 271
     Katana,
     /// Katar, thrust+1 impaling, reach C. BS 271
@@ -76,6 +82,8 @@ pub enum MeleeWeapon {
     Kopesh,
     /// Kusari, swing+1 crushing, reach 1-3. BS 271
     Kusari,
+    /// Large knife, swing-1 cutting, reach C-1. BS 271
+    LargeKnife,
     /// Lance, thrust+3 impaling, reach 3. BS 271
     Lance,
     /// Long spear, thrust+2 impaling, reach 2-3. BS 271
@@ -112,6 +120,8 @@ pub enum MeleeWeapon {
     Scimitar,
     /// Shortsword, swing cutting, reach 1. BS 271
     Shortsword,
+    /// Shovel, swing+2 crushing, reach 1. BS 289
+    Shovel,
     /// Smallsword, thrust impaling, reach 1. BS 271
     Smallsword,
     /// Spear, thrust+2 impaling, reach 1-2. BS 271
@@ -156,6 +166,7 @@ impl MeleeWeapon {
             Self::Claymore => Currency::dollars(500.0),
             Self::Club => Currency::dollars(10.0),
             Self::CombatNet => Currency::dollars(40.0),
+            Self::Crowbar => Currency::dollars(20.0),
             Self::Cutlass => Currency::dollars(400.0),
             Self::Dagger => Currency::dollars(20.0),
             Self::Estoc => Currency::dollars(600.0),
@@ -163,17 +174,20 @@ impl MeleeWeapon {
             Self::Fist => Currency::dollars(0.0),
             Self::Flail => Currency::dollars(60.0),
             Self::Gladius => Currency::dollars(200.0),
+            Self::Garrote => Currency::dollars(15.0),
             Self::Glaive => Currency::dollars(100.0),
             Self::GreatAxe => Currency::dollars(100.0),
             Self::Halberd => Currency::dollars(150.0),
             Self::Hatchet => Currency::dollars(40.0),
             Self::Javelin => Currency::dollars(30.0),
+            Self::Jitte => Currency::dollars(50.0),
             Self::Katana => Currency::dollars(650.0),
             Self::Katar => Currency::dollars(40.0),
             Self::Kick => Currency::dollars(0.0),
             Self::Knife => Currency::dollars(40.0),
             Self::Kopesh => Currency::dollars(200.0),
             Self::Kusari => Currency::dollars(70.0),
+            Self::LargeKnife => Currency::dollars(60.0),
             Self::Lance => Currency::dollars(60.0),
             Self::LongSpear => Currency::dollars(60.0),
             Self::Longsword => Currency::dollars(500.0),
@@ -192,6 +206,7 @@ impl MeleeWeapon {
             Self::Sai => Currency::dollars(20.0),
             Self::Scimitar => Currency::dollars(500.0),
             Self::Shortsword => Currency::dollars(400.0),
+            Self::Shovel => Currency::dollars(15.0),
             Self::Smallsword => Currency::dollars(400.0),
             Self::Spear => Currency::dollars(40.0),
             Self::Staff => Currency::dollars(5.0),
@@ -224,6 +239,7 @@ impl MeleeWeapon {
             Self::Claymore => Weight::pounds(7.0),
             Self::Club => Weight::pounds(3.0),
             Self::CombatNet => Weight::pounds(5.0),
+            Self::Crowbar => Weight::pounds(3.0),
             Self::Cutlass => Weight::pounds(2.0),
             Self::Dagger => Weight::pounds(0.25),
             Self::Estoc => Weight::pounds(3.5),
@@ -231,17 +247,20 @@ impl MeleeWeapon {
             Self::Fist => Weight::pounds(0.0),
             Self::Flail => Weight::pounds(8.0),
             Self::Gladius => Weight::pounds(2.0),
+            Self::Garrote => Weight::pounds(0.25),
             Self::Glaive => Weight::pounds(8.0),
             Self::GreatAxe => Weight::pounds(8.0),
             Self::Halberd => Weight::pounds(12.0),
             Self::Hatchet => Weight::pounds(2.0),
             Self::Javelin => Weight::pounds(2.0),
+            Self::Jitte => Weight::pounds(1.5),
             Self::Katana => Weight::pounds(2.5),
             Self::Katar => Weight::pounds(1.0),
             Self::Kick => Weight::pounds(0.0),
             Self::Knife => Weight::pounds(1.0),
             Self::Kopesh => Weight::pounds(3.5),
             Self::Kusari => Weight::pounds(5.0),
+            Self::LargeKnife => Weight::pounds(1.5),
             Self::Lance => Weight::pounds(6.0),
             Self::LongSpear => Weight::pounds(5.0),
             Self::Longsword => Weight::pounds(3.0),
@@ -260,6 +279,7 @@ impl MeleeWeapon {
             Self::Sai => Weight::pounds(1.0),
             Self::Scimitar => Weight::pounds(3.0),
             Self::Shortsword => Weight::pounds(2.0),
+            Self::Shovel => Weight::pounds(6.0),
             Self::Smallsword => Weight::pounds(1.5),
             Self::Spear => Weight::pounds(4.0),
             Self::Staff => Weight::pounds(4.0),
@@ -292,6 +312,7 @@ impl MeleeWeapon {
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
             Self::Club => TechLevel::new(0),
             Self::CombatNet => TechLevel::new(1),      // Bronze Age
+            Self::Crowbar => TechLevel::new(3),        // Industrial
             Self::Cutlass => TechLevel::new(4),        // Age of Sail
             Self::Dagger => TechLevel::new(1),         // Bronze Age
             Self::Estoc => TechLevel::new(3),          // Late Medieval
@@ -299,17 +320,20 @@ impl MeleeWeapon {
             Self::Fist => TechLevel::new(0),           // Stone Age
             Self::Flail => TechLevel::new(2),          // Medieval
             Self::Gladius => TechLevel::new(1),        // Roman/Iron Age
+            Self::Garrote => TechLevel::new(1),        // Ancient
             Self::Glaive => TechLevel::new(2),
             Self::GreatAxe => TechLevel::new(1),       // Bronze/Iron Age
             Self::Halberd => TechLevel::new(2),        // Medieval
             Self::Hatchet => TechLevel::new(0),        // Stone Age
             Self::Javelin => TechLevel::new(0),        // Stone Age
+            Self::Jitte => TechLevel::new(3),          // Japanese feudal
             Self::Katana => TechLevel::new(3),         // Medieval Japan
             Self::Katar => TechLevel::new(2),          // Medieval India
             Self::Kick => TechLevel::new(0),           // Stone Age
             Self::Knife => TechLevel::new(0),          // Stone Age
             Self::Kopesh => TechLevel::new(1),         // Egyptian Bronze Age
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
+            Self::LargeKnife => TechLevel::new(1),     // Bronze Age
             Self::Lance => TechLevel::new(2),          // Medieval
             Self::LongSpear => TechLevel::new(1),      // Bronze Age
             Self::Longsword => TechLevel::new(2),      // Medieval
@@ -328,6 +352,7 @@ impl MeleeWeapon {
             Self::Sai => TechLevel::new(2),            // Medieval
             Self::Scimitar => TechLevel::new(2),       // Medieval
             Self::Shortsword => TechLevel::new(1),     // Bronze Age
+            Self::Shovel => TechLevel::new(1),         // Ancient tool
             Self::Smallsword => TechLevel::new(4),     // Renaissance
             Self::Spear => TechLevel::new(0),          // Stone Age
             Self::Staff => TechLevel::new(0),          // Stone Age
@@ -396,6 +421,10 @@ impl MeleeWeapon {
                 modifier: -2,
                 damage_type: DamageType::Crushing, // Entangling, minimal damage
             },
+            Self::Crowbar => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
+            },
             Self::Cutlass => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
@@ -424,6 +453,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
             },
+            Self::Garrote => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Crushing, // Strangling attack
+            },
             Self::Glaive => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
@@ -442,6 +475,10 @@ impl MeleeWeapon {
             },
             Self::Javelin => WeaponDamage::Thrust {
                 modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
+            Self::Jitte => WeaponDamage::Thrust {
+                modifier: -1,
                 damage_type: DamageType::Impaling,
             },
             Self::Katana => WeaponDamage::Swing {
@@ -467,6 +504,10 @@ impl MeleeWeapon {
             Self::Kusari => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
+            },
+            Self::LargeKnife => WeaponDamage::Swing {
+                modifier: -1,
+                damage_type: DamageType::Cutting,
             },
             Self::Lance => WeaponDamage::Thrust {
                 modifier: 3,
@@ -540,6 +581,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
             },
+            Self::Shovel => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
+            },
             Self::Smallsword => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
@@ -608,6 +653,7 @@ impl MeleeWeapon {
             Self::Claymore => Reach::OneTwo,
             Self::Club => Reach::One,
             Self::CombatNet => Reach::One,
+            Self::Crowbar => Reach::One,
             Self::Cutlass => Reach::One,
             Self::Dagger => Reach::Close,
             Self::Estoc => Reach::One,
@@ -615,17 +661,20 @@ impl MeleeWeapon {
             Self::Fist => Reach::Close,
             Self::Flail => Reach::OneTwo,
             Self::Gladius => Reach::One,
+            Self::Garrote => Reach::Close,
             Self::Glaive => Reach::TwoThree,
             Self::GreatAxe => Reach::OneTwo,
             Self::Halberd => Reach::TwoThree,
             Self::Hatchet => Reach::One,
             Self::Javelin => Reach::One,
+            Self::Jitte => Reach::One,
             Self::Katana => Reach::One,
             Self::Katar => Reach::Close,
             Self::Kick => Reach::CloseOne,
             Self::Knife => Reach::Close,
             Self::Kopesh => Reach::One,
             Self::Kusari => Reach::OneThree,
+            Self::LargeKnife => Reach::CloseOne,
             Self::Lance => Reach::Three,
             Self::LongSpear => Reach::TwoThree,
             Self::Longsword => Reach::One,
@@ -644,6 +693,7 @@ impl MeleeWeapon {
             Self::Sai => Reach::Close,
             Self::Scimitar => Reach::One,
             Self::Shortsword => Reach::One,
+            Self::Shovel => Reach::One,
             Self::Smallsword => Reach::One,
             Self::Spear => Reach::OneTwo,
             Self::Staff => Reach::OneTwo,
@@ -676,6 +726,7 @@ impl MeleeWeapon {
             Self::Claymore => 0,
             Self::Club => 0,
             Self::CombatNet => -2,
+            Self::Crowbar => 0,
             Self::Cutlass => 0,
             Self::Dagger => -1,
             Self::Estoc => 1,
@@ -683,17 +734,20 @@ impl MeleeWeapon {
             Self::Fist => 0,
             Self::Flail => -2,
             Self::Gladius => 0,
+            Self::Garrote => -4,
             Self::Glaive => 0,
             Self::GreatAxe => -2,
             Self::Halberd => 0,
             Self::Hatchet => -1,
             Self::Javelin => 0,
+            Self::Jitte => 1,
             Self::Katana => 0,
             Self::Katar => 0,
             Self::Kick => -2,
             Self::Knife => -1,
             Self::Kopesh => 0,
             Self::Kusari => -2,
+            Self::LargeKnife => -1,
             Self::Lance => -2,
             Self::LongSpear => 0,
             Self::Longsword => 0,
@@ -712,6 +766,7 @@ impl MeleeWeapon {
             Self::Sai => 1,
             Self::Scimitar => 0,
             Self::Shortsword => 0,
+            Self::Shovel => -1,
             Self::Smallsword => 1,
             Self::Spear => 0,
             Self::Staff => 2,
@@ -744,6 +799,7 @@ impl MeleeWeapon {
             Self::Claymore => Skill::TwoHandedSword,
             Self::Club => Skill::AxeMace,
             Self::CombatNet => Skill::ThrownWeapon,
+            Self::Crowbar => Skill::AxeMace,
             Self::Cutlass => Skill::Broadsword,
             Self::Dagger => Skill::Knife,
             Self::Estoc => Skill::Rapier,
@@ -751,17 +807,20 @@ impl MeleeWeapon {
             Self::Fist => Skill::Brawling,
             Self::Flail => Skill::Flail,
             Self::Gladius => Skill::Shortsword,
+            Self::Garrote => Skill::Brawling,
             Self::Glaive => Skill::Polearm,
             Self::GreatAxe => Skill::TwoHandedAxeMace,
             Self::Halberd => Skill::Polearm,
             Self::Hatchet => Skill::AxeMace,
             Self::Javelin => Skill::Spear,
+            Self::Jitte => Skill::MainGauche,
             Self::Katana => Skill::TwoHandedSword,
             Self::Katar => Skill::Knife,
             Self::Kick => Skill::Brawling,
             Self::Knife => Skill::Knife,
             Self::Kopesh => Skill::Broadsword,
             Self::Kusari => Skill::Kusari,
+            Self::LargeKnife => Skill::Knife,
             Self::Lance => Skill::Lance,
             Self::LongSpear => Skill::Spear,
             Self::Longsword => Skill::Broadsword,
@@ -780,6 +839,7 @@ impl MeleeWeapon {
             Self::Sai => Skill::Knife,
             Self::Scimitar => Skill::Broadsword,
             Self::Shortsword => Skill::Shortsword,
+            Self::Shovel => Skill::AxeMace,
             Self::Smallsword => Skill::Smallsword,
             Self::Spear => Skill::Spear,
             Self::Staff => Skill::Staff,

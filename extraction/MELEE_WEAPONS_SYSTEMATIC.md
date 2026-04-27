@@ -45,16 +45,16 @@
 - ✓ LongSpear
 - ✓ Lance
 - ✓ Halberd
-- ✗ Glaive
-- ✗ Naginata
-- ✗ Poleax
+- ✓ Glaive
+- ✓ Naginata
+- ✓ Poleax
 - ✓ Trident
-- ✗ Pike
+- ✓ Pike
 
 **Small Weapons:**
 - ✓ Dagger
 - ✓ Knife
-- ✗ Large Knife
+- ✓ Large Knife
 - ✓ MainGauche
 - ✓ Katar
 
@@ -63,7 +63,7 @@
 - ✓ Whip
 - ✓ Kusari
 - ✗ Chain
-- ✗ Morningstar (spiked flail)
+- ✓ Morningstar
 - ✗ Lasso/Lariat
 
 **Staff Weapons:**
@@ -87,16 +87,16 @@
 **Exotic/Specialist:**
 - ✓ Chakram
 - ✓ Bola (melee variant)
-- ✗ Sap/Blackjack
-- ✗ Club
-- ✗ Stick
-- ✗ Crowbar
-- ✗ Shovel (improvised)
-- ✗ Jitte
-- ✗ Sai
-- ✗ Garrote
-- ✗ Net
-- ✗ Baton (expandable)
+- ✓ Blackjack (sap)
+- ✓ Club
+- ✓ Stick
+- ✓ Crowbar
+- ✓ Shovel (improvised)
+- ✓ Jitte
+- ✓ Sai
+- ✓ Garrote
+- ✓ CombatNet
+- ✓ Baton
 
 ## Low-Tech Additions (Not in BS)
 
