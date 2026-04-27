@@ -34,6 +34,10 @@ pub enum MeleeWeapon {
     Broadsword,
     /// Chakram, swing cutting, reach 1. BS 271
     Chakram,
+    /// Cestus, thrust crushing, reach C. BS 271
+    Cestus,
+    /// Chain, swing+1 crushing, reach 1-3. BS 271
+    Chain,
     /// Claymore, swing+2 cutting, reach 1-2. BS 271
     Claymore,
     /// Club, swing+1 crushing, reach 1. BS 271
@@ -84,6 +88,8 @@ pub enum MeleeWeapon {
     Kusari,
     /// Large knife, swing-1 cutting, reach C-1. BS 271
     LargeKnife,
+    /// Lasso, special entangling, reach 1-2. BS 271
+    Lasso,
     /// Lance, thrust+3 impaling, reach 3. BS 271
     Lance,
     /// Long spear, thrust+2 impaling, reach 2-3. BS 271
@@ -96,6 +102,8 @@ pub enum MeleeWeapon {
     MainGauche,
     /// Maul, swing+4 crushing, reach 1-2. BS 271
     Maul,
+    /// Mattock, swing+2 impaling, reach 1. BS 289
+    Mattock,
     /// Morningstar, swing+3 crushing, reach 1. BS 271
     Morningstar,
     /// Naginata, swing+2 cutting, reach 2-3. BS 271
@@ -163,6 +171,8 @@ impl MeleeWeapon {
             Self::BrassKnuckles => Currency::dollars(10.0),
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
+            Self::Cestus => Currency::dollars(15.0),
+            Self::Chain => Currency::dollars(30.0),
             Self::Claymore => Currency::dollars(500.0),
             Self::Club => Currency::dollars(10.0),
             Self::CombatNet => Currency::dollars(40.0),
@@ -188,12 +198,14 @@ impl MeleeWeapon {
             Self::Kopesh => Currency::dollars(200.0),
             Self::Kusari => Currency::dollars(70.0),
             Self::LargeKnife => Currency::dollars(60.0),
+            Self::Lasso => Currency::dollars(20.0),
             Self::Lance => Currency::dollars(60.0),
             Self::LongSpear => Currency::dollars(60.0),
             Self::Longsword => Currency::dollars(500.0),
             Self::Mace => Currency::dollars(50.0),
             Self::MainGauche => Currency::dollars(50.0),
             Self::Maul => Currency::dollars(80.0),
+            Self::Mattock => Currency::dollars(25.0),
             Self::Morningstar => Currency::dollars(80.0),
             Self::Naginata => Currency::dollars(100.0),
             Self::Nunchaku => Currency::dollars(20.0),
@@ -236,6 +248,8 @@ impl MeleeWeapon {
             Self::BrassKnuckles => Weight::pounds(0.25),
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
+            Self::Cestus => Weight::pounds(0.5),
+            Self::Chain => Weight::pounds(3.0),
             Self::Claymore => Weight::pounds(7.0),
             Self::Club => Weight::pounds(3.0),
             Self::CombatNet => Weight::pounds(5.0),
@@ -261,12 +275,14 @@ impl MeleeWeapon {
             Self::Kopesh => Weight::pounds(3.5),
             Self::Kusari => Weight::pounds(5.0),
             Self::LargeKnife => Weight::pounds(1.5),
+            Self::Lasso => Weight::pounds(3.0),
             Self::Lance => Weight::pounds(6.0),
             Self::LongSpear => Weight::pounds(5.0),
             Self::Longsword => Weight::pounds(3.0),
             Self::Mace => Weight::pounds(5.0),
             Self::MainGauche => Weight::pounds(1.25),
             Self::Maul => Weight::pounds(12.0),
+            Self::Mattock => Weight::pounds(6.0),
             Self::Morningstar => Weight::pounds(6.0),
             Self::Naginata => Weight::pounds(9.0),
             Self::Nunchaku => Weight::pounds(1.5),
@@ -309,6 +325,8 @@ impl MeleeWeapon {
             Self::BrassKnuckles => TechLevel::new(3),  // Industrial
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
+            Self::Cestus => TechLevel::new(1),          // Roman
+            Self::Chain => TechLevel::new(1),           // Ancient
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
             Self::Club => TechLevel::new(0),
             Self::CombatNet => TechLevel::new(1),      // Bronze Age
@@ -334,12 +352,14 @@ impl MeleeWeapon {
             Self::Kopesh => TechLevel::new(1),         // Egyptian Bronze Age
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
             Self::LargeKnife => TechLevel::new(1),     // Bronze Age
+            Self::Lasso => TechLevel::new(0),          // Stone Age
             Self::Lance => TechLevel::new(2),          // Medieval
             Self::LongSpear => TechLevel::new(1),      // Bronze Age
             Self::Longsword => TechLevel::new(2),      // Medieval
             Self::Mace => TechLevel::new(1),           // Bronze Age
             Self::MainGauche => TechLevel::new(4),     // Renaissance
             Self::Maul => TechLevel::new(1),           // Bronze/Iron Age
+            Self::Mattock => TechLevel::new(1),        // Bronze/Iron Age
             Self::Morningstar => TechLevel::new(2),    // Medieval
             Self::Naginata => TechLevel::new(3),
             Self::Nunchaku => TechLevel::new(2),       // Medieval
@@ -408,6 +428,14 @@ impl MeleeWeapon {
             Self::Chakram => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Cestus => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Crushing,
+            },
+            Self::Chain => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::Claymore => WeaponDamage::Swing {
                 modifier: 2,
@@ -509,6 +537,10 @@ impl MeleeWeapon {
                 modifier: -1,
                 damage_type: DamageType::Cutting,
             },
+            Self::Lasso => WeaponDamage::Swing {
+                modifier: -2,
+                damage_type: DamageType::Crushing, // Entangling
+            },
             Self::Lance => WeaponDamage::Thrust {
                 modifier: 3,
                 damage_type: DamageType::Impaling,
@@ -532,6 +564,10 @@ impl MeleeWeapon {
             Self::Maul => WeaponDamage::Swing {
                 modifier: 4,
                 damage_type: DamageType::Crushing,
+            },
+            Self::Mattock => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Impaling,
             },
             Self::Morningstar => WeaponDamage::Swing {
                 modifier: 3,
@@ -650,6 +686,8 @@ impl MeleeWeapon {
             Self::BrassKnuckles => Reach::Close,
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
+            Self::Cestus => Reach::Close,
+            Self::Chain => Reach::OneThree,
             Self::Claymore => Reach::OneTwo,
             Self::Club => Reach::One,
             Self::CombatNet => Reach::One,
@@ -675,12 +713,14 @@ impl MeleeWeapon {
             Self::Kopesh => Reach::One,
             Self::Kusari => Reach::OneThree,
             Self::LargeKnife => Reach::CloseOne,
+            Self::Lasso => Reach::OneTwo,
             Self::Lance => Reach::Three,
             Self::LongSpear => Reach::TwoThree,
             Self::Longsword => Reach::One,
             Self::Mace => Reach::One,
             Self::MainGauche => Reach::One,
             Self::Maul => Reach::OneTwo,
+            Self::Mattock => Reach::One,
             Self::Morningstar => Reach::One,
             Self::Naginata => Reach::TwoThree,
             Self::Nunchaku => Reach::One,
@@ -723,6 +763,8 @@ impl MeleeWeapon {
             Self::BrassKnuckles => 0,
             Self::Broadsword => 0,
             Self::Chakram => -2,
+            Self::Cestus => 0,
+            Self::Chain => -2,
             Self::Claymore => 0,
             Self::Club => 0,
             Self::CombatNet => -2,
@@ -748,12 +790,14 @@ impl MeleeWeapon {
             Self::Kopesh => 0,
             Self::Kusari => -2,
             Self::LargeKnife => -1,
+            Self::Lasso => -2,
             Self::Lance => -2,
             Self::LongSpear => 0,
             Self::Longsword => 0,
             Self::Mace => 0,
             Self::MainGauche => 1,
             Self::Maul => -2,
+            Self::Mattock => -1,
             Self::Morningstar => 0,
             Self::Naginata => 1,
             Self::Nunchaku => -2,
@@ -796,6 +840,8 @@ impl MeleeWeapon {
             Self::BrassKnuckles => Skill::Brawling,
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
+            Self::Cestus => Skill::Brawling,
+            Self::Chain => Skill::Flail,
             Self::Claymore => Skill::TwoHandedSword,
             Self::Club => Skill::AxeMace,
             Self::CombatNet => Skill::ThrownWeapon,
@@ -821,12 +867,14 @@ impl MeleeWeapon {
             Self::Kopesh => Skill::Broadsword,
             Self::Kusari => Skill::Kusari,
             Self::LargeKnife => Skill::Knife,
+            Self::Lasso => Skill::ThrownWeapon,
             Self::Lance => Skill::Lance,
             Self::LongSpear => Skill::Spear,
             Self::Longsword => Skill::Broadsword,
             Self::Mace => Skill::AxeMace,
             Self::MainGauche => Skill::MainGauche,
             Self::Maul => Skill::TwoHandedAxeMace,
+            Self::Mattock => Skill::AxeMace,
             Self::Morningstar => Skill::Flail,
             Self::Naginata => Skill::Polearm,
             Self::Nunchaku => Skill::Flail,

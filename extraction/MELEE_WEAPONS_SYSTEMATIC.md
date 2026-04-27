@@ -19,9 +19,9 @@
 - ✓ Mace
 - ✓ Maul
 - ✓ Warhammer
-- ✗ Pick (war pick)
-- ✗ Mattock
--✗ Throwing Axe (if melee use)
+- ✓ Pick (war pick)
+- ✓ Mattock
+- ✗ Throwing Axe (if melee use)
 
 **Swords:**
 - ✓ Broadsword
@@ -62,9 +62,9 @@
 - ✓ Flail
 - ✓ Whip
 - ✓ Kusari
-- ✗ Chain
+- ✓ Chain
 - ✓ Morningstar
-- ✗ Lasso/Lariat
+- ✓ Lasso/Lariat
 
 **Staff Weapons:**
 - ✓ Staff
@@ -79,10 +79,10 @@
 - ✓ Fist
 - ✓ Kick
 - ✓ BrassKnuckles
-- ✗ Cestus
-- ✗ Punch (generic)
-- ✗ Bite
-- ✗ Grapple
+- ✓ Cestus
+- ✗ Punch (generic - technique, not item)
+- ✗ Bite (technique, not item)
+- ✗ Grapple (technique, not item)
 
 **Exotic/Specialist:**
 - ✓ Chakram
