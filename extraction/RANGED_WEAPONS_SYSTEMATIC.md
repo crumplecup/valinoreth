@@ -6,52 +6,52 @@
 - [ ] GURPS High-Tech
 - [ ] GURPS Ultra-Tech
 
-## Current Status: 31 variants
+## Current Status: 38 variants (+7 BS ranged weapons)
 
 ## GURPS Basic Set - Ranged Weapons (BS 276-278)
 
 ### Bows & Crossbows
 - ✓ Bow
 - ✓ Crossbow
-- ✗ Longbow
-- ✗ Composite Bow
-- ✗ Short Bow
-- ✗ Self Bow
-- ✗ Arbalest (heavy crossbow)
-- ✗ Prodd (stone-throwing crossbow)
-- ✗ Pellet Bow
+- ✓ Longbow
+- ✓ CompositeBow
+- ✓ ShortBow
+- ✓ SelfBow (primitive)
+- ✓ HeavyCrossbow (Arbalest)
+- ✓ Prodd (stone-throwing crossbow)
+- ✓ PelletBow
 
 ### Firearms (TL5-6)
 - ✓ Pistol
 - ✓ Rifle
 - ✓ Musket
-- ✓ Flintlock
-- ✗ Revolver
-- ✗ Shotgun
-- ✗ Submachine Gun
-- ✗ Assault Rifle
-- ✗ Sniper Rifle
-- ✗ Machine Gun
+- ✓ Derringer (Flintlock variant)
+- ✓ Revolver
+- ✓ Shotgun
+- ✓ SMG (Submachine Gun)
+- ✓ AssaultRifle
+- ✓ SniperRifle
+- ✓ MachineGun
 
 ### Thrown Weapons
-- ✓ Throwing Axe
-- ✓ Throwing Knife
-- ✓ Javelin
-- ✓ Spear (thrown)
-- ✗ Throwing Star (Shuriken)
-- ✗ Dart
-- ✗ Rock/Stone
-- ✗ Throwing Stick
-- ✗ Boomerang
-- ✗ Bola (thrown)
-- ✗ Net (thrown)
+- ✓ ThrowingAxe
+- ✓ ThrowingKnife
+- ✓ Javelin (in melee weapons, used as thrown)
+- ✓ Spear (in melee weapons, used as thrown)
+- ✓ Shuriken (Throwing Star)
+- ✓ Dart
+- ✓ Rock (improvised)
+- ✓ ThrowingStick
+- ✓ Boomerang
+- ✓ ThrownBola (thrown variant)
+- ✓ ThrownNet (thrown variant)
 
 ### Slings & Launchers
 - ✓ Sling
-- ✓ Staff Sling
-- ✗ Atlatl
-- ✗ Blowpipe
-- ✗ Bola (whirled)
+- ✓ StaffSling
+- ✓ Atlatl
+- ✓ Blowgun (Blowpipe)
+- ✗ Bola (whirled variant)
 
 ### Modern/High-Tech (TL7-8)
 - ✗ Grenade Launcher

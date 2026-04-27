@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
-**Last Updated:** 2026-04-26
-**Current Total:** 217 items (+4 melee weapons - batch 3, final BS melee)
+**Last Updated:** 2026-04-27
+**Current Total:** 224 items (+16 melee, +7 ranged)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -48,13 +48,13 @@
 | Category | Current | BS Missing | LT Potential | Total Target |
 |----------|---------|-----------|--------------|--------------|
 | MeleeWeapon | 69 | ~24 | ~60 | ~153 |
-| RangedWeapon | 31 | ~30 | ~40 | ~100 |
+| RangedWeapon | 38 | ~23 | ~40 | ~101 |
 | Armor | 25 | ~15 | ~30 | ~70 |
 | Clothing | 30 | ~15 | ~20 | ~65 |
 | Container | 20 | ~10 | ~15 | ~45 |
 | Tool | 20 | ~15 | ~25 | ~60 |
 | SurvivalGear | 20 | ~10 | ~15 | ~45 |
-| **TOTAL** | **217** | **~119** | **~205** | **~541** |
+| **TOTAL** | **224** | **~112** | **~205** | **~541** |
 
 ## Extraction Checklists Created
 
@@ -119,9 +119,10 @@
 ---
 
 **Progress Tracking:**
-- Phase 1: In Progress (BS melee weapons complete, moving to ranged)
-- Items added today: 16 total
-  - Batch 1: 7 items (Blackjack, Club, Glaive, Naginata, Pike, Poleax, Stick)
-  - Batch 2: 5 items (Crowbar, Garrote, Jitte, LargeKnife, Shovel)
-  - Batch 3: 4 items (Cestus, Chain, Lasso, Mattock) - final BS melee
-- Items remaining in Phase 1: ~119
+- Phase 1: In Progress (BS melee complete, BS ranged started)
+- Items added today: 23 total
+  - Melee Batch 1: 7 items (Blackjack, Club, Glaive, Naginata, Pike, Poleax, Stick)
+  - Melee Batch 2: 5 items (Crowbar, Garrote, Jitte, LargeKnife, Shovel)
+  - Melee Batch 3: 4 items (Cestus, Chain, Lasso, Mattock) - **BS melee complete**
+  - Ranged Batch 1: 7 items (Prodd, Rock, SelfBow, Boomerang, ThrowingStick, ThrownBola, ThrownNet)
+- Items remaining in Phase 1: ~112
