@@ -14,27 +14,6 @@
 use derive_more::{Display, From};
 use tracing::{debug, instrument};
 
-/// Item category for delegation (similar to SpellCollege).
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub enum ItemCategory {
-    /// Melee weapons (~80 items): swords, axes, polearms, unarmed
-    MeleeWeapon,
-    /// Ranged weapons (~60 items): bows, guns, thrown weapons
-    RangedWeapon,
-    /// Armor (~50 items): leather, mail, plate, shields
-    Armor,
-    /// Clothing (~40 items): boots, gloves, cloaks, robes
-    Clothing,
-    /// Tools (~50 items): lockpicks, medical, crafting
-    Tools,
-    /// Containers (~30 items): backpacks, pouches, chests
-    Containers,
-    /// Survival gear (~40 items): rope, torches, tents, rations
-    Survival,
-    /// Magic items (~50 items): enchanted items (future expansion)
-    MagicItems,
-}
-
 /// Tech level (TL 0-12 in GURPS).
 ///
 /// Represents the technology era an item comes from:

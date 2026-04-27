@@ -2,7 +2,7 @@
 
 use valinoreth::{
     calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense,
-    DefenseResult, Item, Random, RETREAT_BONUS,
+    DefenseResult, Item, MeleeWeapon, Random, RETREAT_BONUS,
 };
 
 // ========== Parry Calculation Tests ==========
@@ -11,7 +11,7 @@ use valinoreth::{
 fn test_calculate_parry_basic() {
     // BS 376: Parry = (Skill / 2) + 3 + weapon modifier
     // Broadsword skill 14, parry modifier 0
-    let parry = calculate_parry(14, &Item::Broadsword);
+    let parry = calculate_parry(14, &Item::MeleeWeapon(MeleeWeapon::Broadsword));
     assert_eq!(parry, 10); // (14/2) + 3 + 0 = 10
 }
 
@@ -19,7 +19,7 @@ fn test_calculate_parry_basic() {
 fn test_calculate_parry_with_bonus() {
     // Rapier has +1 parry modifier
     // Skill 12, rapier modifier +1
-    let parry = calculate_parry(12, &Item::Rapier);
+    let parry = calculate_parry(12, &Item::MeleeWeapon(MeleeWeapon::Rapier));
     assert_eq!(parry, 10); // (12/2) + 3 + 1 = 10
 }
 
@@ -27,7 +27,7 @@ fn test_calculate_parry_with_bonus() {
 fn test_calculate_parry_with_penalty() {
     // Axe has -1 parry modifier
     // Skill 14, axe modifier -1
-    let parry = calculate_parry(14, &Item::Axe);
+    let parry = calculate_parry(14, &Item::MeleeWeapon(MeleeWeapon::Axe));
     assert_eq!(parry, 9); // (14/2) + 3 - 1 = 9
 }
 
@@ -35,7 +35,7 @@ fn test_calculate_parry_with_penalty() {
 fn test_calculate_parry_quarterstaff() {
     // Quarterstaff has +2 parry modifier (best defensive weapon)
     // Skill 14, quarterstaff modifier +2
-    let parry = calculate_parry(14, &Item::Quarterstaff);
+    let parry = calculate_parry(14, &Item::MeleeWeapon(MeleeWeapon::Quarterstaff));
     assert_eq!(parry, 12); // (14/2) + 3 + 2 = 12
 }
 
@@ -43,7 +43,7 @@ fn test_calculate_parry_quarterstaff() {
 fn test_calculate_parry_low_skill() {
     // Low skill still gets base calculation
     // Skill 8, broadsword modifier 0
-    let parry = calculate_parry(8, &Item::Broadsword);
+    let parry = calculate_parry(8, &Item::MeleeWeapon(MeleeWeapon::Broadsword));
     assert_eq!(parry, 7); // (8/2) + 3 + 0 = 7
 }
 
@@ -51,7 +51,7 @@ fn test_calculate_parry_low_skill() {
 fn test_calculate_parry_high_skill() {
     // High skill provides good parry
     // Skill 20, rapier modifier +1
-    let parry = calculate_parry(20, &Item::Rapier);
+    let parry = calculate_parry(20, &Item::MeleeWeapon(MeleeWeapon::Rapier));
     assert_eq!(parry, 14); // (20/2) + 3 + 1 = 14
 }
 
@@ -174,7 +174,7 @@ fn test_active_defense_dodge_value() {
 fn test_active_defense_parry_value() {
     let parry = ActiveDefense::Parry {
         value: 10,
-        weapon: Item::Broadsword,
+        weapon: Item::MeleeWeapon(MeleeWeapon::Broadsword),
     };
     assert_eq!(parry.value(), 10);
 }
@@ -226,7 +226,7 @@ fn test_active_defense_dodge_roll_failure() {
 fn test_active_defense_parry_roll() {
     let parry = ActiveDefense::Parry {
         value: 10,
-        weapon: Item::Broadsword,
+        weapon: Item::MeleeWeapon(MeleeWeapon::Broadsword),
     };
     let mut rng = Random::from_seed(42).unwrap();
 
@@ -323,7 +323,7 @@ fn test_retreat_bonus_application() {
 fn test_retreat_bonus_parry() {
     // Base parry 10, with retreat becomes 11
     let skill = 14;
-    let base_parry = calculate_parry(skill, &Item::Broadsword);
+    let base_parry = calculate_parry(skill, &Item::MeleeWeapon(MeleeWeapon::Broadsword));
     let parry_with_retreat = base_parry + RETREAT_BONUS;
     assert_eq!(base_parry, 10);
     assert_eq!(parry_with_retreat, 11);
@@ -360,7 +360,7 @@ fn test_complete_dodge_defense() {
 fn test_complete_parry_defense() {
     // Calculate parry from skill and weapon, then test defense roll
     let skill = 14;
-    let weapon = Item::Rapier;
+    let weapon = Item::MeleeWeapon(MeleeWeapon::Rapier);
     let parry_value = calculate_parry(skill, &weapon);
     assert_eq!(parry_value, 11); // (14/2) + 3 + 1 = 11
 
@@ -398,7 +398,7 @@ fn test_defense_comparison() {
     let shield_skill = 12;
 
     let dodge = calculate_dodge(basic_speed); // floor(6.0) + 3 = 9
-    let parry = calculate_parry(weapon_skill, &Item::Broadsword); // (14/2) + 3 = 10
+    let parry = calculate_parry(weapon_skill, &Item::MeleeWeapon(MeleeWeapon::Broadsword)); // (14/2) + 3 = 10
     let block = calculate_block(shield_skill); // (12/2) + 3 = 9
 
     assert_eq!(dodge, 9);
@@ -415,10 +415,10 @@ fn test_defensive_weapons_comparison() {
     // Compare parry values for different weapons at same skill
     let skill = 14;
 
-    let axe_parry = calculate_parry(skill, &Item::Axe); // -1 modifier
-    let broadsword_parry = calculate_parry(skill, &Item::Broadsword); // 0 modifier
-    let rapier_parry = calculate_parry(skill, &Item::Rapier); // +1 modifier
-    let quarterstaff_parry = calculate_parry(skill, &Item::Quarterstaff); // +2 modifier
+    let axe_parry = calculate_parry(skill, &Item::MeleeWeapon(MeleeWeapon::Axe)); // -1 modifier
+    let broadsword_parry = calculate_parry(skill, &Item::MeleeWeapon(MeleeWeapon::Broadsword)); // 0 modifier
+    let rapier_parry = calculate_parry(skill, &Item::MeleeWeapon(MeleeWeapon::Rapier)); // +1 modifier
+    let quarterstaff_parry = calculate_parry(skill, &Item::MeleeWeapon(MeleeWeapon::Quarterstaff)); // +2 modifier
 
     assert_eq!(axe_parry, 9);
     assert_eq!(broadsword_parry, 10);

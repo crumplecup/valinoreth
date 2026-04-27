@@ -1,15 +1,12 @@
 //! Tests for ranged weapon and armor items.
 
-use valinoreth::{Item, ItemCategory};
+use valinoreth::{Item, ItemArmor, RangedWeapon};
 
 // Ranged Weapon Tests
 
 #[test]
 fn test_rifle_properties() {
-    let rifle = Item::Rifle;
-
-    // Category
-    assert_eq!(rifle.category(), ItemCategory::RangedWeapon);
+    let rifle = Item::RangedWeapon(RangedWeapon::Rifle);
 
     // Universal properties
     assert_eq!(rifle.base_cost().amount(), 500.0);
@@ -29,9 +26,8 @@ fn test_rifle_properties() {
 
 #[test]
 fn test_bow_properties() {
-    let bow = Item::Bow;
+    let bow = Item::RangedWeapon(RangedWeapon::Bow);
 
-    assert_eq!(bow.category(), ItemCategory::RangedWeapon);
     assert_eq!(bow.base_cost().amount(), 100.0);
     assert_eq!(bow.tech_level().level(), 0); // Stone Age
     assert_eq!(bow.accuracy(), Some(2));
@@ -41,31 +37,31 @@ fn test_bow_properties() {
 fn test_all_ranged_weapons_have_properties() {
     use strum::IntoEnumIterator;
 
-    for item in Item::iter() {
-        if item.category() == ItemCategory::RangedWeapon {
-            assert!(
-                item.base_cost().amount() >= 0.0,
-                "{:?} has invalid cost",
-                item
-            );
-            assert!(
-                item.weight().amount() >= 0.0,
-                "{:?} has invalid weight",
-                item
-            );
-            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
-            assert!(item.weapon_damage().is_some(), "{:?} missing damage", item);
-            assert!(item.accuracy().is_some(), "{:?} missing accuracy", item);
-            assert!(item.required_skill().is_some(), "{:?} missing skill", item);
+    for weapon in RangedWeapon::iter() {
+        let item = Item::RangedWeapon(weapon.clone());
 
-            // Ranged weapons don't have melee properties
-            assert!(item.reach().is_none(), "{:?} should not have reach", item);
-            assert!(
-                item.parry_modifier().is_none(),
-                "{:?} should not have parry",
-                item
-            );
-        }
+        assert!(
+            item.base_cost().amount() >= 0.0,
+            "{:?} has invalid cost",
+            weapon
+        );
+        assert!(
+            item.weight().amount() >= 0.0,
+            "{:?} has invalid weight",
+            weapon
+        );
+        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", weapon);
+        assert!(item.weapon_damage().is_some(), "{:?} missing damage", weapon);
+        assert!(item.accuracy().is_some(), "{:?} missing accuracy", weapon);
+        assert!(item.required_skill().is_some(), "{:?} missing skill", weapon);
+
+        // Ranged weapons don't have melee properties
+        assert!(item.reach().is_none(), "{:?} should not have reach", weapon);
+        assert!(
+            item.parry_modifier().is_none(),
+            "{:?} should not have parry",
+            weapon
+        );
     }
 }
 
@@ -73,10 +69,7 @@ fn test_all_ranged_weapons_have_properties() {
 
 #[test]
 fn test_chainmail_properties() {
-    let chainmail = Item::Chainmail;
-
-    // Category
-    assert_eq!(chainmail.category(), ItemCategory::Armor);
+    let chainmail = Item::Armor(ItemArmor::Chainmail);
 
     // Universal properties
     assert_eq!(chainmail.base_cost().amount(), 550.0);
@@ -96,9 +89,8 @@ fn test_chainmail_properties() {
 
 #[test]
 fn test_no_armor() {
-    let none = Item::NoArmor;
+    let none = Item::Armor(ItemArmor::NoArmor);
 
-    assert_eq!(none.category(), ItemCategory::Armor);
     assert_eq!(none.base_cost().amount(), 0.0);
     assert_eq!(none.weight().amount(), 0.0);
     assert_eq!(none.damage_resistance(), Some(0));
@@ -106,9 +98,8 @@ fn test_no_armor() {
 
 #[test]
 fn test_plate_armor() {
-    let plate = Item::PlateArmor;
+    let plate = Item::Armor(ItemArmor::PlateArmor);
 
-    assert_eq!(plate.category(), ItemCategory::Armor);
     assert_eq!(plate.base_cost().amount(), 3000.0);
     assert_eq!(plate.weight().amount(), 50.0);
     assert_eq!(plate.tech_level().level(), 3); // Age of Sail
@@ -119,53 +110,68 @@ fn test_plate_armor() {
 fn test_all_armor_have_properties() {
     use strum::IntoEnumIterator;
 
-    for item in Item::iter() {
-        if item.category() == ItemCategory::Armor {
-            assert!(
-                item.base_cost().amount() >= 0.0,
-                "{:?} has invalid cost",
-                item
-            );
-            assert!(
-                item.weight().amount() >= 0.0,
-                "{:?} has invalid weight",
-                item
-            );
-            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
-            assert!(item.damage_resistance().is_some(), "{:?} missing DR", item);
+    for armor in ItemArmor::iter() {
+        let item = Item::Armor(armor.clone());
 
-            // Armor doesn't have weapon properties
-            assert!(
-                item.weapon_damage().is_none(),
-                "{:?} should not have damage",
-                item
-            );
-            assert!(item.reach().is_none(), "{:?} should not have reach", item);
-            assert!(
-                item.parry_modifier().is_none(),
-                "{:?} should not have parry",
-                item
-            );
-            assert!(
-                item.required_skill().is_none(),
-                "{:?} should not require skill",
-                item
-            );
-            assert!(
-                item.accuracy().is_none(),
-                "{:?} should not have accuracy",
-                item
-            );
-        }
+        assert!(
+            item.base_cost().amount() >= 0.0,
+            "{:?} has invalid cost",
+            armor
+        );
+        assert!(
+            item.weight().amount() >= 0.0,
+            "{:?} has invalid weight",
+            armor
+        );
+        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", armor);
+        assert!(item.damage_resistance().is_some(), "{:?} missing DR", armor);
+
+        // Armor doesn't have weapon properties
+        assert!(
+            item.weapon_damage().is_none(),
+            "{:?} should not have damage",
+            armor
+        );
+        assert!(item.reach().is_none(), "{:?} should not have reach", armor);
+        assert!(
+            item.parry_modifier().is_none(),
+            "{:?} should not have parry",
+            armor
+        );
+        assert!(
+            item.required_skill().is_none(),
+            "{:?} should not require skill",
+            armor
+        );
+        assert!(
+            item.accuracy().is_none(),
+            "{:?} should not have accuracy",
+            armor
+        );
     }
 }
 
 #[test]
 fn test_armor_dr_progression() {
     // DR should increase with better armor
-    assert_eq!(Item::NoArmor.damage_resistance(), Some(0));
-    assert_eq!(Item::LeatherArmor.damage_resistance(), Some(1));
-    assert_eq!(Item::Chainmail.damage_resistance(), Some(4));
-    assert_eq!(Item::PlateArmor.damage_resistance(), Some(6));
-    assert_eq!(Item::HeavyPlate.damage_resistance(), Some(8));
+    assert_eq!(
+        Item::Armor(ItemArmor::NoArmor).damage_resistance(),
+        Some(0)
+    );
+    assert_eq!(
+        Item::Armor(ItemArmor::LeatherArmor).damage_resistance(),
+        Some(1)
+    );
+    assert_eq!(
+        Item::Armor(ItemArmor::Chainmail).damage_resistance(),
+        Some(4)
+    );
+    assert_eq!(
+        Item::Armor(ItemArmor::PlateArmor).damage_resistance(),
+        Some(6)
+    );
+    assert_eq!(
+        Item::Armor(ItemArmor::HeavyPlate).damage_resistance(),
+        Some(8)
+    );
 }

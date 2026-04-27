@@ -49,7 +49,10 @@ pub use combat::{
 pub use dice::{Dice, DieLevel, Random};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use free::trace_init;
-pub use items::{Capacity, Currency, Item, ItemCategory, Quality, TechLevel, Weight};
+pub use items::{
+    Armor as ItemArmor, Capacity, Clothing, Container, Currency, Item, MeleeWeapon, Quality,
+    RangedWeapon, SurvivalGear, TechLevel, Tool, Weight,
+};
 pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
 };

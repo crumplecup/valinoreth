@@ -1,12 +1,12 @@
 //! Tests for weapon definitions and statistics.
 
-use valinoreth::{DamageType, Item, Reach, Skill, WeaponDamage};
+use valinoreth::{DamageType, Item, MeleeWeapon, RangedWeapon, Reach, Skill, WeaponDamage};
 
 // ========== Melee Weapon Tests ==========
 
 #[test]
 fn test_broadsword_stats() {
-    let sword = Item::Broadsword;
+    let sword = Item::MeleeWeapon(MeleeWeapon::Broadsword);
 
     // BS 271: Broadsword is sw+1 cutting
     match sword.weapon_damage().unwrap() {
@@ -27,7 +27,7 @@ fn test_broadsword_stats() {
 
 #[test]
 fn test_rapier_stats() {
-    let rapier = Item::Rapier;
+    let rapier = Item::MeleeWeapon(MeleeWeapon::Rapier);
 
     // BS 274: Rapier is thr+1 impaling
     match rapier.weapon_damage().unwrap() {
@@ -48,7 +48,7 @@ fn test_rapier_stats() {
 
 #[test]
 fn test_spear_stats() {
-    let spear = Item::Spear;
+    let spear = Item::MeleeWeapon(MeleeWeapon::Spear);
 
     // BS 275: Spear is thr+2 impaling
     match spear.weapon_damage().unwrap() {
@@ -69,7 +69,7 @@ fn test_spear_stats() {
 
 #[test]
 fn test_axe_stats() {
-    let axe = Item::Axe;
+    let axe = Item::MeleeWeapon(MeleeWeapon::Axe);
 
     // BS 271: Axe is sw+2 cutting
     match axe.weapon_damage().unwrap() {
@@ -90,7 +90,7 @@ fn test_axe_stats() {
 
 #[test]
 fn test_fist_unarmed_stats() {
-    let fist = Item::Fist;
+    let fist = Item::MeleeWeapon(MeleeWeapon::Fist);
 
     // BS 271: Fist is thr-1 crushing
     match fist.weapon_damage().unwrap() {
@@ -111,7 +111,7 @@ fn test_fist_unarmed_stats() {
 
 #[test]
 fn test_quarterstaff_stats() {
-    let staff = Item::Quarterstaff;
+    let staff = Item::MeleeWeapon(MeleeWeapon::Quarterstaff);
 
     // BS 274: Quarterstaff is sw+2 crushing
     match staff.weapon_damage().unwrap() {
@@ -132,7 +132,7 @@ fn test_quarterstaff_stats() {
 
 #[test]
 fn test_knife_stats() {
-    let knife = Item::Knife;
+    let knife = Item::MeleeWeapon(MeleeWeapon::Knife);
 
     // BS 273: Knife is thr-1 impaling
     match knife.weapon_damage().unwrap() {
@@ -153,7 +153,7 @@ fn test_knife_stats() {
 
 #[test]
 fn test_two_handed_sword_stats() {
-    let sword = Item::TwoHandedSword;
+    let sword = Item::MeleeWeapon(MeleeWeapon::TwoHandedSword);
 
     // BS 276: Two-Handed Sword is sw+2 cutting
     match sword.weapon_damage().unwrap() {
@@ -176,7 +176,7 @@ fn test_two_handed_sword_stats() {
 
 #[test]
 fn test_bow_stats() {
-    let bow = Item::Bow;
+    let bow = Item::RangedWeapon(RangedWeapon::Bow);
 
     // BS 276: Bow is 1d impaling
     match bow.weapon_damage().unwrap() {
@@ -194,7 +194,7 @@ fn test_bow_stats() {
 
 #[test]
 fn test_crossbow_stats() {
-    let crossbow = Item::Crossbow;
+    let crossbow = Item::RangedWeapon(RangedWeapon::Crossbow);
 
     // BS 276: Crossbow is 1d+4 impaling
     match crossbow.weapon_damage().unwrap() {
@@ -212,7 +212,7 @@ fn test_crossbow_stats() {
 
 #[test]
 fn test_pistol_stats() {
-    let pistol = Item::Pistol;
+    let pistol = Item::RangedWeapon(RangedWeapon::Pistol);
 
     // BS 278: Pistol (9mm) is 2d+2 piercing
     match pistol.weapon_damage().unwrap() {
@@ -230,7 +230,7 @@ fn test_pistol_stats() {
 
 #[test]
 fn test_rifle_stats() {
-    let rifle = Item::Rifle;
+    let rifle = Item::RangedWeapon(RangedWeapon::Rifle);
 
     // BS 278: Rifle (.30) is 5d piercing
     match rifle.weapon_damage().unwrap() {
@@ -248,7 +248,7 @@ fn test_rifle_stats() {
 
 #[test]
 fn test_sling_st_based_damage() {
-    let sling = Item::Sling;
+    let sling = Item::RangedWeapon(RangedWeapon::Sling);
 
     // BS 277: Sling uses swing piercing (ST-based)
     match sling.weapon_damage().unwrap() {
@@ -315,18 +315,18 @@ fn test_reach_display() {
 #[test]
 fn test_long_reach_weapons() {
     // Verify long weapons have appropriate reach
-    assert_eq!(Item::Lance.reach().unwrap(), Reach::Three);
-    assert_eq!(Item::LongSpear.reach().unwrap(), Reach::TwoThree);
-    assert_eq!(Item::Halberd.reach().unwrap(), Reach::TwoThree);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Lance).reach().unwrap(), Reach::Three);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::LongSpear).reach().unwrap(), Reach::TwoThree);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Halberd).reach().unwrap(), Reach::TwoThree);
 }
 
 #[test]
 fn test_close_combat_weapons() {
     // Unarmed and small weapons are close combat
-    assert_eq!(Item::Fist.reach().unwrap(), Reach::Close);
-    assert_eq!(Item::BrassKnuckles.reach().unwrap(), Reach::Close);
-    assert_eq!(Item::Knife.reach().unwrap(), Reach::Close);
-    assert_eq!(Item::Dagger.reach().unwrap(), Reach::Close);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Fist).reach().unwrap(), Reach::Close);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::BrassKnuckles).reach().unwrap(), Reach::Close);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Knife).reach().unwrap(), Reach::Close);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Dagger).reach().unwrap(), Reach::Close);
 }
 
 // ========== Parry Modifier Tests ==========
@@ -334,20 +334,20 @@ fn test_close_combat_weapons() {
 #[test]
 fn test_defensive_weapons() {
     // Some weapons are better for parrying
-    assert_eq!(Item::Rapier.parry_modifier().unwrap(), 1);
-    assert_eq!(Item::MainGauche.parry_modifier().unwrap(), 1);
-    assert_eq!(Item::Smallsword.parry_modifier().unwrap(), 1);
-    assert_eq!(Item::Quarterstaff.parry_modifier().unwrap(), 2);
-    assert_eq!(Item::Staff.parry_modifier().unwrap(), 2);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Rapier).parry_modifier().unwrap(), 1);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::MainGauche).parry_modifier().unwrap(), 1);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Smallsword).parry_modifier().unwrap(), 1);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Quarterstaff).parry_modifier().unwrap(), 2);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Staff).parry_modifier().unwrap(), 2);
 }
 
 #[test]
 fn test_poor_parry_weapons() {
     // Some weapons are poor for parrying
-    assert_eq!(Item::Axe.parry_modifier().unwrap(), -1);
-    assert_eq!(Item::Flail.parry_modifier().unwrap(), -2);
-    assert_eq!(Item::GreatAxe.parry_modifier().unwrap(), -2);
-    assert_eq!(Item::Lance.parry_modifier().unwrap(), -2);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Axe).parry_modifier().unwrap(), -1);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Flail).parry_modifier().unwrap(), -2);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::GreatAxe).parry_modifier().unwrap(), -2);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Lance).parry_modifier().unwrap(), -2);
 }
 
 // ========== Skill Linkage Tests ==========
@@ -356,22 +356,22 @@ fn test_poor_parry_weapons() {
 fn test_weapon_skill_linkage() {
     // Verify weapons correctly link to their skills
     assert_eq!(
-        Item::Broadsword.required_skill().unwrap(),
+        Item::MeleeWeapon(MeleeWeapon::Broadsword).required_skill().unwrap(),
         Skill::Broadsword
     );
-    assert_eq!(Item::Rapier.required_skill().unwrap(), Skill::Rapier);
-    assert_eq!(Item::Spear.required_skill().unwrap(), Skill::Spear);
-    assert_eq!(Item::Axe.required_skill().unwrap(), Skill::AxeMace);
-    assert_eq!(Item::Mace.required_skill().unwrap(), Skill::AxeMace);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Rapier).required_skill().unwrap(), Skill::Rapier);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Spear).required_skill().unwrap(), Skill::Spear);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Axe).required_skill().unwrap(), Skill::AxeMace);
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Mace).required_skill().unwrap(), Skill::AxeMace);
 }
 
 #[test]
 fn test_ranged_weapon_skills() {
-    assert_eq!(Item::Bow.required_skill().unwrap(), Skill::Bow);
-    assert_eq!(Item::Crossbow.required_skill().unwrap(), Skill::Crossbow);
-    assert_eq!(Item::Pistol.required_skill().unwrap(), Skill::Guns);
-    assert_eq!(Item::Rifle.required_skill().unwrap(), Skill::Guns);
-    assert_eq!(Item::Sling.required_skill().unwrap(), Skill::Sling);
+    assert_eq!(Item::RangedWeapon(RangedWeapon::Bow).required_skill().unwrap(), Skill::Bow);
+    assert_eq!(Item::RangedWeapon(RangedWeapon::Crossbow).required_skill().unwrap(), Skill::Crossbow);
+    assert_eq!(Item::RangedWeapon(RangedWeapon::Pistol).required_skill().unwrap(), Skill::Guns);
+    assert_eq!(Item::RangedWeapon(RangedWeapon::Rifle).required_skill().unwrap(), Skill::Guns);
+    assert_eq!(Item::RangedWeapon(RangedWeapon::Sling).required_skill().unwrap(), Skill::Sling);
 }
 
 // ========== Weapon Damage Comparison Tests ==========
@@ -379,12 +379,12 @@ fn test_ranged_weapon_skills() {
 #[test]
 fn test_heavy_vs_light_weapons() {
     // Heavy weapons should have higher damage modifiers
-    let great_axe_mod = match Item::GreatAxe.weapon_damage().unwrap() {
+    let great_axe_mod = match Item::MeleeWeapon(MeleeWeapon::GreatAxe).weapon_damage().unwrap() {
         WeaponDamage::Swing { modifier, .. } => modifier,
         _ => panic!("GreatAxe should use swing"),
     };
 
-    let hatchet_mod = match Item::Hatchet.weapon_damage().unwrap() {
+    let hatchet_mod = match Item::MeleeWeapon(MeleeWeapon::Hatchet).weapon_damage().unwrap() {
         WeaponDamage::Swing { modifier, .. } => modifier,
         _ => panic!("Hatchet should use swing"),
     };
@@ -398,16 +398,15 @@ fn test_heavy_vs_light_weapons() {
 fn test_all_melee_weapons_have_stats() {
     // Verify all melee weapons return valid stats
     use strum::IntoEnumIterator;
-    use valinoreth::ItemCategory;
 
-    for weapon in Item::iter() {
-        if weapon.category() == ItemCategory::MeleeWeapon {
-            // Should not panic
-            let _ = weapon.weapon_damage().unwrap();
-            let _ = weapon.reach().unwrap();
-            let _ = weapon.parry_modifier().unwrap();
-            let _ = weapon.required_skill().unwrap();
-        }
+    for weapon in MeleeWeapon::iter() {
+        let item = Item::MeleeWeapon(weapon.clone());
+
+        // Should not panic
+        let _ = item.weapon_damage().unwrap();
+        let _ = item.reach().unwrap();
+        let _ = item.parry_modifier().unwrap();
+        let _ = item.required_skill().unwrap();
     }
 }
 
@@ -415,14 +414,13 @@ fn test_all_melee_weapons_have_stats() {
 fn test_all_ranged_weapons_have_stats() {
     // Verify all ranged weapons return valid stats
     use strum::IntoEnumIterator;
-    use valinoreth::ItemCategory;
 
-    for weapon in Item::iter() {
-        if weapon.category() == ItemCategory::RangedWeapon {
-            // Should not panic
-            let _ = weapon.weapon_damage().unwrap();
-            let _ = weapon.accuracy().unwrap();
-            let _ = weapon.required_skill().unwrap();
-        }
+    for weapon in RangedWeapon::iter() {
+        let item = Item::RangedWeapon(weapon.clone());
+
+        // Should not panic
+        let _ = item.weapon_damage().unwrap();
+        let _ = item.accuracy().unwrap();
+        let _ = item.required_skill().unwrap();
     }
 }

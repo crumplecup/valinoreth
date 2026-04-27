@@ -1,13 +1,10 @@
 //! Tests for melee weapon items.
 
-use valinoreth::{Item, ItemCategory, Quality, Reach, Skill, WeaponDamage};
+use valinoreth::{Item, MeleeWeapon, Quality, Reach, Skill, WeaponDamage};
 
 #[test]
 fn test_broadsword_properties() {
-    let sword = Item::Broadsword;
-
-    // Category
-    assert_eq!(sword.category(), ItemCategory::MeleeWeapon);
+    let sword = Item::MeleeWeapon(MeleeWeapon::Broadsword);
 
     // Universal properties
     assert_eq!(sword.base_cost().amount(), 500.0);
@@ -32,7 +29,7 @@ fn test_broadsword_properties() {
 
 #[test]
 fn test_quality_modifiers() {
-    let sword = Item::Broadsword; // Base $500
+    let sword = Item::MeleeWeapon(MeleeWeapon::Broadsword); // Base $500
 
     // Quality affects cost
     assert_eq!(sword.cost(Quality::Cheap).amount(), 200.0); // ×0.4
@@ -49,7 +46,7 @@ fn test_quality_modifiers() {
 
 #[test]
 fn test_fist_zero_cost() {
-    let fist = Item::Fist;
+    let fist = Item::MeleeWeapon(MeleeWeapon::Fist);
 
     assert_eq!(fist.base_cost().amount(), 0.0);
     assert_eq!(fist.weight().amount(), 0.0);
@@ -59,7 +56,7 @@ fn test_fist_zero_cost() {
 
 #[test]
 fn test_rapier_parry_bonus() {
-    let rapier = Item::Rapier;
+    let rapier = Item::MeleeWeapon(MeleeWeapon::Rapier);
 
     // Rapier has +1 parry modifier
     assert_eq!(rapier.parry_modifier(), Some(1));
@@ -68,7 +65,7 @@ fn test_rapier_parry_bonus() {
 
 #[test]
 fn test_spear_reach() {
-    let spear = Item::Spear;
+    let spear = Item::MeleeWeapon(MeleeWeapon::Spear);
 
     // Spear has 1-2 reach
     assert_eq!(spear.reach(), Some(Reach::OneTwo));
@@ -82,63 +79,121 @@ fn test_spear_reach() {
 fn test_all_melee_weapons_have_properties() {
     use strum::IntoEnumIterator;
 
-    for item in Item::iter() {
-        if item.category() == ItemCategory::MeleeWeapon {
-            // All melee weapons must have:
-            assert!(
-                item.base_cost().amount() >= 0.0,
-                "{:?} has invalid cost",
-                item
-            );
-            assert!(
-                item.weight().amount() >= 0.0,
-                "{:?} has invalid weight",
-                item
-            );
-            assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", item);
+    // Iterate over category enum instead of filtering top-level Item enum
+    for weapon in MeleeWeapon::iter() {
+        let item = Item::MeleeWeapon(weapon.clone());
 
-            // All melee weapons must have weapon-specific properties
-            assert!(item.weapon_damage().is_some(), "{:?} missing damage", item);
-            assert!(item.reach().is_some(), "{:?} missing reach", item);
-            assert!(
-                item.parry_modifier().is_some(),
-                "{:?} missing parry modifier",
-                item
-            );
-            assert!(item.required_skill().is_some(), "{:?} missing skill", item);
-        }
+        // All melee weapons must have:
+        assert!(
+            item.base_cost().amount() >= 0.0,
+            "{:?} has invalid cost",
+            weapon
+        );
+        assert!(
+            item.weight().amount() >= 0.0,
+            "{:?} has invalid weight",
+            weapon
+        );
+        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", weapon);
+
+        // All melee weapons must have weapon-specific properties
+        assert!(item.weapon_damage().is_some(), "{:?} missing damage", weapon);
+        assert!(item.reach().is_some(), "{:?} missing reach", weapon);
+        assert!(
+            item.parry_modifier().is_some(),
+            "{:?} missing parry modifier",
+            weapon
+        );
+        assert!(item.required_skill().is_some(), "{:?} missing skill", weapon);
     }
 }
 
 #[test]
 fn test_tech_levels() {
     // Stone Age weapons (TL 0)
-    assert_eq!(Item::Axe.tech_level().level(), 0);
-    assert_eq!(Item::Spear.tech_level().level(), 0);
-    assert_eq!(Item::Staff.tech_level().level(), 0);
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Axe)
+            .tech_level()
+            .level(),
+        0
+    );
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Spear)
+            .tech_level()
+            .level(),
+        0
+    );
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Staff)
+            .tech_level()
+            .level(),
+        0
+    );
 
     // Bronze Age (TL 1)
-    assert_eq!(Item::Dagger.tech_level().level(), 1);
-    assert_eq!(Item::Shortsword.tech_level().level(), 1);
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Dagger)
+            .tech_level()
+            .level(),
+        1
+    );
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Shortsword)
+            .tech_level()
+            .level(),
+        1
+    );
 
     // Medieval (TL 2)
-    assert_eq!(Item::Broadsword.tech_level().level(), 2);
-    assert_eq!(Item::TwoHandedSword.tech_level().level(), 2);
-    assert_eq!(Item::Halberd.tech_level().level(), 2);
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Broadsword)
+            .tech_level()
+            .level(),
+        2
+    );
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::TwoHandedSword)
+            .tech_level()
+            .level(),
+        2
+    );
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Halberd)
+            .tech_level()
+            .level(),
+        2
+    );
 
     // Renaissance (TL 4)
-    assert_eq!(Item::Rapier.tech_level().level(), 4);
-    assert_eq!(Item::Smallsword.tech_level().level(), 4);
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Rapier)
+            .tech_level()
+            .level(),
+        4
+    );
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Smallsword)
+            .tech_level()
+            .level(),
+        4
+    );
 
     // Modern (TL 5)
-    assert_eq!(Item::Baton.tech_level().level(), 5);
+    assert_eq!(
+        Item::MeleeWeapon(MeleeWeapon::Baton)
+            .tech_level()
+            .level(),
+        5
+    );
 }
 
 #[test]
 fn test_weapon_damage_types() {
     use strum::IntoEnumIterator;
 
-    for item in Item::iter() {
+    for weapon in MeleeWeapon::iter() {
+        let item = Item::MeleeWeapon(weapon);
+
         if let Some(damage) = item.weapon_damage() {
             // Verify damage is either Thrust, Swing, or Fixed
             match damage {
@@ -149,7 +204,7 @@ fn test_weapon_damage_types() {
                     // Swing weapons: Broadsword, Axe, Mace, etc.
                 }
                 WeaponDamage::Fixed { .. } => {
-                    // Fixed damage (ranged weapons, not in this test)
+                    // Fixed damage (ranged weapons, not common for melee)
                 }
             }
         }

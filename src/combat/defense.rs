@@ -38,7 +38,7 @@ use tracing::{debug, info, instrument};
 ///
 /// let dodge = ActiveDefense::Dodge { value: 8 };
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum ActiveDefense {
     /// Dodge defense (Basic Speed + 3). BS 374-375
     Dodge {
@@ -177,10 +177,10 @@ pub enum DefenseResult {
 /// # Examples
 ///
 /// ```
-/// use valinoreth::{calculate_parry, Item};
+/// use valinoreth::{calculate_parry, Item, MeleeWeapon};
 ///
 /// // Broadsword skill 14, parry modifier 0
-/// let parry = calculate_parry(14, &Item::Broadsword);
+/// let parry = calculate_parry(14, &Item::MeleeWeapon(MeleeWeapon::Broadsword));
 /// assert_eq!(parry, 10); // (14/2) + 3 + 0 = 10
 /// ```
 #[instrument]
