@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
 **Last Updated:** 2026-04-26
-**Current Total:** 201 items
+**Current Total:** 208 items (+7 melee weapons)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -47,14 +47,14 @@
 
 | Category | Current | BS Missing | LT Potential | Total Target |
 |----------|---------|-----------|--------------|--------------|
-| MeleeWeapon | 55 | ~40 | ~60 | ~155 |
+| MeleeWeapon | 60 | ~33 | ~60 | ~153 |
 | RangedWeapon | 31 | ~30 | ~40 | ~100 |
 | Armor | 25 | ~15 | ~30 | ~70 |
 | Clothing | 30 | ~15 | ~20 | ~65 |
 | Container | 20 | ~10 | ~15 | ~45 |
 | Tool | 20 | ~15 | ~25 | ~60 |
 | SurvivalGear | 20 | ~10 | ~15 | ~45 |
-| **TOTAL** | **201** | **~135** | **~205** | **~540** |
+| **TOTAL** | **208** | **~128** | **~205** | **~541** |
 
 ## Extraction Checklists Created
 
@@ -119,6 +119,6 @@
 ---
 
 **Progress Tracking:**
-- Phase 1: In Progress (checklists created)
-- Items added today: 0
-- Items remaining in Phase 1: ~135
+- Phase 1: In Progress (BS melee weapons started)
+- Items added today: 7 (Blackjack, Club, Glaive, Naginata, Pike, Poleax, Stick)
+- Items remaining in Phase 1: ~128

@@ -22,6 +22,8 @@ pub enum MeleeWeapon {
     Baton,
     /// Battle axe, swing+3 cutting, reach 1. BS 271
     BattleAxe,
+    /// Blackjack (sap), swing crushing, reach C. BS 271
+    Blackjack,
     /// Bastard sword, swing+2 cutting, reach 1-2. BS 271
     BastardSword,
     /// Bola, swing crushing, reach 1. BS 271
@@ -34,6 +36,8 @@ pub enum MeleeWeapon {
     Chakram,
     /// Claymore, swing+2 cutting, reach 1-2. BS 271
     Claymore,
+    /// Club, swing+1 crushing, reach 1. BS 271
+    Club,
     /// Combat net, swing-2 crushing, reach 1. BS 271
     CombatNet,
     /// Cutlass, swing+1 cutting, reach 1. BS 271
@@ -50,6 +54,8 @@ pub enum MeleeWeapon {
     Flail,
     /// Gladius, swing cutting, reach 1. BS 271
     Gladius,
+    /// Glaive, swing+2 cutting, reach 2-3. BS 271
+    Glaive,
     /// Great axe, swing+3 cutting, reach 1-2. BS 271
     GreatAxe,
     /// Halberd, swing+3 cutting, reach 2-3. BS 271
@@ -84,10 +90,16 @@ pub enum MeleeWeapon {
     Maul,
     /// Morningstar, swing+3 crushing, reach 1. BS 271
     Morningstar,
+    /// Naginata, swing+2 cutting, reach 2-3. BS 271
+    Naginata,
     /// Nunchaku, swing+1 crushing, reach 1. BS 271
     Nunchaku,
     /// Pick, swing+2 impaling, reach 1. BS 271
     Pick,
+    /// Pike, thrust+2 impaling, reach 4-5. BS 271
+    Pike,
+    /// Poleax, swing+3 cutting, reach 2-3. BS 271
+    Poleax,
     /// Quarterstaff, swing+2 crushing, reach 1-2. BS 271
     Quarterstaff,
     /// Rapier, thrust+1 impaling, reach 1. BS 271
@@ -106,6 +118,8 @@ pub enum MeleeWeapon {
     Spear,
     /// Staff, swing+1 crushing, reach 1-2. BS 271
     Staff,
+    /// Stick (walking stick/cane), swing crushing, reach 1. BS 271
+    Stick,
     /// Tanto, thrust impaling, reach C. BS 271
     Tanto,
     /// Tonfa, swing+1 crushing, reach 1. BS 271
@@ -134,11 +148,13 @@ impl MeleeWeapon {
             Self::Baton => Currency::dollars(20.0),
             Self::BattleAxe => Currency::dollars(50.0),
             Self::BastardSword => Currency::dollars(650.0),
+            Self::Blackjack => Currency::dollars(20.0),
             Self::Bola => Currency::dollars(20.0),
             Self::BrassKnuckles => Currency::dollars(10.0),
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
             Self::Claymore => Currency::dollars(500.0),
+            Self::Club => Currency::dollars(10.0),
             Self::CombatNet => Currency::dollars(40.0),
             Self::Cutlass => Currency::dollars(400.0),
             Self::Dagger => Currency::dollars(20.0),
@@ -147,6 +163,7 @@ impl MeleeWeapon {
             Self::Fist => Currency::dollars(0.0),
             Self::Flail => Currency::dollars(60.0),
             Self::Gladius => Currency::dollars(200.0),
+            Self::Glaive => Currency::dollars(100.0),
             Self::GreatAxe => Currency::dollars(100.0),
             Self::Halberd => Currency::dollars(150.0),
             Self::Hatchet => Currency::dollars(40.0),
@@ -164,8 +181,11 @@ impl MeleeWeapon {
             Self::MainGauche => Currency::dollars(50.0),
             Self::Maul => Currency::dollars(80.0),
             Self::Morningstar => Currency::dollars(80.0),
+            Self::Naginata => Currency::dollars(100.0),
             Self::Nunchaku => Currency::dollars(20.0),
             Self::Pick => Currency::dollars(70.0),
+            Self::Pike => Currency::dollars(80.0),
+            Self::Poleax => Currency::dollars(120.0),
             Self::Quarterstaff => Currency::dollars(10.0),
             Self::Rapier => Currency::dollars(500.0),
             Self::Saber => Currency::dollars(500.0),
@@ -175,6 +195,7 @@ impl MeleeWeapon {
             Self::Smallsword => Currency::dollars(400.0),
             Self::Spear => Currency::dollars(40.0),
             Self::Staff => Currency::dollars(5.0),
+            Self::Stick => Currency::dollars(5.0),
             Self::Tanto => Currency::dollars(30.0),
             Self::Tonfa => Currency::dollars(20.0),
             Self::Trident => Currency::dollars(100.0),
@@ -194,12 +215,14 @@ impl MeleeWeapon {
             Self::Axe => Weight::pounds(4.0),
             Self::Baton => Weight::pounds(1.0),
             Self::BattleAxe => Weight::pounds(6.0),
+            Self::Blackjack => Weight::pounds(1.0),
             Self::BastardSword => Weight::pounds(5.0),
             Self::Bola => Weight::pounds(1.0),
             Self::BrassKnuckles => Weight::pounds(0.25),
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
             Self::Claymore => Weight::pounds(7.0),
+            Self::Club => Weight::pounds(3.0),
             Self::CombatNet => Weight::pounds(5.0),
             Self::Cutlass => Weight::pounds(2.0),
             Self::Dagger => Weight::pounds(0.25),
@@ -208,6 +231,7 @@ impl MeleeWeapon {
             Self::Fist => Weight::pounds(0.0),
             Self::Flail => Weight::pounds(8.0),
             Self::Gladius => Weight::pounds(2.0),
+            Self::Glaive => Weight::pounds(8.0),
             Self::GreatAxe => Weight::pounds(8.0),
             Self::Halberd => Weight::pounds(12.0),
             Self::Hatchet => Weight::pounds(2.0),
@@ -225,8 +249,11 @@ impl MeleeWeapon {
             Self::MainGauche => Weight::pounds(1.25),
             Self::Maul => Weight::pounds(12.0),
             Self::Morningstar => Weight::pounds(6.0),
+            Self::Naginata => Weight::pounds(9.0),
             Self::Nunchaku => Weight::pounds(1.5),
             Self::Pick => Weight::pounds(3.0),
+            Self::Pike => Weight::pounds(13.0),
+            Self::Poleax => Weight::pounds(10.0),
             Self::Quarterstaff => Weight::pounds(4.0),
             Self::Rapier => Weight::pounds(2.75),
             Self::Saber => Weight::pounds(2.0),
@@ -236,6 +263,7 @@ impl MeleeWeapon {
             Self::Smallsword => Weight::pounds(1.5),
             Self::Spear => Weight::pounds(4.0),
             Self::Staff => Weight::pounds(4.0),
+            Self::Stick => Weight::pounds(2.0),
             Self::Tanto => Weight::pounds(0.5),
             Self::Tonfa => Weight::pounds(1.5),
             Self::Trident => Weight::pounds(4.0),
@@ -255,12 +283,14 @@ impl MeleeWeapon {
             Self::Axe => TechLevel::new(0),            // Stone Age
             Self::Baton => TechLevel::new(5),          // Modern (police baton)
             Self::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
+            Self::Blackjack => TechLevel::new(1),
             Self::BastardSword => TechLevel::new(2),   // Medieval
             Self::Bola => TechLevel::new(0),           // Stone Age
             Self::BrassKnuckles => TechLevel::new(3),  // Industrial
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
+            Self::Club => TechLevel::new(0),
             Self::CombatNet => TechLevel::new(1),      // Bronze Age
             Self::Cutlass => TechLevel::new(4),        // Age of Sail
             Self::Dagger => TechLevel::new(1),         // Bronze Age
@@ -269,6 +299,7 @@ impl MeleeWeapon {
             Self::Fist => TechLevel::new(0),           // Stone Age
             Self::Flail => TechLevel::new(2),          // Medieval
             Self::Gladius => TechLevel::new(1),        // Roman/Iron Age
+            Self::Glaive => TechLevel::new(2),
             Self::GreatAxe => TechLevel::new(1),       // Bronze/Iron Age
             Self::Halberd => TechLevel::new(2),        // Medieval
             Self::Hatchet => TechLevel::new(0),        // Stone Age
@@ -286,8 +317,11 @@ impl MeleeWeapon {
             Self::MainGauche => TechLevel::new(4),     // Renaissance
             Self::Maul => TechLevel::new(1),           // Bronze/Iron Age
             Self::Morningstar => TechLevel::new(2),    // Medieval
+            Self::Naginata => TechLevel::new(3),
             Self::Nunchaku => TechLevel::new(2),       // Medieval
             Self::Pick => TechLevel::new(2),           // Medieval
+            Self::Pike => TechLevel::new(2),
+            Self::Poleax => TechLevel::new(2),
             Self::Quarterstaff => TechLevel::new(0),   // Stone Age
             Self::Rapier => TechLevel::new(4),         // Renaissance
             Self::Saber => TechLevel::new(4),          // Age of Sail
@@ -297,6 +331,7 @@ impl MeleeWeapon {
             Self::Smallsword => TechLevel::new(4),     // Renaissance
             Self::Spear => TechLevel::new(0),          // Stone Age
             Self::Staff => TechLevel::new(0),          // Stone Age
+            Self::Stick => TechLevel::new(0),
             Self::Tanto => TechLevel::new(3),          // Japanese
             Self::Tonfa => TechLevel::new(0),          // Stone Age
             Self::Trident => TechLevel::new(0),        // Stone Age
@@ -325,6 +360,10 @@ impl MeleeWeapon {
                 modifier: 3,
                 damage_type: DamageType::Cutting,
             },
+            Self::Blackjack => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Crushing,
+            },
             Self::BastardSword => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
@@ -348,6 +387,10 @@ impl MeleeWeapon {
             Self::Claymore => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Club => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::CombatNet => WeaponDamage::Swing {
                 modifier: -2,
@@ -379,6 +422,10 @@ impl MeleeWeapon {
             },
             Self::Gladius => WeaponDamage::Swing {
                 modifier: 0,
+                damage_type: DamageType::Cutting,
+            },
+            Self::Glaive => WeaponDamage::Swing {
+                modifier: 2,
                 damage_type: DamageType::Cutting,
             },
             Self::GreatAxe => WeaponDamage::Swing {
@@ -449,6 +496,10 @@ impl MeleeWeapon {
                 modifier: 3,
                 damage_type: DamageType::Crushing,
             },
+            Self::Naginata => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Cutting,
+            },
             Self::Nunchaku => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
@@ -456,6 +507,14 @@ impl MeleeWeapon {
             Self::Pick => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
+            },
+            Self::Pike => WeaponDamage::Thrust {
+                modifier: 2,
+                damage_type: DamageType::Impaling,
+            },
+            Self::Poleax => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Cutting,
             },
             Self::Quarterstaff => WeaponDamage::Swing {
                 modifier: 2,
@@ -491,6 +550,10 @@ impl MeleeWeapon {
             },
             Self::Staff => WeaponDamage::Swing {
                 modifier: 1,
+                damage_type: DamageType::Crushing,
+            },
+            Self::Stick => WeaponDamage::Swing {
+                modifier: 0,
                 damage_type: DamageType::Crushing,
             },
             Self::Tanto => WeaponDamage::Thrust {
@@ -536,12 +599,14 @@ impl MeleeWeapon {
             Self::Axe => Reach::One,
             Self::Baton => Reach::One,
             Self::BattleAxe => Reach::One,
+            Self::Blackjack => Reach::Close,
             Self::BastardSword => Reach::OneTwo,
             Self::Bola => Reach::One,
             Self::BrassKnuckles => Reach::Close,
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
             Self::Claymore => Reach::OneTwo,
+            Self::Club => Reach::One,
             Self::CombatNet => Reach::One,
             Self::Cutlass => Reach::One,
             Self::Dagger => Reach::Close,
@@ -550,6 +615,7 @@ impl MeleeWeapon {
             Self::Fist => Reach::Close,
             Self::Flail => Reach::OneTwo,
             Self::Gladius => Reach::One,
+            Self::Glaive => Reach::TwoThree,
             Self::GreatAxe => Reach::OneTwo,
             Self::Halberd => Reach::TwoThree,
             Self::Hatchet => Reach::One,
@@ -567,8 +633,11 @@ impl MeleeWeapon {
             Self::MainGauche => Reach::One,
             Self::Maul => Reach::OneTwo,
             Self::Morningstar => Reach::One,
+            Self::Naginata => Reach::TwoThree,
             Self::Nunchaku => Reach::One,
             Self::Pick => Reach::One,
+            Self::Pike => Reach::TwoThree,
+            Self::Poleax => Reach::TwoThree,
             Self::Quarterstaff => Reach::OneTwo,
             Self::Rapier => Reach::One,
             Self::Saber => Reach::One,
@@ -578,6 +647,7 @@ impl MeleeWeapon {
             Self::Smallsword => Reach::One,
             Self::Spear => Reach::OneTwo,
             Self::Staff => Reach::OneTwo,
+            Self::Stick => Reach::One,
             Self::Tanto => Reach::Close,
             Self::Tonfa => Reach::One,
             Self::Trident => Reach::OneTwo,
@@ -597,12 +667,14 @@ impl MeleeWeapon {
             Self::Axe => -1,
             Self::Baton => 0,
             Self::BattleAxe => -1,
+            Self::Blackjack => 0,
             Self::BastardSword => 0,
             Self::Bola => -2,
             Self::BrassKnuckles => 0,
             Self::Broadsword => 0,
             Self::Chakram => -2,
             Self::Claymore => 0,
+            Self::Club => 0,
             Self::CombatNet => -2,
             Self::Cutlass => 0,
             Self::Dagger => -1,
@@ -611,6 +683,7 @@ impl MeleeWeapon {
             Self::Fist => 0,
             Self::Flail => -2,
             Self::Gladius => 0,
+            Self::Glaive => 0,
             Self::GreatAxe => -2,
             Self::Halberd => 0,
             Self::Hatchet => -1,
@@ -628,8 +701,11 @@ impl MeleeWeapon {
             Self::MainGauche => 1,
             Self::Maul => -2,
             Self::Morningstar => 0,
+            Self::Naginata => 1,
             Self::Nunchaku => -2,
             Self::Pick => -1,
+            Self::Pike => 0,
+            Self::Poleax => 0,
             Self::Quarterstaff => 2,
             Self::Rapier => 1,
             Self::Saber => 0,
@@ -639,6 +715,7 @@ impl MeleeWeapon {
             Self::Smallsword => 1,
             Self::Spear => 0,
             Self::Staff => 2,
+            Self::Stick => 1,
             Self::Tanto => -1,
             Self::Tonfa => 1,
             Self::Trident => 0,
@@ -658,12 +735,14 @@ impl MeleeWeapon {
             Self::Axe => Skill::AxeMace,
             Self::Baton => Skill::Shortsword,
             Self::BattleAxe => Skill::AxeMace,
+            Self::Blackjack => Skill::Brawling,
             Self::BastardSword => Skill::Broadsword,
             Self::Bola => Skill::ThrownWeapon,
             Self::BrassKnuckles => Skill::Brawling,
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
             Self::Claymore => Skill::TwoHandedSword,
+            Self::Club => Skill::AxeMace,
             Self::CombatNet => Skill::ThrownWeapon,
             Self::Cutlass => Skill::Broadsword,
             Self::Dagger => Skill::Knife,
@@ -672,6 +751,7 @@ impl MeleeWeapon {
             Self::Fist => Skill::Brawling,
             Self::Flail => Skill::Flail,
             Self::Gladius => Skill::Shortsword,
+            Self::Glaive => Skill::Polearm,
             Self::GreatAxe => Skill::TwoHandedAxeMace,
             Self::Halberd => Skill::Polearm,
             Self::Hatchet => Skill::AxeMace,
@@ -689,8 +769,11 @@ impl MeleeWeapon {
             Self::MainGauche => Skill::MainGauche,
             Self::Maul => Skill::TwoHandedAxeMace,
             Self::Morningstar => Skill::Flail,
+            Self::Naginata => Skill::Polearm,
             Self::Nunchaku => Skill::Flail,
             Self::Pick => Skill::AxeMace,
+            Self::Pike => Skill::Spear,
+            Self::Poleax => Skill::Polearm,
             Self::Quarterstaff => Skill::Staff,
             Self::Rapier => Skill::Rapier,
             Self::Saber => Skill::Saber,
@@ -700,6 +783,7 @@ impl MeleeWeapon {
             Self::Smallsword => Skill::Smallsword,
             Self::Spear => Skill::Spear,
             Self::Staff => Skill::Staff,
+            Self::Stick => Skill::Staff,
             Self::Tanto => Skill::Knife,
             Self::Tonfa => Skill::Shortsword,
             Self::Trident => Skill::Spear,
