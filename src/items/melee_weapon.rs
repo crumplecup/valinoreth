@@ -38,6 +38,8 @@ pub enum MeleeWeapon {
     Billhook,
     /// Bola, swing crushing, reach 1. BS 271
     Bola,
+    /// Bo, swing+2 crushing, reach 1-2. LT (Japanese staff)
+    Bo,
     /// Brass knuckles, thrust crushing, reach C. BS 271
     BrassKnuckles,
     /// Broadsword, swing+1 cutting, reach 1. BS 271
@@ -76,6 +78,8 @@ pub enum MeleeWeapon {
     Flail,
     /// Gladius, swing cutting, reach 1. BS 271
     Gladius,
+    /// Grain flail, swing+2 crushing, reach 1-2. LT (agricultural flail as weapon)
+    GrainFlail,
     /// Garrote, special, reach C. BS 271
     Garrote,
     /// Glaive, swing+2 cutting, reach 2-3. BS 271
@@ -94,6 +98,8 @@ pub enum MeleeWeapon {
     Jitte,
     /// Jian, swing cutting, reach 1. LT (Chinese straight sword)
     Jian,
+    /// Jo, swing+1 crushing, reach 1. LT (Japanese short staff)
+    Jo,
     /// Katana, swing+1 cutting, reach 1. BS 271
     Katana,
     /// Katar, thrust+1 impaling, reach C. BS 271
@@ -130,6 +136,8 @@ pub enum MeleeWeapon {
     Maul,
     /// Mattock, swing+2 impaling, reach 1. BS 289
     Mattock,
+    /// Military flail, swing+3 crushing, reach 1-2. LT (heavy war flail)
+    MilitaryFlail,
     /// Morningstar, swing+3 crushing, reach 1. BS 271
     Morningstar,
     /// Naginata, swing+2 cutting, reach 2-3. BS 271
@@ -180,6 +188,10 @@ pub enum MeleeWeapon {
     Tanto,
     /// Talwar, swing+1 cutting, reach 1. LT (Indian curved sword)
     Talwar,
+    /// Tetsubo, swing+3 crushing, reach 1-2. LT (Japanese war club)
+    Tetsubo,
+    /// Three-section staff, swing+2 crushing, reach 1-2. LT (Chinese weapon)
+    ThreeSectionStaff,
     /// Tonfa, swing+1 crushing, reach 1. BS 271
     Tonfa,
     /// Trident, thrust+2 impaling, reach 1-2. BS 271
@@ -190,6 +202,8 @@ pub enum MeleeWeapon {
     Wakizashi,
     /// Voulge, swing+3 cutting, reach 2-3. LT
     Voulge,
+    /// Urumi, swing+1 cutting, reach 1-3. LT (Indian whip sword)
+    Urumi,
     /// War fan, swing crushing, reach C. BS 271
     WarFan,
     /// Warhammer, swing+3 impaling, reach 1-2. BS 271
@@ -215,6 +229,7 @@ impl MeleeWeapon {
             Self::Billhook => Currency::dollars(40.0),
             Self::Blackjack => Currency::dollars(20.0),
             Self::Bola => Currency::dollars(20.0),
+            Self::Bo => Currency::dollars(10.0),
             Self::BrassKnuckles => Currency::dollars(10.0),
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
@@ -234,6 +249,7 @@ impl MeleeWeapon {
             Self::Francisca => Currency::dollars(50.0),
             Self::Flail => Currency::dollars(60.0),
             Self::Gladius => Currency::dollars(200.0),
+            Self::GrainFlail => Currency::dollars(25.0),
             Self::Garrote => Currency::dollars(15.0),
             Self::Glaive => Currency::dollars(100.0),
             Self::Guisarme => Currency::dollars(100.0),
@@ -243,6 +259,7 @@ impl MeleeWeapon {
             Self::Javelin => Currency::dollars(30.0),
             Self::Jitte => Currency::dollars(50.0),
             Self::Jian => Currency::dollars(500.0),
+            Self::Jo => Currency::dollars(5.0),
             Self::Katana => Currency::dollars(650.0),
             Self::Katar => Currency::dollars(40.0),
             Self::Khanda => Currency::dollars(500.0),
@@ -261,6 +278,7 @@ impl MeleeWeapon {
             Self::MainGauche => Currency::dollars(50.0),
             Self::Maul => Currency::dollars(80.0),
             Self::Mattock => Currency::dollars(25.0),
+            Self::MilitaryFlail => Currency::dollars(100.0),
             Self::Morningstar => Currency::dollars(80.0),
             Self::Naginata => Currency::dollars(100.0),
             Self::Nunchaku => Currency::dollars(20.0),
@@ -286,11 +304,14 @@ impl MeleeWeapon {
             Self::Stick => Currency::dollars(5.0),
             Self::Tanto => Currency::dollars(30.0),
             Self::Talwar => Currency::dollars(500.0),
+            Self::Tetsubo => Currency::dollars(80.0),
+            Self::ThreeSectionStaff => Currency::dollars(35.0),
             Self::Tonfa => Currency::dollars(20.0),
             Self::Trident => Currency::dollars(100.0),
             Self::TwoHandedSword => Currency::dollars(900.0),
             Self::Wakizashi => Currency::dollars(400.0),
             Self::Voulge => Currency::dollars(110.0),
+            Self::Urumi => Currency::dollars(200.0),
             Self::WarFan => Currency::dollars(50.0),
             Self::Warhammer => Currency::dollars(100.0),
             Self::Whip => Currency::dollars(20.0),
@@ -313,6 +334,7 @@ impl MeleeWeapon {
             Self::Bill => Weight::pounds(9.0),
             Self::Billhook => Weight::pounds(5.0),
             Self::Bola => Weight::pounds(1.0),
+            Self::Bo => Weight::pounds(5.0),
             Self::BrassKnuckles => Weight::pounds(0.25),
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
@@ -332,6 +354,7 @@ impl MeleeWeapon {
             Self::Francisca => Weight::pounds(3.0),
             Self::Flail => Weight::pounds(8.0),
             Self::Gladius => Weight::pounds(2.0),
+            Self::GrainFlail => Weight::pounds(8.0),
             Self::Garrote => Weight::pounds(0.25),
             Self::Glaive => Weight::pounds(8.0),
             Self::Guisarme => Weight::pounds(9.0),
@@ -341,6 +364,7 @@ impl MeleeWeapon {
             Self::Javelin => Weight::pounds(2.0),
             Self::Jitte => Weight::pounds(1.5),
             Self::Jian => Weight::pounds(2.5),
+            Self::Jo => Weight::pounds(2.0),
             Self::Katana => Weight::pounds(2.5),
             Self::Katar => Weight::pounds(1.0),
             Self::Khanda => Weight::pounds(3.0),
@@ -359,6 +383,7 @@ impl MeleeWeapon {
             Self::MainGauche => Weight::pounds(1.25),
             Self::Maul => Weight::pounds(12.0),
             Self::Mattock => Weight::pounds(6.0),
+            Self::MilitaryFlail => Weight::pounds(10.0),
             Self::Morningstar => Weight::pounds(6.0),
             Self::Naginata => Weight::pounds(9.0),
             Self::Nunchaku => Weight::pounds(1.5),
@@ -384,11 +409,14 @@ impl MeleeWeapon {
             Self::Stick => Weight::pounds(2.0),
             Self::Tanto => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
+            Self::Tetsubo => Weight::pounds(10.0),
+            Self::ThreeSectionStaff => Weight::pounds(4.0),
             Self::Tonfa => Weight::pounds(1.5),
             Self::Trident => Weight::pounds(4.0),
             Self::TwoHandedSword => Weight::pounds(7.0),
             Self::Wakizashi => Weight::pounds(1.5),
             Self::Voulge => Weight::pounds(10.0),
+            Self::Urumi => Weight::pounds(2.0),
             Self::WarFan => Weight::pounds(1.0),
             Self::Warhammer => Weight::pounds(7.0),
             Self::Whip => Weight::pounds(2.0),
@@ -411,6 +439,7 @@ impl MeleeWeapon {
             Self::Bill => TechLevel::new(3),        // Medieval
             Self::Billhook => TechLevel::new(2),    // Medieval
             Self::Bola => TechLevel::new(0),           // Stone Age
+            Self::Bo => TechLevel::new(0),          // Stone Age
             Self::BrassKnuckles => TechLevel::new(3),  // Industrial
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
@@ -430,6 +459,7 @@ impl MeleeWeapon {
             Self::Francisca => TechLevel::new(2),   // Iron Age
             Self::Flail => TechLevel::new(2),          // Medieval
             Self::Gladius => TechLevel::new(1),        // Roman/Iron Age
+            Self::GrainFlail => TechLevel::new(0),  // Stone Age
             Self::Garrote => TechLevel::new(1),        // Ancient
             Self::Glaive => TechLevel::new(2),
             Self::Guisarme => TechLevel::new(3),    // Medieval
@@ -439,6 +469,7 @@ impl MeleeWeapon {
             Self::Javelin => TechLevel::new(0),        // Stone Age
             Self::Jitte => TechLevel::new(3),
             Self::Jian => TechLevel::new(2),        // Iron Age          // Japanese feudal
+            Self::Jo => TechLevel::new(0),          // Stone Age
             Self::Katana => TechLevel::new(3),         // Medieval Japan
             Self::Katar => TechLevel::new(2),
             Self::Khanda => TechLevel::new(2),      // Iron Age
@@ -457,6 +488,7 @@ impl MeleeWeapon {
             Self::MainGauche => TechLevel::new(4),     // Renaissance
             Self::Maul => TechLevel::new(1),           // Bronze/Iron Age
             Self::Mattock => TechLevel::new(1),        // Bronze/Iron Age
+            Self::MilitaryFlail => TechLevel::new(2), // Medieval
             Self::Morningstar => TechLevel::new(2),    // Medieval
             Self::Naginata => TechLevel::new(3),
             Self::Nunchaku => TechLevel::new(2),       // Medieval
@@ -482,11 +514,14 @@ impl MeleeWeapon {
             Self::Stick => TechLevel::new(0),
             Self::Tanto => TechLevel::new(3),          // Japanese
             Self::Talwar => TechLevel::new(2),         // Iron Age
+            Self::Tetsubo => TechLevel::new(2),     // Medieval Japan
+            Self::ThreeSectionStaff => TechLevel::new(2), // Medieval China
             Self::Tonfa => TechLevel::new(0),          // Stone Age
             Self::Trident => TechLevel::new(0),        // Stone Age
             Self::TwoHandedSword => TechLevel::new(2), // Medieval
             Self::Wakizashi => TechLevel::new(3),      // Medieval Japan
             Self::Voulge => TechLevel::new(3),      // Medieval
+            Self::Urumi => TechLevel::new(2),       // Iron Age
             Self::WarFan => TechLevel::new(3),         // Japanese Renaissance
             Self::Warhammer => TechLevel::new(2),      // Medieval
             Self::Whip => TechLevel::new(1),           // Bronze Age
@@ -540,6 +575,10 @@ impl MeleeWeapon {
             },
             Self::Bola => WeaponDamage::Swing {
                 modifier: 0,
+                damage_type: DamageType::Crushing,
+            },
+            Self::Bo => WeaponDamage::Swing {
+                modifier: 2,
                 damage_type: DamageType::Crushing,
             },
             Self::BrassKnuckles => WeaponDamage::Thrust {
@@ -618,6 +657,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
             },
+            Self::GrainFlail => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
+            },
             Self::Garrote => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Crushing, // Strangling attack
@@ -653,6 +696,10 @@ impl MeleeWeapon {
             Self::Jian => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Jo => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::Katana => WeaponDamage::Swing {
                 modifier: 1,
@@ -725,6 +772,10 @@ impl MeleeWeapon {
             Self::Mattock => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
+            },
+            Self::MilitaryFlail => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Crushing,
             },
             Self::Morningstar => WeaponDamage::Swing {
                 modifier: 3,
@@ -826,6 +877,14 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
             },
+            Self::Tetsubo => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Crushing,
+            },
+            Self::ThreeSectionStaff => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
+            },
             Self::Tonfa => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
@@ -844,6 +903,10 @@ impl MeleeWeapon {
             },
             Self::Voulge => WeaponDamage::Swing {
                 modifier: 3,
+                damage_type: DamageType::Cutting,
+            },
+            Self::Urumi => WeaponDamage::Swing {
+                modifier: 1,
                 damage_type: DamageType::Cutting,
             },
             Self::WarFan => WeaponDamage::Swing {
@@ -877,6 +940,7 @@ impl MeleeWeapon {
             Self::Bill => Reach::TwoThree,
             Self::Billhook => Reach::OneTwo,
             Self::Bola => Reach::One,
+            Self::Bo => Reach::OneTwo,
             Self::BrassKnuckles => Reach::Close,
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
@@ -896,6 +960,7 @@ impl MeleeWeapon {
             Self::Francisca => Reach::One,
             Self::Flail => Reach::OneTwo,
             Self::Gladius => Reach::One,
+            Self::GrainFlail => Reach::OneTwo,
             Self::Garrote => Reach::Close,
             Self::Glaive => Reach::TwoThree,
             Self::Guisarme => Reach::TwoThree,
@@ -905,6 +970,7 @@ impl MeleeWeapon {
             Self::Javelin => Reach::One,
             Self::Jitte => Reach::One,
             Self::Jian => Reach::One,
+            Self::Jo => Reach::One,
             Self::Katana => Reach::One,
             Self::Katar => Reach::Close,
             Self::Khanda => Reach::One,
@@ -923,6 +989,7 @@ impl MeleeWeapon {
             Self::MainGauche => Reach::One,
             Self::Maul => Reach::OneTwo,
             Self::Mattock => Reach::One,
+            Self::MilitaryFlail => Reach::OneTwo,
             Self::Morningstar => Reach::One,
             Self::Naginata => Reach::TwoThree,
             Self::Nunchaku => Reach::One,
@@ -948,11 +1015,14 @@ impl MeleeWeapon {
             Self::Stick => Reach::One,
             Self::Tanto => Reach::Close,
             Self::Talwar => Reach::One,
+            Self::Tetsubo => Reach::OneTwo,
+            Self::ThreeSectionStaff => Reach::OneTwo,
             Self::Tonfa => Reach::One,
             Self::Trident => Reach::OneTwo,
             Self::TwoHandedSword => Reach::OneTwo,
             Self::Wakizashi => Reach::One,
             Self::Voulge => Reach::TwoThree,
+            Self::Urumi => Reach::OneThree,
             Self::WarFan => Reach::Close,
             Self::Warhammer => Reach::OneTwo,
             Self::Whip => Reach::OneTwo,
@@ -975,6 +1045,7 @@ impl MeleeWeapon {
             Self::Bill => 0,
             Self::Billhook => 0,
             Self::Bola => -2,
+            Self::Bo => 2,
             Self::BrassKnuckles => 0,
             Self::Broadsword => 0,
             Self::Chakram => -2,
@@ -994,6 +1065,7 @@ impl MeleeWeapon {
             Self::Francisca => -1,
             Self::Flail => -2,
             Self::Gladius => 0,
+            Self::GrainFlail => -2,
             Self::Garrote => -4,
             Self::Glaive => 0,
             Self::Guisarme => 0,
@@ -1003,6 +1075,7 @@ impl MeleeWeapon {
             Self::Javelin => 0,
             Self::Jitte => 1,
             Self::Jian => 0,
+            Self::Jo => 1,
             Self::Katana => 0,
             Self::Katar => 0,
             Self::Khanda => 0,
@@ -1021,6 +1094,7 @@ impl MeleeWeapon {
             Self::MainGauche => 1,
             Self::Maul => -2,
             Self::Mattock => -1,
+            Self::MilitaryFlail => -2,
             Self::Morningstar => 0,
             Self::Naginata => 1,
             Self::Nunchaku => -2,
@@ -1046,11 +1120,14 @@ impl MeleeWeapon {
             Self::Stick => 1,
             Self::Tanto => -1,
             Self::Talwar => 0,
+            Self::Tetsubo => -2,
+            Self::ThreeSectionStaff => -2,
             Self::Tonfa => 1,
             Self::Trident => 0,
             Self::TwoHandedSword => 0,
             Self::Wakizashi => 0,
             Self::Voulge => 0,
+            Self::Urumi => -2,
             Self::WarFan => 1,
             Self::Warhammer => -1,
             Self::Whip => -1,
@@ -1073,6 +1150,7 @@ impl MeleeWeapon {
             Self::Bill => Skill::Polearm,
             Self::Billhook => Skill::Polearm,
             Self::Bola => Skill::ThrownWeapon,
+            Self::Bo => Skill::Staff,
             Self::BrassKnuckles => Skill::Brawling,
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
@@ -1092,6 +1170,7 @@ impl MeleeWeapon {
             Self::Francisca => Skill::AxeMace,
             Self::Flail => Skill::Flail,
             Self::Gladius => Skill::Shortsword,
+            Self::GrainFlail => Skill::Flail,
             Self::Garrote => Skill::Brawling,
             Self::Glaive => Skill::Polearm,
             Self::Guisarme => Skill::Polearm,
@@ -1101,6 +1180,7 @@ impl MeleeWeapon {
             Self::Javelin => Skill::Spear,
             Self::Jitte => Skill::MainGauche,
             Self::Jian => Skill::Shortsword,
+            Self::Jo => Skill::Staff,
             Self::Katana => Skill::TwoHandedSword,
             Self::Katar => Skill::Knife,
             Self::Khanda => Skill::Broadsword,
@@ -1119,6 +1199,7 @@ impl MeleeWeapon {
             Self::MainGauche => Skill::MainGauche,
             Self::Maul => Skill::TwoHandedAxeMace,
             Self::Mattock => Skill::AxeMace,
+            Self::MilitaryFlail => Skill::Flail,
             Self::Morningstar => Skill::Flail,
             Self::Naginata => Skill::Polearm,
             Self::Nunchaku => Skill::Flail,
@@ -1144,11 +1225,14 @@ impl MeleeWeapon {
             Self::Stick => Skill::Staff,
             Self::Tanto => Skill::Knife,
             Self::Talwar => Skill::Broadsword,
+            Self::Tetsubo => Skill::TwoHandedAxeMace,
+            Self::ThreeSectionStaff => Skill::Flail,
             Self::Tonfa => Skill::Shortsword,
             Self::Trident => Skill::Spear,
             Self::TwoHandedSword => Skill::TwoHandedSword,
             Self::Wakizashi => Skill::Shortsword,
             Self::Voulge => Skill::Polearm,
+            Self::Urumi => Skill::Shortsword,
             Self::WarFan => Skill::Shortsword,
             Self::Warhammer => Skill::TwoHandedAxeMace,
             Self::Whip => Skill::Shortsword,
