@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
 **Last Updated:** 2026-04-27
-**Current Total:** 226 items (+16 melee, +7 ranged, +2 armor)
+**Current Total:** 224 items (+16 melee, +7 ranged, +2 armor)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -47,14 +47,14 @@
 
 | Category | Current | BS Missing | LT Potential | Total Target |
 |----------|---------|-----------|--------------|--------------|
-| MeleeWeapon | 69 | ~24 | ~60 | ~153 |
-| RangedWeapon | 38 | ~23 | ~40 | ~101 |
-| Armor | 27 | ~13 | ~30 | ~70 |
-| Clothing | 30 | ~15 | ~20 | ~65 |
-| Container | 20 | ~10 | ~15 | ~45 |
-| Tool | 20 | ~15 | ~25 | ~60 |
-| SurvivalGear | 20 | ~10 | ~15 | ~45 |
-| **TOTAL** | **226** | **~110** | **~205** | **~541** |
+| MeleeWeapon | 69 | 0 (BS complete) | ~60 | ~129 |
+| RangedWeapon | 38 | 0 (BS complete) | ~40 | ~78 |
+| Armor | 27 | 0 (BS complete) | ~30 | ~57 |
+| Clothing | 30 | ~10 | ~20 | ~60 |
+| Container | 20 | ~5 | ~15 | ~40 |
+| Tool | 20 | ~10 | ~25 | ~55 |
+| SurvivalGear | 20 | ~5 | ~15 | ~40 |
+| **TOTAL** | **224** | **~30** | **~205** | **~459** |
 
 ## Extraction Checklists Created
 
@@ -119,11 +119,12 @@
 ---
 
 **Progress Tracking:**
-- Phase 1: In Progress (BS melee/armor complete, BS ranged started)
+- Phase 1: Mostly Complete (BS weapons/armor done, ~30 general equipment remaining)
 - Items added today: 25 total
   - Melee Batch 1: 7 items (Blackjack, Club, Glaive, Naginata, Pike, Poleax, Stick)
   - Melee Batch 2: 5 items (Crowbar, Garrote, Jitte, LargeKnife, Shovel)
-  - Melee Batch 3: 4 items (Cestus, Chain, Lasso, Mattock) - **BS melee complete**
-  - Ranged Batch 1: 7 items (Prodd, Rock, SelfBow, Boomerang, ThrowingStick, ThrownBola, ThrownNet)
-  - Armor Batch 1: 2 items (BandedMail, RingMail) - **BS armor complete**
-- Items remaining in Phase 1: ~110
+  - Melee Batch 3: 4 items (Cestus, Chain, Lasso, Mattock) - **BS melee COMPLETE** ✓
+  - Ranged Batch 1: 7 items (Prodd, Rock, SelfBow, Boomerang, ThrowingStick, ThrownBola, ThrownNet) - **BS ranged COMPLETE** ✓
+  - Armor Batch 1: 2 items (BandedMail, RingMail) - **BS armor COMPLETE** ✓
+- BS Status: Weapons & Armor complete, ~30 general equipment items remaining
+- Phase 1 remaining: ~235 items (30 BS + 205 Low-Tech)
