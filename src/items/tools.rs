@@ -38,10 +38,14 @@ pub enum Tool {
     Lockpicks,
     /// Magnifying glass, $100. BS 289
     MagnifyingGlass,
+    /// Parchment (10 sheets), $20. BS 289
+    Parchment,
     /// Pickaxe, $15. BS 289
     Pickaxe,
     /// Pliers, $15. BS 289
     Pliers,
+    /// Quill and ink, $10. BS 289
+    QuillAndInk,
     /// Rope, $5. BS 289
     Rope,
     /// Saw, $150. BS 289
@@ -75,8 +79,10 @@ impl Tool {
             Self::Ladder => Currency::dollars(30.0),
             Self::Lockpicks => Currency::dollars(50.0),
             Self::MagnifyingGlass => Currency::dollars(100.0),
+            Self::Parchment => Currency::dollars(20.0),
             Self::Pickaxe => Currency::dollars(15.0),
             Self::Pliers => Currency::dollars(15.0),
+            Self::QuillAndInk => Currency::dollars(10.0),
             Self::Rope => Currency::dollars(5.0),
             Self::Saw => Currency::dollars(150.0),
             Self::Screwdriver => Currency::dollars(5.0),
@@ -103,8 +109,10 @@ impl Tool {
             Self::Ladder => Weight::pounds(20.0),
             Self::Lockpicks => Weight::pounds(0.1),
             Self::MagnifyingGlass => Weight::pounds(0.25),
+            Self::Parchment => Weight::pounds(0.5),
             Self::Pickaxe => Weight::pounds(5.0),
             Self::Pliers => Weight::pounds(1.0),
+            Self::QuillAndInk => Weight::pounds(0.1),
             Self::Rope => Weight::pounds(1.5),
             Self::Saw => Weight::pounds(3.0),
             Self::Screwdriver => Weight::pounds(0.25),
@@ -131,8 +139,10 @@ impl Tool {
             Self::Ladder => TechLevel::new(0),         // Stone Age
             Self::Lockpicks => TechLevel::new(3),      // Medieval/Renaissance
             Self::MagnifyingGlass => TechLevel::new(4), // Renaissance
+            Self::Parchment => TechLevel::new(2),      // Medieval
             Self::Pickaxe => TechLevel::new(0),        // Stone Age
             Self::Pliers => TechLevel::new(3),         // Renaissance
+            Self::QuillAndInk => TechLevel::new(2),    // Medieval
             Self::Rope => TechLevel::new(0),           // Stone Age
             Self::Saw => TechLevel::new(2),            // Medieval
             Self::Screwdriver => TechLevel::new(3),    // Renaissance

@@ -45,6 +45,10 @@ pub enum Container {
     Pouch,
     /// Quiver, 3 lb capacity. BS 288
     Quiver,
+    /// Scabbard, 1 lb capacity. BS 288
+    Scabbard,
+    /// Scroll case, 1 lb capacity. BS 288
+    ScrollCase,
     /// Small backpack, 40 lb capacity. BS 288
     SmallBackpack,
     /// Small chest, 100 lb capacity. BS 288
@@ -55,6 +59,10 @@ pub enum Container {
     SmallSack,
     /// Trunk, 150 lb capacity. BS 288
     Trunk,
+    /// Vial, 0.5 lb capacity. BS 288
+    Vial,
+    /// Wineskin, 2 lb capacity. BS 288
+    Wineskin,
 }
 
 impl Container {
@@ -78,11 +86,15 @@ impl Container {
             Self::MoneyBelt => Currency::dollars(45.0),
             Self::Pouch => Currency::dollars(10.0),
             Self::Quiver => Currency::dollars(10.0),
+            Self::Scabbard => Currency::dollars(20.0),
+            Self::ScrollCase => Currency::dollars(25.0),
             Self::SmallBackpack => Currency::dollars(60.0),
             Self::SmallChest => Currency::dollars(100.0),
             Self::SmallPouch => Currency::dollars(10.0),
             Self::SmallSack => Currency::dollars(30.0),
             Self::Trunk => Currency::dollars(150.0),
+            Self::Vial => Currency::dollars(10.0),
+            Self::Wineskin => Currency::dollars(10.0),
         }
     }
 
@@ -106,11 +118,15 @@ impl Container {
             Self::MoneyBelt => Weight::pounds(0.5),
             Self::Pouch => Weight::pounds(0.2),
             Self::Quiver => Weight::pounds(0.5),
+            Self::Scabbard => Weight::pounds(0.5),
+            Self::ScrollCase => Weight::pounds(0.5),
             Self::SmallBackpack => Weight::pounds(3.0),
             Self::SmallChest => Weight::pounds(10.0),
             Self::SmallPouch => Weight::pounds(0.2),
             Self::SmallSack => Weight::pounds(3.0),
             Self::Trunk => Weight::pounds(25.0),
+            Self::Vial => Weight::pounds(0.1),
+            Self::Wineskin => Weight::pounds(0.5),
         }
     }
 
@@ -134,11 +150,15 @@ impl Container {
             Self::MoneyBelt => TechLevel::new(2),     // Medieval
             Self::Pouch => TechLevel::new(0),         // Stone Age
             Self::Quiver => TechLevel::new(0),        // Stone Age
+            Self::Scabbard => TechLevel::new(1),      // Bronze Age
+            Self::ScrollCase => TechLevel::new(2),    // Medieval
             Self::SmallBackpack => TechLevel::new(1), // Bronze Age
             Self::SmallChest => TechLevel::new(1),    // Bronze Age
             Self::SmallPouch => TechLevel::new(0),    // Stone Age
             Self::SmallSack => TechLevel::new(0),     // Stone Age
             Self::Trunk => TechLevel::new(2),         // Medieval
+            Self::Vial => TechLevel::new(1),          // Bronze Age
+            Self::Wineskin => TechLevel::new(0),      // Stone Age
         }
     }
 
@@ -162,11 +182,15 @@ impl Container {
             Self::MoneyBelt => Capacity::pounds(1.0),
             Self::Pouch => Capacity::pounds(6.0),
             Self::Quiver => Capacity::pounds(3.0),
+            Self::Scabbard => Capacity::pounds(1.0),
+            Self::ScrollCase => Capacity::pounds(1.0),
             Self::SmallBackpack => Capacity::pounds(40.0),
             Self::SmallChest => Capacity::pounds(100.0),
             Self::SmallPouch => Capacity::pounds(3.0),
             Self::SmallSack => Capacity::pounds(40.0),
             Self::Trunk => Capacity::pounds(150.0),
+            Self::Vial => Capacity::pounds(0.5),
+            Self::Wineskin => Capacity::pounds(2.0),
         }
     }
 }

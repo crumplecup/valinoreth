@@ -38,6 +38,8 @@ pub enum SurvivalGear {
     Map,
     /// Matches, $0.50. BS 288
     Matches,
+    /// Personal basics (soap, comb, etc.), $5. BS 288
+    PersonalBasics,
     /// Rations, $2. BS 288
     Rations,
     /// Signal whistle, $5. BS 288
@@ -75,6 +77,7 @@ impl SurvivalGear {
             Self::LargeTent => Currency::dollars(150.0),
             Self::Map => Currency::dollars(20.0),
             Self::Matches => Currency::dollars(0.5),
+            Self::PersonalBasics => Currency::dollars(5.0),
             Self::Rations => Currency::dollars(2.0),
             Self::SignalWhistle => Currency::dollars(5.0),
             Self::SleepingBag => Currency::dollars(40.0),
@@ -103,6 +106,7 @@ impl SurvivalGear {
             Self::LargeTent => Weight::pounds(30.0),
             Self::Map => Weight::pounds(0.1),
             Self::Matches => Weight::pounds(0.1),
+            Self::PersonalBasics => Weight::pounds(1.0),
             Self::Rations => Weight::pounds(0.5),
             Self::SignalWhistle => Weight::pounds(0.1),
             Self::SleepingBag => Weight::pounds(8.0),
@@ -131,6 +135,7 @@ impl SurvivalGear {
             Self::LargeTent => TechLevel::new(1),     // Bronze Age
             Self::Map => TechLevel::new(3),           // Medieval
             Self::Matches => TechLevel::new(5),       // Industrial
+            Self::PersonalBasics => TechLevel::new(0), // Stone Age
             Self::Rations => TechLevel::new(0),       // Stone Age (preserved food)
             Self::SignalWhistle => TechLevel::new(2), // Medieval
             Self::SleepingBag => TechLevel::new(5),   // Industrial (synthetic insulation)

@@ -57,14 +57,14 @@
 - ✗ Crate
 
 **Specialized:**
-- ✗ Quiver
+- ✓ Quiver
 - ✗ Scabbard/Sheath
 - ✗ Scroll Case
-- ✗ Map Case
+- ✗ Map Case (Low-Tech)
 - ✗ Vial/Bottle
 - ✗ Wineskin
-- ✗ Barrel
-- ✗ Cask
+- ✓ Barrel
+- ✗ Cask (variant of Barrel)
 
 ### Tools (BS 289)
 **Current: 20 items**
@@ -83,22 +83,21 @@
 - ✓ Crowbar
 - ✓ Hammer
 - ✓ Shovel
-- ✗ Axe (tool, not weapon)
-- ✗ Saw
-- ✗ Chisel
-- ✗ File
-- ✗ Pliers
-- ✗ Drill
+- ✓ ToolHatchet (Axe as tool)
+- ✓ Saw
+- ✓ Chisel
+- ✓ File
+- ✓ Pliers
+- ✗ Drill (modern - High-Tech)
 
 **Specialized:**
-- ✗ Climbing Gear
-- ✗ Grappling Hook
-- ✗ Rope & Pulley
-- ✗ Block & Tackle
-- ✗ Disguise Kit
-- ✗ Healer's Kit
-- ✗ Poisoner's Kit
-- ✗ Thief's Tools
+- ✓ Rope
+- ✓ Grapnel (Grappling Hook)
+- ✓ BlockAndTackle (Rope & Pulley)
+- ✓ FirstAidKit (Healer's Kit)
+- ✗ Disguise Kit (Low-Tech)
+- ✗ Poisoner's Kit (Low-Tech)
+- ✗ Climbing Gear (modern - High-Tech)
 
 **Writing:**
 - ✗ Quill & Ink
