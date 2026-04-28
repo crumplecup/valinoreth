@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
 **Last Updated:** 2026-04-28
-**Current Total:** 245 items (BS COMPLETE! LT Phase 2 In Progress)
+**Current Total:** 252 items (BS COMPLETE! LT Phase 2 In Progress)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -22,7 +22,8 @@
 
 - [x] Historical weapons - Polearms batch 1 (7 items) ✓
 - [x] Historical weapons - Regional swords batch 2 (7 items) ✓
-- [ ] Historical weapons - Remaining (~46 items)
+- [x] Historical weapons - Axes & agricultural batch 3 (7 items) ✓
+- [ ] Historical weapons - Remaining (~39 items)
 - [ ] Historical armor
 - [ ] Period equipment & tools
 - [ ] Clothing variants
@@ -49,14 +50,14 @@
 
 | Category | Current | BS Missing | LT Added | LT Remaining | Total Target |
 |----------|---------|-----------|----------|--------------|--------------|
-| MeleeWeapon | 83 | 0 (BS complete) | 14 | ~46 | ~129 |
+| MeleeWeapon | 90 | 0 (BS complete) | 21 | ~39 | ~129 |
 | RangedWeapon | 38 | 0 (BS complete) | 0 | ~40 | ~78 |
 | Armor | 27 | 0 (BS complete) | 0 | ~30 | ~57 |
 | Clothing | 30 | 0 (BS complete) | 0 | ~20 | ~50 |
 | Container | 24 | 0 (BS complete) | 0 | ~15 | ~39 |
 | Tool | 22 | 0 (BS complete) | 0 | ~25 | ~47 |
 | SurvivalGear | 21 | 0 (BS complete) | 0 | ~15 | ~36 |
-| **TOTAL** | **245** | **0 (BS COMPLETE!)** | **14** | **~191** | **~436** |
+| **TOTAL** | **252** | **0 (BS COMPLETE!)** | **21** | **~184** | **~436** |
 
 ## Extraction Checklists Created
 
@@ -132,7 +133,8 @@
 - **All Basic Set categories: COMPLETE** ✓
 
 - **Phase 2: LOW-TECH IN PROGRESS!** 🚀
-- Items added 2026-04-28: 14 Low-Tech melee weapons (2 batches)
+- Items added 2026-04-28: 21 Low-Tech melee weapons (3 batches)
   - Low-Tech Polearms Batch 1: 7 items (Bardiche, Bill, Billhook, Fauchard, Guisarme, Partisan, Voulge)
   - Low-Tech Regional Swords Batch 2: 7 items (Dao, Jian, Khanda, Kilij, Seax, Shamshir, Talwar)
-- Phase 2 remaining: ~191 Low-Tech items
+  - Low-Tech Axes/Agricultural Batch 3: 7 items (BeardedAxe, BecDeCorbin, Francisca, LucerneHammer, Pitchfork, Scythe, Sickle)
+- Phase 2 remaining: ~184 Low-Tech items
