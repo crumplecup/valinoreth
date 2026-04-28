@@ -18,6 +18,8 @@ use tracing::{debug, instrument};
 pub enum Armor {
     /// Ballistic vest, DR 10. BS 279
     BallisticVest,
+    /// Banded mail, DR 4. BS 279
+    BandedMail,
     /// Brigandine, DR 4. BS 279
     Brigandine,
     /// Bronze plate, DR 5. BS 279
@@ -56,6 +58,8 @@ pub enum Armor {
     NoArmor,
     /// Plate armor, DR 6. BS 279
     PlateArmor,
+    /// Ring mail, DR 3. BS 279
+    RingMail,
     /// Scale mail, DR 4. BS 279
     ScaleMail,
     /// Small shield, DR 1. BS 282
@@ -75,6 +79,7 @@ impl Armor {
         debug!("Getting armor base cost");
         match self {
             Self::BallisticVest => Currency::dollars(400.0),
+            Self::BandedMail => Currency::dollars(500.0),
             Self::Brigandine => Currency::dollars(500.0),
             Self::BronzePlate => Currency::dollars(2400.0),
             Self::Buckler => Currency::dollars(25.0),
@@ -94,6 +99,7 @@ impl Armor {
             Self::MediumShield => Currency::dollars(60.0),
             Self::NoArmor => Currency::dollars(0.0),
             Self::PlateArmor => Currency::dollars(3000.0),
+            Self::RingMail => Currency::dollars(300.0),
             Self::ScaleMail => Currency::dollars(420.0),
             Self::SmallShield => Currency::dollars(40.0),
             Self::SplintMail => Currency::dollars(700.0),
@@ -108,6 +114,7 @@ impl Armor {
         debug!("Getting armor weight");
         match self {
             Self::BallisticVest => Weight::pounds(2.0),
+            Self::BandedMail => Weight::pounds(35.0),
             Self::Brigandine => Weight::pounds(25.0),
             Self::BronzePlate => Weight::pounds(60.0),
             Self::Buckler => Weight::pounds(5.0),
@@ -127,6 +134,7 @@ impl Armor {
             Self::MediumShield => Weight::pounds(15.0),
             Self::NoArmor => Weight::pounds(0.0),
             Self::PlateArmor => Weight::pounds(50.0),
+            Self::RingMail => Weight::pounds(25.0),
             Self::ScaleMail => Weight::pounds(42.0),
             Self::SmallShield => Weight::pounds(8.0),
             Self::SplintMail => Weight::pounds(45.0),
@@ -141,6 +149,7 @@ impl Armor {
         debug!("Getting armor tech level");
         match self {
             Self::BallisticVest => TechLevel::new(7), // Digital Age
+            Self::BandedMail => TechLevel::new(3),    // Medieval
             Self::Brigandine => TechLevel::new(3),    // Age of Sail
             Self::BronzePlate => TechLevel::new(1),   // Bronze Age
             Self::Buckler => TechLevel::new(2),       // Medieval
@@ -160,6 +169,7 @@ impl Armor {
             Self::MediumShield => TechLevel::new(1),  // Bronze Age
             Self::NoArmor => TechLevel::new(0),       // Stone Age
             Self::PlateArmor => TechLevel::new(3),    // Age of Sail
+            Self::RingMail => TechLevel::new(2),      // Iron Age
             Self::ScaleMail => TechLevel::new(2),     // Medieval
             Self::SmallShield => TechLevel::new(1),   // Bronze Age
             Self::SplintMail => TechLevel::new(2),    // Medieval
@@ -174,6 +184,7 @@ impl Armor {
         debug!("Getting armor damage resistance");
         match self {
             Self::BallisticVest => 10, // DR 10 vs ballistic
+            Self::BandedMail => 4,
             Self::Brigandine => 4,
             Self::BronzePlate => 5,
             Self::Buckler => 1,        // DB converted to DR approximation
@@ -193,6 +204,7 @@ impl Armor {
             Self::MediumShield => 2,   // DB converted to DR approximation
             Self::NoArmor => 0,
             Self::PlateArmor => 6,
+            Self::RingMail => 3,
             Self::ScaleMail => 4,
             Self::SmallShield => 1,    // DB converted to DR approximation
             Self::SplintMail => 5,
