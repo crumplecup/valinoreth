@@ -22,6 +22,8 @@ pub enum Armor {
     BallisticVest,
     /// Banded mail, DR 4. BS 279
     BandedMail,
+    /// Bascinet, DR 5. LT (Medieval helmet, TL3)
+    Bascinet,
     /// Brigandine, DR 4. BS 279
     Brigandine,
     /// Bronze plate, DR 5. BS 279
@@ -38,6 +40,8 @@ pub enum Armor {
     Chainmail,
     /// Chainmail shirt, DR 3. LT (Light mail shirt, TL2)
     ChainmailShirt,
+    /// Close helm, DR 7. LT (Full face helmet, TL4)
+    CloseHelm,
     /// Cloth armor, DR 1. BS 279
     ClothArmor,
     /// Coat of plates, DR 5. LT (Transitional armor, TL3)
@@ -52,6 +56,8 @@ pub enum Armor {
     Gambeson,
     /// Gothic plate, DR 7. LT (Fluted full plate, TL4)
     GothicPlate,
+    /// Great helm, DR 7. LT (Crusader helmet, TL3)
+    GreatHelm,
     /// Half plate, DR 5. BS 279
     HalfPlate,
     /// Heavy leather, DR 2. BS 279
@@ -70,6 +76,8 @@ pub enum Armor {
     LargeShield,
     /// Leather armor, DR 1. BS 279
     LeatherArmor,
+    /// Leather cap, DR 1. LT (Simple leather helmet, TL1)
+    LeatherCap,
     /// Light leather, DR 1. BS 279
     LightLeather,
     /// Light scale, DR 3. BS 279
@@ -86,6 +94,8 @@ pub enum Armor {
     MailHauberk,
     /// Mail shirt, DR 4. BS 279
     MailShirt,
+    /// Mail leggings, DR 3. LT (Leg protection, TL2)
+    MailLeggings,
     /// Medium shield, DR 2. BS 282
     MediumShield,
     /// No armor, DR 0. BS 279
@@ -94,12 +104,16 @@ pub enum Armor {
     OYoroi,
     /// Plate armor, DR 6. BS 279
     PlateArmor,
+    /// Pot helm, DR 4. LT (Simple iron helmet, TL2)
+    PotHelm,
     /// Ring mail, DR 3. BS 279
     RingMail,
     /// Scale corselet, DR 3. LT (Light scale armor, TL1)
     ScaleCorselet,
     /// Scale mail, DR 4. BS 279
     ScaleMail,
+    /// Sallet, DR 5. LT (Late medieval helmet, TL4)
+    Sallet,
     /// Small shield, DR 1. BS 282
     SmallShield,
     /// Splint mail, DR 5. BS 279
@@ -122,7 +136,8 @@ impl Armor {
         match self {
                         Self::Aketon => Currency::dollars(130.0),
             Self::BallisticVest => Currency::dollars(400.0),
-            Self::BandedMail => Currency::dollars(500.0),
+                        Self::BandedMail => Currency::dollars(500.0),
+            Self::Bascinet => Currency::dollars(200.0),
             Self::Brigandine => Currency::dollars(500.0),
                         Self::BronzePlate => Currency::dollars(2400.0),
                         Self::BronzeBreastplate => Currency::dollars(1200.0),
@@ -130,14 +145,16 @@ impl Armor {
                         Self::Buckler => Currency::dollars(25.0),
             Self::BuffCoat => Currency::dollars(210.0),
                         Self::Chainmail => Currency::dollars(550.0),
-            Self::ChainmailShirt => Currency::dollars(350.0),
+                        Self::ChainmailShirt => Currency::dollars(350.0),
+            Self::CloseHelm => Currency::dollars(300.0),
                         Self::ClothArmor => Currency::dollars(30.0),
             Self::CoatOfPlates => Currency::dollars(3000.0),
                         Self::Cuirass => Currency::dollars(1500.0),
             Self::DoMaru => Currency::dollars(2400.0),
                         Self::FlakJacket => Currency::dollars(500.0),
                         Self::Gambeson => Currency::dollars(150.0),
-            Self::GothicPlate => Currency::dollars(6000.0),
+                        Self::GothicPlate => Currency::dollars(6000.0),
+            Self::GreatHelm => Currency::dollars(150.0),
             Self::HalfPlate => Currency::dollars(1500.0),
                         Self::HeavyLeather => Currency::dollars(150.0),
             Self::HeavyLeatherSleeves => Currency::dollars(100.0),
@@ -146,7 +163,8 @@ impl Armor {
             Self::KikkoArmor => Currency::dollars(600.0),
             Self::LamellarArmor => Currency::dollars(500.0),
             Self::LargeShield => Currency::dollars(90.0),
-            Self::LeatherArmor => Currency::dollars(100.0),
+                        Self::LeatherArmor => Currency::dollars(100.0),
+            Self::LeatherCap => Currency::dollars(20.0),
             Self::LightLeather => Currency::dollars(50.0),
             Self::LightScale => Currency::dollars(280.0),
             Self::Linothorax => Currency::dollars(250.0),
@@ -154,14 +172,17 @@ impl Armor {
             Self::LoricaHamata => Currency::dollars(600.0),
             Self::MountainPatternArmor => Currency::dollars(2000.0),
             Self::MailHauberk => Currency::dollars(600.0),
-            Self::MailShirt => Currency::dollars(350.0),
+                        Self::MailShirt => Currency::dollars(350.0),
+            Self::MailLeggings => Currency::dollars(200.0),
             Self::MediumShield => Currency::dollars(60.0),
                         Self::NoArmor => Currency::dollars(0.0),
             Self::OYoroi => Currency::dollars(3000.0),
-            Self::PlateArmor => Currency::dollars(3000.0),
+                        Self::PlateArmor => Currency::dollars(3000.0),
+            Self::PotHelm => Currency::dollars(100.0),
                         Self::RingMail => Currency::dollars(300.0),
             Self::ScaleCorselet => Currency::dollars(350.0),
-            Self::ScaleMail => Currency::dollars(420.0),
+                        Self::ScaleMail => Currency::dollars(420.0),
+            Self::Sallet => Currency::dollars(200.0),
             Self::SmallShield => Currency::dollars(40.0),
                                     Self::SplintMail => Currency::dollars(700.0),
             Self::StuddedLeather => Currency::dollars(180.0),
@@ -178,7 +199,8 @@ impl Armor {
         match self {
                         Self::Aketon => Weight::pounds(10.0),
             Self::BallisticVest => Weight::pounds(2.0),
-            Self::BandedMail => Weight::pounds(35.0),
+                        Self::BandedMail => Weight::pounds(35.0),
+            Self::Bascinet => Weight::pounds(5.0),
             Self::Brigandine => Weight::pounds(25.0),
             Self::BronzePlate => Weight::pounds(60.0),
                         Self::BronzeBreastplate => Weight::pounds(25.0),
@@ -186,14 +208,16 @@ impl Armor {
                         Self::Buckler => Weight::pounds(5.0),
             Self::BuffCoat => Weight::pounds(10.0),
                         Self::Chainmail => Weight::pounds(35.0),
-            Self::ChainmailShirt => Weight::pounds(20.0),
+                        Self::ChainmailShirt => Weight::pounds(20.0),
+            Self::CloseHelm => Weight::pounds(8.0),
                         Self::ClothArmor => Weight::pounds(6.0),
             Self::CoatOfPlates => Weight::pounds(40.0),
                         Self::Cuirass => Weight::pounds(25.0),
             Self::DoMaru => Weight::pounds(40.0),
                         Self::FlakJacket => Weight::pounds(20.0),
                         Self::Gambeson => Weight::pounds(12.0),
-            Self::GothicPlate => Weight::pounds(65.0),
+                        Self::GothicPlate => Weight::pounds(65.0),
+            Self::GreatHelm => Weight::pounds(10.0),
             Self::HalfPlate => Weight::pounds(30.0),
                         Self::HeavyLeather => Weight::pounds(15.0),
             Self::HeavyLeatherSleeves => Weight::pounds(8.0),
@@ -202,7 +226,8 @@ impl Armor {
             Self::KikkoArmor => Weight::pounds(30.0),
             Self::LamellarArmor => Weight::pounds(35.0),
             Self::LargeShield => Weight::pounds(25.0),
-            Self::LeatherArmor => Weight::pounds(10.0),
+                        Self::LeatherArmor => Weight::pounds(10.0),
+            Self::LeatherCap => Weight::pounds(1.0),
             Self::LightLeather => Weight::pounds(5.0),
             Self::LightScale => Weight::pounds(28.0),
             Self::Linothorax => Weight::pounds(15.0),
@@ -210,14 +235,17 @@ impl Armor {
             Self::LoricaHamata => Weight::pounds(30.0),
             Self::MountainPatternArmor => Weight::pounds(35.0),
             Self::MailHauberk => Weight::pounds(45.0),
-            Self::MailShirt => Weight::pounds(25.0),
+                        Self::MailShirt => Weight::pounds(25.0),
+            Self::MailLeggings => Weight::pounds(15.0),
             Self::MediumShield => Weight::pounds(15.0),
                         Self::NoArmor => Weight::pounds(0.0),
             Self::OYoroi => Weight::pounds(50.0),
-            Self::PlateArmor => Weight::pounds(50.0),
+                        Self::PlateArmor => Weight::pounds(50.0),
+            Self::PotHelm => Weight::pounds(5.0),
                         Self::RingMail => Weight::pounds(25.0),
             Self::ScaleCorselet => Weight::pounds(22.0),
-            Self::ScaleMail => Weight::pounds(42.0),
+                        Self::ScaleMail => Weight::pounds(42.0),
+            Self::Sallet => Weight::pounds(6.0),
             Self::SmallShield => Weight::pounds(8.0),
                                     Self::SplintMail => Weight::pounds(45.0),
             Self::StuddedLeather => Weight::pounds(18.0),
@@ -234,7 +262,8 @@ impl Armor {
         match self {
                         Self::Aketon => TechLevel::new(2),        // Medieval
             Self::BallisticVest => TechLevel::new(7), // Digital Age
-            Self::BandedMail => TechLevel::new(3),    // Medieval
+                        Self::BandedMail => TechLevel::new(3),    // Medieval
+            Self::Bascinet => TechLevel::new(3),       // Medieval
             Self::Brigandine => TechLevel::new(3),    // Age of Sail
             Self::BronzePlate => TechLevel::new(1),   // Bronze Age
                         Self::BronzeBreastplate => TechLevel::new(1), // Bronze Age
@@ -242,14 +271,16 @@ impl Armor {
                         Self::Buckler => TechLevel::new(2),       // Medieval
             Self::BuffCoat => TechLevel::new(4),       // Renaissance
                         Self::Chainmail => TechLevel::new(2),     // Medieval
-            Self::ChainmailShirt => TechLevel::new(2), // Medieval
+                        Self::ChainmailShirt => TechLevel::new(2), // Medieval
+            Self::CloseHelm => TechLevel::new(4),      // Renaissance
             Self::ClothArmor => TechLevel::new(1),    // Bronze Age
             Self::CoatOfPlates => TechLevel::new(3),  // Medieval
             Self::Cuirass => TechLevel::new(3),       // Medieval
             Self::DoMaru => TechLevel::new(3),        // Japanese Medieval
             Self::FlakJacket => TechLevel::new(6),    // Atomic Age
                         Self::Gambeson => TechLevel::new(2),      // Medieval
-            Self::GothicPlate => TechLevel::new(4),    // Renaissance
+                        Self::GothicPlate => TechLevel::new(4),    // Renaissance
+            Self::GreatHelm => TechLevel::new(3),      // Crusader/Medieval
             Self::HalfPlate => TechLevel::new(3),     // Age of Sail
                         Self::HeavyLeather => TechLevel::new(1),  // Bronze Age
             Self::HeavyLeatherSleeves => TechLevel::new(1), // Bronze Age
@@ -258,7 +289,8 @@ impl Armor {
             Self::KikkoArmor => TechLevel::new(3),     // Japanese Medieval
             Self::LamellarArmor => TechLevel::new(1), // Bronze Age
             Self::LargeShield => TechLevel::new(1),   // Bronze Age
-            Self::LeatherArmor => TechLevel::new(1),  // Bronze Age
+                        Self::LeatherArmor => TechLevel::new(1),  // Bronze Age
+            Self::LeatherCap => TechLevel::new(1),     // Bronze Age
             Self::LightLeather => TechLevel::new(0),  // Stone Age
             Self::LightScale => TechLevel::new(2),    // Medieval
             Self::Linothorax => TechLevel::new(1),    // Greek/Bronze
@@ -266,14 +298,17 @@ impl Armor {
             Self::LoricaHamata => TechLevel::new(1),   // Roman
             Self::MountainPatternArmor => TechLevel::new(3), // Chinese Medieval
             Self::MailHauberk => TechLevel::new(2),   // Medieval
-            Self::MailShirt => TechLevel::new(2),     // Medieval
+                        Self::MailShirt => TechLevel::new(2),     // Medieval
+            Self::MailLeggings => TechLevel::new(2),   // Medieval
             Self::MediumShield => TechLevel::new(1),  // Bronze Age
                         Self::NoArmor => TechLevel::new(0),       // Stone Age
             Self::OYoroi => TechLevel::new(3),         // Japanese Medieval
-            Self::PlateArmor => TechLevel::new(3),    // Age of Sail
+                        Self::PlateArmor => TechLevel::new(3),    // Age of Sail
+            Self::PotHelm => TechLevel::new(2),        // Iron Age/Medieval
                         Self::RingMail => TechLevel::new(2),      // Iron Age
             Self::ScaleCorselet => TechLevel::new(1),  // Bronze Age
-            Self::ScaleMail => TechLevel::new(2),     // Medieval
+                        Self::ScaleMail => TechLevel::new(2),     // Medieval
+            Self::Sallet => TechLevel::new(4),         // Late Medieval/Renaissance
             Self::SmallShield => TechLevel::new(1),   // Bronze Age
                                     Self::SplintMail => TechLevel::new(2),    // Medieval
             Self::StuddedLeather => TechLevel::new(1), // Bronze Age
@@ -290,7 +325,8 @@ impl Armor {
         match self {
                         Self::Aketon => 2,
             Self::BallisticVest => 10, // DR 10 vs ballistic
-            Self::BandedMail => 4,
+                        Self::BandedMail => 4,
+            Self::Bascinet => 5,
             Self::Brigandine => 4,
                         Self::BronzePlate => 5,
                         Self::BronzeBreastplate => 4,
@@ -298,14 +334,16 @@ impl Armor {
                         Self::Buckler => 1,        // DB converted to DR approximation
             Self::BuffCoat => 2,
                         Self::Chainmail => 4,
-            Self::ChainmailShirt => 3,
+                        Self::ChainmailShirt => 3,
+            Self::CloseHelm => 7,
                         Self::ClothArmor => 1,
             Self::CoatOfPlates => 5,
                         Self::Cuirass => 5,
             Self::DoMaru => 4,
                         Self::FlakJacket => 7,
                         Self::Gambeson => 2,
-            Self::GothicPlate => 7,     // DR 7 vs ballistic
+                        Self::GothicPlate => 7,
+            Self::GreatHelm => 7,     // DR 7 vs ballistic
             Self::HalfPlate => 5,
                         Self::HeavyLeather => 2,
             Self::HeavyLeatherSleeves => 2,
@@ -314,7 +352,8 @@ impl Armor {
             Self::KikkoArmor => 4,
             Self::LamellarArmor => 4,
             Self::LargeShield => 3,    // DB converted to DR approximation
-            Self::LeatherArmor => 1,
+                        Self::LeatherArmor => 1,
+            Self::LeatherCap => 1,
             Self::LightLeather => 1,
                         Self::LightScale => 3,
             Self::Linothorax => 2,
@@ -322,14 +361,17 @@ impl Armor {
             Self::LoricaHamata => 4,
             Self::MountainPatternArmor => 5,
             Self::MailHauberk => 4,
-            Self::MailShirt => 4,
+                        Self::MailShirt => 4,
+            Self::MailLeggings => 3,
             Self::MediumShield => 2,   // DB converted to DR approximation
                         Self::NoArmor => 0,
             Self::OYoroi => 5,
-            Self::PlateArmor => 6,
+                        Self::PlateArmor => 6,
+            Self::PotHelm => 4,
                         Self::RingMail => 3,
             Self::ScaleCorselet => 3,
-            Self::ScaleMail => 4,
+                        Self::ScaleMail => 4,
+            Self::Sallet => 5,
             Self::SmallShield => 1,    // DB converted to DR approximation
                                     Self::SplintMail => 5,
             Self::StuddedLeather => 2,
