@@ -18,6 +18,10 @@ use tracing::{debug, instrument};
 pub enum MeleeWeapon {
     /// Axe, swing+2 cutting, reach 1. BS 271
     Axe,
+    /// Angon, thrust+2 impaling, reach 1. LT (barbed javelin)
+    Angon,
+    /// Awl pike, thrust+3 impaling, reach 4-5. LT (heavy pike)
+    AwlPike,
     /// Baton, swing crushing, reach 1. BS 271
     Baton,
     /// Battle axe, swing+3 cutting, reach 1. BS 271
@@ -30,6 +34,8 @@ pub enum MeleeWeapon {
     Blackjack,
     /// Bastard sword, swing+2 cutting, reach 1-2. BS 271
     BastardSword,
+    /// Bagh nakh, thrust-1 impaling, reach C. LT (Indian claw weapon)
+    BaghNakh,
     /// Bardiche, swing+3 cutting, reach 2-3. LT
     Bardiche,
     /// Bill, swing+3 cutting, reach 2-3. LT
@@ -92,6 +98,10 @@ pub enum MeleeWeapon {
     Halberd,
     /// Hatchet, swing+1 cutting, reach 1. BS 271
     Hatchet,
+    /// Horseman's mace, swing+2 crushing, reach 1. LT (cavalry weapon)
+    HorsemansMace,
+    /// Horseman's pick, swing+1 impaling, reach 1. LT (cavalry weapon)
+    HorsemansPick,
     /// Javelin, thrust+1 impaling, reach 1. BS 271
     Javelin,
     /// Jitte, thrust-1 impaling, reach 1. BS 271
@@ -150,6 +160,8 @@ pub enum MeleeWeapon {
     Pitchfork,
     /// Pike, thrust+2 impaling, reach 4-5. BS 271
     Pike,
+    /// Pilum, thrust+2 impaling, reach 1. LT (Roman javelin)
+    Pilum,
     /// Poleax, swing+3 cutting, reach 2-3. BS 271
     Poleax,
     /// Partisan, thrust+2 impaling, reach 2-3. LT
@@ -180,6 +192,8 @@ pub enum MeleeWeapon {
     Smallsword,
     /// Spear, thrust+2 impaling, reach 1-2. BS 271
     Spear,
+    /// Spiked club, swing+2 crushing, reach 1. LT (war club)
+    SpikedClub,
     /// Staff, swing+1 crushing, reach 1-2. BS 271
     Staff,
     /// Stick (walking stick/cane), swing crushing, reach 1. BS 271
@@ -219,11 +233,14 @@ impl MeleeWeapon {
         debug!("Getting melee weapon base cost");
         match self {
             Self::Axe => Currency::dollars(50.0),
+            Self::Angon => Currency::dollars(40.0),
+            Self::AwlPike => Currency::dollars(100.0),
             Self::Baton => Currency::dollars(20.0),
             Self::BattleAxe => Currency::dollars(50.0),
             Self::BeardedAxe => Currency::dollars(60.0),
             Self::BecDeCorbin => Currency::dollars(150.0),
             Self::BastardSword => Currency::dollars(650.0),
+            Self::BaghNakh => Currency::dollars(25.0),
             Self::Bardiche => Currency::dollars(120.0),
             Self::Bill => Currency::dollars(100.0),
             Self::Billhook => Currency::dollars(40.0),
@@ -256,6 +273,8 @@ impl MeleeWeapon {
             Self::GreatAxe => Currency::dollars(100.0),
             Self::Halberd => Currency::dollars(150.0),
             Self::Hatchet => Currency::dollars(40.0),
+            Self::HorsemansMace => Currency::dollars(60.0),
+            Self::HorsemansPick => Currency::dollars(70.0),
             Self::Javelin => Currency::dollars(30.0),
             Self::Jitte => Currency::dollars(50.0),
             Self::Jian => Currency::dollars(500.0),
@@ -285,6 +304,7 @@ impl MeleeWeapon {
             Self::Pick => Currency::dollars(70.0),
             Self::Pitchfork => Currency::dollars(15.0),
             Self::Pike => Currency::dollars(80.0),
+            Self::Pilum => Currency::dollars(40.0),
             Self::Poleax => Currency::dollars(120.0),
             Self::Partisan => Currency::dollars(100.0),
             Self::Quarterstaff => Currency::dollars(10.0),
@@ -300,6 +320,7 @@ impl MeleeWeapon {
             Self::Sickle => Currency::dollars(15.0),
             Self::Smallsword => Currency::dollars(400.0),
             Self::Spear => Currency::dollars(40.0),
+            Self::SpikedClub => Currency::dollars(20.0),
             Self::Staff => Currency::dollars(5.0),
             Self::Stick => Currency::dollars(5.0),
             Self::Tanto => Currency::dollars(30.0),
@@ -324,12 +345,15 @@ impl MeleeWeapon {
         debug!("Getting melee weapon weight");
         match self {
             Self::Axe => Weight::pounds(4.0),
+            Self::Angon => Weight::pounds(3.0),
+            Self::AwlPike => Weight::pounds(15.0),
             Self::Baton => Weight::pounds(1.0),
             Self::BattleAxe => Weight::pounds(6.0),
             Self::BeardedAxe => Weight::pounds(5.0),
             Self::BecDeCorbin => Weight::pounds(9.0),
             Self::Blackjack => Weight::pounds(1.0),
             Self::BastardSword => Weight::pounds(5.0),
+            Self::BaghNakh => Weight::pounds(0.5),
             Self::Bardiche => Weight::pounds(10.0),
             Self::Bill => Weight::pounds(9.0),
             Self::Billhook => Weight::pounds(5.0),
@@ -361,6 +385,8 @@ impl MeleeWeapon {
             Self::GreatAxe => Weight::pounds(8.0),
             Self::Halberd => Weight::pounds(12.0),
             Self::Hatchet => Weight::pounds(2.0),
+            Self::HorsemansMace => Weight::pounds(3.0),
+            Self::HorsemansPick => Weight::pounds(2.5),
             Self::Javelin => Weight::pounds(2.0),
             Self::Jitte => Weight::pounds(1.5),
             Self::Jian => Weight::pounds(2.5),
@@ -390,6 +416,7 @@ impl MeleeWeapon {
             Self::Pick => Weight::pounds(3.0),
             Self::Pitchfork => Weight::pounds(4.0),
             Self::Pike => Weight::pounds(13.0),
+            Self::Pilum => Weight::pounds(4.0),
             Self::Poleax => Weight::pounds(10.0),
             Self::Partisan => Weight::pounds(7.0),
             Self::Quarterstaff => Weight::pounds(4.0),
@@ -405,6 +432,7 @@ impl MeleeWeapon {
             Self::Sickle => Weight::pounds(2.0),
             Self::Smallsword => Weight::pounds(1.5),
             Self::Spear => Weight::pounds(4.0),
+            Self::SpikedClub => Weight::pounds(4.0),
             Self::Staff => Weight::pounds(4.0),
             Self::Stick => Weight::pounds(2.0),
             Self::Tanto => Weight::pounds(0.5),
@@ -429,12 +457,15 @@ impl MeleeWeapon {
         debug!("Getting melee weapon tech level");
         match self {
             Self::Axe => TechLevel::new(0),            // Stone Age
+            Self::Angon => TechLevel::new(1),       // Iron Age
+            Self::AwlPike => TechLevel::new(3),     // Medieval
             Self::Baton => TechLevel::new(5),          // Modern (police baton)
             Self::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
             Self::BeardedAxe => TechLevel::new(2),  // Iron Age
             Self::BecDeCorbin => TechLevel::new(3), // Medieval
             Self::Blackjack => TechLevel::new(1),
             Self::BastardSword => TechLevel::new(2),   // Medieval
+            Self::BaghNakh => TechLevel::new(1),    // Ancient India
             Self::Bardiche => TechLevel::new(3),    // Medieval
             Self::Bill => TechLevel::new(3),        // Medieval
             Self::Billhook => TechLevel::new(2),    // Medieval
@@ -466,6 +497,8 @@ impl MeleeWeapon {
             Self::GreatAxe => TechLevel::new(1),       // Bronze/Iron Age
             Self::Halberd => TechLevel::new(2),        // Medieval
             Self::Hatchet => TechLevel::new(0),        // Stone Age
+            Self::HorsemansMace => TechLevel::new(2), // Medieval
+            Self::HorsemansPick => TechLevel::new(2), // Medieval
             Self::Javelin => TechLevel::new(0),        // Stone Age
             Self::Jitte => TechLevel::new(3),
             Self::Jian => TechLevel::new(2),        // Iron Age          // Japanese feudal
@@ -495,6 +528,7 @@ impl MeleeWeapon {
             Self::Pick => TechLevel::new(2),           // Medieval
             Self::Pitchfork => TechLevel::new(0),   // Stone Age
             Self::Pike => TechLevel::new(2),
+            Self::Pilum => TechLevel::new(1),       // Roman
             Self::Poleax => TechLevel::new(2),
             Self::Partisan => TechLevel::new(3),    // Medieval
             Self::Quarterstaff => TechLevel::new(0),   // Stone Age
@@ -510,6 +544,7 @@ impl MeleeWeapon {
             Self::Sickle => TechLevel::new(0),      // Stone Age
             Self::Smallsword => TechLevel::new(4),     // Renaissance
             Self::Spear => TechLevel::new(0),          // Stone Age
+            Self::SpikedClub => TechLevel::new(0),  // Stone Age
             Self::Staff => TechLevel::new(0),          // Stone Age
             Self::Stick => TechLevel::new(0),
             Self::Tanto => TechLevel::new(3),          // Japanese
@@ -537,6 +572,14 @@ impl MeleeWeapon {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
             },
+            Self::Angon => WeaponDamage::Thrust {
+                modifier: 2,
+                damage_type: DamageType::Impaling,
+            },
+            Self::AwlPike => WeaponDamage::Thrust {
+                modifier: 3,
+                damage_type: DamageType::Impaling,
+            },
             Self::Baton => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
@@ -560,6 +603,10 @@ impl MeleeWeapon {
             Self::BastardSword => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
+            },
+            Self::BaghNakh => WeaponDamage::Thrust {
+                modifier: -1,
+                damage_type: DamageType::Impaling,
             },
             Self::Bardiche => WeaponDamage::Swing {
                 modifier: 3,
@@ -685,6 +732,14 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
             },
+            Self::HorsemansMace => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
+            },
+            Self::HorsemansPick => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Javelin => WeaponDamage::Thrust {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
@@ -801,6 +856,10 @@ impl MeleeWeapon {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
             },
+            Self::Pilum => WeaponDamage::Thrust {
+                modifier: 2,
+                damage_type: DamageType::Impaling,
+            },
             Self::Poleax => WeaponDamage::Swing {
                 modifier: 3,
                 damage_type: DamageType::Cutting,
@@ -860,6 +919,10 @@ impl MeleeWeapon {
             Self::Spear => WeaponDamage::Thrust {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
+            },
+            Self::SpikedClub => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
             },
             Self::Staff => WeaponDamage::Swing {
                 modifier: 1,
@@ -930,12 +993,15 @@ impl MeleeWeapon {
         debug!("Getting melee weapon reach");
         match self {
             Self::Axe => Reach::One,
+            Self::Angon => Reach::One,
+            Self::AwlPike => Reach::TwoThree,
             Self::Baton => Reach::One,
             Self::BattleAxe => Reach::One,
             Self::BeardedAxe => Reach::One,
             Self::BecDeCorbin => Reach::TwoThree,
             Self::Blackjack => Reach::Close,
             Self::BastardSword => Reach::OneTwo,
+            Self::BaghNakh => Reach::Close,
             Self::Bardiche => Reach::TwoThree,
             Self::Bill => Reach::TwoThree,
             Self::Billhook => Reach::OneTwo,
@@ -967,6 +1033,8 @@ impl MeleeWeapon {
             Self::GreatAxe => Reach::OneTwo,
             Self::Halberd => Reach::TwoThree,
             Self::Hatchet => Reach::One,
+            Self::HorsemansMace => Reach::One,
+            Self::HorsemansPick => Reach::One,
             Self::Javelin => Reach::One,
             Self::Jitte => Reach::One,
             Self::Jian => Reach::One,
@@ -996,6 +1064,7 @@ impl MeleeWeapon {
             Self::Pick => Reach::One,
             Self::Pitchfork => Reach::One,
             Self::Pike => Reach::TwoThree,
+            Self::Pilum => Reach::One,
             Self::Poleax => Reach::TwoThree,
             Self::Partisan => Reach::TwoThree,
             Self::Quarterstaff => Reach::OneTwo,
@@ -1011,6 +1080,7 @@ impl MeleeWeapon {
             Self::Sickle => Reach::CloseOne,
             Self::Smallsword => Reach::One,
             Self::Spear => Reach::OneTwo,
+            Self::SpikedClub => Reach::One,
             Self::Staff => Reach::OneTwo,
             Self::Stick => Reach::One,
             Self::Tanto => Reach::Close,
@@ -1035,12 +1105,15 @@ impl MeleeWeapon {
         debug!("Getting melee weapon parry modifier");
         match self {
             Self::Axe => -1,
+            Self::Angon => 0,
+            Self::AwlPike => 0,
             Self::Baton => 0,
             Self::BattleAxe => -1,
             Self::BeardedAxe => -1,
             Self::BecDeCorbin => 0,
             Self::Blackjack => 0,
             Self::BastardSword => 0,
+            Self::BaghNakh => -1,
             Self::Bardiche => 0,
             Self::Bill => 0,
             Self::Billhook => 0,
@@ -1072,6 +1145,8 @@ impl MeleeWeapon {
             Self::GreatAxe => -2,
             Self::Halberd => 0,
             Self::Hatchet => -1,
+            Self::HorsemansMace => 0,
+            Self::HorsemansPick => -1,
             Self::Javelin => 0,
             Self::Jitte => 1,
             Self::Jian => 0,
@@ -1101,6 +1176,7 @@ impl MeleeWeapon {
             Self::Pick => -1,
             Self::Pitchfork => 0,
             Self::Pike => 0,
+            Self::Pilum => 0,
             Self::Poleax => 0,
             Self::Partisan => 0,
             Self::Quarterstaff => 2,
@@ -1116,6 +1192,7 @@ impl MeleeWeapon {
             Self::Sickle => -2,
             Self::Smallsword => 1,
             Self::Spear => 0,
+            Self::SpikedClub => 0,
             Self::Staff => 2,
             Self::Stick => 1,
             Self::Tanto => -1,
@@ -1140,12 +1217,15 @@ impl MeleeWeapon {
         debug!("Getting melee weapon required skill");
         match self {
             Self::Axe => Skill::AxeMace,
+            Self::Angon => Skill::Spear,
+            Self::AwlPike => Skill::Spear,
             Self::Baton => Skill::Shortsword,
             Self::BattleAxe => Skill::AxeMace,
             Self::BeardedAxe => Skill::AxeMace,
             Self::BecDeCorbin => Skill::Polearm,
             Self::Blackjack => Skill::Brawling,
             Self::BastardSword => Skill::Broadsword,
+            Self::BaghNakh => Skill::Brawling,
             Self::Bardiche => Skill::Polearm,
             Self::Bill => Skill::Polearm,
             Self::Billhook => Skill::Polearm,
@@ -1177,6 +1257,8 @@ impl MeleeWeapon {
             Self::GreatAxe => Skill::TwoHandedAxeMace,
             Self::Halberd => Skill::Polearm,
             Self::Hatchet => Skill::AxeMace,
+            Self::HorsemansMace => Skill::AxeMace,
+            Self::HorsemansPick => Skill::AxeMace,
             Self::Javelin => Skill::Spear,
             Self::Jitte => Skill::MainGauche,
             Self::Jian => Skill::Shortsword,
@@ -1206,6 +1288,7 @@ impl MeleeWeapon {
             Self::Pick => Skill::AxeMace,
             Self::Pitchfork => Skill::Spear,
             Self::Pike => Skill::Spear,
+            Self::Pilum => Skill::Spear,
             Self::Poleax => Skill::Polearm,
             Self::Partisan => Skill::Polearm,
             Self::Quarterstaff => Skill::Staff,
@@ -1221,6 +1304,7 @@ impl MeleeWeapon {
             Self::Sickle => Skill::Knife,
             Self::Smallsword => Skill::Smallsword,
             Self::Spear => Skill::Spear,
+            Self::SpikedClub => Skill::AxeMace,
             Self::Staff => Skill::Staff,
             Self::Stick => Skill::Staff,
             Self::Tanto => Skill::Knife,
