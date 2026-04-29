@@ -24,6 +24,8 @@ pub enum MeleeWeapon {
     ArmingSword,
     /// Awl pike, thrust+3 impaling, reach 4-5. LT (heavy pike)
     AwlPike,
+    /// Assegai, thrust+2 impaling, reach 1. LT (African throwing spear)
+    Assegai,
     /// Baton, swing crushing, reach 1. BS 271
     Baton,
     /// Battle axe, swing+3 cutting, reach 1. BS 271
@@ -58,6 +60,8 @@ pub enum MeleeWeapon {
     Cestus,
     /// Chain, swing+1 crushing, reach 1-3. BS 271
     Chain,
+    /// Cinquedea, thrust impaling, reach C. LT (Italian thick dagger)
+    Cinquedea,
     /// Claymore, swing+2 cutting, reach 1-2. BS 271
     Claymore,
     /// Club, swing+1 crushing, reach 1. BS 271
@@ -106,6 +110,8 @@ pub enum MeleeWeapon {
     HorsemansMace,
     /// Horseman's pick, swing+1 impaling, reach 1. LT (cavalry weapon)
     HorsemansPick,
+    /// Iklwa, thrust+1 impaling, reach 1. LT (Zulu short stabbing spear)
+    Iklwa,
     /// Javelin, thrust+1 impaling, reach 1. BS 271
     Javelin,
     /// Jitte, thrust-1 impaling, reach 1. BS 271
@@ -150,6 +156,8 @@ pub enum MeleeWeapon {
     LucerneHammer,
     /// Mace, swing+2 crushing, reach 1. BS 271
     Mace,
+    /// Macuahuitl, swing+3 cutting, reach 1. LT (Aztec obsidian-edged club)
+    Macuahuitl,
     /// Main gauche, thrust-1 impaling, reach 1. BS 271
     MainGauche,
     /// Maul, swing+4 crushing, reach 1-2. BS 271
@@ -204,8 +212,12 @@ pub enum MeleeWeapon {
     Sickle,
     /// Smallsword, thrust impaling, reach 1. BS 271
     Smallsword,
+    /// Sodegarami, swing+1 crushing, reach 2-3. LT (Japanese man-catcher pole)
+    Sodegarami,
     /// Spear, thrust+2 impaling, reach 1-2. BS 271
     Spear,
+    /// Spetum, thrust+2 impaling, reach 2-3. LT (Medieval pole weapon)
+    Spetum,
     /// Spiked club, swing+2 crushing, reach 1. LT (war club)
     SpikedClub,
     /// Staff, swing+1 crushing, reach 1-2. BS 271
@@ -238,6 +250,8 @@ pub enum MeleeWeapon {
     Warhammer,
     /// Whip, swing-1 cutting, reach 1-2. BS 271
     Whip,
+    /// Xiphos, swing cutting, reach 1. LT (Greek short sword)
+    Xiphos,
 }
 
 impl MeleeWeapon {
@@ -250,6 +264,7 @@ impl MeleeWeapon {
             Self::Angon => Currency::dollars(40.0),
             Self::ArmingSword => Currency::dollars(400.0),
             Self::AwlPike => Currency::dollars(100.0),
+            Self::Assegai => Currency::dollars(30.0),
             Self::Baton => Currency::dollars(20.0),
             Self::BattleAxe => Currency::dollars(50.0),
             Self::BeardedAxe => Currency::dollars(60.0),
@@ -267,6 +282,7 @@ impl MeleeWeapon {
             Self::Chakram => Currency::dollars(15.0),
             Self::Cestus => Currency::dollars(15.0),
             Self::Chain => Currency::dollars(30.0),
+            Self::Cinquedea => Currency::dollars(30.0),
             Self::Claymore => Currency::dollars(500.0),
             Self::Club => Currency::dollars(10.0),
             Self::CombatNet => Currency::dollars(40.0),
@@ -291,6 +307,7 @@ impl MeleeWeapon {
             Self::Hatchet => Currency::dollars(40.0),
             Self::HorsemansMace => Currency::dollars(60.0),
             Self::HorsemansPick => Currency::dollars(70.0),
+            Self::Iklwa => Currency::dollars(40.0),
             Self::Javelin => Currency::dollars(30.0),
             Self::Jitte => Currency::dollars(50.0),
             Self::Jian => Currency::dollars(500.0),
@@ -313,6 +330,7 @@ impl MeleeWeapon {
             Self::Longsword => Currency::dollars(500.0),
             Self::LucerneHammer => Currency::dollars(150.0),
             Self::Mace => Currency::dollars(50.0),
+            Self::Macuahuitl => Currency::dollars(40.0),
             Self::MainGauche => Currency::dollars(50.0),
             Self::Maul => Currency::dollars(80.0),
             Self::Messer => Currency::dollars(350.0),
@@ -340,7 +358,9 @@ impl MeleeWeapon {
             Self::Scythe => Currency::dollars(15.0),
             Self::Sickle => Currency::dollars(15.0),
             Self::Smallsword => Currency::dollars(400.0),
+            Self::Sodegarami => Currency::dollars(80.0),
             Self::Spear => Currency::dollars(40.0),
+            Self::Spetum => Currency::dollars(90.0),
             Self::SpikedClub => Currency::dollars(20.0),
             Self::Staff => Currency::dollars(5.0),
             Self::Stick => Currency::dollars(5.0),
@@ -357,6 +377,7 @@ impl MeleeWeapon {
             Self::WarFan => Currency::dollars(50.0),
             Self::Warhammer => Currency::dollars(100.0),
             Self::Whip => Currency::dollars(20.0),
+            Self::Xiphos => Currency::dollars(250.0),
         }
     }
 
@@ -369,6 +390,7 @@ impl MeleeWeapon {
             Self::Angon => Weight::pounds(3.0),
             Self::ArmingSword => Weight::pounds(2.5),
             Self::AwlPike => Weight::pounds(15.0),
+            Self::Assegai => Weight::pounds(2.0),
             Self::Baton => Weight::pounds(1.0),
             Self::BattleAxe => Weight::pounds(6.0),
             Self::BeardedAxe => Weight::pounds(5.0),
@@ -386,6 +408,7 @@ impl MeleeWeapon {
             Self::Chakram => Weight::pounds(0.5),
             Self::Cestus => Weight::pounds(0.5),
             Self::Chain => Weight::pounds(3.0),
+            Self::Cinquedea => Weight::pounds(1.0),
             Self::Claymore => Weight::pounds(7.0),
             Self::Club => Weight::pounds(3.0),
             Self::CombatNet => Weight::pounds(5.0),
@@ -410,6 +433,7 @@ impl MeleeWeapon {
             Self::Hatchet => Weight::pounds(2.0),
             Self::HorsemansMace => Weight::pounds(3.0),
             Self::HorsemansPick => Weight::pounds(2.5),
+            Self::Iklwa => Weight::pounds(2.0),
             Self::Javelin => Weight::pounds(2.0),
             Self::Jitte => Weight::pounds(1.5),
             Self::Jian => Weight::pounds(2.5),
@@ -432,6 +456,7 @@ impl MeleeWeapon {
             Self::Longsword => Weight::pounds(3.0),
             Self::LucerneHammer => Weight::pounds(8.0),
             Self::Mace => Weight::pounds(5.0),
+            Self::Macuahuitl => Weight::pounds(4.0),
             Self::MainGauche => Weight::pounds(1.25),
             Self::Maul => Weight::pounds(12.0),
             Self::Messer => Weight::pounds(2.5),
@@ -459,7 +484,9 @@ impl MeleeWeapon {
             Self::Scythe => Weight::pounds(5.0),
             Self::Sickle => Weight::pounds(2.0),
             Self::Smallsword => Weight::pounds(1.5),
+            Self::Sodegarami => Weight::pounds(6.0),
             Self::Spear => Weight::pounds(4.0),
+            Self::Spetum => Weight::pounds(7.0),
             Self::SpikedClub => Weight::pounds(4.0),
             Self::Staff => Weight::pounds(4.0),
             Self::Stick => Weight::pounds(2.0),
@@ -476,6 +503,7 @@ impl MeleeWeapon {
             Self::WarFan => Weight::pounds(1.0),
             Self::Warhammer => Weight::pounds(7.0),
             Self::Whip => Weight::pounds(2.0),
+            Self::Xiphos => Weight::pounds(2.0),
         }
     }
 
@@ -488,6 +516,7 @@ impl MeleeWeapon {
             Self::Angon => TechLevel::new(1),       // Iron Age
             Self::ArmingSword => TechLevel::new(3), // Medieval
             Self::AwlPike => TechLevel::new(3),     // Medieval
+            Self::Assegai => TechLevel::new(0),     // Stone Age
             Self::Baton => TechLevel::new(5),          // Modern (police baton)
             Self::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
             Self::BeardedAxe => TechLevel::new(2),  // Iron Age
@@ -505,6 +534,7 @@ impl MeleeWeapon {
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
             Self::Cestus => TechLevel::new(1),          // Roman
             Self::Chain => TechLevel::new(1),           // Ancient
+            Self::Cinquedea => TechLevel::new(3),   // Late Medieval
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
             Self::Club => TechLevel::new(0),
             Self::CombatNet => TechLevel::new(1),      // Bronze Age
@@ -529,6 +559,7 @@ impl MeleeWeapon {
             Self::Hatchet => TechLevel::new(0),        // Stone Age
             Self::HorsemansMace => TechLevel::new(2), // Medieval
             Self::HorsemansPick => TechLevel::new(2), // Medieval
+            Self::Iklwa => TechLevel::new(0),       // Stone Age
             Self::Javelin => TechLevel::new(0),        // Stone Age
             Self::Jitte => TechLevel::new(3),
             Self::Jian => TechLevel::new(2),        // Iron Age          // Japanese feudal
@@ -551,6 +582,7 @@ impl MeleeWeapon {
             Self::Longsword => TechLevel::new(2),      // Medieval
             Self::LucerneHammer => TechLevel::new(3),  // Late Medieval
             Self::Mace => TechLevel::new(1),           // Bronze Age
+            Self::Macuahuitl => TechLevel::new(0),  // Aztec/Stone Age
             Self::MainGauche => TechLevel::new(4),     // Renaissance
             Self::Maul => TechLevel::new(1),           // Bronze/Iron Age
             Self::Messer => TechLevel::new(3),      // Late Medieval
@@ -578,7 +610,9 @@ impl MeleeWeapon {
             Self::Scythe => TechLevel::new(0),      // Stone Age
             Self::Sickle => TechLevel::new(0),      // Stone Age
             Self::Smallsword => TechLevel::new(4),     // Renaissance
+            Self::Sodegarami => TechLevel::new(3),  // Medieval Japan
             Self::Spear => TechLevel::new(0),          // Stone Age
+            Self::Spetum => TechLevel::new(3),      // Medieval
             Self::SpikedClub => TechLevel::new(0),  // Stone Age
             Self::Staff => TechLevel::new(0),          // Stone Age
             Self::Stick => TechLevel::new(0),
@@ -595,6 +629,7 @@ impl MeleeWeapon {
             Self::WarFan => TechLevel::new(3),         // Japanese Renaissance
             Self::Warhammer => TechLevel::new(2),      // Medieval
             Self::Whip => TechLevel::new(1),           // Bronze Age
+            Self::Xiphos => TechLevel::new(1),      // Greek/Bronze Age
         }
     }
 
@@ -617,6 +652,10 @@ impl MeleeWeapon {
             },
             Self::AwlPike => WeaponDamage::Thrust {
                 modifier: 3,
+                damage_type: DamageType::Impaling,
+            },
+            Self::Assegai => WeaponDamage::Thrust {
+                modifier: 2,
                 damage_type: DamageType::Impaling,
             },
             Self::Baton => WeaponDamage::Swing {
@@ -686,6 +725,10 @@ impl MeleeWeapon {
             Self::Chain => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
+            },
+            Self::Cinquedea => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
             },
             Self::Claymore => WeaponDamage::Swing {
                 modifier: 2,
@@ -783,6 +826,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
             },
+            Self::Iklwa => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Javelin => WeaponDamage::Thrust {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
@@ -870,6 +917,10 @@ impl MeleeWeapon {
             Self::Mace => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
+            },
+            Self::Macuahuitl => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Cutting,
             },
             Self::MainGauche => WeaponDamage::Thrust {
                 modifier: -1,
@@ -979,7 +1030,15 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
+            Self::Sodegarami => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
+            },
             Self::Spear => WeaponDamage::Thrust {
+                modifier: 2,
+                damage_type: DamageType::Impaling,
+            },
+            Self::Spetum => WeaponDamage::Thrust {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
             },
@@ -1047,6 +1106,10 @@ impl MeleeWeapon {
                 modifier: -1,
                 damage_type: DamageType::Cutting,
             },
+            Self::Xiphos => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Cutting,
+            },
         }
     }
 
@@ -1059,6 +1122,7 @@ impl MeleeWeapon {
             Self::Angon => Reach::One,
             Self::ArmingSword => Reach::One,
             Self::AwlPike => Reach::TwoThree,
+            Self::Assegai => Reach::One,
             Self::Baton => Reach::One,
             Self::BattleAxe => Reach::One,
             Self::BeardedAxe => Reach::One,
@@ -1076,6 +1140,7 @@ impl MeleeWeapon {
             Self::Chakram => Reach::One,
             Self::Cestus => Reach::Close,
             Self::Chain => Reach::OneThree,
+            Self::Cinquedea => Reach::Close,
             Self::Claymore => Reach::OneTwo,
             Self::Club => Reach::One,
             Self::CombatNet => Reach::One,
@@ -1100,6 +1165,7 @@ impl MeleeWeapon {
             Self::Hatchet => Reach::One,
             Self::HorsemansMace => Reach::One,
             Self::HorsemansPick => Reach::One,
+            Self::Iklwa => Reach::One,
             Self::Javelin => Reach::One,
             Self::Jitte => Reach::One,
             Self::Jian => Reach::One,
@@ -1122,6 +1188,7 @@ impl MeleeWeapon {
             Self::Longsword => Reach::One,
             Self::LucerneHammer => Reach::TwoThree,
             Self::Mace => Reach::One,
+            Self::Macuahuitl => Reach::One,
             Self::MainGauche => Reach::One,
             Self::Maul => Reach::OneTwo,
             Self::Messer => Reach::One,
@@ -1149,7 +1216,9 @@ impl MeleeWeapon {
             Self::Scythe => Reach::One,
             Self::Sickle => Reach::CloseOne,
             Self::Smallsword => Reach::One,
+            Self::Sodegarami => Reach::TwoThree,
             Self::Spear => Reach::OneTwo,
+            Self::Spetum => Reach::TwoThree,
             Self::SpikedClub => Reach::One,
             Self::Staff => Reach::OneTwo,
             Self::Stick => Reach::One,
@@ -1166,6 +1235,7 @@ impl MeleeWeapon {
             Self::WarFan => Reach::Close,
             Self::Warhammer => Reach::OneTwo,
             Self::Whip => Reach::OneTwo,
+            Self::Xiphos => Reach::One,
         }
     }
 
@@ -1178,6 +1248,7 @@ impl MeleeWeapon {
             Self::Angon => 0,
             Self::ArmingSword => 0,
             Self::AwlPike => 0,
+            Self::Assegai => 0,
             Self::Baton => 0,
             Self::BattleAxe => -1,
             Self::BeardedAxe => -1,
@@ -1195,6 +1266,7 @@ impl MeleeWeapon {
             Self::Chakram => -2,
             Self::Cestus => 0,
             Self::Chain => -2,
+            Self::Cinquedea => -1,
             Self::Claymore => 0,
             Self::Club => 0,
             Self::CombatNet => -2,
@@ -1219,6 +1291,7 @@ impl MeleeWeapon {
             Self::Hatchet => -1,
             Self::HorsemansMace => 0,
             Self::HorsemansPick => -1,
+            Self::Iklwa => 0,
             Self::Javelin => 0,
             Self::Jitte => 1,
             Self::Jian => 0,
@@ -1241,6 +1314,7 @@ impl MeleeWeapon {
             Self::Longsword => 0,
             Self::LucerneHammer => 0,
             Self::Mace => 0,
+            Self::Macuahuitl => -1,
             Self::MainGauche => 1,
             Self::Maul => -2,
             Self::Messer => 0,
@@ -1268,7 +1342,9 @@ impl MeleeWeapon {
             Self::Scythe => -2,
             Self::Sickle => -2,
             Self::Smallsword => 1,
+            Self::Sodegarami => 0,
             Self::Spear => 0,
+            Self::Spetum => 0,
             Self::SpikedClub => 0,
             Self::Staff => 2,
             Self::Stick => 1,
@@ -1285,6 +1361,7 @@ impl MeleeWeapon {
             Self::WarFan => 1,
             Self::Warhammer => -1,
             Self::Whip => -1,
+            Self::Xiphos => 0,
         }
     }
 
@@ -1297,6 +1374,7 @@ impl MeleeWeapon {
             Self::Angon => Skill::Spear,
             Self::ArmingSword => Skill::Broadsword,
             Self::AwlPike => Skill::Spear,
+            Self::Assegai => Skill::Spear,
             Self::Baton => Skill::Shortsword,
             Self::BattleAxe => Skill::AxeMace,
             Self::BeardedAxe => Skill::AxeMace,
@@ -1314,6 +1392,7 @@ impl MeleeWeapon {
             Self::Chakram => Skill::ThrownWeapon,
             Self::Cestus => Skill::Brawling,
             Self::Chain => Skill::Flail,
+            Self::Cinquedea => Skill::Knife,
             Self::Claymore => Skill::TwoHandedSword,
             Self::Club => Skill::AxeMace,
             Self::CombatNet => Skill::ThrownWeapon,
@@ -1338,6 +1417,7 @@ impl MeleeWeapon {
             Self::Hatchet => Skill::AxeMace,
             Self::HorsemansMace => Skill::AxeMace,
             Self::HorsemansPick => Skill::AxeMace,
+            Self::Iklwa => Skill::Spear,
             Self::Javelin => Skill::Spear,
             Self::Jitte => Skill::MainGauche,
             Self::Jian => Skill::Shortsword,
@@ -1360,6 +1440,7 @@ impl MeleeWeapon {
             Self::Longsword => Skill::Broadsword,
             Self::LucerneHammer => Skill::Polearm,
             Self::Mace => Skill::AxeMace,
+            Self::Macuahuitl => Skill::Broadsword,
             Self::MainGauche => Skill::MainGauche,
             Self::Maul => Skill::TwoHandedAxeMace,
             Self::Messer => Skill::Broadsword,
@@ -1387,7 +1468,9 @@ impl MeleeWeapon {
             Self::Scythe => Skill::TwoHandedAxeMace,
             Self::Sickle => Skill::Knife,
             Self::Smallsword => Skill::Smallsword,
+            Self::Sodegarami => Skill::Polearm,
             Self::Spear => Skill::Spear,
+            Self::Spetum => Skill::Polearm,
             Self::SpikedClub => Skill::AxeMace,
             Self::Staff => Skill::Staff,
             Self::Stick => Skill::Staff,
@@ -1404,6 +1487,7 @@ impl MeleeWeapon {
             Self::WarFan => Skill::Shortsword,
             Self::Warhammer => Skill::TwoHandedAxeMace,
             Self::Whip => Skill::Shortsword,
+            Self::Xiphos => Skill::Shortsword,
         }
     }
 }
