@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
-**Last Updated:** 2026-04-28
-**Current Total:** 315 items (BS COMPLETE! LT Phase 2 In Progress)
+**Last Updated:** 2026-04-29
+**Current Total:** 322 items (BS COMPLETE! LT Phase 2 In Progress)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -55,13 +55,13 @@
 | Category | Current | BS Missing | LT Added | LT Remaining | Total Target |
 |----------|---------|-----------|----------|--------------|--------------|
 | MeleeWeapon | 118 | 0 (BS complete) | 56 | ~4 | ~129 |
-| RangedWeapon | 66 | 0 (BS complete) | 28 | ~12 | ~78 |
+| RangedWeapon | 73 | 0 (BS complete) | 35 | ~5 | ~78 |
 | Armor | 27 | 0 (BS complete) | 0 | ~30 | ~57 |
 | Clothing | 30 | 0 (BS complete) | 0 | ~20 | ~50 |
 | Container | 24 | 0 (BS complete) | 0 | ~15 | ~39 |
 | Tool | 22 | 0 (BS complete) | 0 | ~25 | ~47 |
 | SurvivalGear | 21 | 0 (BS complete) | 0 | ~15 | ~36 |
-| **TOTAL** | **315** | **0 (BS COMPLETE!)** | **84** | **~121** | **~436** |
+| **TOTAL** | **322** | **0 (BS COMPLETE!)** | **91** | **~114** | **~436** |
 
 ## Extraction Checklists Created
 
@@ -150,4 +150,6 @@
   - Low-Tech Ranged Batch 2: 7 items (Arbalest, Arquebus, Daikyu, Hankyu, Hurlbat, Matchlock, Stonebow)
   - Low-Tech Ranged Batch 3: 7 items (Blunderbuss, Carbine, Flintlock, Fusil, Jezail, Wheellock, Yumi)
   - Low-Tech Ranged Batch 4: 7 items (Ballista, Bola, Catapult, GreatBow, HornBow, Scorpion, ThrowingHammer)
-- Phase 2 remaining: ~121 Low-Tech items
+- Items added 2026-04-29: 7 Low-Tech ranged weapons (batch 5)
+  - Low-Tech Ranged Batch 5: 7 items (Chukonu, HandMortar, Mangonel, PelletSling, SiegeCrossbow, ThrowingSpear, Trebuchet)
+- Phase 2 remaining: ~114 Low-Tech items
