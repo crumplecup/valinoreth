@@ -78,6 +78,8 @@ pub enum MeleeWeapon {
     Dao,
     /// Estoc, thrust+2 impaling, reach 1. BS 271
     Estoc,
+    /// Eku, swing+2 crushing, reach 1-2. LT (Okinawan oar weapon)
+    Eku,
     /// Falchion, swing+2 cutting, reach 1. BS 271
     Falchion,
     /// Falx, swing+3 cutting, reach 1. LT (Dacian curved blade)
@@ -110,6 +112,8 @@ pub enum MeleeWeapon {
     HorsemansMace,
     /// Horseman's pick, swing+1 impaling, reach 1. LT (cavalry weapon)
     HorsemansPick,
+    /// Hunga munga, swing+1 cutting, reach 1. LT (African multi-blade throwing weapon)
+    HungaMunga,
     /// Iklwa, thrust+1 impaling, reach 1. LT (Zulu short stabbing spear)
     Iklwa,
     /// Javelin, thrust+1 impaling, reach 1. BS 271
@@ -138,6 +142,8 @@ pub enum MeleeWeapon {
     Kopesh,
     /// Kopis, swing+1 cutting, reach 1. LT (Greek chopping sword)
     Kopis,
+    /// Konda, swing cutting, reach 1. LT (African throwing knife)
+    Konda,
     /// Kusarigama, swing+2 cutting, reach 1-3. LT (chain-sickle)
     Kusarigama,
     /// Kusari, swing+1 crushing, reach 1-3. BS 271
@@ -174,6 +180,8 @@ pub enum MeleeWeapon {
     Naginata,
     /// Nunchaku, swing+1 crushing, reach 1. BS 271
     Nunchaku,
+    /// Nunti bo, thrust+2 impaling, reach 1-2. LT (Japanese spear-staff)
+    NuntiBo,
     /// Pick, swing+2 impaling, reach 1. BS 271
     Pick,
     /// Pitchfork, thrust+1 impaling, reach 1. LT (agricultural weapon)
@@ -194,6 +202,8 @@ pub enum MeleeWeapon {
     Ranseur,
     /// Saber, swing+1 cutting, reach 1. BS 271
     Saber,
+    /// Sasumata, swing+1 crushing, reach 2-3. LT (Japanese man-catcher pole)
+    Sasumata,
     /// Seax, swing cutting, reach 1. LT (Germanic short sword)
     Seax,
     /// Shamshir, swing+1 cutting, reach 1. LT (Persian curved sword)
@@ -226,10 +236,14 @@ pub enum MeleeWeapon {
     Stick,
     /// Tanto, thrust impaling, reach C. BS 271
     Tanto,
+    /// Tekko, thrust-1 crushing, reach C. LT (Okinawan knuckle weapon)
+    Tekko,
     /// Talwar, swing+1 cutting, reach 1. LT (Indian curved sword)
     Talwar,
     /// Tetsubo, swing+3 crushing, reach 1-2. LT (Japanese war club)
     Tetsubo,
+    /// Tessen, swing crushing, reach C. LT (Japanese iron fan)
+    Tessen,
     /// Three-section staff, swing+2 crushing, reach 1-2. LT (Chinese weapon)
     ThreeSectionStaff,
     /// Tonfa, swing+1 crushing, reach 1. BS 271
@@ -291,6 +305,7 @@ impl MeleeWeapon {
             Self::Dagger => Currency::dollars(20.0),
             Self::Dao => Currency::dollars(400.0),
             Self::Estoc => Currency::dollars(600.0),
+            Self::Eku => Currency::dollars(50.0),
             Self::Falchion => Currency::dollars(400.0),
             Self::Falx => Currency::dollars(350.0),
             Self::Fauchard => Currency::dollars(90.0),
@@ -307,6 +322,7 @@ impl MeleeWeapon {
             Self::Hatchet => Currency::dollars(40.0),
             Self::HorsemansMace => Currency::dollars(60.0),
             Self::HorsemansPick => Currency::dollars(70.0),
+            Self::HungaMunga => Currency::dollars(60.0),
             Self::Iklwa => Currency::dollars(40.0),
             Self::Javelin => Currency::dollars(30.0),
             Self::Jitte => Currency::dollars(50.0),
@@ -321,6 +337,7 @@ impl MeleeWeapon {
             Self::Knife => Currency::dollars(40.0),
             Self::Kopesh => Currency::dollars(200.0),
             Self::Kopis => Currency::dollars(300.0),
+            Self::Konda => Currency::dollars(50.0),
             Self::Kusarigama => Currency::dollars(250.0),
             Self::Kusari => Currency::dollars(70.0),
             Self::LargeKnife => Currency::dollars(60.0),
@@ -339,6 +356,7 @@ impl MeleeWeapon {
             Self::Morningstar => Currency::dollars(80.0),
             Self::Naginata => Currency::dollars(100.0),
             Self::Nunchaku => Currency::dollars(20.0),
+            Self::NuntiBo => Currency::dollars(70.0),
             Self::Pick => Currency::dollars(70.0),
             Self::Pitchfork => Currency::dollars(15.0),
             Self::Pike => Currency::dollars(80.0),
@@ -349,6 +367,7 @@ impl MeleeWeapon {
             Self::Rapier => Currency::dollars(500.0),
             Self::Ranseur => Currency::dollars(90.0),
             Self::Saber => Currency::dollars(500.0),
+            Self::Sasumata => Currency::dollars(80.0),
             Self::Seax => Currency::dollars(300.0),
             Self::Shamshir => Currency::dollars(500.0),
             Self::Sai => Currency::dollars(20.0),
@@ -365,8 +384,10 @@ impl MeleeWeapon {
             Self::Staff => Currency::dollars(5.0),
             Self::Stick => Currency::dollars(5.0),
             Self::Tanto => Currency::dollars(30.0),
+            Self::Tekko => Currency::dollars(15.0),
             Self::Talwar => Currency::dollars(500.0),
             Self::Tetsubo => Currency::dollars(80.0),
+            Self::Tessen => Currency::dollars(60.0),
             Self::ThreeSectionStaff => Currency::dollars(35.0),
             Self::Tonfa => Currency::dollars(20.0),
             Self::Trident => Currency::dollars(100.0),
@@ -417,6 +438,7 @@ impl MeleeWeapon {
             Self::Dagger => Weight::pounds(0.25),
             Self::Dao => Weight::pounds(3.0),
             Self::Estoc => Weight::pounds(3.5),
+            Self::Eku => Weight::pounds(6.0),
             Self::Falchion => Weight::pounds(3.5),
             Self::Falx => Weight::pounds(4.0),
             Self::Fauchard => Weight::pounds(8.0),
@@ -433,6 +455,7 @@ impl MeleeWeapon {
             Self::Hatchet => Weight::pounds(2.0),
             Self::HorsemansMace => Weight::pounds(3.0),
             Self::HorsemansPick => Weight::pounds(2.5),
+            Self::HungaMunga => Weight::pounds(3.0),
             Self::Iklwa => Weight::pounds(2.0),
             Self::Javelin => Weight::pounds(2.0),
             Self::Jitte => Weight::pounds(1.5),
@@ -447,6 +470,7 @@ impl MeleeWeapon {
             Self::Knife => Weight::pounds(1.0),
             Self::Kopesh => Weight::pounds(3.5),
             Self::Kopis => Weight::pounds(2.5),
+            Self::Konda => Weight::pounds(1.5),
             Self::Kusarigama => Weight::pounds(3.0),
             Self::Kusari => Weight::pounds(5.0),
             Self::LargeKnife => Weight::pounds(1.5),
@@ -465,6 +489,7 @@ impl MeleeWeapon {
             Self::Morningstar => Weight::pounds(6.0),
             Self::Naginata => Weight::pounds(9.0),
             Self::Nunchaku => Weight::pounds(1.5),
+            Self::NuntiBo => Weight::pounds(5.0),
             Self::Pick => Weight::pounds(3.0),
             Self::Pitchfork => Weight::pounds(4.0),
             Self::Pike => Weight::pounds(13.0),
@@ -475,6 +500,7 @@ impl MeleeWeapon {
             Self::Rapier => Weight::pounds(2.75),
             Self::Ranseur => Weight::pounds(7.0),
             Self::Saber => Weight::pounds(2.0),
+            Self::Sasumata => Weight::pounds(6.0),
             Self::Seax => Weight::pounds(2.0),
             Self::Shamshir => Weight::pounds(2.5),
             Self::Sai => Weight::pounds(1.0),
@@ -491,8 +517,10 @@ impl MeleeWeapon {
             Self::Staff => Weight::pounds(4.0),
             Self::Stick => Weight::pounds(2.0),
             Self::Tanto => Weight::pounds(0.5),
+            Self::Tekko => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
             Self::Tetsubo => Weight::pounds(10.0),
+            Self::Tessen => Weight::pounds(1.0),
             Self::ThreeSectionStaff => Weight::pounds(4.0),
             Self::Tonfa => Weight::pounds(1.5),
             Self::Trident => Weight::pounds(4.0),
@@ -543,6 +571,7 @@ impl MeleeWeapon {
             Self::Dagger => TechLevel::new(1),         // Bronze Age
             Self::Dao => TechLevel::new(2),         // Iron Age
             Self::Estoc => TechLevel::new(3),          // Late Medieval
+            Self::Eku => TechLevel::new(0),         // Stone Age
             Self::Falchion => TechLevel::new(2),       // Medieval
             Self::Falx => TechLevel::new(1),        // Dacian/Iron Age
             Self::Fauchard => TechLevel::new(3),    // Medieval
@@ -559,6 +588,7 @@ impl MeleeWeapon {
             Self::Hatchet => TechLevel::new(0),        // Stone Age
             Self::HorsemansMace => TechLevel::new(2), // Medieval
             Self::HorsemansPick => TechLevel::new(2), // Medieval
+            Self::HungaMunga => TechLevel::new(0),  // African/Stone Age
             Self::Iklwa => TechLevel::new(0),       // Stone Age
             Self::Javelin => TechLevel::new(0),        // Stone Age
             Self::Jitte => TechLevel::new(3),
@@ -573,6 +603,7 @@ impl MeleeWeapon {
             Self::Knife => TechLevel::new(0),          // Stone Age
             Self::Kopesh => TechLevel::new(1),         // Egyptian Bronze Age
             Self::Kopis => TechLevel::new(1),       // Greek/Iron Age
+            Self::Konda => TechLevel::new(0),       // African/Stone Age
             Self::Kusarigama => TechLevel::new(3),  // Medieval Japan
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
             Self::LargeKnife => TechLevel::new(1),     // Bronze Age
@@ -591,6 +622,7 @@ impl MeleeWeapon {
             Self::Morningstar => TechLevel::new(2),    // Medieval
             Self::Naginata => TechLevel::new(3),
             Self::Nunchaku => TechLevel::new(2),       // Medieval
+            Self::NuntiBo => TechLevel::new(2),     // Medieval Japan
             Self::Pick => TechLevel::new(2),           // Medieval
             Self::Pitchfork => TechLevel::new(0),   // Stone Age
             Self::Pike => TechLevel::new(2),
@@ -601,6 +633,7 @@ impl MeleeWeapon {
             Self::Rapier => TechLevel::new(4),         // Renaissance
             Self::Ranseur => TechLevel::new(3),     // Medieval
             Self::Saber => TechLevel::new(4),
+            Self::Sasumata => TechLevel::new(3),    // Medieval Japan
             Self::Seax => TechLevel::new(2),        // Iron Age
             Self::Shamshir => TechLevel::new(3),    // Medieval          // Age of Sail
             Self::Sai => TechLevel::new(2),            // Medieval
@@ -617,8 +650,10 @@ impl MeleeWeapon {
             Self::Staff => TechLevel::new(0),          // Stone Age
             Self::Stick => TechLevel::new(0),
             Self::Tanto => TechLevel::new(3),          // Japanese
+            Self::Tekko => TechLevel::new(0),       // Okinawan/Stone Age
             Self::Talwar => TechLevel::new(2),         // Iron Age
             Self::Tetsubo => TechLevel::new(2),     // Medieval Japan
+            Self::Tessen => TechLevel::new(3),      // Japanese Renaissance
             Self::ThreeSectionStaff => TechLevel::new(2), // Medieval China
             Self::Tonfa => TechLevel::new(0),          // Stone Age
             Self::Trident => TechLevel::new(0),        // Stone Age
@@ -762,6 +797,10 @@ impl MeleeWeapon {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
             },
+            Self::Eku => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Crushing,
+            },
             Self::Falchion => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
@@ -826,6 +865,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
             },
+            Self::HungaMunga => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Cutting,
+            },
             Self::Iklwa => WeaponDamage::Thrust {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
@@ -880,6 +923,10 @@ impl MeleeWeapon {
             },
             Self::Kopis => WeaponDamage::Swing {
                 modifier: 1,
+                damage_type: DamageType::Cutting,
+            },
+            Self::Konda => WeaponDamage::Swing {
+                modifier: 0,
                 damage_type: DamageType::Cutting,
             },
             Self::Kusarigama => WeaponDamage::Swing {
@@ -954,6 +1001,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
             },
+            Self::NuntiBo => WeaponDamage::Thrust {
+                modifier: 2,
+                damage_type: DamageType::Impaling,
+            },
             Self::Pick => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
@@ -993,6 +1044,10 @@ impl MeleeWeapon {
             Self::Saber => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Sasumata => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::Seax => WeaponDamage::Swing {
                 modifier: 0,
@@ -1058,12 +1113,20 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
+            Self::Tekko => WeaponDamage::Thrust {
+                modifier: -1,
+                damage_type: DamageType::Crushing,
+            },
             Self::Talwar => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
             },
             Self::Tetsubo => WeaponDamage::Swing {
                 modifier: 3,
+                damage_type: DamageType::Crushing,
+            },
+            Self::Tessen => WeaponDamage::Swing {
+                modifier: 0,
                 damage_type: DamageType::Crushing,
             },
             Self::ThreeSectionStaff => WeaponDamage::Swing {
@@ -1149,6 +1212,7 @@ impl MeleeWeapon {
             Self::Dagger => Reach::Close,
             Self::Dao => Reach::One,
             Self::Estoc => Reach::One,
+            Self::Eku => Reach::OneTwo,
             Self::Falchion => Reach::One,
             Self::Falx => Reach::One,
             Self::Fauchard => Reach::TwoThree,
@@ -1165,6 +1229,7 @@ impl MeleeWeapon {
             Self::Hatchet => Reach::One,
             Self::HorsemansMace => Reach::One,
             Self::HorsemansPick => Reach::One,
+            Self::HungaMunga => Reach::One,
             Self::Iklwa => Reach::One,
             Self::Javelin => Reach::One,
             Self::Jitte => Reach::One,
@@ -1179,6 +1244,7 @@ impl MeleeWeapon {
             Self::Knife => Reach::Close,
             Self::Kopesh => Reach::One,
             Self::Kopis => Reach::One,
+            Self::Konda => Reach::One,
             Self::Kusarigama => Reach::OneThree,
             Self::Kusari => Reach::OneThree,
             Self::LargeKnife => Reach::CloseOne,
@@ -1197,6 +1263,7 @@ impl MeleeWeapon {
             Self::Morningstar => Reach::One,
             Self::Naginata => Reach::TwoThree,
             Self::Nunchaku => Reach::One,
+            Self::NuntiBo => Reach::OneTwo,
             Self::Pick => Reach::One,
             Self::Pitchfork => Reach::One,
             Self::Pike => Reach::TwoThree,
@@ -1207,6 +1274,7 @@ impl MeleeWeapon {
             Self::Rapier => Reach::One,
             Self::Ranseur => Reach::TwoThree,
             Self::Saber => Reach::One,
+            Self::Sasumata => Reach::TwoThree,
             Self::Seax => Reach::One,
             Self::Shamshir => Reach::One,
             Self::Sai => Reach::Close,
@@ -1223,8 +1291,10 @@ impl MeleeWeapon {
             Self::Staff => Reach::OneTwo,
             Self::Stick => Reach::One,
             Self::Tanto => Reach::Close,
+            Self::Tekko => Reach::Close,
             Self::Talwar => Reach::One,
             Self::Tetsubo => Reach::OneTwo,
+            Self::Tessen => Reach::Close,
             Self::ThreeSectionStaff => Reach::OneTwo,
             Self::Tonfa => Reach::One,
             Self::Trident => Reach::OneTwo,
@@ -1275,6 +1345,7 @@ impl MeleeWeapon {
             Self::Dagger => -1,
             Self::Dao => 0,
             Self::Estoc => 1,
+            Self::Eku => 2,
             Self::Falchion => 0,
             Self::Falx => -1,
             Self::Fauchard => 0,
@@ -1291,6 +1362,7 @@ impl MeleeWeapon {
             Self::Hatchet => -1,
             Self::HorsemansMace => 0,
             Self::HorsemansPick => -1,
+            Self::HungaMunga => -2,
             Self::Iklwa => 0,
             Self::Javelin => 0,
             Self::Jitte => 1,
@@ -1305,6 +1377,7 @@ impl MeleeWeapon {
             Self::Knife => -1,
             Self::Kopesh => 0,
             Self::Kopis => 0,
+            Self::Konda => -2,
             Self::Kusarigama => -2,
             Self::Kusari => -2,
             Self::LargeKnife => -1,
@@ -1323,6 +1396,7 @@ impl MeleeWeapon {
             Self::Morningstar => 0,
             Self::Naginata => 1,
             Self::Nunchaku => -2,
+            Self::NuntiBo => 1,
             Self::Pick => -1,
             Self::Pitchfork => 0,
             Self::Pike => 0,
@@ -1333,6 +1407,7 @@ impl MeleeWeapon {
             Self::Rapier => 1,
             Self::Ranseur => 0,
             Self::Saber => 0,
+            Self::Sasumata => 0,
             Self::Seax => 0,
             Self::Shamshir => 0,
             Self::Sai => 1,
@@ -1349,8 +1424,10 @@ impl MeleeWeapon {
             Self::Staff => 2,
             Self::Stick => 1,
             Self::Tanto => -1,
+            Self::Tekko => 0,
             Self::Talwar => 0,
             Self::Tetsubo => -2,
+            Self::Tessen => 1,
             Self::ThreeSectionStaff => -2,
             Self::Tonfa => 1,
             Self::Trident => 0,
@@ -1401,6 +1478,7 @@ impl MeleeWeapon {
             Self::Dagger => Skill::Knife,
             Self::Dao => Skill::Broadsword,
             Self::Estoc => Skill::Rapier,
+            Self::Eku => Skill::Staff,
             Self::Falchion => Skill::Broadsword,
             Self::Falx => Skill::TwoHandedAxeMace,
             Self::Fauchard => Skill::Polearm,
@@ -1417,6 +1495,7 @@ impl MeleeWeapon {
             Self::Hatchet => Skill::AxeMace,
             Self::HorsemansMace => Skill::AxeMace,
             Self::HorsemansPick => Skill::AxeMace,
+            Self::HungaMunga => Skill::ThrownWeapon,
             Self::Iklwa => Skill::Spear,
             Self::Javelin => Skill::Spear,
             Self::Jitte => Skill::MainGauche,
@@ -1431,6 +1510,7 @@ impl MeleeWeapon {
             Self::Knife => Skill::Knife,
             Self::Kopesh => Skill::Broadsword,
             Self::Kopis => Skill::Broadsword,
+            Self::Konda => Skill::ThrownWeapon,
             Self::Kusarigama => Skill::Flail,
             Self::Kusari => Skill::Kusari,
             Self::LargeKnife => Skill::Knife,
@@ -1449,6 +1529,7 @@ impl MeleeWeapon {
             Self::Morningstar => Skill::Flail,
             Self::Naginata => Skill::Polearm,
             Self::Nunchaku => Skill::Flail,
+            Self::NuntiBo => Skill::Spear,
             Self::Pick => Skill::AxeMace,
             Self::Pitchfork => Skill::Spear,
             Self::Pike => Skill::Spear,
@@ -1459,6 +1540,7 @@ impl MeleeWeapon {
             Self::Rapier => Skill::Rapier,
             Self::Ranseur => Skill::Polearm,
             Self::Saber => Skill::Saber,
+            Self::Sasumata => Skill::Polearm,
             Self::Seax => Skill::Shortsword,
             Self::Shamshir => Skill::Saber,
             Self::Sai => Skill::Knife,
@@ -1475,8 +1557,10 @@ impl MeleeWeapon {
             Self::Staff => Skill::Staff,
             Self::Stick => Skill::Staff,
             Self::Tanto => Skill::Knife,
+            Self::Tekko => Skill::Brawling,
             Self::Talwar => Skill::Broadsword,
             Self::Tetsubo => Skill::TwoHandedAxeMace,
+            Self::Tessen => Skill::Shortsword,
             Self::ThreeSectionStaff => Skill::Flail,
             Self::Tonfa => Skill::Shortsword,
             Self::Trident => Skill::Spear,
