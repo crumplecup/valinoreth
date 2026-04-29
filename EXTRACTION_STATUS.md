@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
 **Last Updated:** 2026-04-28
-**Current Total:** 287 items (BS COMPLETE! LT Phase 2 In Progress)
+**Current Total:** 294 items (BS COMPLETE! LT Phase 2 In Progress)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -55,13 +55,13 @@
 | Category | Current | BS Missing | LT Added | LT Remaining | Total Target |
 |----------|---------|-----------|----------|--------------|--------------|
 | MeleeWeapon | 118 | 0 (BS complete) | 56 | ~4 | ~129 |
-| RangedWeapon | 38 | 0 (BS complete) | 0 | ~40 | ~78 |
+| RangedWeapon | 45 | 0 (BS complete) | 7 | ~33 | ~78 |
 | Armor | 27 | 0 (BS complete) | 0 | ~30 | ~57 |
 | Clothing | 30 | 0 (BS complete) | 0 | ~20 | ~50 |
 | Container | 24 | 0 (BS complete) | 0 | ~15 | ~39 |
 | Tool | 22 | 0 (BS complete) | 0 | ~25 | ~47 |
 | SurvivalGear | 21 | 0 (BS complete) | 0 | ~15 | ~36 |
-| **TOTAL** | **287** | **0 (BS COMPLETE!)** | **56** | **~149** | **~436** |
+| **TOTAL** | **294** | **0 (BS COMPLETE!)** | **63** | **~142** | **~436** |
 
 ## Extraction Checklists Created
 
@@ -137,7 +137,7 @@
 - **All Basic Set categories: COMPLETE** ✓
 
 - **Phase 2: LOW-TECH IN PROGRESS!** 🚀
-- Items added 2026-04-28: 56 Low-Tech melee weapons (8 batches)
+- Items added 2026-04-28: 63 Low-Tech weapons (8 melee batches + 1 ranged batch)
   - Low-Tech Polearms Batch 1: 7 items (Bardiche, Bill, Billhook, Fauchard, Guisarme, Partisan, Voulge)
   - Low-Tech Regional Swords Batch 2: 7 items (Dao, Jian, Khanda, Kilij, Seax, Shamshir, Talwar)
   - Low-Tech Axes/Agricultural Batch 3: 7 items (BeardedAxe, BecDeCorbin, Francisca, LucerneHammer, Pitchfork, Scythe, Sickle)
@@ -146,4 +146,5 @@
   - Low-Tech Cultural/Bronze Age Batch 6: 7 items (ArmingSword, Falx, Kama, Kopis, Kusarigama, Messer, Ranseur)
   - Low-Tech Regional/Tribal Batch 7: 7 items (Assegai, Cinquedea, Iklwa, Macuahuitl, Sodegarami, Spetum, Xiphos)
   - Low-Tech Final Melee Batch 8: 7 items (Eku, HungaMunga, Konda, NuntiBo, Sasumata, Tekko, Tessen)
-- Phase 2 remaining: ~149 Low-Tech items
+  - Low-Tech Ranged Batch 1: 7 items (Chakram, Gastraphetes, HandCannon, Plumbata, RecurveBow, RepeatingCrossbow, Warbow)
+- Phase 2 remaining: ~142 Low-Tech items
