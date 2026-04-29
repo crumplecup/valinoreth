@@ -20,6 +20,8 @@ pub enum MeleeWeapon {
     Axe,
     /// Angon, thrust+2 impaling, reach 1. LT (barbed javelin)
     Angon,
+    /// Arming sword, swing+1 cutting, reach 1. LT (one-handed knight's sword)
+    ArmingSword,
     /// Awl pike, thrust+3 impaling, reach 4-5. LT (heavy pike)
     AwlPike,
     /// Baton, swing crushing, reach 1. BS 271
@@ -74,6 +76,8 @@ pub enum MeleeWeapon {
     Estoc,
     /// Falchion, swing+2 cutting, reach 1. BS 271
     Falchion,
+    /// Falx, swing+3 cutting, reach 1. LT (Dacian curved blade)
+    Falx,
     /// Fauchard, swing+3 cutting, reach 2-3. LT
     Fauchard,
     /// Fist, thrust-1 crushing, reach C. BS 271
@@ -110,6 +114,8 @@ pub enum MeleeWeapon {
     Jian,
     /// Jo, swing+1 crushing, reach 1. LT (Japanese short staff)
     Jo,
+    /// Kama, swing cutting, reach 1. LT (Japanese sickle weapon)
+    Kama,
     /// Katana, swing+1 cutting, reach 1. BS 271
     Katana,
     /// Katar, thrust+1 impaling, reach C. BS 271
@@ -124,6 +130,10 @@ pub enum MeleeWeapon {
     Knife,
     /// Kopesh, swing+1 cutting, reach 1. BS 271
     Kopesh,
+    /// Kopis, swing+1 cutting, reach 1. LT (Greek chopping sword)
+    Kopis,
+    /// Kusarigama, swing+2 cutting, reach 1-3. LT (chain-sickle)
+    Kusarigama,
     /// Kusari, swing+1 crushing, reach 1-3. BS 271
     Kusari,
     /// Large knife, swing-1 cutting, reach C-1. BS 271
@@ -144,6 +154,8 @@ pub enum MeleeWeapon {
     MainGauche,
     /// Maul, swing+4 crushing, reach 1-2. BS 271
     Maul,
+    /// Messer, swing+1 cutting, reach 1. LT (German knife-sword)
+    Messer,
     /// Mattock, swing+2 impaling, reach 1. BS 289
     Mattock,
     /// Military flail, swing+3 crushing, reach 1-2. LT (heavy war flail)
@@ -170,6 +182,8 @@ pub enum MeleeWeapon {
     Quarterstaff,
     /// Rapier, thrust+1 impaling, reach 1. BS 271
     Rapier,
+    /// Ranseur, thrust+2 impaling, reach 2-3. LT (pole weapon with side blades)
+    Ranseur,
     /// Saber, swing+1 cutting, reach 1. BS 271
     Saber,
     /// Seax, swing cutting, reach 1. LT (Germanic short sword)
@@ -234,6 +248,7 @@ impl MeleeWeapon {
         match self {
             Self::Axe => Currency::dollars(50.0),
             Self::Angon => Currency::dollars(40.0),
+            Self::ArmingSword => Currency::dollars(400.0),
             Self::AwlPike => Currency::dollars(100.0),
             Self::Baton => Currency::dollars(20.0),
             Self::BattleAxe => Currency::dollars(50.0),
@@ -261,6 +276,7 @@ impl MeleeWeapon {
             Self::Dao => Currency::dollars(400.0),
             Self::Estoc => Currency::dollars(600.0),
             Self::Falchion => Currency::dollars(400.0),
+            Self::Falx => Currency::dollars(350.0),
             Self::Fauchard => Currency::dollars(90.0),
             Self::Fist => Currency::dollars(0.0),
             Self::Francisca => Currency::dollars(50.0),
@@ -279,6 +295,7 @@ impl MeleeWeapon {
             Self::Jitte => Currency::dollars(50.0),
             Self::Jian => Currency::dollars(500.0),
             Self::Jo => Currency::dollars(5.0),
+            Self::Kama => Currency::dollars(40.0),
             Self::Katana => Currency::dollars(650.0),
             Self::Katar => Currency::dollars(40.0),
             Self::Khanda => Currency::dollars(500.0),
@@ -286,6 +303,8 @@ impl MeleeWeapon {
             Self::Kick => Currency::dollars(0.0),
             Self::Knife => Currency::dollars(40.0),
             Self::Kopesh => Currency::dollars(200.0),
+            Self::Kopis => Currency::dollars(300.0),
+            Self::Kusarigama => Currency::dollars(250.0),
             Self::Kusari => Currency::dollars(70.0),
             Self::LargeKnife => Currency::dollars(60.0),
             Self::Lasso => Currency::dollars(20.0),
@@ -296,6 +315,7 @@ impl MeleeWeapon {
             Self::Mace => Currency::dollars(50.0),
             Self::MainGauche => Currency::dollars(50.0),
             Self::Maul => Currency::dollars(80.0),
+            Self::Messer => Currency::dollars(350.0),
             Self::Mattock => Currency::dollars(25.0),
             Self::MilitaryFlail => Currency::dollars(100.0),
             Self::Morningstar => Currency::dollars(80.0),
@@ -309,6 +329,7 @@ impl MeleeWeapon {
             Self::Partisan => Currency::dollars(100.0),
             Self::Quarterstaff => Currency::dollars(10.0),
             Self::Rapier => Currency::dollars(500.0),
+            Self::Ranseur => Currency::dollars(90.0),
             Self::Saber => Currency::dollars(500.0),
             Self::Seax => Currency::dollars(300.0),
             Self::Shamshir => Currency::dollars(500.0),
@@ -346,6 +367,7 @@ impl MeleeWeapon {
         match self {
             Self::Axe => Weight::pounds(4.0),
             Self::Angon => Weight::pounds(3.0),
+            Self::ArmingSword => Weight::pounds(2.5),
             Self::AwlPike => Weight::pounds(15.0),
             Self::Baton => Weight::pounds(1.0),
             Self::BattleAxe => Weight::pounds(6.0),
@@ -373,6 +395,7 @@ impl MeleeWeapon {
             Self::Dao => Weight::pounds(3.0),
             Self::Estoc => Weight::pounds(3.5),
             Self::Falchion => Weight::pounds(3.5),
+            Self::Falx => Weight::pounds(4.0),
             Self::Fauchard => Weight::pounds(8.0),
             Self::Fist => Weight::pounds(0.0),
             Self::Francisca => Weight::pounds(3.0),
@@ -391,6 +414,7 @@ impl MeleeWeapon {
             Self::Jitte => Weight::pounds(1.5),
             Self::Jian => Weight::pounds(2.5),
             Self::Jo => Weight::pounds(2.0),
+            Self::Kama => Weight::pounds(1.5),
             Self::Katana => Weight::pounds(2.5),
             Self::Katar => Weight::pounds(1.0),
             Self::Khanda => Weight::pounds(3.0),
@@ -398,6 +422,8 @@ impl MeleeWeapon {
             Self::Kick => Weight::pounds(0.0),
             Self::Knife => Weight::pounds(1.0),
             Self::Kopesh => Weight::pounds(3.5),
+            Self::Kopis => Weight::pounds(2.5),
+            Self::Kusarigama => Weight::pounds(3.0),
             Self::Kusari => Weight::pounds(5.0),
             Self::LargeKnife => Weight::pounds(1.5),
             Self::Lasso => Weight::pounds(3.0),
@@ -408,6 +434,7 @@ impl MeleeWeapon {
             Self::Mace => Weight::pounds(5.0),
             Self::MainGauche => Weight::pounds(1.25),
             Self::Maul => Weight::pounds(12.0),
+            Self::Messer => Weight::pounds(2.5),
             Self::Mattock => Weight::pounds(6.0),
             Self::MilitaryFlail => Weight::pounds(10.0),
             Self::Morningstar => Weight::pounds(6.0),
@@ -421,6 +448,7 @@ impl MeleeWeapon {
             Self::Partisan => Weight::pounds(7.0),
             Self::Quarterstaff => Weight::pounds(4.0),
             Self::Rapier => Weight::pounds(2.75),
+            Self::Ranseur => Weight::pounds(7.0),
             Self::Saber => Weight::pounds(2.0),
             Self::Seax => Weight::pounds(2.0),
             Self::Shamshir => Weight::pounds(2.5),
@@ -458,6 +486,7 @@ impl MeleeWeapon {
         match self {
             Self::Axe => TechLevel::new(0),            // Stone Age
             Self::Angon => TechLevel::new(1),       // Iron Age
+            Self::ArmingSword => TechLevel::new(3), // Medieval
             Self::AwlPike => TechLevel::new(3),     // Medieval
             Self::Baton => TechLevel::new(5),          // Modern (police baton)
             Self::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
@@ -485,6 +514,7 @@ impl MeleeWeapon {
             Self::Dao => TechLevel::new(2),         // Iron Age
             Self::Estoc => TechLevel::new(3),          // Late Medieval
             Self::Falchion => TechLevel::new(2),       // Medieval
+            Self::Falx => TechLevel::new(1),        // Dacian/Iron Age
             Self::Fauchard => TechLevel::new(3),    // Medieval
             Self::Fist => TechLevel::new(0),           // Stone Age
             Self::Francisca => TechLevel::new(2),   // Iron Age
@@ -503,6 +533,7 @@ impl MeleeWeapon {
             Self::Jitte => TechLevel::new(3),
             Self::Jian => TechLevel::new(2),        // Iron Age          // Japanese feudal
             Self::Jo => TechLevel::new(0),          // Stone Age
+            Self::Kama => TechLevel::new(2),        // Medieval Japan
             Self::Katana => TechLevel::new(3),         // Medieval Japan
             Self::Katar => TechLevel::new(2),
             Self::Khanda => TechLevel::new(2),      // Iron Age
@@ -510,6 +541,8 @@ impl MeleeWeapon {
             Self::Kick => TechLevel::new(0),           // Stone Age
             Self::Knife => TechLevel::new(0),          // Stone Age
             Self::Kopesh => TechLevel::new(1),         // Egyptian Bronze Age
+            Self::Kopis => TechLevel::new(1),       // Greek/Iron Age
+            Self::Kusarigama => TechLevel::new(3),  // Medieval Japan
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
             Self::LargeKnife => TechLevel::new(1),     // Bronze Age
             Self::Lasso => TechLevel::new(0),          // Stone Age
@@ -520,6 +553,7 @@ impl MeleeWeapon {
             Self::Mace => TechLevel::new(1),           // Bronze Age
             Self::MainGauche => TechLevel::new(4),     // Renaissance
             Self::Maul => TechLevel::new(1),           // Bronze/Iron Age
+            Self::Messer => TechLevel::new(3),      // Late Medieval
             Self::Mattock => TechLevel::new(1),        // Bronze/Iron Age
             Self::MilitaryFlail => TechLevel::new(2), // Medieval
             Self::Morningstar => TechLevel::new(2),    // Medieval
@@ -533,6 +567,7 @@ impl MeleeWeapon {
             Self::Partisan => TechLevel::new(3),    // Medieval
             Self::Quarterstaff => TechLevel::new(0),   // Stone Age
             Self::Rapier => TechLevel::new(4),         // Renaissance
+            Self::Ranseur => TechLevel::new(3),     // Medieval
             Self::Saber => TechLevel::new(4),
             Self::Seax => TechLevel::new(2),        // Iron Age
             Self::Shamshir => TechLevel::new(3),    // Medieval          // Age of Sail
@@ -575,6 +610,10 @@ impl MeleeWeapon {
             Self::Angon => WeaponDamage::Thrust {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
+            },
+            Self::ArmingSword => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Cutting,
             },
             Self::AwlPike => WeaponDamage::Thrust {
                 modifier: 3,
@@ -684,6 +723,10 @@ impl MeleeWeapon {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
             },
+            Self::Falx => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Cutting,
+            },
             Self::Fauchard => WeaponDamage::Swing {
                 modifier: 3,
                 damage_type: DamageType::Cutting,
@@ -756,6 +799,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
             },
+            Self::Kama => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Cutting,
+            },
             Self::Katana => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
@@ -782,6 +829,14 @@ impl MeleeWeapon {
             },
             Self::Kopesh => WeaponDamage::Swing {
                 modifier: 1,
+                damage_type: DamageType::Cutting,
+            },
+            Self::Kopis => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Cutting,
+            },
+            Self::Kusarigama => WeaponDamage::Swing {
+                modifier: 2,
                 damage_type: DamageType::Cutting,
             },
             Self::Kusari => WeaponDamage::Swing {
@@ -823,6 +878,10 @@ impl MeleeWeapon {
             Self::Maul => WeaponDamage::Swing {
                 modifier: 4,
                 damage_type: DamageType::Crushing,
+            },
+            Self::Messer => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Cutting,
             },
             Self::Mattock => WeaponDamage::Swing {
                 modifier: 2,
@@ -874,6 +933,10 @@ impl MeleeWeapon {
             },
             Self::Rapier => WeaponDamage::Thrust {
                 modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
+            Self::Ranseur => WeaponDamage::Thrust {
+                modifier: 2,
                 damage_type: DamageType::Impaling,
             },
             Self::Saber => WeaponDamage::Swing {
@@ -994,6 +1057,7 @@ impl MeleeWeapon {
         match self {
             Self::Axe => Reach::One,
             Self::Angon => Reach::One,
+            Self::ArmingSword => Reach::One,
             Self::AwlPike => Reach::TwoThree,
             Self::Baton => Reach::One,
             Self::BattleAxe => Reach::One,
@@ -1021,6 +1085,7 @@ impl MeleeWeapon {
             Self::Dao => Reach::One,
             Self::Estoc => Reach::One,
             Self::Falchion => Reach::One,
+            Self::Falx => Reach::One,
             Self::Fauchard => Reach::TwoThree,
             Self::Fist => Reach::Close,
             Self::Francisca => Reach::One,
@@ -1039,6 +1104,7 @@ impl MeleeWeapon {
             Self::Jitte => Reach::One,
             Self::Jian => Reach::One,
             Self::Jo => Reach::One,
+            Self::Kama => Reach::One,
             Self::Katana => Reach::One,
             Self::Katar => Reach::Close,
             Self::Khanda => Reach::One,
@@ -1046,6 +1112,8 @@ impl MeleeWeapon {
             Self::Kick => Reach::CloseOne,
             Self::Knife => Reach::Close,
             Self::Kopesh => Reach::One,
+            Self::Kopis => Reach::One,
+            Self::Kusarigama => Reach::OneThree,
             Self::Kusari => Reach::OneThree,
             Self::LargeKnife => Reach::CloseOne,
             Self::Lasso => Reach::OneTwo,
@@ -1056,6 +1124,7 @@ impl MeleeWeapon {
             Self::Mace => Reach::One,
             Self::MainGauche => Reach::One,
             Self::Maul => Reach::OneTwo,
+            Self::Messer => Reach::One,
             Self::Mattock => Reach::One,
             Self::MilitaryFlail => Reach::OneTwo,
             Self::Morningstar => Reach::One,
@@ -1069,6 +1138,7 @@ impl MeleeWeapon {
             Self::Partisan => Reach::TwoThree,
             Self::Quarterstaff => Reach::OneTwo,
             Self::Rapier => Reach::One,
+            Self::Ranseur => Reach::TwoThree,
             Self::Saber => Reach::One,
             Self::Seax => Reach::One,
             Self::Shamshir => Reach::One,
@@ -1106,6 +1176,7 @@ impl MeleeWeapon {
         match self {
             Self::Axe => -1,
             Self::Angon => 0,
+            Self::ArmingSword => 0,
             Self::AwlPike => 0,
             Self::Baton => 0,
             Self::BattleAxe => -1,
@@ -1133,6 +1204,7 @@ impl MeleeWeapon {
             Self::Dao => 0,
             Self::Estoc => 1,
             Self::Falchion => 0,
+            Self::Falx => -1,
             Self::Fauchard => 0,
             Self::Fist => 0,
             Self::Francisca => -1,
@@ -1151,6 +1223,7 @@ impl MeleeWeapon {
             Self::Jitte => 1,
             Self::Jian => 0,
             Self::Jo => 1,
+            Self::Kama => -1,
             Self::Katana => 0,
             Self::Katar => 0,
             Self::Khanda => 0,
@@ -1158,6 +1231,8 @@ impl MeleeWeapon {
             Self::Kick => -2,
             Self::Knife => -1,
             Self::Kopesh => 0,
+            Self::Kopis => 0,
+            Self::Kusarigama => -2,
             Self::Kusari => -2,
             Self::LargeKnife => -1,
             Self::Lasso => -2,
@@ -1168,6 +1243,7 @@ impl MeleeWeapon {
             Self::Mace => 0,
             Self::MainGauche => 1,
             Self::Maul => -2,
+            Self::Messer => 0,
             Self::Mattock => -1,
             Self::MilitaryFlail => -2,
             Self::Morningstar => 0,
@@ -1181,6 +1257,7 @@ impl MeleeWeapon {
             Self::Partisan => 0,
             Self::Quarterstaff => 2,
             Self::Rapier => 1,
+            Self::Ranseur => 0,
             Self::Saber => 0,
             Self::Seax => 0,
             Self::Shamshir => 0,
@@ -1218,6 +1295,7 @@ impl MeleeWeapon {
         match self {
             Self::Axe => Skill::AxeMace,
             Self::Angon => Skill::Spear,
+            Self::ArmingSword => Skill::Broadsword,
             Self::AwlPike => Skill::Spear,
             Self::Baton => Skill::Shortsword,
             Self::BattleAxe => Skill::AxeMace,
@@ -1245,6 +1323,7 @@ impl MeleeWeapon {
             Self::Dao => Skill::Broadsword,
             Self::Estoc => Skill::Rapier,
             Self::Falchion => Skill::Broadsword,
+            Self::Falx => Skill::TwoHandedAxeMace,
             Self::Fauchard => Skill::Polearm,
             Self::Fist => Skill::Brawling,
             Self::Francisca => Skill::AxeMace,
@@ -1263,6 +1342,7 @@ impl MeleeWeapon {
             Self::Jitte => Skill::MainGauche,
             Self::Jian => Skill::Shortsword,
             Self::Jo => Skill::Staff,
+            Self::Kama => Skill::Knife,
             Self::Katana => Skill::TwoHandedSword,
             Self::Katar => Skill::Knife,
             Self::Khanda => Skill::Broadsword,
@@ -1270,6 +1350,8 @@ impl MeleeWeapon {
             Self::Kick => Skill::Brawling,
             Self::Knife => Skill::Knife,
             Self::Kopesh => Skill::Broadsword,
+            Self::Kopis => Skill::Broadsword,
+            Self::Kusarigama => Skill::Flail,
             Self::Kusari => Skill::Kusari,
             Self::LargeKnife => Skill::Knife,
             Self::Lasso => Skill::ThrownWeapon,
@@ -1280,6 +1362,7 @@ impl MeleeWeapon {
             Self::Mace => Skill::AxeMace,
             Self::MainGauche => Skill::MainGauche,
             Self::Maul => Skill::TwoHandedAxeMace,
+            Self::Messer => Skill::Broadsword,
             Self::Mattock => Skill::AxeMace,
             Self::MilitaryFlail => Skill::Flail,
             Self::Morningstar => Skill::Flail,
@@ -1293,6 +1376,7 @@ impl MeleeWeapon {
             Self::Partisan => Skill::Polearm,
             Self::Quarterstaff => Skill::Staff,
             Self::Rapier => Skill::Rapier,
+            Self::Ranseur => Skill::Polearm,
             Self::Saber => Skill::Saber,
             Self::Seax => Skill::Shortsword,
             Self::Shamshir => Skill::Saber,

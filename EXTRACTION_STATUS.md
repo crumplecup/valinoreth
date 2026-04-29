@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
 **Last Updated:** 2026-04-28
-**Current Total:** 266 items (BS COMPLETE! LT Phase 2 In Progress)
+**Current Total:** 273 items (BS COMPLETE! LT Phase 2 In Progress)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -25,7 +25,8 @@
 - [x] Historical weapons - Axes & agricultural batch 3 (7 items) ✓
 - [x] Historical weapons - Flails & exotic batch 4 (7 items) ✓
 - [x] Historical weapons - Specialized batch 5 (7 items) ✓
-- [ ] Historical weapons - Remaining (~25 items)
+- [x] Historical weapons - Cultural/Bronze Age batch 6 (7 items) ✓
+- [ ] Historical weapons - Remaining (~18 items)
 - [ ] Historical armor
 - [ ] Period equipment & tools
 - [ ] Clothing variants
@@ -52,14 +53,14 @@
 
 | Category | Current | BS Missing | LT Added | LT Remaining | Total Target |
 |----------|---------|-----------|----------|--------------|--------------|
-| MeleeWeapon | 97 | 0 (BS complete) | 35 | ~25 | ~129 |
+| MeleeWeapon | 104 | 0 (BS complete) | 42 | ~18 | ~129 |
 | RangedWeapon | 38 | 0 (BS complete) | 0 | ~40 | ~78 |
 | Armor | 27 | 0 (BS complete) | 0 | ~30 | ~57 |
 | Clothing | 30 | 0 (BS complete) | 0 | ~20 | ~50 |
 | Container | 24 | 0 (BS complete) | 0 | ~15 | ~39 |
 | Tool | 22 | 0 (BS complete) | 0 | ~25 | ~47 |
 | SurvivalGear | 21 | 0 (BS complete) | 0 | ~15 | ~36 |
-| **TOTAL** | **266** | **0 (BS COMPLETE!)** | **35** | **~170** | **~436** |
+| **TOTAL** | **273** | **0 (BS COMPLETE!)** | **42** | **~163** | **~436** |
 
 ## Extraction Checklists Created
 
@@ -135,10 +136,11 @@
 - **All Basic Set categories: COMPLETE** ✓
 
 - **Phase 2: LOW-TECH IN PROGRESS!** 🚀
-- Items added 2026-04-28: 35 Low-Tech melee weapons (5 batches)
+- Items added 2026-04-28: 42 Low-Tech melee weapons (6 batches)
   - Low-Tech Polearms Batch 1: 7 items (Bardiche, Bill, Billhook, Fauchard, Guisarme, Partisan, Voulge)
   - Low-Tech Regional Swords Batch 2: 7 items (Dao, Jian, Khanda, Kilij, Seax, Shamshir, Talwar)
   - Low-Tech Axes/Agricultural Batch 3: 7 items (BeardedAxe, BecDeCorbin, Francisca, LucerneHammer, Pitchfork, Scythe, Sickle)
   - Low-Tech Flails/Exotic Batch 4: 7 items (Bo, GrainFlail, Jo, MilitaryFlail, Tetsubo, ThreeSectionStaff, Urumi)
   - Low-Tech Specialized Batch 5: 7 items (Angon, AwlPike, BaghNakh, HorsemansMace, HorsemansPick, Pilum, SpikedClub)
-- Phase 2 remaining: ~170 Low-Tech items
+  - Low-Tech Cultural/Bronze Age Batch 6: 7 items (ArmingSword, Falx, Kama, Kopis, Kusarigama, Messer, Ranseur)
+- Phase 2 remaining: ~163 Low-Tech items
