@@ -24,20 +24,30 @@ pub enum Armor {
     Brigandine,
     /// Bronze plate, DR 5. BS 279
     BronzePlate,
+    /// Bronze breastplate, DR 4. LT (Partial bronze plate, TL1)
+    BronzeBreastplate,
     /// Buckler, DR 1. BS 282
     Buckler,
     /// Chainmail, DR 4. BS 279
     Chainmail,
     /// Cloth armor, DR 1. BS 279
     ClothArmor,
+    /// Coat of plates, DR 5. LT (Transitional armor, TL3)
+    CoatOfPlates,
+    /// Cuirass, DR 5. LT (Breastplate only, TL3)
+    Cuirass,
     /// Flak jacket, DR 7. BS 279
     FlakJacket,
+    /// Gambeson, DR 2. LT (Quilted armor, TL2)
+    Gambeson,
     /// Half plate, DR 5. BS 279
     HalfPlate,
     /// Heavy leather, DR 2. BS 279
     HeavyLeather,
     /// Heavy plate, DR 8. BS 279
     HeavyPlate,
+    /// Jack of plates, DR 4. LT (Plate-lined jack, TL3)
+    JackOfPlates,
     /// Lamellar armor, DR 4. BS 279
     LamellarArmor,
     /// Large shield, DR 3. BS 282
@@ -48,6 +58,10 @@ pub enum Armor {
     LightLeather,
     /// Light scale, DR 3. BS 279
     LightScale,
+    /// Linothorax, DR 2. LT (Greek linen armor, TL1)
+    Linothorax,
+    /// Lorica segmentata, DR 5. LT (Roman segmented armor, TL1)
+    LoricaSegmentata,
     /// Mail hauberk, DR 4. BS 279
     MailHauberk,
     /// Mail shirt, DR 4. BS 279
@@ -81,19 +95,26 @@ impl Armor {
             Self::BallisticVest => Currency::dollars(400.0),
             Self::BandedMail => Currency::dollars(500.0),
             Self::Brigandine => Currency::dollars(500.0),
-            Self::BronzePlate => Currency::dollars(2400.0),
+                        Self::BronzePlate => Currency::dollars(2400.0),
+            Self::BronzeBreastplate => Currency::dollars(1200.0),
             Self::Buckler => Currency::dollars(25.0),
             Self::Chainmail => Currency::dollars(550.0),
-            Self::ClothArmor => Currency::dollars(30.0),
-            Self::FlakJacket => Currency::dollars(500.0),
+                        Self::ClothArmor => Currency::dollars(30.0),
+            Self::CoatOfPlates => Currency::dollars(3000.0),
+            Self::Cuirass => Currency::dollars(1500.0),
+                        Self::FlakJacket => Currency::dollars(500.0),
+            Self::Gambeson => Currency::dollars(150.0),
             Self::HalfPlate => Currency::dollars(1500.0),
             Self::HeavyLeather => Currency::dollars(150.0),
             Self::HeavyPlate => Currency::dollars(6000.0),
+            Self::JackOfPlates => Currency::dollars(400.0),
             Self::LamellarArmor => Currency::dollars(500.0),
             Self::LargeShield => Currency::dollars(90.0),
             Self::LeatherArmor => Currency::dollars(100.0),
             Self::LightLeather => Currency::dollars(50.0),
             Self::LightScale => Currency::dollars(280.0),
+            Self::Linothorax => Currency::dollars(250.0),
+            Self::LoricaSegmentata => Currency::dollars(1500.0),
             Self::MailHauberk => Currency::dollars(600.0),
             Self::MailShirt => Currency::dollars(350.0),
             Self::MediumShield => Currency::dollars(60.0),
@@ -117,18 +138,25 @@ impl Armor {
             Self::BandedMail => Weight::pounds(35.0),
             Self::Brigandine => Weight::pounds(25.0),
             Self::BronzePlate => Weight::pounds(60.0),
+            Self::BronzeBreastplate => Weight::pounds(25.0),
             Self::Buckler => Weight::pounds(5.0),
             Self::Chainmail => Weight::pounds(35.0),
-            Self::ClothArmor => Weight::pounds(6.0),
-            Self::FlakJacket => Weight::pounds(20.0),
+                        Self::ClothArmor => Weight::pounds(6.0),
+            Self::CoatOfPlates => Weight::pounds(40.0),
+            Self::Cuirass => Weight::pounds(25.0),
+                        Self::FlakJacket => Weight::pounds(20.0),
+            Self::Gambeson => Weight::pounds(12.0),
             Self::HalfPlate => Weight::pounds(30.0),
             Self::HeavyLeather => Weight::pounds(15.0),
             Self::HeavyPlate => Weight::pounds(60.0),
+            Self::JackOfPlates => Weight::pounds(25.0),
             Self::LamellarArmor => Weight::pounds(35.0),
             Self::LargeShield => Weight::pounds(25.0),
             Self::LeatherArmor => Weight::pounds(10.0),
             Self::LightLeather => Weight::pounds(5.0),
             Self::LightScale => Weight::pounds(28.0),
+            Self::Linothorax => Weight::pounds(15.0),
+            Self::LoricaSegmentata => Weight::pounds(35.0),
             Self::MailHauberk => Weight::pounds(45.0),
             Self::MailShirt => Weight::pounds(25.0),
             Self::MediumShield => Weight::pounds(15.0),
@@ -152,18 +180,25 @@ impl Armor {
             Self::BandedMail => TechLevel::new(3),    // Medieval
             Self::Brigandine => TechLevel::new(3),    // Age of Sail
             Self::BronzePlate => TechLevel::new(1),   // Bronze Age
+            Self::BronzeBreastplate => TechLevel::new(1), // Bronze Age
             Self::Buckler => TechLevel::new(2),       // Medieval
             Self::Chainmail => TechLevel::new(2),     // Medieval
             Self::ClothArmor => TechLevel::new(1),    // Bronze Age
+            Self::CoatOfPlates => TechLevel::new(3),  // Medieval
+            Self::Cuirass => TechLevel::new(3),       // Medieval
             Self::FlakJacket => TechLevel::new(6),    // Atomic Age
+            Self::Gambeson => TechLevel::new(2),      // Medieval
             Self::HalfPlate => TechLevel::new(3),     // Age of Sail
             Self::HeavyLeather => TechLevel::new(1),  // Bronze Age
             Self::HeavyPlate => TechLevel::new(3),    // Age of Sail
+            Self::JackOfPlates => TechLevel::new(3),  // Medieval
             Self::LamellarArmor => TechLevel::new(1), // Bronze Age
             Self::LargeShield => TechLevel::new(1),   // Bronze Age
             Self::LeatherArmor => TechLevel::new(1),  // Bronze Age
             Self::LightLeather => TechLevel::new(0),  // Stone Age
             Self::LightScale => TechLevel::new(2),    // Medieval
+            Self::Linothorax => TechLevel::new(1),    // Greek/Bronze
+            Self::LoricaSegmentata => TechLevel::new(1), // Roman
             Self::MailHauberk => TechLevel::new(2),   // Medieval
             Self::MailShirt => TechLevel::new(2),     // Medieval
             Self::MediumShield => TechLevel::new(1),  // Bronze Age
@@ -186,19 +221,26 @@ impl Armor {
             Self::BallisticVest => 10, // DR 10 vs ballistic
             Self::BandedMail => 4,
             Self::Brigandine => 4,
-            Self::BronzePlate => 5,
+                        Self::BronzePlate => 5,
+            Self::BronzeBreastplate => 4,
             Self::Buckler => 1,        // DB converted to DR approximation
             Self::Chainmail => 4,
-            Self::ClothArmor => 1,
-            Self::FlakJacket => 7,     // DR 7 vs ballistic
+                        Self::ClothArmor => 1,
+            Self::CoatOfPlates => 5,
+            Self::Cuirass => 5,
+                        Self::FlakJacket => 7,
+            Self::Gambeson => 2,     // DR 7 vs ballistic
             Self::HalfPlate => 5,
             Self::HeavyLeather => 2,
-            Self::HeavyPlate => 8,
+                        Self::HeavyPlate => 8,
+            Self::JackOfPlates => 4,
             Self::LamellarArmor => 4,
             Self::LargeShield => 3,    // DB converted to DR approximation
             Self::LeatherArmor => 1,
             Self::LightLeather => 1,
-            Self::LightScale => 3,
+                        Self::LightScale => 3,
+            Self::Linothorax => 2,
+            Self::LoricaSegmentata => 5,
             Self::MailHauberk => 4,
             Self::MailShirt => 4,
             Self::MediumShield => 2,   // DB converted to DR approximation
