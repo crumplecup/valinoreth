@@ -1,7 +1,7 @@
 # GURPS Item Extraction - Status Tracker
 
 **Last Updated:** 2026-04-29
-**Current Total:** 334 items (BS COMPLETE! LT Ranged COMPLETE!)
+**Current Total:** 341 items (BS COMPLETE! LT Ranged COMPLETE!)
 **Target:** ~500+ items (wiki-complete for BS + Low-Tech)
 
 ## Systematic Approach
@@ -56,12 +56,12 @@
 |----------|---------|-----------|----------|--------------|--------------|
 | MeleeWeapon | 118 | 0 (BS complete) | 56 | ~4 | ~129 |
 | RangedWeapon | 78 | 0 (BS complete) | 40 | 0 (LT complete) | ~78 |
-| Armor | 34 | 0 (BS complete) | 7 | ~23 | ~57 |
+| Armor | 41 | 0 (BS complete) | 14 | ~16 | ~57 |
 | Clothing | 30 | 0 (BS complete) | 0 | ~20 | ~50 |
 | Container | 24 | 0 (BS complete) | 0 | ~15 | ~39 |
 | Tool | 22 | 0 (BS complete) | 0 | ~25 | ~47 |
 | SurvivalGear | 21 | 0 (BS complete) | 0 | ~15 | ~36 |
-| **TOTAL** | **334** | **0 (BS COMPLETE!)** | **103** | **~102** | **~436** |
+| **TOTAL** | **341** | **0 (BS COMPLETE!)** | **110** | **~95** | **~436** |
 
 ## Extraction Checklists Created
 
@@ -150,9 +150,10 @@
   - Low-Tech Ranged Batch 2: 7 items (Arbalest, Arquebus, Daikyu, Hankyu, Hurlbat, Matchlock, Stonebow)
   - Low-Tech Ranged Batch 3: 7 items (Blunderbuss, Carbine, Flintlock, Fusil, Jezail, Wheellock, Yumi)
   - Low-Tech Ranged Batch 4: 7 items (Ballista, Bola, Catapult, GreatBow, HornBow, Scorpion, ThrowingHammer)
-- Items added 2026-04-29: 19 Low-Tech weapons + armor (ranged batches 5-6, armor batch 1)
+- Items added 2026-04-29: 26 Low-Tech weapons + armor (ranged batches 5-6, armor batches 1-2)
   - Low-Tech Ranged Batch 5: 7 items (Chukonu, HandMortar, Mangonel, PelletSling, SiegeCrossbow, ThrowingSpear, Trebuchet)
   - Low-Tech Ranged Batch 6: 5 items (Caliver, Espringal, Hackbut, Musketoon, Petronel)
   - Low-Tech Armor Batch 1: 7 items (BronzeBreastplate, CoatOfPlates, Cuirass, Gambeson, JackOfPlates, Linothorax, LoricaSegmentata)
+  - Low-Tech Armor Batch 2: 7 items (BuffCoat, DoMaru, GothicPlate, KikkoArmor, MountainPatternArmor, OYoroi, ThreeQuarterPlate)
 - **LOW-TECH RANGED WEAPONS: COMPLETE!** ✓
-- Phase 2 remaining: ~102 Low-Tech items
+- Phase 2 remaining: ~95 Low-Tech items
