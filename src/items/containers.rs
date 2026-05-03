@@ -31,6 +31,8 @@ pub enum Container {
     BoltCase,
     /// Small box, 15 lb capacity. BS 288
     BoxSmall,
+    /// Bucket, 10 lb capacity. LT (Water/grain carrier, TL1)
+    Bucket,
     /// Canteen, 2 lb capacity. LT (Water container, TL2)
     Canteen,
     /// Coffer, 50 lb capacity. LT (Valuable storage box, TL2)
@@ -107,6 +109,7 @@ impl Container {
             Self::BeltPouch => Currency::dollars(15.0),
             Self::BoltCase => Currency::dollars(20.0),
             Self::BoxSmall => Currency::dollars(20.0),
+            Self::Bucket => Currency::dollars(8.0),
             Self::Canteen => Currency::dollars(15.0),
             Self::Coffer => Currency::dollars(80.0),
             Self::CoinPurse => Currency::dollars(12.0),
@@ -153,6 +156,7 @@ impl Container {
             Self::BeltPouch => Weight::pounds(0.25),
             Self::BoltCase => Weight::pounds(1.5),
             Self::BoxSmall => Weight::pounds(2.0),
+            Self::Bucket => Weight::pounds(2.5),
             Self::Canteen => Weight::pounds(1.0),
             Self::Coffer => Weight::pounds(8.0),
             Self::CoinPurse => Weight::pounds(0.1),
@@ -199,6 +203,7 @@ impl Container {
             Self::BeltPouch => TechLevel::new(0),     // Stone Age
             Self::BoltCase => TechLevel::new(2),      // Medieval
             Self::BoxSmall => TechLevel::new(1),      // Bronze Age
+            Self::Bucket => TechLevel::new(1),        // Bronze Age
             Self::Canteen => TechLevel::new(2),       // Medieval
             Self::Coffer => TechLevel::new(2),        // Medieval
             Self::CoinPurse => TechLevel::new(1),     // Bronze Age
@@ -245,6 +250,7 @@ impl Container {
             Self::BeltPouch => Capacity::pounds(2.0),
             Self::BoltCase => Capacity::pounds(5.0),
             Self::BoxSmall => Capacity::pounds(15.0),
+            Self::Bucket => Capacity::pounds(10.0),
             Self::Canteen => Capacity::pounds(2.0),
             Self::Coffer => Capacity::pounds(50.0),
             Self::CoinPurse => Capacity::pounds(1.0),
