@@ -18,6 +18,8 @@ use tracing::{debug, instrument};
 pub enum Armor {
     /// Aketon, DR 2. LT (Quilted coat, TL2)
     Aketon,
+    /// Aventail, DR 4. LT (Mail neck guard, TL3)
+    Aventail,
     /// Ballistic vest, DR 10. BS 279
     BallisticVest,
     /// Banded mail, DR 4. BS 279
@@ -96,6 +98,8 @@ pub enum Armor {
     MailShirt,
     /// Mail leggings, DR 3. LT (Leg protection, TL2)
     MailLeggings,
+    /// Mail coif, DR 4. LT (Mail hood, TL2)
+    MailCoif,
     /// Medium shield, DR 2. BS 282
     MediumShield,
     /// No armor, DR 0. BS 279
@@ -135,6 +139,7 @@ impl Armor {
         debug!("Getting armor base cost");
         match self {
                         Self::Aketon => Currency::dollars(130.0),
+            Self::Aventail => Currency::dollars(150.0),
             Self::BallisticVest => Currency::dollars(400.0),
                         Self::BandedMail => Currency::dollars(500.0),
             Self::Bascinet => Currency::dollars(200.0),
@@ -174,6 +179,7 @@ impl Armor {
             Self::MailHauberk => Currency::dollars(600.0),
                         Self::MailShirt => Currency::dollars(350.0),
             Self::MailLeggings => Currency::dollars(200.0),
+            Self::MailCoif => Currency::dollars(150.0),
             Self::MediumShield => Currency::dollars(60.0),
                         Self::NoArmor => Currency::dollars(0.0),
             Self::OYoroi => Currency::dollars(3000.0),
@@ -198,6 +204,7 @@ impl Armor {
         debug!("Getting armor weight");
         match self {
                         Self::Aketon => Weight::pounds(10.0),
+            Self::Aventail => Weight::pounds(4.0),
             Self::BallisticVest => Weight::pounds(2.0),
                         Self::BandedMail => Weight::pounds(35.0),
             Self::Bascinet => Weight::pounds(5.0),
@@ -237,6 +244,7 @@ impl Armor {
             Self::MailHauberk => Weight::pounds(45.0),
                         Self::MailShirt => Weight::pounds(25.0),
             Self::MailLeggings => Weight::pounds(15.0),
+            Self::MailCoif => Weight::pounds(4.0),
             Self::MediumShield => Weight::pounds(15.0),
                         Self::NoArmor => Weight::pounds(0.0),
             Self::OYoroi => Weight::pounds(50.0),
@@ -261,6 +269,7 @@ impl Armor {
         debug!("Getting armor tech level");
         match self {
                         Self::Aketon => TechLevel::new(2),        // Medieval
+            Self::Aventail => TechLevel::new(3),       // Medieval
             Self::BallisticVest => TechLevel::new(7), // Digital Age
                         Self::BandedMail => TechLevel::new(3),    // Medieval
             Self::Bascinet => TechLevel::new(3),       // Medieval
@@ -300,6 +309,7 @@ impl Armor {
             Self::MailHauberk => TechLevel::new(2),   // Medieval
                         Self::MailShirt => TechLevel::new(2),     // Medieval
             Self::MailLeggings => TechLevel::new(2),   // Medieval
+            Self::MailCoif => TechLevel::new(2),       // Medieval
             Self::MediumShield => TechLevel::new(1),  // Bronze Age
                         Self::NoArmor => TechLevel::new(0),       // Stone Age
             Self::OYoroi => TechLevel::new(3),         // Japanese Medieval
@@ -324,6 +334,7 @@ impl Armor {
         debug!("Getting armor damage resistance");
         match self {
                         Self::Aketon => 2,
+            Self::Aventail => 4,
             Self::BallisticVest => 10, // DR 10 vs ballistic
                         Self::BandedMail => 4,
             Self::Bascinet => 5,
@@ -363,6 +374,7 @@ impl Armor {
             Self::MailHauberk => 4,
                         Self::MailShirt => 4,
             Self::MailLeggings => 3,
+            Self::MailCoif => 4,
             Self::MediumShield => 2,   // DB converted to DR approximation
                         Self::NoArmor => 0,
             Self::OYoroi => 5,

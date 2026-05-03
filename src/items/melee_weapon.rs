@@ -76,6 +76,8 @@ pub enum MeleeWeapon {
     Dagger,
     /// Dao, swing+1 cutting, reach 1. LT (Chinese broadsword)
     Dao,
+    /// Dirk, thrust impaling, reach C. LT (Scottish long dagger)
+    Dirk,
     /// Estoc, thrust+2 impaling, reach 1. BS 271
     Estoc,
     /// Eku, swing+2 crushing, reach 1-2. LT (Okinawan oar weapon)
@@ -144,6 +146,8 @@ pub enum MeleeWeapon {
     Kopis,
     /// Konda, swing cutting, reach 1. LT (African throwing knife)
     Konda,
+    /// Kris, thrust impaling, reach C. LT (Indonesian wavy dagger)
+    Kris,
     /// Kusarigama, swing+2 cutting, reach 1-3. LT (chain-sickle)
     Kusarigama,
     /// Kusari, swing+1 crushing, reach 1-3. BS 271
@@ -234,6 +238,8 @@ pub enum MeleeWeapon {
     Staff,
     /// Stick (walking stick/cane), swing crushing, reach 1. BS 271
     Stick,
+    /// Stiletto, thrust+1 impaling, reach C. LT (Italian piercing dagger)
+    Stiletto,
     /// Tanto, thrust impaling, reach C. BS 271
     Tanto,
     /// Tekko, thrust-1 crushing, reach C. LT (Okinawan knuckle weapon)
@@ -260,6 +266,8 @@ pub enum MeleeWeapon {
     Urumi,
     /// War fan, swing crushing, reach C. BS 271
     WarFan,
+    /// War scythe, swing+3 cutting, reach 2-3. LT (Pole weapon with straight blade)
+    WarScythe,
     /// Warhammer, swing+3 impaling, reach 1-2. BS 271
     Warhammer,
     /// Whip, swing-1 cutting, reach 1-2. BS 271
@@ -304,6 +312,7 @@ impl MeleeWeapon {
             Self::Cutlass => Currency::dollars(400.0),
             Self::Dagger => Currency::dollars(20.0),
             Self::Dao => Currency::dollars(400.0),
+            Self::Dirk => Currency::dollars(30.0),
             Self::Estoc => Currency::dollars(600.0),
             Self::Eku => Currency::dollars(50.0),
             Self::Falchion => Currency::dollars(400.0),
@@ -338,6 +347,7 @@ impl MeleeWeapon {
             Self::Kopesh => Currency::dollars(200.0),
             Self::Kopis => Currency::dollars(300.0),
             Self::Konda => Currency::dollars(50.0),
+            Self::Kris => Currency::dollars(40.0),
             Self::Kusarigama => Currency::dollars(250.0),
             Self::Kusari => Currency::dollars(70.0),
             Self::LargeKnife => Currency::dollars(60.0),
@@ -383,6 +393,7 @@ impl MeleeWeapon {
             Self::SpikedClub => Currency::dollars(20.0),
             Self::Staff => Currency::dollars(5.0),
             Self::Stick => Currency::dollars(5.0),
+            Self::Stiletto => Currency::dollars(50.0),
             Self::Tanto => Currency::dollars(30.0),
             Self::Tekko => Currency::dollars(15.0),
             Self::Talwar => Currency::dollars(500.0),
@@ -396,6 +407,7 @@ impl MeleeWeapon {
             Self::Voulge => Currency::dollars(110.0),
             Self::Urumi => Currency::dollars(200.0),
             Self::WarFan => Currency::dollars(50.0),
+            Self::WarScythe => Currency::dollars(150.0),
             Self::Warhammer => Currency::dollars(100.0),
             Self::Whip => Currency::dollars(20.0),
             Self::Xiphos => Currency::dollars(250.0),
@@ -437,6 +449,7 @@ impl MeleeWeapon {
             Self::Cutlass => Weight::pounds(2.0),
             Self::Dagger => Weight::pounds(0.25),
             Self::Dao => Weight::pounds(3.0),
+            Self::Dirk => Weight::pounds(0.75),
             Self::Estoc => Weight::pounds(3.5),
             Self::Eku => Weight::pounds(6.0),
             Self::Falchion => Weight::pounds(3.5),
@@ -471,6 +484,7 @@ impl MeleeWeapon {
             Self::Kopesh => Weight::pounds(3.5),
             Self::Kopis => Weight::pounds(2.5),
             Self::Konda => Weight::pounds(1.5),
+            Self::Kris => Weight::pounds(1.0),
             Self::Kusarigama => Weight::pounds(3.0),
             Self::Kusari => Weight::pounds(5.0),
             Self::LargeKnife => Weight::pounds(1.5),
@@ -516,6 +530,7 @@ impl MeleeWeapon {
             Self::SpikedClub => Weight::pounds(4.0),
             Self::Staff => Weight::pounds(4.0),
             Self::Stick => Weight::pounds(2.0),
+            Self::Stiletto => Weight::pounds(0.5),
             Self::Tanto => Weight::pounds(0.5),
             Self::Tekko => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
@@ -529,6 +544,7 @@ impl MeleeWeapon {
             Self::Voulge => Weight::pounds(10.0),
             Self::Urumi => Weight::pounds(2.0),
             Self::WarFan => Weight::pounds(1.0),
+            Self::WarScythe => Weight::pounds(8.0),
             Self::Warhammer => Weight::pounds(7.0),
             Self::Whip => Weight::pounds(2.0),
             Self::Xiphos => Weight::pounds(2.0),
@@ -570,6 +586,7 @@ impl MeleeWeapon {
             Self::Cutlass => TechLevel::new(4),        // Age of Sail
             Self::Dagger => TechLevel::new(1),         // Bronze Age
             Self::Dao => TechLevel::new(2),         // Iron Age
+            Self::Dirk => TechLevel::new(3),           // Scottish Medieval
             Self::Estoc => TechLevel::new(3),          // Late Medieval
             Self::Eku => TechLevel::new(0),         // Stone Age
             Self::Falchion => TechLevel::new(2),       // Medieval
@@ -604,6 +621,7 @@ impl MeleeWeapon {
             Self::Kopesh => TechLevel::new(1),         // Egyptian Bronze Age
             Self::Kopis => TechLevel::new(1),       // Greek/Iron Age
             Self::Konda => TechLevel::new(0),       // African/Stone Age
+            Self::Kris => TechLevel::new(3),        // Indonesian
             Self::Kusarigama => TechLevel::new(3),  // Medieval Japan
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
             Self::LargeKnife => TechLevel::new(1),     // Bronze Age
@@ -649,6 +667,7 @@ impl MeleeWeapon {
             Self::SpikedClub => TechLevel::new(0),  // Stone Age
             Self::Staff => TechLevel::new(0),          // Stone Age
             Self::Stick => TechLevel::new(0),
+            Self::Stiletto => TechLevel::new(3),       // Italian Medieval
             Self::Tanto => TechLevel::new(3),          // Japanese
             Self::Tekko => TechLevel::new(0),       // Okinawan/Stone Age
             Self::Talwar => TechLevel::new(2),         // Iron Age
@@ -662,6 +681,7 @@ impl MeleeWeapon {
             Self::Voulge => TechLevel::new(3),      // Medieval
             Self::Urumi => TechLevel::new(2),       // Iron Age
             Self::WarFan => TechLevel::new(3),         // Japanese Renaissance
+            Self::WarScythe => TechLevel::new(2),      // Iron Age/Medieval
             Self::Warhammer => TechLevel::new(2),      // Medieval
             Self::Whip => TechLevel::new(1),           // Bronze Age
             Self::Xiphos => TechLevel::new(1),      // Greek/Bronze Age
@@ -792,6 +812,10 @@ impl MeleeWeapon {
             Self::Dao => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Dirk => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
             },
             Self::Estoc => WeaponDamage::Thrust {
                 modifier: 2,
@@ -928,6 +952,10 @@ impl MeleeWeapon {
             Self::Konda => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Kris => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
             },
             Self::Kusarigama => WeaponDamage::Swing {
                 modifier: 2,
@@ -1109,6 +1137,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
+            Self::Stiletto => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Tanto => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
@@ -1161,6 +1193,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
+            Self::WarScythe => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Cutting,
+            },
             Self::Warhammer => WeaponDamage::Swing {
                 modifier: 3,
                 damage_type: DamageType::Impaling,
@@ -1211,6 +1247,7 @@ impl MeleeWeapon {
             Self::Cutlass => Reach::One,
             Self::Dagger => Reach::Close,
             Self::Dao => Reach::One,
+            Self::Dirk => Reach::Close,
             Self::Estoc => Reach::One,
             Self::Eku => Reach::OneTwo,
             Self::Falchion => Reach::One,
@@ -1245,6 +1282,7 @@ impl MeleeWeapon {
             Self::Kopesh => Reach::One,
             Self::Kopis => Reach::One,
             Self::Konda => Reach::One,
+            Self::Kris => Reach::Close,
             Self::Kusarigama => Reach::OneThree,
             Self::Kusari => Reach::OneThree,
             Self::LargeKnife => Reach::CloseOne,
@@ -1290,6 +1328,7 @@ impl MeleeWeapon {
             Self::SpikedClub => Reach::One,
             Self::Staff => Reach::OneTwo,
             Self::Stick => Reach::One,
+            Self::Stiletto => Reach::Close,
             Self::Tanto => Reach::Close,
             Self::Tekko => Reach::Close,
             Self::Talwar => Reach::One,
@@ -1303,6 +1342,7 @@ impl MeleeWeapon {
             Self::Voulge => Reach::TwoThree,
             Self::Urumi => Reach::OneThree,
             Self::WarFan => Reach::Close,
+            Self::WarScythe => Reach::TwoThree,
             Self::Warhammer => Reach::OneTwo,
             Self::Whip => Reach::OneTwo,
             Self::Xiphos => Reach::One,
@@ -1344,6 +1384,7 @@ impl MeleeWeapon {
             Self::Cutlass => 0,
             Self::Dagger => -1,
             Self::Dao => 0,
+            Self::Dirk => -1,
             Self::Estoc => 1,
             Self::Eku => 2,
             Self::Falchion => 0,
@@ -1378,6 +1419,7 @@ impl MeleeWeapon {
             Self::Kopesh => 0,
             Self::Kopis => 0,
             Self::Konda => -2,
+            Self::Kris => -1,
             Self::Kusarigama => -2,
             Self::Kusari => -2,
             Self::LargeKnife => -1,
@@ -1423,6 +1465,7 @@ impl MeleeWeapon {
             Self::SpikedClub => 0,
             Self::Staff => 2,
             Self::Stick => 1,
+            Self::Stiletto => -1,
             Self::Tanto => -1,
             Self::Tekko => 0,
             Self::Talwar => 0,
@@ -1436,6 +1479,7 @@ impl MeleeWeapon {
             Self::Voulge => 0,
             Self::Urumi => -2,
             Self::WarFan => 1,
+            Self::WarScythe => -2,
             Self::Warhammer => -1,
             Self::Whip => -1,
             Self::Xiphos => 0,
@@ -1477,6 +1521,7 @@ impl MeleeWeapon {
             Self::Cutlass => Skill::Broadsword,
             Self::Dagger => Skill::Knife,
             Self::Dao => Skill::Broadsword,
+            Self::Dirk => Skill::Knife,
             Self::Estoc => Skill::Rapier,
             Self::Eku => Skill::Staff,
             Self::Falchion => Skill::Broadsword,
@@ -1511,6 +1556,7 @@ impl MeleeWeapon {
             Self::Kopesh => Skill::Broadsword,
             Self::Kopis => Skill::Broadsword,
             Self::Konda => Skill::ThrownWeapon,
+            Self::Kris => Skill::Knife,
             Self::Kusarigama => Skill::Flail,
             Self::Kusari => Skill::Kusari,
             Self::LargeKnife => Skill::Knife,
@@ -1556,6 +1602,7 @@ impl MeleeWeapon {
             Self::SpikedClub => Skill::AxeMace,
             Self::Staff => Skill::Staff,
             Self::Stick => Skill::Staff,
+            Self::Stiletto => Skill::Knife,
             Self::Tanto => Skill::Knife,
             Self::Tekko => Skill::Brawling,
             Self::Talwar => Skill::Broadsword,
@@ -1569,6 +1616,7 @@ impl MeleeWeapon {
             Self::Voulge => Skill::Polearm,
             Self::Urumi => Skill::Shortsword,
             Self::WarFan => Skill::Shortsword,
+            Self::WarScythe => Skill::Polearm,
             Self::Warhammer => Skill::TwoHandedAxeMace,
             Self::Whip => Skill::Shortsword,
             Self::Xiphos => Skill::Shortsword,
