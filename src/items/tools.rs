@@ -46,6 +46,8 @@ pub enum Tool {
     FirstAidKit,
     /// Grapnel, $20. BS 289
     Grapnel,
+    /// Grindstone, $50. LT (Wheel-mounted sharpening stone, TL1)
+    Grindstone,
     /// Hammer, $15. BS 289
     Hammer,
     /// Hoe, $12. LT (Farming tool, TL0)
@@ -131,6 +133,7 @@ impl Tool {
             Self::File => Currency::dollars(5.0),
             Self::FirstAidKit => Currency::dollars(50.0),
             Self::Grapnel => Currency::dollars(20.0),
+            Self::Grindstone => Currency::dollars(50.0),
             Self::Hammer => Currency::dollars(15.0),
             Self::Hoe => Currency::dollars(12.0),
             Self::Hourglass => Currency::dollars(75.0),
@@ -185,6 +188,7 @@ impl Tool {
             Self::File => Weight::pounds(0.5),
             Self::FirstAidKit => Weight::pounds(2.0),
             Self::Grapnel => Weight::pounds(2.0),
+            Self::Grindstone => Weight::pounds(30.0),
             Self::Hammer => Weight::pounds(2.0),
             Self::Hoe => Weight::pounds(5.0),
             Self::Hourglass => Weight::pounds(1.0),
@@ -239,6 +243,7 @@ impl Tool {
             Self::File => TechLevel::new(2),           // Medieval
             Self::FirstAidKit => TechLevel::new(5),    // Industrial
             Self::Grapnel => TechLevel::new(2),        // Medieval
+            Self::Grindstone => TechLevel::new(1),     // Bronze Age
             Self::Hammer => TechLevel::new(0),         // Stone Age
             Self::Hoe => TechLevel::new(0),            // Stone Age
             Self::Hourglass => TechLevel::new(3),      // Medieval
