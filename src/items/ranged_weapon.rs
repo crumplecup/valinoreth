@@ -48,6 +48,8 @@ pub enum RangedWeapon {
     Chakram,
     /// Chu-ko-nu, 1d impaling. LT (Chinese repeating crossbow variant)
     Chukonu,
+    /// Colt Walker, 2d+2 piercing. HT (Powerful cap-and-ball revolver, TL5)
+    ColtWalker,
     /// Crossbow, 1d+4 impaling. BS 276
     Crossbow,
     /// Daikyu, 1d+3 impaling. LT (Japanese great bow)
@@ -144,6 +146,8 @@ pub enum RangedWeapon {
     Prodd,
     /// Pump-action shotgun, 1d+1 piercing. HT (Early pump shotgun, TL5)
     PumpActionShotgun,
+    /// Remington Rolling Block Pistol, 2d piercing. HT (Single-shot pistol, TL5)
+    RemingtonRollingBlockPistol,
     /// Revolver, 2d piercing. BS 278
     Revolver,
     /// Repeating crossbow, 1d+1 impaling. LT (Chinese chu-ko-nu)
@@ -174,6 +178,10 @@ pub enum RangedWeapon {
     SingleActionRevolver,
     /// Sling, swing piercing. BS 277
     Sling,
+    /// Smith & Wesson Model 1, 1d piercing. HT (Tip-up .22 revolver, TL5)
+    SmithWessonModel1,
+    /// Smith & Wesson Model 3 (Schofield), 2d piercing. HT (Break-top .45 revolver, TL5)
+    SmithWessonModel3,
     /// SMG (submachine gun), 2d+2 piercing. BS 278
     SMG,
     /// Sniper rifle, 7d piercing. BS 278
@@ -204,6 +212,8 @@ pub enum RangedWeapon {
     VolcanicPistol,
     /// Warbow, 1d+3 impaling. LT (Heavy longbow)
     Warbow,
+    /// Webley RIC Revolver, 2d piercing. HT (British service revolver, TL5)
+    WebleyRIC,
     /// Wheellock, 1d+2 piercing. LT (Wheellock pistol, TL4)
     Wheellock,
     /// Winchester Model 1887, 1d+1 piercing. HT (Lever-action shotgun, TL5)
@@ -240,6 +250,7 @@ impl RangedWeapon {
             Self::CompositeBow => Currency::dollars(900.0),
                         Self::Chakram => Currency::dollars(20.0),
             Self::Chukonu => Currency::dollars(250.0),
+            Self::ColtWalker => Currency::dollars(300.0),
             Self::Crossbow => Currency::dollars(150.0),
             Self::Daikyu => Currency::dollars(450.0),
             Self::Dart => Currency::dollars(10.0),
@@ -288,6 +299,7 @@ impl RangedWeapon {
             Self::Plumbata => Currency::dollars(5.0),
             Self::Prodd => Currency::dollars(100.0),
             Self::PumpActionShotgun => Currency::dollars(300.0),
+            Self::RemingtonRollingBlockPistol => Currency::dollars(200.0),
             Self::Revolver => Currency::dollars(300.0),
             Self::RepeatingCrossbow => Currency::dollars(300.0),
             Self::Rifle => Currency::dollars(500.0),
@@ -303,6 +315,8 @@ impl RangedWeapon {
             Self::SingleActionRevolver => Currency::dollars(300.0),
             Self::Shuriken => Currency::dollars(5.0),
             Self::Sling => Currency::dollars(20.0),
+            Self::SmithWessonModel1 => Currency::dollars(100.0),
+            Self::SmithWessonModel3 => Currency::dollars(250.0),
             Self::SMG => Currency::dollars(450.0),
             Self::SniperRifle => Currency::dollars(3500.0),
             Self::SpringfieldModel1861 => Currency::dollars(375.0),
@@ -318,6 +332,7 @@ impl RangedWeapon {
             Self::TNT => Currency::dollars(30.0),
             Self::VolcanicPistol => Currency::dollars(275.0),
                         Self::Warbow => Currency::dollars(600.0),
+            Self::WebleyRIC => Currency::dollars(200.0),
             Self::Wheellock => Currency::dollars(250.0),
             Self::Winchester1887 => Currency::dollars(350.0),
             Self::WinchesterRepeater => Currency::dollars(450.0),
@@ -348,6 +363,7 @@ impl RangedWeapon {
             Self::CompositeBow => Weight::pounds(2.0),
                         Self::Chakram => Weight::pounds(1.0),
             Self::Chukonu => Weight::pounds(7.0),
+            Self::ColtWalker => Weight::pounds(4.5),
             Self::Crossbow => Weight::pounds(6.0),
             Self::Daikyu => Weight::pounds(3.5),
             Self::Dart => Weight::pounds(0.1),
@@ -396,6 +412,7 @@ impl RangedWeapon {
             Self::Plumbata => Weight::pounds(0.5),
             Self::Prodd => Weight::pounds(7.0),
             Self::PumpActionShotgun => Weight::pounds(8.0),
+            Self::RemingtonRollingBlockPistol => Weight::pounds(2.5),
             Self::Revolver => Weight::pounds(2.0),
             Self::RepeatingCrossbow => Weight::pounds(8.0),
             Self::Rifle => Weight::pounds(9.0),
@@ -411,6 +428,8 @@ impl RangedWeapon {
             Self::SingleActionRevolver => Weight::pounds(2.5),
             Self::Shuriken => Weight::pounds(0.1),
             Self::Sling => Weight::pounds(0.5),
+            Self::SmithWessonModel1 => Weight::pounds(1.0),
+            Self::SmithWessonModel3 => Weight::pounds(2.5),
             Self::SMG => Weight::pounds(7.0),
             Self::SniperRifle => Weight::pounds(11.0),
             Self::SpringfieldModel1861 => Weight::pounds(9.5),
@@ -426,6 +445,7 @@ impl RangedWeapon {
             Self::TNT => Weight::pounds(1.0),
             Self::VolcanicPistol => Weight::pounds(3.5),
                         Self::Warbow => Weight::pounds(5.0),
+            Self::WebleyRIC => Weight::pounds(2.0),
             Self::Wheellock => Weight::pounds(3.0),
             Self::Winchester1887 => Weight::pounds(9.5),
             Self::WinchesterRepeater => Weight::pounds(9.0),
@@ -456,6 +476,7 @@ impl RangedWeapon {
             Self::CompositeBow => TechLevel::new(2),   // Medieval
                         Self::Chakram => TechLevel::new(1),        // Bronze Age
             Self::Chukonu => TechLevel::new(2),        // Medieval China
+            Self::ColtWalker => TechLevel::new(5),     // Industrial Revolution
             Self::Crossbow => TechLevel::new(2),       // Medieval
             Self::Daikyu => TechLevel::new(3),        // Japanese
             Self::Dart => TechLevel::new(0),           // Stone Age
@@ -504,6 +525,7 @@ impl RangedWeapon {
             Self::Plumbata => TechLevel::new(1),       // Roman
             Self::Prodd => TechLevel::new(2),          // Medieval
             Self::PumpActionShotgun => TechLevel::new(5), // Industrial Revolution
+            Self::RemingtonRollingBlockPistol => TechLevel::new(5), // Industrial Revolution
             Self::Revolver => TechLevel::new(6),       // Atomic Age
             Self::RepeatingCrossbow => TechLevel::new(2), // Medieval China
             Self::Rifle => TechLevel::new(6),          // Atomic Age
@@ -519,6 +541,8 @@ impl RangedWeapon {
             Self::SingleActionRevolver => TechLevel::new(5), // Industrial Revolution
             Self::Shuriken => TechLevel::new(2),       // Medieval Japan
             Self::Sling => TechLevel::new(0),          // Stone Age
+            Self::SmithWessonModel1 => TechLevel::new(5), // Industrial Revolution
+            Self::SmithWessonModel3 => TechLevel::new(5), // Industrial Revolution
             Self::SMG => TechLevel::new(6),            // Atomic Age
             Self::SniperRifle => TechLevel::new(7),    // Digital Age
             Self::SpringfieldModel1861 => TechLevel::new(5), // Industrial Revolution
@@ -534,6 +558,7 @@ impl RangedWeapon {
             Self::TNT => TechLevel::new(5),            // Industrial Revolution
             Self::VolcanicPistol => TechLevel::new(5), // Industrial Revolution
                         Self::Warbow => TechLevel::new(2),         // Medieval
+            Self::WebleyRIC => TechLevel::new(5),      // Industrial Revolution
             Self::Wheellock => TechLevel::new(4),      // Renaissance
             Self::Winchester1887 => TechLevel::new(5), // Industrial Revolution
             Self::WinchesterRepeater => TechLevel::new(5), // Industrial Revolution
@@ -611,6 +636,10 @@ impl RangedWeapon {
             Self::Chukonu => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 0),
                 damage_type: DamageType::Impaling,
+            },
+            Self::ColtWalker => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
             },
             Self::Crossbow => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 4),
@@ -804,6 +833,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::RemingtonRollingBlockPistol => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Revolver => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 0),
                 damage_type: DamageType::Piercing,
@@ -862,6 +895,14 @@ impl RangedWeapon {
             },
             Self::Sling => WeaponDamage::Swing {
                 modifier: 0,
+                damage_type: DamageType::Piercing,
+            },
+            Self::SmithWessonModel1 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::SmithWessonModel3 => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SMG => WeaponDamage::Fixed {
@@ -924,6 +965,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(1, 3),
                 damage_type: DamageType::Impaling,
             },
+            Self::WebleyRIC => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Wheellock => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 2),
                 damage_type: DamageType::Piercing,
@@ -972,6 +1017,7 @@ impl RangedWeapon {
             Self::CompositeBow => 3,
                         Self::Chakram => 1,
             Self::Chukonu => 2,
+            Self::ColtWalker => 1,
             Self::Crossbow => 4,
             Self::Daikyu => 3,
             Self::Dart => 2,
@@ -1020,6 +1066,7 @@ impl RangedWeapon {
             Self::Plumbata => 0,
             Self::Prodd => 3,
             Self::PumpActionShotgun => 3,
+            Self::RemingtonRollingBlockPistol => 2,
             Self::Revolver => 2,
             Self::RepeatingCrossbow => 2,
             Self::Rifle => 5,
@@ -1035,6 +1082,8 @@ impl RangedWeapon {
             Self::SingleActionRevolver => 2,
             Self::Shuriken => 1,
             Self::Sling => 0,
+            Self::SmithWessonModel1 => 1,
+            Self::SmithWessonModel3 => 2,
             Self::SMG => 4,
             Self::SniperRifle => 6,
             Self::SpringfieldModel1861 => 4,
@@ -1050,6 +1099,7 @@ impl RangedWeapon {
             Self::TNT => 1,
             Self::VolcanicPistol => 1,
                         Self::Warbow => 3,
+            Self::WebleyRIC => 2,
             Self::Wheellock => 1,
             Self::Winchester1887 => 3,
             Self::WinchesterRepeater => 4,
@@ -1080,6 +1130,7 @@ impl RangedWeapon {
             Self::CompositeBow => Skill::Bow,
                         Self::Chakram => Skill::ThrownWeapon,
             Self::Chukonu => Skill::Crossbow,
+            Self::ColtWalker => Skill::Guns,
             Self::Crossbow => Skill::Crossbow,
             Self::Daikyu => Skill::Bow,
             Self::Dart => Skill::ThrownWeapon,
@@ -1128,6 +1179,7 @@ impl RangedWeapon {
             Self::Plumbata => Skill::ThrownWeapon,
             Self::Prodd => Skill::Crossbow,
             Self::PumpActionShotgun => Skill::Guns,
+            Self::RemingtonRollingBlockPistol => Skill::Guns,
             Self::Revolver => Skill::Guns,
             Self::RepeatingCrossbow => Skill::Crossbow,
             Self::Rifle => Skill::Guns,
@@ -1143,6 +1195,8 @@ impl RangedWeapon {
             Self::SingleActionRevolver => Skill::Guns,
             Self::Shuriken => Skill::ThrownWeapon,
             Self::Sling => Skill::Sling,
+            Self::SmithWessonModel1 => Skill::Guns,
+            Self::SmithWessonModel3 => Skill::Guns,
             Self::SMG => Skill::Guns,
             Self::SniperRifle => Skill::Guns,
             Self::SpringfieldModel1861 => Skill::Guns,
@@ -1158,6 +1212,7 @@ impl RangedWeapon {
             Self::TNT => Skill::ThrownWeapon,
             Self::VolcanicPistol => Skill::Guns,
                         Self::Warbow => Skill::Bow,
+            Self::WebleyRIC => Skill::Guns,
             Self::Wheellock => Skill::Guns,
             Self::Winchester1887 => Skill::Guns,
             Self::WinchesterRepeater => Skill::Guns,
