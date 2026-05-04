@@ -54,6 +54,8 @@ pub enum RangedWeapon {
     Daikyu,
     /// Dart, thrust-1 impaling. BS 277
     Dart,
+    /// Dynamite, 6d crushing. HT (High explosive, TL5)
+    Dynamite,
     /// Derringer, 1d+2 piercing. BS 278
     Derringer,
     /// Double-action revolver, 2d piercing. HT (DA revolver .38, TL5)
@@ -66,6 +68,8 @@ pub enum RangedWeapon {
     Flintlock,
     /// Fusil, 4d piercing. LT (Light musket, TL4)
     Fusil,
+    /// Gatling gun, 5d piercing. HT (Hand-cranked machine gun, TL5)
+    GatlingGun,
     /// Grenade, 3d crushing. BS 278
     Grenade,
     /// Hackbut, 3d piercing. LT (Heavy hand cannon, TL4)
@@ -110,8 +114,12 @@ pub enum RangedWeapon {
     MartiniHenryRifle,
     /// Mauser Model 1871, 4d+1 piercing. HT (Bolt-action rifle, TL5)
     MauserModel1871,
+    /// Maxim gun, 6d piercing. HT (Early recoil-operated MG, TL5)
+    MaximGun,
     /// Machine gun, 7d piercing. BS 278
     MachineGun,
+    /// Mitrailleuse, 5d piercing. HT (Volley gun, TL5)
+    Mitrailleuse,
     /// Musket, 4d piercing. BS 278
     Musket,
     /// Musketoon, 3d+2 piercing. LT (Short musket, TL4)
@@ -186,6 +194,8 @@ pub enum RangedWeapon {
     ThrowingStick,
     /// Trebuchet, 4d crushing. LT (Counterweight catapult, TL2)
     Trebuchet,
+    /// TNT, 8d crushing. HT (Trinitrotoluene explosive, TL5)
+    TNT,
     /// Volcanic pistol, 1d+1 piercing. HT (Lever-action pistol, TL5)
     VolcanicPistol,
     /// Warbow, 1d+3 impaling. LT (Heavy longbow)
@@ -227,12 +237,14 @@ impl RangedWeapon {
             Self::Crossbow => Currency::dollars(150.0),
             Self::Daikyu => Currency::dollars(450.0),
             Self::Dart => Currency::dollars(10.0),
+            Self::Dynamite => Currency::dollars(20.0),
             Self::Derringer => Currency::dollars(100.0),
             Self::DoubleActionRevolver => Currency::dollars(250.0),
             Self::Espringal => Currency::dollars(1500.0),
                         Self::Flamethrower => Currency::dollars(1000.0),
             Self::Flintlock => Currency::dollars(200.0),
             Self::Fusil => Currency::dollars(350.0),
+            Self::GatlingGun => Currency::dollars(3000.0),
             Self::Grenade => Currency::dollars(30.0),
             Self::Hackbut => Currency::dollars(500.0),
                         Self::Gastraphetes => Currency::dollars(400.0),
@@ -255,7 +267,9 @@ impl RangedWeapon {
             Self::Matchlock => Currency::dollars(400.0),
             Self::MartiniHenryRifle => Currency::dollars(450.0),
             Self::MauserModel1871 => Currency::dollars(500.0),
+            Self::MaximGun => Currency::dollars(4500.0),
             Self::MachineGun => Currency::dollars(4000.0),
+            Self::Mitrailleuse => Currency::dollars(3500.0),
                         Self::Musket => Currency::dollars(300.0),
             Self::Musketoon => Currency::dollars(250.0),
             Self::PelletBow => Currency::dollars(400.0),
@@ -293,6 +307,7 @@ impl RangedWeapon {
             Self::ThrowingSpear => Currency::dollars(50.0),
                         Self::ThrowingStick => Currency::dollars(5.0),
             Self::Trebuchet => Currency::dollars(5000.0),
+            Self::TNT => Currency::dollars(30.0),
             Self::VolcanicPistol => Currency::dollars(275.0),
                         Self::Warbow => Currency::dollars(600.0),
             Self::Wheellock => Currency::dollars(250.0),
@@ -327,12 +342,14 @@ impl RangedWeapon {
             Self::Crossbow => Weight::pounds(6.0),
             Self::Daikyu => Weight::pounds(3.5),
             Self::Dart => Weight::pounds(0.1),
+            Self::Dynamite => Weight::pounds(0.5),
                         Self::Derringer => Weight::pounds(0.5),
             Self::DoubleActionRevolver => Weight::pounds(2.0),
             Self::Espringal => Weight::pounds(300.0),
                         Self::Flamethrower => Weight::pounds(70.0),
             Self::Flintlock => Weight::pounds(2.5),
             Self::Fusil => Weight::pounds(8.0),
+            Self::GatlingGun => Weight::pounds(200.0),
                         Self::Grenade => Weight::pounds(1.0),
             Self::Hackbut => Weight::pounds(25.0),
                         Self::Gastraphetes => Weight::pounds(14.0),
@@ -355,7 +372,9 @@ impl RangedWeapon {
             Self::Matchlock => Weight::pounds(12.0),
             Self::MartiniHenryRifle => Weight::pounds(9.0),
             Self::MauserModel1871 => Weight::pounds(10.0),
+            Self::MaximGun => Weight::pounds(60.0),
             Self::MachineGun => Weight::pounds(30.0),
+            Self::Mitrailleuse => Weight::pounds(300.0),
                         Self::Musket => Weight::pounds(10.0),
             Self::Musketoon => Weight::pounds(6.0),
             Self::PelletBow => Weight::pounds(3.0),
@@ -393,6 +412,7 @@ impl RangedWeapon {
             Self::ThrowingSpear => Weight::pounds(3.0),
                         Self::ThrowingStick => Weight::pounds(1.0),
             Self::Trebuchet => Weight::pounds(1000.0),
+            Self::TNT => Weight::pounds(1.0),
             Self::VolcanicPistol => Weight::pounds(3.5),
                         Self::Warbow => Weight::pounds(5.0),
             Self::Wheellock => Weight::pounds(3.0),
@@ -427,12 +447,14 @@ impl RangedWeapon {
             Self::Crossbow => TechLevel::new(2),       // Medieval
             Self::Daikyu => TechLevel::new(3),        // Japanese
             Self::Dart => TechLevel::new(0),           // Stone Age
+            Self::Dynamite => TechLevel::new(5),       // Industrial Revolution
             Self::Derringer => TechLevel::new(5),      // Mechanized Age
             Self::DoubleActionRevolver => TechLevel::new(5), // Industrial Revolution
             Self::Espringal => TechLevel::new(2),      // Medieval
                         Self::Flamethrower => TechLevel::new(6),   // Atomic Age
             Self::Flintlock => TechLevel::new(4),      // Renaissance
             Self::Fusil => TechLevel::new(4),          // Renaissance
+            Self::GatlingGun => TechLevel::new(5),     // Industrial Revolution
                         Self::Grenade => TechLevel::new(6),        // Atomic Age
             Self::Hackbut => TechLevel::new(4),        // Renaissance
                         Self::Gastraphetes => TechLevel::new(1),   // Greek/Iron Age
@@ -455,7 +477,9 @@ impl RangedWeapon {
             Self::Matchlock => TechLevel::new(4),      // Renaissance
             Self::MartiniHenryRifle => TechLevel::new(5), // Industrial Revolution
             Self::MauserModel1871 => TechLevel::new(5), // Industrial Revolution
+            Self::MaximGun => TechLevel::new(5),       // Industrial Revolution
             Self::MachineGun => TechLevel::new(6),     // Atomic Age
+            Self::Mitrailleuse => TechLevel::new(5),   // Industrial Revolution
             Self::Musket => TechLevel::new(4),         // Age of Sail
             Self::Musketoon => TechLevel::new(4),      // Renaissance
             Self::PelletBow => TechLevel::new(7),      // Digital Age
@@ -493,6 +517,7 @@ impl RangedWeapon {
             Self::ThrowingSpear => TechLevel::new(0),  // Stone Age
                         Self::ThrowingStick => TechLevel::new(0),  // Stone Age
             Self::Trebuchet => TechLevel::new(2),      // Medieval
+            Self::TNT => TechLevel::new(5),            // Industrial Revolution
             Self::VolcanicPistol => TechLevel::new(5), // Industrial Revolution
                         Self::Warbow => TechLevel::new(2),         // Medieval
             Self::Wheellock => TechLevel::new(4),      // Renaissance
@@ -584,6 +609,10 @@ impl RangedWeapon {
                 modifier: -1,
                 damage_type: DamageType::Impaling,
             },
+            Self::Dynamite => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Crushing,
+            },
                         Self::Derringer => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 2),
                 damage_type: DamageType::Piercing,
@@ -606,6 +635,10 @@ impl RangedWeapon {
             },
             Self::Fusil => WeaponDamage::Fixed {
                 dice: DieLevel::new(4, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::GatlingGun => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
                         Self::Grenade => WeaponDamage::Fixed {
@@ -696,8 +729,16 @@ impl RangedWeapon {
                 dice: DieLevel::new(4, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::MaximGun => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::MachineGun => WeaponDamage::Fixed {
                 dice: DieLevel::new(7, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::Mitrailleuse => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
                         Self::Musket => WeaponDamage::Fixed {
@@ -848,6 +889,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(4, 0),
                 damage_type: DamageType::Crushing,
             },
+            Self::TNT => WeaponDamage::Fixed {
+                dice: DieLevel::new(8, 0),
+                damage_type: DamageType::Crushing,
+            },
             Self::VolcanicPistol => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
@@ -903,12 +948,14 @@ impl RangedWeapon {
             Self::Crossbow => 4,
             Self::Daikyu => 3,
             Self::Dart => 2,
+            Self::Dynamite => 1,
                         Self::Derringer => 1,
             Self::DoubleActionRevolver => 2,
             Self::Espringal => 3,
                         Self::Flamethrower => 2,
             Self::Flintlock => 1,
             Self::Fusil => 3,
+            Self::GatlingGun => 4,
                         Self::Grenade => 1,
             Self::Hackbut => 2,
                         Self::Gastraphetes => 4,
@@ -931,7 +978,9 @@ impl RangedWeapon {
             Self::Matchlock => 2,
             Self::MartiniHenryRifle => 4,
             Self::MauserModel1871 => 5,
+            Self::MaximGun => 5,
             Self::MachineGun => 4,
+            Self::Mitrailleuse => 3,
                         Self::Musket => 3,
             Self::Musketoon => 2,
             Self::PelletBow => 4,
@@ -969,6 +1018,7 @@ impl RangedWeapon {
             Self::ThrowingSpear => 2,
                         Self::ThrowingStick => 1,
             Self::Trebuchet => 1,
+            Self::TNT => 1,
             Self::VolcanicPistol => 1,
                         Self::Warbow => 3,
             Self::Wheellock => 1,
@@ -1003,12 +1053,14 @@ impl RangedWeapon {
             Self::Crossbow => Skill::Crossbow,
             Self::Daikyu => Skill::Bow,
             Self::Dart => Skill::ThrownWeapon,
+            Self::Dynamite => Skill::ThrownWeapon,
                         Self::Derringer => Skill::Guns,
             Self::DoubleActionRevolver => Skill::Guns,
             Self::Espringal => Skill::Artillery,
                         Self::Flamethrower => Skill::Guns,
             Self::Flintlock => Skill::Guns,
             Self::Fusil => Skill::Guns,
+            Self::GatlingGun => Skill::Guns,
                         Self::Grenade => Skill::ThrownWeapon,
             Self::Hackbut => Skill::Guns,
                         Self::Gastraphetes => Skill::Crossbow,
@@ -1031,7 +1083,9 @@ impl RangedWeapon {
             Self::Matchlock => Skill::Guns,
             Self::MartiniHenryRifle => Skill::Guns,
             Self::MauserModel1871 => Skill::Guns,
+            Self::MaximGun => Skill::Guns,
             Self::MachineGun => Skill::Guns,
+            Self::Mitrailleuse => Skill::Guns,
                         Self::Musket => Skill::Guns,
             Self::Musketoon => Skill::Guns,
             Self::PelletBow => Skill::Bow,
@@ -1069,6 +1123,7 @@ impl RangedWeapon {
             Self::ThrowingSpear => Skill::ThrownWeapon,
                         Self::ThrowingStick => Skill::ThrownWeapon,
             Self::Trebuchet => Skill::Artillery,
+            Self::TNT => Skill::ThrownWeapon,
             Self::VolcanicPistol => Skill::Guns,
                         Self::Warbow => Skill::Bow,
             Self::Wheellock => Skill::Guns,
