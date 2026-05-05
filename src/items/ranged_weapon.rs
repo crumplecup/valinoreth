@@ -110,6 +110,8 @@ pub enum RangedWeapon {
     Flintlock,
     /// FN FAL, 5d+1 piercing. HT (7.62mm battle rifle, TL7)
     FNFAL,
+    /// FN MAG, 6d piercing. HT (Belgian 7.62mm GPMG, TL7)
+    FNMAG,
     /// Fusil, 4d piercing. LT (Light musket, TL4)
     Fusil,
     /// Gatling gun, 5d piercing. HT (Hand-cranked machine gun, TL5)
@@ -172,6 +174,10 @@ pub enum RangedWeapon {
     M14,
     /// M16, 5d piercing. HT (American 5.56mm assault rifle, TL7)
     M16,
+    /// M249 SAW, 5d piercing. HT (American 5.56mm squad automatic weapon, TL7)
+    M249SAW,
+    /// M60, 6d piercing. HT (American 7.62mm GPMG, TL7)
+    M60,
     /// MAC-10, 2d+2 piercing. HT (American .45 ACP SMG, TL7)
     MAC10,
     /// Mangonel, 3d crushing. LT (Torsion catapult, TL1)
@@ -190,6 +196,8 @@ pub enum RangedWeapon {
     MG34,
     /// MG42, 6d piercing. HT (German 7.92mm GPMG, TL6)
     MG42,
+    /// MG3, 6d piercing. HT (German 7.62mm GPMG, TL7)
+    MG3,
     /// Maxim gun, 6d piercing. HT (Early recoil-operated MG, TL5)
     MaximGun,
     /// Machine gun, 7d piercing. BS 278
@@ -232,6 +240,8 @@ pub enum RangedWeapon {
     PPS43,
     /// PPSh-41, 2d+2 piercing. HT (Soviet 7.62mm SMG, TL6)
     PPSh41,
+    /// PKM, 6d piercing. HT (Soviet 7.62mm GPMG, TL7)
+    PKM,
     /// PTRD Anti-Tank Rifle, 7d+1 piercing. HT (Soviet 14.5mm anti-tank rifle, TL6)
     PTRDAntiTankRifle,
     /// Prodd (stone-throwing crossbow), 1d crushing. BS 276
@@ -407,6 +417,7 @@ impl RangedWeapon {
             Self::FieldGun => Currency::dollars(5000.0),
             Self::Flintlock => Currency::dollars(200.0),
             Self::FNFAL => Currency::dollars(700.0),
+            Self::FNMAG => Currency::dollars(3000.0),
             Self::Fusil => Currency::dollars(350.0),
             Self::GatlingGun => Currency::dollars(3000.0),
             Self::GardnerGun => Currency::dollars(2800.0),
@@ -438,6 +449,8 @@ impl RangedWeapon {
             Self::MakarovPM => Currency::dollars(300.0),
             Self::M14 => Currency::dollars(750.0),
             Self::M16 => Currency::dollars(800.0),
+            Self::M249SAW => Currency::dollars(3500.0),
+            Self::M60 => Currency::dollars(3200.0),
             Self::MAC10 => Currency::dollars(350.0),
             Self::Mangonel => Currency::dollars(3500.0),
             Self::Matchlock => Currency::dollars(400.0),
@@ -447,6 +460,7 @@ impl RangedWeapon {
             Self::MauserGewehr98 => Currency::dollars(450.0),
             Self::MG34 => Currency::dollars(2500.0),
             Self::MG42 => Currency::dollars(2200.0),
+            Self::MG3 => Currency::dollars(2800.0),
             Self::MaximGun => Currency::dollars(4500.0),
             Self::MachineGun => Currency::dollars(4000.0),
             Self::Mitrailleuse => Currency::dollars(3500.0),
@@ -468,6 +482,7 @@ impl RangedWeapon {
             Self::Plumbata => Currency::dollars(5.0),
             Self::PPS43 => Currency::dollars(200.0),
             Self::PPSh41 => Currency::dollars(250.0),
+            Self::PKM => Currency::dollars(3000.0),
             Self::PTRDAntiTankRifle => Currency::dollars(1600.0),
             Self::Prodd => Currency::dollars(100.0),
             Self::PumpActionShotgun => Currency::dollars(300.0),
@@ -583,6 +598,7 @@ impl RangedWeapon {
             Self::FieldGun => Weight::pounds(2000.0),
             Self::Flintlock => Weight::pounds(2.5),
             Self::FNFAL => Weight::pounds(10.0),
+            Self::FNMAG => Weight::pounds(24.5),
             Self::Fusil => Weight::pounds(8.0),
             Self::GatlingGun => Weight::pounds(200.0),
             Self::GardnerGun => Weight::pounds(180.0),
@@ -614,6 +630,8 @@ impl RangedWeapon {
             Self::MakarovPM => Weight::pounds(1.7),
             Self::M14 => Weight::pounds(9.2),
             Self::M16 => Weight::pounds(7.2),
+            Self::M249SAW => Weight::pounds(17.0),
+            Self::M60 => Weight::pounds(23.0),
             Self::MAC10 => Weight::pounds(6.3),
             Self::Mangonel => Weight::pounds(600.0),
             Self::Matchlock => Weight::pounds(12.0),
@@ -623,6 +641,7 @@ impl RangedWeapon {
             Self::MauserGewehr98 => Weight::pounds(9.0),
             Self::MG34 => Weight::pounds(26.0),
             Self::MG42 => Weight::pounds(25.0),
+            Self::MG3 => Weight::pounds(24.5),
             Self::MaximGun => Weight::pounds(60.0),
             Self::MachineGun => Weight::pounds(30.0),
             Self::Mitrailleuse => Weight::pounds(300.0),
@@ -644,6 +663,7 @@ impl RangedWeapon {
             Self::Plumbata => Weight::pounds(0.5),
             Self::PPS43 => Weight::pounds(7.0),
             Self::PPSh41 => Weight::pounds(8.0),
+            Self::PKM => Weight::pounds(16.5),
             Self::PTRDAntiTankRifle => Weight::pounds(38.0),
             Self::Prodd => Weight::pounds(7.0),
             Self::PumpActionShotgun => Weight::pounds(8.0),
@@ -759,6 +779,7 @@ impl RangedWeapon {
             Self::FieldGun => TechLevel::new(5),       // Industrial Revolution
             Self::Flintlock => TechLevel::new(4),      // Renaissance
             Self::FNFAL => TechLevel::new(7),          // Digital Age
+            Self::FNMAG => TechLevel::new(7),          // Digital Age
             Self::Fusil => TechLevel::new(4),          // Renaissance
             Self::GatlingGun => TechLevel::new(5),     // Industrial Revolution
             Self::GardnerGun => TechLevel::new(5),     // Industrial Revolution
@@ -790,6 +811,8 @@ impl RangedWeapon {
             Self::MakarovPM => TechLevel::new(7),      // Digital Age
             Self::M14 => TechLevel::new(7),            // Digital Age
             Self::M16 => TechLevel::new(7),            // Digital Age
+            Self::M249SAW => TechLevel::new(7),        // Digital Age
+            Self::M60 => TechLevel::new(7),            // Digital Age
             Self::MAC10 => TechLevel::new(7),          // Digital Age
             Self::Mangonel => TechLevel::new(1),       // Roman/Iron Age
             Self::Matchlock => TechLevel::new(4),      // Renaissance
@@ -799,6 +822,7 @@ impl RangedWeapon {
             Self::MauserGewehr98 => TechLevel::new(6), // Atomic Age
             Self::MG34 => TechLevel::new(6),           // Atomic Age
             Self::MG42 => TechLevel::new(6),           // Atomic Age
+            Self::MG3 => TechLevel::new(7),            // Digital Age
             Self::MaximGun => TechLevel::new(5),       // Industrial Revolution
             Self::MachineGun => TechLevel::new(6),     // Atomic Age
             Self::Mitrailleuse => TechLevel::new(5),   // Industrial Revolution
@@ -820,6 +844,7 @@ impl RangedWeapon {
             Self::Plumbata => TechLevel::new(1),       // Roman
             Self::PPS43 => TechLevel::new(6),          // Atomic Age
             Self::PPSh41 => TechLevel::new(6),         // Atomic Age
+            Self::PKM => TechLevel::new(7),            // Digital Age
             Self::PTRDAntiTankRifle => TechLevel::new(6), // Atomic Age
             Self::Prodd => TechLevel::new(2),          // Medieval
             Self::PumpActionShotgun => TechLevel::new(5), // Industrial Revolution
@@ -1076,6 +1101,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(5, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::FNMAG => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Fusil => WeaponDamage::Fixed {
                 dice: DieLevel::new(4, 0),
                 damage_type: DamageType::Piercing,
@@ -1204,6 +1233,14 @@ impl RangedWeapon {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::M249SAW => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::M60 => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Mangonel => WeaponDamage::Fixed {
                 dice: DieLevel::new(3, 0),
                 damage_type: DamageType::Crushing,
@@ -1233,6 +1270,10 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::MG42 => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::MG3 => WeaponDamage::Fixed {
                 dice: DieLevel::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
@@ -1318,6 +1359,10 @@ impl RangedWeapon {
             },
             Self::PPSh41 => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
+            Self::PKM => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::PTRDAntiTankRifle => WeaponDamage::Fixed {
@@ -1615,6 +1660,7 @@ impl RangedWeapon {
             Self::FieldGun => 2,
             Self::Flintlock => 1,
             Self::FNFAL => 5,
+            Self::FNMAG => 5,
             Self::Fusil => 3,
             Self::GatlingGun => 4,
             Self::GardnerGun => 4,
@@ -1647,6 +1693,8 @@ impl RangedWeapon {
             Self::MakarovPM => 2,
             Self::M14 => 5,
             Self::M16 => 5,
+            Self::M249SAW => 5,
+            Self::M60 => 5,
             Self::Mangonel => 1,
             Self::Matchlock => 2,
             Self::MartiniHenryRifle => 4,
@@ -1655,6 +1703,7 @@ impl RangedWeapon {
             Self::MauserGewehr98 => 5,
             Self::MG34 => 5,
             Self::MG42 => 5,
+            Self::MG3 => 5,
             Self::MaximGun => 5,
             Self::MachineGun => 4,
             Self::Mitrailleuse => 3,
@@ -1676,6 +1725,7 @@ impl RangedWeapon {
             Self::Plumbata => 0,
             Self::PPS43 => 3,
             Self::PPSh41 => 3,
+            Self::PKM => 5,
             Self::PTRDAntiTankRifle => 5,
             Self::Prodd => 3,
             Self::PumpActionShotgun => 3,
@@ -1791,6 +1841,7 @@ impl RangedWeapon {
             Self::FieldGun => Skill::Artillery,
             Self::Flintlock => Skill::Guns,
             Self::FNFAL => Skill::Guns,
+            Self::FNMAG => Skill::Guns,
             Self::Fusil => Skill::Guns,
             Self::GatlingGun => Skill::Guns,
             Self::GardnerGun => Skill::Guns,
@@ -1823,6 +1874,8 @@ impl RangedWeapon {
             Self::MakarovPM => Skill::Guns,
             Self::M14 => Skill::Guns,
             Self::M16 => Skill::Guns,
+            Self::M249SAW => Skill::Guns,
+            Self::M60 => Skill::Guns,
             Self::Mangonel => Skill::Artillery,
             Self::Matchlock => Skill::Guns,
             Self::MartiniHenryRifle => Skill::Guns,
@@ -1831,6 +1884,7 @@ impl RangedWeapon {
             Self::MauserGewehr98 => Skill::Guns,
             Self::MG34 => Skill::Guns,
             Self::MG42 => Skill::Guns,
+            Self::MG3 => Skill::Guns,
             Self::MaximGun => Skill::Guns,
             Self::MachineGun => Skill::Guns,
             Self::Mitrailleuse => Skill::Guns,
@@ -1852,6 +1906,7 @@ impl RangedWeapon {
             Self::Plumbata => Skill::ThrownWeapon,
             Self::PPS43 => Skill::Guns,
             Self::PPSh41 => Skill::Guns,
+            Self::PKM => Skill::Guns,
             Self::PTRDAntiTankRifle => Skill::Guns,
             Self::Prodd => Skill::Crossbow,
             Self::PumpActionShotgun => Skill::Guns,
