@@ -172,6 +172,8 @@ pub enum RangedWeapon {
     M14,
     /// M16, 5d piercing. HT (American 5.56mm assault rifle, TL7)
     M16,
+    /// MAC-10, 2d+2 piercing. HT (American .45 ACP SMG, TL7)
+    MAC10,
     /// Mangonel, 3d crushing. LT (Torsion catapult, TL1)
     Mangonel,
     /// Matchlock, 3d+2 piercing. LT (Early musket, TL4)
@@ -200,6 +202,8 @@ pub enum RangedWeapon {
     MP18,
     /// MP40, 2d+2 piercing. HT (German 9mm SMG, TL6)
     MP40,
+    /// MP5, 2d+2 piercing. HT (German 9mm SMG, TL7)
+    MP5,
     /// Mountain Gun, 5d crushing. HT (Light artillery, TL5)
     MountainGun,
     /// Musket, 4d piercing. BS 278
@@ -264,6 +268,8 @@ pub enum RangedWeapon {
     SharpsRifle,
     /// Shuriken, thrust impaling. BS 277
     Shuriken,
+    /// Skorpion vz. 61, 2d piercing. HT (Czech .32 ACP SMG, TL7)
+    Skorpion,
     /// SIG P220, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
     SIGP220,
     /// Siege crossbow, 3d+6 impaling. LT (Extra-heavy crossbow, TL2)
@@ -290,6 +296,8 @@ pub enum RangedWeapon {
     TrapdoorSpringfield,
     /// Sten Gun, 2d+1 piercing. HT (British 9mm SMG, TL6)
     StenGun,
+    /// Sterling, 2d+2 piercing. HT (British 9mm SMG, TL7)
+    Sterling,
     /// Staff sling, swing+2 piercing. BS 277
     StaffSling,
     /// Stonebow, 1d+2 crushing. LT (Stone/pellet crossbow)
@@ -312,6 +320,8 @@ pub enum RangedWeapon {
     Trebuchet,
     /// TNT, 8d crushing. HT (Trinitrotoluene explosive, TL5)
     TNT,
+    /// Uzi, 2d+2 piercing. HT (Israeli 9mm SMG, TL7)
+    Uzi,
     /// Volcanic pistol, 1d+1 piercing. HT (Lever-action pistol, TL5)
     VolcanicPistol,
     /// Vickers Machine Gun, 6d piercing. HT (British .303 HMG, TL6)
@@ -428,6 +438,7 @@ impl RangedWeapon {
             Self::MakarovPM => Currency::dollars(300.0),
             Self::M14 => Currency::dollars(750.0),
             Self::M16 => Currency::dollars(800.0),
+            Self::MAC10 => Currency::dollars(350.0),
             Self::Mangonel => Currency::dollars(3500.0),
             Self::Matchlock => Currency::dollars(400.0),
             Self::MartiniHenryRifle => Currency::dollars(450.0),
@@ -442,6 +453,7 @@ impl RangedWeapon {
             Self::MosinNagant => Currency::dollars(400.0),
             Self::MP18 => Currency::dollars(400.0),
             Self::MP40 => Currency::dollars(350.0),
+            Self::MP5 => Currency::dollars(450.0),
             Self::MountainGun => Currency::dollars(3500.0),
                         Self::Musket => Currency::dollars(300.0),
             Self::Musketoon => Currency::dollars(250.0),
@@ -477,6 +489,7 @@ impl RangedWeapon {
             Self::SIGP220 => Currency::dollars(600.0),
             Self::SingleActionRevolver => Currency::dollars(300.0),
             Self::Shuriken => Currency::dollars(5.0),
+            Self::Skorpion => Currency::dollars(300.0),
             Self::Sling => Currency::dollars(20.0),
             Self::SmithWessonModel1 => Currency::dollars(100.0),
             Self::SmithWessonModel3 => Currency::dollars(250.0),
@@ -487,6 +500,7 @@ impl RangedWeapon {
             Self::SpringfieldM1903 => Currency::dollars(475.0),
             Self::TrapdoorSpringfield => Currency::dollars(425.0),
             Self::StenGun => Currency::dollars(150.0),
+            Self::Sterling => Currency::dollars(400.0),
                         Self::StaffSling => Currency::dollars(20.0),
             Self::Stonebow => Currency::dollars(120.0),
             Self::Boomerang => Currency::dollars(15.0),
@@ -498,6 +512,7 @@ impl RangedWeapon {
             Self::ThompsonM1928 => Currency::dollars(600.0),
             Self::Trebuchet => Currency::dollars(5000.0),
             Self::TNT => Currency::dollars(30.0),
+            Self::Uzi => Currency::dollars(400.0),
             Self::VolcanicPistol => Currency::dollars(275.0),
             Self::VickersMachineGun => Currency::dollars(2500.0),
                         Self::Warbow => Currency::dollars(600.0),
@@ -599,6 +614,7 @@ impl RangedWeapon {
             Self::MakarovPM => Weight::pounds(1.7),
             Self::M14 => Weight::pounds(9.2),
             Self::M16 => Weight::pounds(7.2),
+            Self::MAC10 => Weight::pounds(6.3),
             Self::Mangonel => Weight::pounds(600.0),
             Self::Matchlock => Weight::pounds(12.0),
             Self::MartiniHenryRifle => Weight::pounds(9.0),
@@ -613,6 +629,7 @@ impl RangedWeapon {
             Self::MosinNagant => Weight::pounds(8.75),
             Self::MP18 => Weight::pounds(9.0),
             Self::MP40 => Weight::pounds(8.0),
+            Self::MP5 => Weight::pounds(5.5),
             Self::MountainGun => Weight::pounds(800.0),
                         Self::Musket => Weight::pounds(10.0),
             Self::Musketoon => Weight::pounds(6.0),
@@ -648,6 +665,7 @@ impl RangedWeapon {
             Self::SIGP220 => Weight::pounds(1.9),
             Self::SingleActionRevolver => Weight::pounds(2.5),
             Self::Shuriken => Weight::pounds(0.1),
+            Self::Skorpion => Weight::pounds(3.0),
             Self::Sling => Weight::pounds(0.5),
             Self::SmithWessonModel1 => Weight::pounds(1.0),
             Self::SmithWessonModel3 => Weight::pounds(2.5),
@@ -658,6 +676,7 @@ impl RangedWeapon {
             Self::SpringfieldM1903 => Weight::pounds(8.75),
             Self::TrapdoorSpringfield => Weight::pounds(9.0),
             Self::StenGun => Weight::pounds(6.5),
+            Self::Sterling => Weight::pounds(6.0),
                         Self::StaffSling => Weight::pounds(1.0),
             Self::Stonebow => Weight::pounds(6.0),
             Self::Boomerang => Weight::pounds(1.0),
@@ -669,6 +688,7 @@ impl RangedWeapon {
             Self::ThompsonM1928 => Weight::pounds(10.5),
             Self::Trebuchet => Weight::pounds(1000.0),
             Self::TNT => Weight::pounds(1.0),
+            Self::Uzi => Weight::pounds(7.7),
             Self::VolcanicPistol => Weight::pounds(3.5),
             Self::VickersMachineGun => Weight::pounds(40.0),
                         Self::Warbow => Weight::pounds(5.0),
@@ -770,6 +790,7 @@ impl RangedWeapon {
             Self::MakarovPM => TechLevel::new(7),      // Digital Age
             Self::M14 => TechLevel::new(7),            // Digital Age
             Self::M16 => TechLevel::new(7),            // Digital Age
+            Self::MAC10 => TechLevel::new(7),          // Digital Age
             Self::Mangonel => TechLevel::new(1),       // Roman/Iron Age
             Self::Matchlock => TechLevel::new(4),      // Renaissance
             Self::MartiniHenryRifle => TechLevel::new(5), // Industrial Revolution
@@ -784,6 +805,7 @@ impl RangedWeapon {
             Self::MosinNagant => TechLevel::new(6),    // Atomic Age
             Self::MP18 => TechLevel::new(6),           // Atomic Age
             Self::MP40 => TechLevel::new(6),           // Atomic Age
+            Self::MP5 => TechLevel::new(7),            // Digital Age
             Self::MountainGun => TechLevel::new(5),    // Industrial Revolution
             Self::Musket => TechLevel::new(4),         // Age of Sail
             Self::Musketoon => TechLevel::new(4),      // Renaissance
@@ -819,6 +841,7 @@ impl RangedWeapon {
             Self::SIGP220 => TechLevel::new(7),        // Digital Age
             Self::SingleActionRevolver => TechLevel::new(5), // Industrial Revolution
             Self::Shuriken => TechLevel::new(2),       // Medieval Japan
+            Self::Skorpion => TechLevel::new(7),       // Digital Age
             Self::Sling => TechLevel::new(0),          // Stone Age
             Self::SmithWessonModel1 => TechLevel::new(5), // Industrial Revolution
             Self::SmithWessonModel3 => TechLevel::new(5), // Industrial Revolution
@@ -829,6 +852,7 @@ impl RangedWeapon {
             Self::SpringfieldM1903 => TechLevel::new(6), // Atomic Age
             Self::TrapdoorSpringfield => TechLevel::new(5), // Industrial Revolution
             Self::StenGun => TechLevel::new(6),        // Atomic Age
+            Self::Sterling => TechLevel::new(7),       // Digital Age
                         Self::StaffSling => TechLevel::new(1),     // Bronze Age
             Self::Stonebow => TechLevel::new(2),       // Medieval
             Self::Boomerang => TechLevel::new(0),      // Stone Age
@@ -840,6 +864,7 @@ impl RangedWeapon {
             Self::ThompsonM1928 => TechLevel::new(6),  // Atomic Age
             Self::Trebuchet => TechLevel::new(2),      // Medieval
             Self::TNT => TechLevel::new(5),            // Industrial Revolution
+            Self::Uzi => TechLevel::new(7),            // Digital Age
             Self::VolcanicPistol => TechLevel::new(5), // Industrial Revolution
             Self::VickersMachineGun => TechLevel::new(6), // Atomic Age
                         Self::Warbow => TechLevel::new(2),         // Medieval
@@ -1159,6 +1184,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::MAC10 => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
             Self::M1Garand => WeaponDamage::Fixed {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
@@ -1228,6 +1257,10 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::MP40 => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
+            Self::MP5 => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
@@ -1371,6 +1404,10 @@ impl RangedWeapon {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
+            Self::Skorpion => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Sling => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Piercing,
@@ -1409,6 +1446,10 @@ impl RangedWeapon {
             },
             Self::StenGun => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 1),
+                damage_type: DamageType::Piercing,
+            },
+            Self::Sterling => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
                         Self::StaffSling => WeaponDamage::Swing {
@@ -1454,6 +1495,10 @@ impl RangedWeapon {
             Self::TNT => WeaponDamage::Fixed {
                 dice: DieLevel::new(8, 0),
                 damage_type: DamageType::Crushing,
+            },
+            Self::Uzi => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
             },
             Self::VolcanicPistol => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 1),
@@ -1597,6 +1642,7 @@ impl RangedWeapon {
             Self::LightCrossbow => 4,
                                     Self::Longbow => 3,
             Self::LugerP08 => 2,
+            Self::MAC10 => 3,
             Self::M1Garand => 4,
             Self::MakarovPM => 2,
             Self::M14 => 5,
@@ -1615,6 +1661,7 @@ impl RangedWeapon {
             Self::MosinNagant => 4,
             Self::MP18 => 2,
             Self::MP40 => 3,
+            Self::MP5 => 4,
             Self::MountainGun => 2,
                         Self::Musket => 3,
             Self::Musketoon => 2,
@@ -1650,6 +1697,7 @@ impl RangedWeapon {
             Self::SIGP220 => 2,
             Self::SingleActionRevolver => 2,
             Self::Shuriken => 1,
+            Self::Skorpion => 2,
             Self::Sling => 0,
             Self::SmithWessonModel1 => 1,
             Self::SmithWessonModel3 => 2,
@@ -1660,6 +1708,7 @@ impl RangedWeapon {
             Self::SpringfieldM1903 => 5,
             Self::TrapdoorSpringfield => 4,
             Self::StenGun => 2,
+            Self::Sterling => 3,
                         Self::StaffSling => 1,
             Self::Stonebow => 3,
             Self::Boomerang => 1,
@@ -1671,6 +1720,7 @@ impl RangedWeapon {
             Self::ThompsonM1928 => 3,
             Self::Trebuchet => 1,
             Self::TNT => 1,
+            Self::Uzi => 3,
             Self::VolcanicPistol => 1,
             Self::VickersMachineGun => 5,
                         Self::Warbow => 3,
@@ -1768,6 +1818,7 @@ impl RangedWeapon {
             Self::LightCrossbow => Skill::Crossbow,
                                     Self::Longbow => Skill::Bow,
             Self::LugerP08 => Skill::Guns,
+            Self::MAC10 => Skill::Guns,
             Self::M1Garand => Skill::Guns,
             Self::MakarovPM => Skill::Guns,
             Self::M14 => Skill::Guns,
@@ -1786,6 +1837,7 @@ impl RangedWeapon {
             Self::MosinNagant => Skill::Guns,
             Self::MP18 => Skill::Guns,
             Self::MP40 => Skill::Guns,
+            Self::MP5 => Skill::Guns,
             Self::MountainGun => Skill::Artillery,
                         Self::Musket => Skill::Guns,
             Self::Musketoon => Skill::Guns,
@@ -1821,6 +1873,7 @@ impl RangedWeapon {
             Self::SIGP220 => Skill::Guns,
             Self::SingleActionRevolver => Skill::Guns,
             Self::Shuriken => Skill::ThrownWeapon,
+            Self::Skorpion => Skill::Guns,
             Self::Sling => Skill::Sling,
             Self::SmithWessonModel1 => Skill::Guns,
             Self::SmithWessonModel3 => Skill::Guns,
@@ -1831,6 +1884,7 @@ impl RangedWeapon {
             Self::SpringfieldM1903 => Skill::Guns,
             Self::TrapdoorSpringfield => Skill::Guns,
             Self::StenGun => Skill::Guns,
+            Self::Sterling => Skill::Guns,
                         Self::StaffSling => Skill::Sling,
             Self::Stonebow => Skill::Crossbow,
             Self::Boomerang => Skill::ThrownWeapon,
@@ -1842,6 +1896,7 @@ impl RangedWeapon {
             Self::ThompsonM1928 => Skill::Guns,
             Self::Trebuchet => Skill::Artillery,
             Self::TNT => Skill::ThrownWeapon,
+            Self::Uzi => Skill::Guns,
             Self::VolcanicPistol => Skill::Guns,
             Self::VickersMachineGun => Skill::Guns,
                         Self::Warbow => Skill::Bow,
