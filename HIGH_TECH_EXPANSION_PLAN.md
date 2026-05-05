@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (19/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (67/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -26,6 +26,14 @@
 - ✅ Batch 1: Early Pistols (Cap-lock, Pepperbox, DA/SA Revolvers, etc.)
 - ✅ Batch 2: Early Rifles (Henry, Lever-action, Martini-Henry, etc.)
 - ✅ Batch 3: Heavy Weapons & Explosives (Gatling, Maxim, Mitrailleuse, Dynamite, TNT)
+- ✅ Batch 4: TL5 Shotguns (Double-barrel, Pump-action, Winchester 1887)
+- ✅ Batch 5: TL5 Pistols (Colt Walker, Remington Rolling Block, etc.)
+- ✅ Batch 6: TL5 Rifles (Chassepot, Dreyse Needle, Enfield Pattern 1853, etc.)
+- ✅ Batch 7: TL5 Artillery & Support (Field Gun, Mountain Gun, Naval Gun, etc.)
+- ✅ Batch 8: TL6 Pistols (Colt M1911, Luger P08, Mauser C96, etc.)
+- ✅ Batch 9: TL6 Rifles (Lee-Enfield SMLE, M1 Garand, Mauser Gewehr 98, etc.)
+- ✅ Batch 10: TL6 SMGs (Thompson M1928, MP40, Sten, PPSh-41, etc.)
+- ✅ Batch 11: TL6 Machine Guns (BAR, Bren, Browning M2, MG34, MG42, etc.)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -340,15 +348,19 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 19 items
-- 8 TL5 Pistols
-- 8 TL5 Rifles
-- 3 TL5 Machine Guns
-- 2 TL5 Explosives
+### Completed: 67 items
+- 13 TL5 Pistols
+- 16 TL5 Rifles
+- 3 TL5 Shotguns
+- 8 TL5 Machine Guns & Artillery
+- 6 TL6 Pistols
+- 6 TL6 Rifles
+- 7 TL6 SMGs
+- 8 TL6 Machine Guns
 
-### Remaining: ~331-481 items
+### Remaining: ~283-433 items
 
 ---
 
-**Last Updated:** 2026-05-03
-**Status:** Active development on TL5 ranged weapons
+**Last Updated:** 2026-05-04
+**Status:** Active development on TL6 ranged weapons (shotguns/specialized next)
