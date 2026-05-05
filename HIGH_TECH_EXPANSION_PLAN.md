@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (67/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (73/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -34,6 +34,7 @@
 - ✅ Batch 9: TL6 Rifles (Lee-Enfield SMLE, M1 Garand, Mauser Gewehr 98, etc.)
 - ✅ Batch 10: TL6 SMGs (Thompson M1928, MP40, Sten, PPSh-41, etc.)
 - ✅ Batch 11: TL6 Machine Guns (BAR, Bren, Browning M2, MG34, MG42, etc.)
+- ✅ Batch 12: TL6 Shotguns & Specialized (Browning Auto-5, Winchester 1897, Boys ATR, PTRD ATR, etc.)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -348,7 +349,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 67 items
+### Completed: 73 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -357,10 +358,12 @@ For each weapon:
 - 6 TL6 Rifles
 - 7 TL6 SMGs
 - 8 TL6 Machine Guns
+- 3 TL6 Shotguns
+- 3 TL6 Specialized Weapons
 
-### Remaining: ~283-433 items
+### Remaining: ~277-427 items
 
 ---
 
 **Last Updated:** 2026-05-04
-**Status:** Active development on TL6 ranged weapons (shotguns/specialized next)
+**Status:** ✅ TL6 ranged weapons COMPLETE! Ready to begin TL7 (Nuclear Age, 1940-1980)
