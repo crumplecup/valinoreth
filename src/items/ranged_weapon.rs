@@ -20,6 +20,10 @@ pub enum RangedWeapon {
     Arbalest,
     /// Arquebus, 3d piercing. LT (Spanish matchlock, TL4)
     Arquebus,
+    /// AK-47, 5d piercing. HT (Soviet 7.62mm assault rifle, TL7)
+    AK47,
+    /// AKM, 5d piercing. HT (Modernized AK-47, TL7)
+    AKM,
     /// Assault rifle, 5d piercing. BS 278
     AssaultRifle,
     /// Arisaka Type 38, 4d piercing. HT (Japanese bolt-action rifle, TL6)
@@ -104,6 +108,8 @@ pub enum RangedWeapon {
     FieldGun,
     /// Flintlock, 1d+2 piercing. LT (Flintlock pistol, TL4)
     Flintlock,
+    /// FN FAL, 5d+1 piercing. HT (7.62mm battle rifle, TL7)
+    FNFAL,
     /// Fusil, 4d piercing. LT (Light musket, TL4)
     Fusil,
     /// Gatling gun, 5d piercing. HT (Hand-cranked machine gun, TL5)
@@ -122,6 +128,8 @@ pub enum RangedWeapon {
     GreatBow,
     /// Glock 17, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
     Glock17,
+    /// G3, 5d+1 piercing. HT (German 7.62mm battle rifle, TL7)
+    G3,
     /// Horn bow, 1d+2 impaling. LT (Horn composite bow, TL1)
     HornBow,
     /// Hand cannon, 2d+2 piercing. LT (Early firearm, TL3)
@@ -160,6 +168,10 @@ pub enum RangedWeapon {
     M1Garand,
     /// Makarov PM, 2d piercing. HT (9x18mm semi-auto pistol, TL7)
     MakarovPM,
+    /// M14, 5d+1 piercing. HT (American 7.62mm battle rifle, TL7)
+    M14,
+    /// M16, 5d piercing. HT (American 5.56mm assault rifle, TL7)
+    M16,
     /// Mangonel, 3d crushing. LT (Torsion catapult, TL1)
     Mangonel,
     /// Matchlock, 3d+2 piercing. LT (Early musket, TL4)
@@ -340,6 +352,8 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => Currency::dollars(300.0),
             Self::Arquebus => Currency::dollars(500.0),
+            Self::AK47 => Currency::dollars(600.0),
+            Self::AKM => Currency::dollars(650.0),
             Self::AssaultRifle => Currency::dollars(900.0),
             Self::ArisakaType38 => Currency::dollars(400.0),
                         Self::Atlatl => Currency::dollars(20.0),
@@ -382,6 +396,7 @@ impl RangedWeapon {
             Self::FlareGun => Currency::dollars(50.0),
             Self::FieldGun => Currency::dollars(5000.0),
             Self::Flintlock => Currency::dollars(200.0),
+            Self::FNFAL => Currency::dollars(700.0),
             Self::Fusil => Currency::dollars(350.0),
             Self::GatlingGun => Currency::dollars(3000.0),
             Self::GardnerGun => Currency::dollars(2800.0),
@@ -391,6 +406,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => Currency::dollars(400.0),
             Self::GreatBow => Currency::dollars(700.0),
             Self::Glock17 => Currency::dollars(400.0),
+            Self::G3 => Currency::dollars(750.0),
             Self::HornBow => Currency::dollars(800.0),
             Self::HandCannon => Currency::dollars(1000.0),
                         Self::Hankyu => Currency::dollars(250.0),
@@ -410,6 +426,8 @@ impl RangedWeapon {
             Self::LugerP08 => Currency::dollars(350.0),
             Self::M1Garand => Currency::dollars(500.0),
             Self::MakarovPM => Currency::dollars(300.0),
+            Self::M14 => Currency::dollars(750.0),
+            Self::M16 => Currency::dollars(800.0),
             Self::Mangonel => Currency::dollars(3500.0),
             Self::Matchlock => Currency::dollars(400.0),
             Self::MartiniHenryRifle => Currency::dollars(450.0),
@@ -505,6 +523,8 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => Weight::pounds(12.0),
             Self::Arquebus => Weight::pounds(11.0),
+            Self::AK47 => Weight::pounds(9.5),
+            Self::AKM => Weight::pounds(8.0),
             Self::AssaultRifle => Weight::pounds(9.0),
             Self::ArisakaType38 => Weight::pounds(9.0),
                         Self::Atlatl => Weight::pounds(1.0),
@@ -547,6 +567,7 @@ impl RangedWeapon {
             Self::FlareGun => Weight::pounds(2.0),
             Self::FieldGun => Weight::pounds(2000.0),
             Self::Flintlock => Weight::pounds(2.5),
+            Self::FNFAL => Weight::pounds(10.0),
             Self::Fusil => Weight::pounds(8.0),
             Self::GatlingGun => Weight::pounds(200.0),
             Self::GardnerGun => Weight::pounds(180.0),
@@ -556,6 +577,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => Weight::pounds(14.0),
             Self::GreatBow => Weight::pounds(6.0),
             Self::Glock17 => Weight::pounds(1.6),
+            Self::G3 => Weight::pounds(9.7),
             Self::HornBow => Weight::pounds(3.0),
             Self::HandCannon => Weight::pounds(15.0),
                         Self::Hankyu => Weight::pounds(1.5),
@@ -575,6 +597,8 @@ impl RangedWeapon {
             Self::LugerP08 => Weight::pounds(1.75),
             Self::M1Garand => Weight::pounds(9.5),
             Self::MakarovPM => Weight::pounds(1.7),
+            Self::M14 => Weight::pounds(9.2),
+            Self::M16 => Weight::pounds(7.2),
             Self::Mangonel => Weight::pounds(600.0),
             Self::Matchlock => Weight::pounds(12.0),
             Self::MartiniHenryRifle => Weight::pounds(9.0),
@@ -670,6 +694,8 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => TechLevel::new(3),       // Medieval
             Self::Arquebus => TechLevel::new(4),       // Renaissance
+            Self::AK47 => TechLevel::new(7),           // Digital Age
+            Self::AKM => TechLevel::new(7),            // Digital Age
             Self::AssaultRifle => TechLevel::new(7),   // Digital Age
             Self::ArisakaType38 => TechLevel::new(6),  // Atomic Age
                         Self::Atlatl => TechLevel::new(0),         // Stone Age
@@ -712,6 +738,7 @@ impl RangedWeapon {
             Self::FlareGun => TechLevel::new(6),       // Atomic Age
             Self::FieldGun => TechLevel::new(5),       // Industrial Revolution
             Self::Flintlock => TechLevel::new(4),      // Renaissance
+            Self::FNFAL => TechLevel::new(7),          // Digital Age
             Self::Fusil => TechLevel::new(4),          // Renaissance
             Self::GatlingGun => TechLevel::new(5),     // Industrial Revolution
             Self::GardnerGun => TechLevel::new(5),     // Industrial Revolution
@@ -721,6 +748,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => TechLevel::new(1),   // Greek/Iron Age
             Self::GreatBow => TechLevel::new(2),       // Medieval
             Self::Glock17 => TechLevel::new(7),        // Digital Age
+            Self::G3 => TechLevel::new(7),             // Digital Age
             Self::HornBow => TechLevel::new(1),        // Bronze Age
             Self::HandCannon => TechLevel::new(3),     // Medieval
                         Self::Hankyu => TechLevel::new(3),        // Japanese
@@ -740,6 +768,8 @@ impl RangedWeapon {
             Self::LugerP08 => TechLevel::new(6),       // Atomic Age
             Self::M1Garand => TechLevel::new(6),       // Atomic Age
             Self::MakarovPM => TechLevel::new(7),      // Digital Age
+            Self::M14 => TechLevel::new(7),            // Digital Age
+            Self::M16 => TechLevel::new(7),            // Digital Age
             Self::Mangonel => TechLevel::new(1),       // Roman/Iron Age
             Self::Matchlock => TechLevel::new(4),      // Renaissance
             Self::MartiniHenryRifle => TechLevel::new(5), // Industrial Revolution
@@ -839,6 +869,14 @@ impl RangedWeapon {
             },
             Self::Arquebus => WeaponDamage::Fixed {
                 dice: DieLevel::new(3, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::AK47 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::AKM => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AssaultRifle => WeaponDamage::Fixed {
@@ -1009,6 +1047,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
+            Self::FNFAL => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 1),
+                damage_type: DamageType::Piercing,
+            },
             Self::Fusil => WeaponDamage::Fixed {
                 dice: DieLevel::new(4, 0),
                 damage_type: DamageType::Piercing,
@@ -1043,6 +1085,10 @@ impl RangedWeapon {
             },
             Self::Glock17 => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
+            Self::G3 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::HornBow => WeaponDamage::Fixed {
@@ -1119,6 +1165,14 @@ impl RangedWeapon {
             },
             Self::MakarovPM => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::M14 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 1),
+                damage_type: DamageType::Piercing,
+            },
+            Self::M16 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Mangonel => WeaponDamage::Fixed {
@@ -1471,6 +1525,8 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => 5,
             Self::Arquebus => 2,
+            Self::AK47 => 4,
+            Self::AKM => 4,
             Self::AssaultRifle => 5,
             Self::ArisakaType38 => 4,
                         Self::Atlatl => 2,
@@ -1513,6 +1569,7 @@ impl RangedWeapon {
             Self::FlareGun => 1,
             Self::FieldGun => 2,
             Self::Flintlock => 1,
+            Self::FNFAL => 5,
             Self::Fusil => 3,
             Self::GatlingGun => 4,
             Self::GardnerGun => 4,
@@ -1522,6 +1579,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => 4,
             Self::GreatBow => 3,
             Self::Glock17 => 2,
+            Self::G3 => 5,
             Self::HornBow => 3,
             Self::HandCannon => 1,
                         Self::Hankyu => 2,
@@ -1541,6 +1599,8 @@ impl RangedWeapon {
             Self::LugerP08 => 2,
             Self::M1Garand => 4,
             Self::MakarovPM => 2,
+            Self::M14 => 5,
+            Self::M16 => 5,
             Self::Mangonel => 1,
             Self::Matchlock => 2,
             Self::MartiniHenryRifle => 4,
@@ -1636,6 +1696,8 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => Skill::Crossbow,
             Self::Arquebus => Skill::Guns,
+            Self::AK47 => Skill::Guns,
+            Self::AKM => Skill::Guns,
             Self::AssaultRifle => Skill::Guns,
             Self::ArisakaType38 => Skill::Guns,
                         Self::Atlatl => Skill::ThrownWeapon,
@@ -1678,6 +1740,7 @@ impl RangedWeapon {
             Self::FlareGun => Skill::Guns,
             Self::FieldGun => Skill::Artillery,
             Self::Flintlock => Skill::Guns,
+            Self::FNFAL => Skill::Guns,
             Self::Fusil => Skill::Guns,
             Self::GatlingGun => Skill::Guns,
             Self::GardnerGun => Skill::Guns,
@@ -1687,6 +1750,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => Skill::Crossbow,
             Self::GreatBow => Skill::Bow,
             Self::Glock17 => Skill::Guns,
+            Self::G3 => Skill::Guns,
             Self::HornBow => Skill::Bow,
             Self::HandCannon => Skill::Guns,
                         Self::Hankyu => Skill::Bow,
@@ -1706,6 +1770,8 @@ impl RangedWeapon {
             Self::LugerP08 => Skill::Guns,
             Self::M1Garand => Skill::Guns,
             Self::MakarovPM => Skill::Guns,
+            Self::M14 => Skill::Guns,
+            Self::M16 => Skill::Guns,
             Self::Mangonel => Skill::Artillery,
             Self::Matchlock => Skill::Guns,
             Self::MartiniHenryRifle => Skill::Guns,
