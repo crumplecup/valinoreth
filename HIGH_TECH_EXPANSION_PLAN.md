@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (90/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (95/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -38,6 +38,7 @@
 - ✅ Batch 13: TL7 Pistols (Beretta M92, Glock 17, Desert Eagle, CZ 75, SIG P220, Makarov PM)
 - ✅ Batch 14: TL7 Rifles (AK-47, AKM, M14, M16, FN FAL, G3)
 - ✅ Batch 15: TL7 SMGs (MAC-10, MP5, Skorpion vz. 61, Sterling, Uzi)
+- ✅ Batch 16: TL7 Machine Guns (FN MAG, M249 SAW, M60, MG3, PKM)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -352,7 +353,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 90 items
+### Completed: 95 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -366,10 +367,11 @@ For each weapon:
 - 6 TL7 Pistols
 - 6 TL7 Rifles
 - 5 TL7 SMGs
+- 5 TL7 Machine Guns
 
-### Remaining: ~260-410 items
+### Remaining: ~255-405 items
 
 ---
 
 **Last Updated:** 2026-05-05
-**Status:** 🔄 TL7 ranged weapons IN PROGRESS - Pistols, rifles, and SMGs complete; machine guns next
+**Status:** 🔄 TL7 ranged weapons IN PROGRESS - Pistols, rifles, SMGs, and machine guns complete; sniper rifles and shotguns next
