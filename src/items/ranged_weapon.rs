@@ -24,6 +24,8 @@ pub enum RangedWeapon {
     AK47,
     /// AKM, 5d piercing. HT (Modernized AK-47, TL7)
     AKM,
+    /// AK-12, 5d piercing. HT (Modern Russian 5.45mm rifle, TL8)
+    AK12,
     /// Assault rifle, 5d piercing. BS 278
     AssaultRifle,
     /// Arisaka Type 38, 4d piercing. HT (Japanese bolt-action rifle, TL6)
@@ -120,6 +122,8 @@ pub enum RangedWeapon {
     FieldGun,
     /// Flintlock, 1d+2 piercing. LT (Flintlock pistol, TL4)
     Flintlock,
+    /// FAMAS, 5d piercing. HT (French 5.56mm bullpup rifle, TL8)
+    FAMAS,
     /// FN FAL, 5d+1 piercing. HT (7.62mm battle rifle, TL7)
     FNFAL,
     /// FN MAG, 6d piercing. HT (Belgian 7.62mm GPMG, TL7)
@@ -288,6 +292,8 @@ pub enum RangedWeapon {
     Prodd,
     /// Pump-action shotgun, 1d+1 piercing. HT (Early pump shotgun, TL5)
     PumpActionShotgun,
+    /// QBZ-95, 5d piercing. HT (Chinese 5.8mm bullpup rifle, TL8)
+    QBZ95,
     /// Remington 870, 1d+1 piercing. HT (American pump-action shotgun, TL7)
     Remington870,
     /// Remington Rolling Block Pistol, 2d piercing. HT (Single-shot pistol, TL5)
@@ -356,6 +362,8 @@ pub enum RangedWeapon {
     StenGun,
     /// Sterling, 2d+2 piercing. HT (British 9mm SMG, TL7)
     Sterling,
+    /// Steyr AUG, 5d piercing. HT (Austrian 5.56mm bullpup rifle, TL8)
+    SteyrAUG,
     /// Stinger Missile, 12d crushing. HT (American surface-to-air missile, TL7)
     StingerMissile,
     /// Staff sling, swing+2 piercing. BS 277
@@ -408,6 +416,8 @@ pub enum RangedWeapon {
     Winchester1897,
     /// Winchester repeater, 3d+1 piercing. HT (Lever-action rifle, TL5)
     WinchesterRepeater,
+    /// XM8, 5d piercing. HT (American 5.56mm experimental rifle, TL8)
+    XM8,
     /// Yumi, 1d+1 impaling. LT (Japanese asymmetric bow, TL2)
     Yumi,
     /// Thrown bola (entangling), swing crushing. BS 277
@@ -426,6 +436,7 @@ impl RangedWeapon {
             Self::Arquebus => Currency::dollars(500.0),
             Self::AK47 => Currency::dollars(600.0),
             Self::AKM => Currency::dollars(650.0),
+            Self::AK12 => Currency::dollars(2500.0),
             Self::AssaultRifle => Currency::dollars(900.0),
             Self::ArisakaType38 => Currency::dollars(400.0),
             Self::AT4 => Currency::dollars(1500.0),
@@ -474,6 +485,7 @@ impl RangedWeapon {
             Self::FlareGun => Currency::dollars(50.0),
             Self::FieldGun => Currency::dollars(5000.0),
             Self::Flintlock => Currency::dollars(200.0),
+            Self::FAMAS => Currency::dollars(2200.0),
             Self::FNFAL => Currency::dollars(700.0),
             Self::FNMAG => Currency::dollars(3000.0),
             Self::FNP90 => Currency::dollars(1800.0),
@@ -558,6 +570,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => Currency::dollars(1600.0),
             Self::Prodd => Currency::dollars(100.0),
             Self::PumpActionShotgun => Currency::dollars(300.0),
+            Self::QBZ95 => Currency::dollars(2000.0),
             Self::Remington870 => Currency::dollars(450.0),
             Self::RemingtonRollingBlockPistol => Currency::dollars(200.0),
             Self::RemingtonRollingBlockRifle => Currency::dollars(425.0),
@@ -592,6 +605,7 @@ impl RangedWeapon {
             Self::TrapdoorSpringfield => Currency::dollars(425.0),
             Self::StenGun => Currency::dollars(150.0),
             Self::Sterling => Currency::dollars(400.0),
+            Self::SteyrAUG => Currency::dollars(2400.0),
             Self::StingerMissile => Currency::dollars(40000.0),
                         Self::StaffSling => Currency::dollars(20.0),
             Self::Stonebow => Currency::dollars(120.0),
@@ -618,6 +632,7 @@ impl RangedWeapon {
             Self::Winchester1887 => Currency::dollars(350.0),
             Self::Winchester1897 => Currency::dollars(325.0),
             Self::WinchesterRepeater => Currency::dollars(450.0),
+            Self::XM8 => Currency::dollars(2600.0),
             Self::Yumi => Currency::dollars(300.0),
             Self::ThrownBola => Currency::dollars(20.0),
             Self::ThrownNet => Currency::dollars(40.0),
@@ -633,6 +648,7 @@ impl RangedWeapon {
             Self::Arquebus => Weight::pounds(11.0),
             Self::AK47 => Weight::pounds(9.5),
             Self::AKM => Weight::pounds(8.0),
+            Self::AK12 => Weight::pounds(7.8),
             Self::AssaultRifle => Weight::pounds(9.0),
             Self::ArisakaType38 => Weight::pounds(9.0),
             Self::AT4 => Weight::pounds(14.8),
@@ -681,6 +697,7 @@ impl RangedWeapon {
             Self::FlareGun => Weight::pounds(2.0),
             Self::FieldGun => Weight::pounds(2000.0),
             Self::Flintlock => Weight::pounds(2.5),
+            Self::FAMAS => Weight::pounds(8.0),
             Self::FNFAL => Weight::pounds(10.0),
             Self::FNMAG => Weight::pounds(24.5),
             Self::FNP90 => Weight::pounds(5.7),
@@ -765,6 +782,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => Weight::pounds(38.0),
             Self::Prodd => Weight::pounds(7.0),
             Self::PumpActionShotgun => Weight::pounds(8.0),
+            Self::QBZ95 => Weight::pounds(7.3),
             Self::Remington870 => Weight::pounds(7.5),
             Self::RemingtonRollingBlockPistol => Weight::pounds(2.5),
             Self::RemingtonRollingBlockRifle => Weight::pounds(9.0),
@@ -799,6 +817,7 @@ impl RangedWeapon {
             Self::TrapdoorSpringfield => Weight::pounds(9.0),
             Self::StenGun => Weight::pounds(6.5),
             Self::Sterling => Weight::pounds(6.0),
+            Self::SteyrAUG => Weight::pounds(7.9),
             Self::StingerMissile => Weight::pounds(34.5),
                         Self::StaffSling => Weight::pounds(1.0),
             Self::Stonebow => Weight::pounds(6.0),
@@ -825,6 +844,7 @@ impl RangedWeapon {
             Self::Winchester1887 => Weight::pounds(9.5),
             Self::Winchester1897 => Weight::pounds(8.0),
             Self::WinchesterRepeater => Weight::pounds(9.0),
+            Self::XM8 => Weight::pounds(6.2),
             Self::Yumi => Weight::pounds(2.5),
             Self::ThrownBola => Weight::pounds(1.0),
             Self::ThrownNet => Weight::pounds(5.0),
@@ -840,6 +860,7 @@ impl RangedWeapon {
             Self::Arquebus => TechLevel::new(4),       // Renaissance
             Self::AK47 => TechLevel::new(7),           // Digital Age
             Self::AKM => TechLevel::new(7),            // Digital Age
+            Self::AK12 => TechLevel::new(8),           // Information Age
             Self::AssaultRifle => TechLevel::new(7),   // Digital Age
             Self::ArisakaType38 => TechLevel::new(6),  // Atomic Age
             Self::AT4 => TechLevel::new(7),            // Digital Age
@@ -888,6 +909,7 @@ impl RangedWeapon {
             Self::FlareGun => TechLevel::new(6),       // Atomic Age
             Self::FieldGun => TechLevel::new(5),       // Industrial Revolution
             Self::Flintlock => TechLevel::new(4),      // Renaissance
+            Self::FAMAS => TechLevel::new(8),          // Information Age
             Self::FNFAL => TechLevel::new(7),          // Digital Age
             Self::FNMAG => TechLevel::new(7),          // Digital Age
             Self::FNP90 => TechLevel::new(8),          // Information Age
@@ -972,6 +994,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => TechLevel::new(6), // Atomic Age
             Self::Prodd => TechLevel::new(2),          // Medieval
             Self::PumpActionShotgun => TechLevel::new(5), // Industrial Revolution
+            Self::QBZ95 => TechLevel::new(8),              // Information Age
             Self::Remington870 => TechLevel::new(7),       // Digital Age
             Self::RemingtonRollingBlockPistol => TechLevel::new(5), // Industrial Revolution
             Self::RemingtonRollingBlockRifle => TechLevel::new(5), // Industrial Revolution
@@ -1006,6 +1029,7 @@ impl RangedWeapon {
             Self::TrapdoorSpringfield => TechLevel::new(5), // Industrial Revolution
             Self::StenGun => TechLevel::new(6),        // Atomic Age
             Self::Sterling => TechLevel::new(7),       // Digital Age
+            Self::SteyrAUG => TechLevel::new(8),        // Information Age
             Self::StingerMissile => TechLevel::new(7), // Digital Age
                         Self::StaffSling => TechLevel::new(1),     // Bronze Age
             Self::Stonebow => TechLevel::new(2),       // Medieval
@@ -1032,6 +1056,7 @@ impl RangedWeapon {
             Self::Winchester1887 => TechLevel::new(5), // Industrial Revolution
             Self::Winchester1897 => TechLevel::new(6), // Atomic Age
             Self::WinchesterRepeater => TechLevel::new(5), // Industrial Revolution
+            Self::XM8 => TechLevel::new(8),            // Information Age
             Self::Yumi => TechLevel::new(2),           // Medieval Japan
             Self::ThrownBola => TechLevel::new(0),     // Stone Age
             Self::ThrownNet => TechLevel::new(1),      // Bronze Age
@@ -1056,6 +1081,10 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::AKM => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::AK12 => WeaponDamage::Fixed {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
@@ -1249,6 +1278,10 @@ impl RangedWeapon {
             },
             Self::Flintlock => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 2),
+                damage_type: DamageType::Piercing,
+            },
+            Self::FAMAS => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::FNFAL => WeaponDamage::Fixed {
@@ -1587,6 +1620,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::QBZ95 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Remington870 => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
@@ -1723,6 +1760,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
+            Self::SteyrAUG => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::StingerMissile => WeaponDamage::Fixed {
                 dice: DieLevel::new(12, 0),
                 damage_type: DamageType::Crushing,
@@ -1827,6 +1868,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(3, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::XM8 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Yumi => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Impaling,
@@ -1851,6 +1896,7 @@ impl RangedWeapon {
             Self::Arquebus => 2,
             Self::AK47 => 4,
             Self::AKM => 4,
+            Self::AK12 => 5,
             Self::AssaultRifle => 5,
             Self::ArisakaType38 => 4,
             Self::AT4 => 3,
@@ -1899,6 +1945,7 @@ impl RangedWeapon {
             Self::FlareGun => 1,
             Self::FieldGun => 2,
             Self::Flintlock => 1,
+            Self::FAMAS => 5,
             Self::FNFAL => 5,
             Self::FNMAG => 5,
             Self::FNP90 => 4,
@@ -1983,6 +2030,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => 5,
             Self::Prodd => 3,
             Self::PumpActionShotgun => 3,
+            Self::QBZ95 => 5,
             Self::Remington870 => 3,
             Self::RemingtonRollingBlockPistol => 2,
             Self::RemingtonRollingBlockRifle => 4,
@@ -2017,6 +2065,7 @@ impl RangedWeapon {
             Self::TrapdoorSpringfield => 4,
             Self::StenGun => 2,
             Self::Sterling => 3,
+            Self::SteyrAUG => 5,
             Self::StingerMissile => 5,
                         Self::StaffSling => 1,
             Self::Stonebow => 3,
@@ -2043,6 +2092,7 @@ impl RangedWeapon {
             Self::Winchester1887 => 3,
             Self::Winchester1897 => 3,
             Self::WinchesterRepeater => 4,
+            Self::XM8 => 5,
             Self::Yumi => 2,
             Self::ThrownBola => 1,
             Self::ThrownNet => 1,
@@ -2058,6 +2108,7 @@ impl RangedWeapon {
             Self::Arquebus => Skill::Guns,
             Self::AK47 => Skill::Guns,
             Self::AKM => Skill::Guns,
+            Self::AK12 => Skill::Guns,
             Self::AssaultRifle => Skill::Guns,
             Self::ArisakaType38 => Skill::Guns,
             Self::AT4 => Skill::Guns,
@@ -2106,6 +2157,7 @@ impl RangedWeapon {
             Self::FlareGun => Skill::Guns,
             Self::FieldGun => Skill::Artillery,
             Self::Flintlock => Skill::Guns,
+            Self::FAMAS => Skill::Guns,
             Self::FNFAL => Skill::Guns,
             Self::FNMAG => Skill::Guns,
             Self::FNP90 => Skill::Guns,
@@ -2190,6 +2242,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => Skill::Guns,
             Self::Prodd => Skill::Crossbow,
             Self::PumpActionShotgun => Skill::Guns,
+            Self::QBZ95 => Skill::Guns,
             Self::Remington870 => Skill::Guns,
             Self::RemingtonRollingBlockPistol => Skill::Guns,
             Self::RemingtonRollingBlockRifle => Skill::Guns,
@@ -2224,6 +2277,7 @@ impl RangedWeapon {
             Self::TrapdoorSpringfield => Skill::Guns,
             Self::StenGun => Skill::Guns,
             Self::Sterling => Skill::Guns,
+            Self::SteyrAUG => Skill::Guns,
             Self::StingerMissile => Skill::Guns,
                         Self::StaffSling => Skill::Sling,
             Self::Stonebow => Skill::Crossbow,
@@ -2250,6 +2304,7 @@ impl RangedWeapon {
             Self::Winchester1887 => Skill::Guns,
             Self::Winchester1897 => Skill::Guns,
             Self::WinchesterRepeater => Skill::Guns,
+            Self::XM8 => Skill::Guns,
             Self::Yumi => Skill::Bow,
             Self::ThrownBola => Skill::ThrownWeapon,
             Self::ThrownNet => Skill::ThrownWeapon,
