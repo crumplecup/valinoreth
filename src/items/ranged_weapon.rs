@@ -124,6 +124,12 @@ pub enum RangedWeapon {
     FNFAL,
     /// FN MAG, 6d piercing. HT (Belgian 7.62mm GPMG, TL7)
     FNMAG,
+    /// FN P90, 3d+1 piercing. HT (Belgian 5.7mm PDW, TL8)
+    FNP90,
+    /// FN SCAR-L, 5d piercing. HT (Belgian 5.56mm modular rifle, TL8)
+    FNSCARL,
+    /// FN Five-seveN, 2d piercing. HT (Belgian 5.7mm pistol, TL8)
+    FNFiveSeveN,
     /// Fusil, 4d piercing. LT (Light musket, TL4)
     Fusil,
     /// Gatling gun, 5d piercing. HT (Hand-cranked machine gun, TL5)
@@ -164,6 +170,10 @@ pub enum RangedWeapon {
     Hurlbat,
     /// Hunting rifle, 7d piercing. BS 278
     HuntingRifle,
+    /// HK416, 5d piercing. HT (German 5.56mm improved AR, TL8)
+    HK416,
+    /// HK MP7, 3d piercing. HT (German 4.6mm PDW, TL8)
+    HKMP7,
     /// Jezail, 5d piercing. LT (Afghan long gun, TL4)
     Jezail,
     /// LeMat revolver, 2d+1 piercing. HT (9-shot + shotgun revolver, TL5)
@@ -466,6 +476,9 @@ impl RangedWeapon {
             Self::Flintlock => Currency::dollars(200.0),
             Self::FNFAL => Currency::dollars(700.0),
             Self::FNMAG => Currency::dollars(3000.0),
+            Self::FNP90 => Currency::dollars(1800.0),
+            Self::FNSCARL => Currency::dollars(2800.0),
+            Self::FNFiveSeveN => Currency::dollars(1000.0),
             Self::Fusil => Currency::dollars(350.0),
             Self::GatlingGun => Currency::dollars(3000.0),
             Self::GardnerGun => Currency::dollars(2800.0),
@@ -486,6 +499,8 @@ impl RangedWeapon {
                         Self::HeavyCrossbow => Currency::dollars(200.0),
             Self::Hurlbat => Currency::dollars(30.0),
                         Self::HuntingRifle => Currency::dollars(700.0),
+            Self::HK416 => Currency::dollars(2800.0),
+            Self::HKMP7 => Currency::dollars(1800.0),
             Self::Jezail => Currency::dollars(400.0),
             Self::LematRevolver => Currency::dollars(350.0),
             Self::LeeEnfieldSMLE => Currency::dollars(425.0),
@@ -668,6 +683,9 @@ impl RangedWeapon {
             Self::Flintlock => Weight::pounds(2.5),
             Self::FNFAL => Weight::pounds(10.0),
             Self::FNMAG => Weight::pounds(24.5),
+            Self::FNP90 => Weight::pounds(5.7),
+            Self::FNSCARL => Weight::pounds(7.3),
+            Self::FNFiveSeveN => Weight::pounds(1.5),
             Self::Fusil => Weight::pounds(8.0),
             Self::GatlingGun => Weight::pounds(200.0),
             Self::GardnerGun => Weight::pounds(180.0),
@@ -688,6 +706,8 @@ impl RangedWeapon {
                         Self::HeavyCrossbow => Weight::pounds(8.0),
             Self::Hurlbat => Weight::pounds(1.5),
                         Self::HuntingRifle => Weight::pounds(9.0),
+            Self::HK416 => Weight::pounds(7.5),
+            Self::HKMP7 => Weight::pounds(4.2),
             Self::Jezail => Weight::pounds(11.0),
             Self::LematRevolver => Weight::pounds(3.0),
             Self::LeeEnfieldSMLE => Weight::pounds(8.75),
@@ -870,6 +890,9 @@ impl RangedWeapon {
             Self::Flintlock => TechLevel::new(4),      // Renaissance
             Self::FNFAL => TechLevel::new(7),          // Digital Age
             Self::FNMAG => TechLevel::new(7),          // Digital Age
+            Self::FNP90 => TechLevel::new(8),          // Information Age
+            Self::FNSCARL => TechLevel::new(8),        // Information Age
+            Self::FNFiveSeveN => TechLevel::new(8),    // Information Age
             Self::Fusil => TechLevel::new(4),          // Renaissance
             Self::GatlingGun => TechLevel::new(5),     // Industrial Revolution
             Self::GardnerGun => TechLevel::new(5),     // Industrial Revolution
@@ -890,6 +913,8 @@ impl RangedWeapon {
                         Self::HeavyCrossbow => TechLevel::new(2),  // Medieval
             Self::Hurlbat => TechLevel::new(1),        // Bronze Age
                         Self::HuntingRifle => TechLevel::new(5),   // Mechanized Age
+            Self::HK416 => TechLevel::new(8),          // Information Age
+            Self::HKMP7 => TechLevel::new(8),          // Information Age
             Self::Jezail => TechLevel::new(4),         // Renaissance
             Self::LematRevolver => TechLevel::new(5),  // Industrial Revolution
             Self::LeeEnfieldSMLE => TechLevel::new(6), // Atomic Age
@@ -1234,6 +1259,18 @@ impl RangedWeapon {
                 dice: DieLevel::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::FNP90 => WeaponDamage::Fixed {
+                dice: DieLevel::new(3, 1),
+                damage_type: DamageType::Piercing,
+            },
+            Self::FNSCARL => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::FNFiveSeveN => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Fusil => WeaponDamage::Fixed {
                 dice: DieLevel::new(4, 0),
                 damage_type: DamageType::Piercing,
@@ -1312,6 +1349,14 @@ impl RangedWeapon {
             },
                         Self::HuntingRifle => WeaponDamage::Fixed {
                 dice: DieLevel::new(7, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::HK416 => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::HKMP7 => WeaponDamage::Fixed {
+                dice: DieLevel::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Jezail => WeaponDamage::Fixed {
@@ -1856,6 +1901,9 @@ impl RangedWeapon {
             Self::Flintlock => 1,
             Self::FNFAL => 5,
             Self::FNMAG => 5,
+            Self::FNP90 => 4,
+            Self::FNSCARL => 5,
+            Self::FNFiveSeveN => 2,
             Self::Fusil => 3,
             Self::GatlingGun => 4,
             Self::GardnerGun => 4,
@@ -1876,6 +1924,8 @@ impl RangedWeapon {
                         Self::HeavyCrossbow => 4,
             Self::Hurlbat => 1,
                         Self::HuntingRifle => 5,
+            Self::HK416 => 5,
+            Self::HKMP7 => 4,
             Self::Jezail => 4,
             Self::LematRevolver => 2,
             Self::LeeEnfieldSMLE => 4,
@@ -2058,6 +2108,9 @@ impl RangedWeapon {
             Self::Flintlock => Skill::Guns,
             Self::FNFAL => Skill::Guns,
             Self::FNMAG => Skill::Guns,
+            Self::FNP90 => Skill::Guns,
+            Self::FNSCARL => Skill::Guns,
+            Self::FNFiveSeveN => Skill::Guns,
             Self::Fusil => Skill::Guns,
             Self::GatlingGun => Skill::Guns,
             Self::GardnerGun => Skill::Guns,
@@ -2078,6 +2131,8 @@ impl RangedWeapon {
                         Self::HeavyCrossbow => Skill::Crossbow,
             Self::Hurlbat => Skill::ThrownWeapon,
                         Self::HuntingRifle => Skill::Guns,
+            Self::HK416 => Skill::Guns,
+            Self::HKMP7 => Skill::Guns,
             Self::Jezail => Skill::Guns,
             Self::LematRevolver => Skill::Guns,
             Self::LeeEnfieldSMLE => Skill::Guns,
