@@ -48,6 +48,8 @@ pub enum RangedWeapon {
     BrenGun,
     /// Barrett M82, 9d piercing. HT (American .50 BMG anti-materiel rifle, TL7)
     BarrettM82,
+    /// Benelli M3, 1d+1 piercing. HT (Italian 12-gauge convertible shotgun, TL7)
+    BenelliM3,
     /// Beretta M92, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
     BerettaM92,
     /// Browning Hi-Power, 2d+2 piercing. HT (9mm semi-auto pistol, TL6)
@@ -214,6 +216,8 @@ pub enum RangedWeapon {
     Mitrailleuse,
     /// Mosin-Nagant, 4d+1 piercing. HT (Russian bolt-action rifle, TL6)
     MosinNagant,
+    /// Mossberg 500, 1d+1 piercing. HT (American pump-action shotgun, TL7)
+    Mossberg500,
     /// MP18, 2d+1 piercing. HT (German 9mm SMG, TL6)
     MP18,
     /// MP40, 2d+2 piercing. HT (German 9mm SMG, TL6)
@@ -258,6 +262,8 @@ pub enum RangedWeapon {
     Prodd,
     /// Pump-action shotgun, 1d+1 piercing. HT (Early pump shotgun, TL5)
     PumpActionShotgun,
+    /// Remington 870, 1d+1 piercing. HT (American pump-action shotgun, TL7)
+    Remington870,
     /// Remington Rolling Block Pistol, 2d piercing. HT (Single-shot pistol, TL5)
     RemingtonRollingBlockPistol,
     /// Remington Rolling Block Rifle, 4d piercing. HT (Single-shot rifle, TL5)
@@ -278,6 +284,8 @@ pub enum RangedWeapon {
     Scorpion,
     /// Recurve bow, 1d+2 impaling. LT (Composite recurve)
     RecurveBow,
+    /// Saiga-12, 1d+1 piercing. HT (Russian semi-auto shotgun, TL7)
+    Saiga12,
     /// Self bow (primitive), 1d-1 impaling. BS 276
     SelfBow,
     /// Shotgun, 1d+1 piercing. BS 278
@@ -306,6 +314,8 @@ pub enum RangedWeapon {
     SMG,
     /// Sniper rifle, 7d piercing. BS 278
     SniperRifle,
+    /// SPAS-12, 1d+1 piercing. HT (Italian combat shotgun, TL7)
+    SPAS12,
     /// Spencer Repeating Rifle, 3d+2 piercing. HT (Lever-action repeater, TL5)
     SpencerRepeatingRifle,
     /// Springfield Model 1861, 4d piercing. HT (Rifled musket, TL5)
@@ -396,6 +406,7 @@ impl RangedWeapon {
             Self::BAR => Currency::dollars(1200.0),
             Self::BrenGun => Currency::dollars(1100.0),
             Self::BarrettM82 => Currency::dollars(8000.0),
+            Self::BenelliM3 => Currency::dollars(1300.0),
             Self::BerettaM92 => Currency::dollars(450.0),
             Self::BrowningHiPower => Currency::dollars(350.0),
             Self::BrowningM1917 => Currency::dollars(2000.0),
@@ -479,6 +490,7 @@ impl RangedWeapon {
             Self::MachineGun => Currency::dollars(4000.0),
             Self::Mitrailleuse => Currency::dollars(3500.0),
             Self::MosinNagant => Currency::dollars(400.0),
+            Self::Mossberg500 => Currency::dollars(400.0),
             Self::MP18 => Currency::dollars(400.0),
             Self::MP40 => Currency::dollars(350.0),
             Self::MP5 => Currency::dollars(450.0),
@@ -501,6 +513,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => Currency::dollars(1600.0),
             Self::Prodd => Currency::dollars(100.0),
             Self::PumpActionShotgun => Currency::dollars(300.0),
+            Self::Remington870 => Currency::dollars(450.0),
             Self::RemingtonRollingBlockPistol => Currency::dollars(200.0),
             Self::RemingtonRollingBlockRifle => Currency::dollars(425.0),
             Self::RemingtonModel31 => Currency::dollars(325.0),
@@ -511,6 +524,7 @@ impl RangedWeapon {
                         Self::RocketLauncher => Currency::dollars(2000.0),
             Self::Scorpion => Currency::dollars(1000.0),
             Self::RecurveBow => Currency::dollars(500.0),
+            Self::Saiga12 => Currency::dollars(900.0),
             Self::SelfBow => Currency::dollars(50.0),
             Self::Shotgun => Currency::dollars(500.0),
                         Self::ShortBow => Currency::dollars(50.0),
@@ -525,6 +539,7 @@ impl RangedWeapon {
             Self::SmithWessonModel3 => Currency::dollars(250.0),
             Self::SMG => Currency::dollars(450.0),
             Self::SniperRifle => Currency::dollars(3500.0),
+            Self::SPAS12 => Currency::dollars(1500.0),
             Self::SpencerRepeatingRifle => Currency::dollars(400.0),
             Self::SpringfieldModel1861 => Currency::dollars(375.0),
             Self::SpringfieldM1903 => Currency::dollars(475.0),
@@ -582,6 +597,7 @@ impl RangedWeapon {
             Self::BAR => Weight::pounds(19.0),
             Self::BrenGun => Weight::pounds(22.0),
             Self::BarrettM82 => Weight::pounds(30.0),
+            Self::BenelliM3 => Weight::pounds(7.5),
             Self::BerettaM92 => Weight::pounds(2.1),
             Self::BrowningHiPower => Weight::pounds(2.0),
             Self::BrowningM1917 => Weight::pounds(40.0),
@@ -665,6 +681,7 @@ impl RangedWeapon {
             Self::MachineGun => Weight::pounds(30.0),
             Self::Mitrailleuse => Weight::pounds(300.0),
             Self::MosinNagant => Weight::pounds(8.75),
+            Self::Mossberg500 => Weight::pounds(7.25),
             Self::MP18 => Weight::pounds(9.0),
             Self::MP40 => Weight::pounds(8.0),
             Self::MP5 => Weight::pounds(5.5),
@@ -687,6 +704,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => Weight::pounds(38.0),
             Self::Prodd => Weight::pounds(7.0),
             Self::PumpActionShotgun => Weight::pounds(8.0),
+            Self::Remington870 => Weight::pounds(7.5),
             Self::RemingtonRollingBlockPistol => Weight::pounds(2.5),
             Self::RemingtonRollingBlockRifle => Weight::pounds(9.0),
             Self::RemingtonModel31 => Weight::pounds(7.5),
@@ -697,6 +715,7 @@ impl RangedWeapon {
                         Self::RocketLauncher => Weight::pounds(15.0),
             Self::Scorpion => Weight::pounds(200.0),
             Self::RecurveBow => Weight::pounds(3.0),
+            Self::Saiga12 => Weight::pounds(8.5),
             Self::SelfBow => Weight::pounds(2.0),
             Self::Shotgun => Weight::pounds(8.0),
                         Self::ShortBow => Weight::pounds(1.0),
@@ -711,6 +730,7 @@ impl RangedWeapon {
             Self::SmithWessonModel3 => Weight::pounds(2.5),
             Self::SMG => Weight::pounds(7.0),
             Self::SniperRifle => Weight::pounds(11.0),
+            Self::SPAS12 => Weight::pounds(9.5),
             Self::SpencerRepeatingRifle => Weight::pounds(10.0),
             Self::SpringfieldModel1861 => Weight::pounds(9.5),
             Self::SpringfieldM1903 => Weight::pounds(8.75),
@@ -768,6 +788,7 @@ impl RangedWeapon {
             Self::BAR => TechLevel::new(6),            // Atomic Age
             Self::BrenGun => TechLevel::new(6),        // Atomic Age
             Self::BarrettM82 => TechLevel::new(7),     // Digital Age
+            Self::BenelliM3 => TechLevel::new(7),      // Digital Age
             Self::BerettaM92 => TechLevel::new(7),     // Digital Age
             Self::BrowningHiPower => TechLevel::new(6), // Atomic Age
             Self::BrowningM1917 => TechLevel::new(6),  // Atomic Age
@@ -851,6 +872,7 @@ impl RangedWeapon {
             Self::MachineGun => TechLevel::new(6),     // Atomic Age
             Self::Mitrailleuse => TechLevel::new(5),   // Industrial Revolution
             Self::MosinNagant => TechLevel::new(6),    // Atomic Age
+            Self::Mossberg500 => TechLevel::new(7),    // Digital Age
             Self::MP18 => TechLevel::new(6),           // Atomic Age
             Self::MP40 => TechLevel::new(6),           // Atomic Age
             Self::MP5 => TechLevel::new(7),            // Digital Age
@@ -873,6 +895,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => TechLevel::new(6), // Atomic Age
             Self::Prodd => TechLevel::new(2),          // Medieval
             Self::PumpActionShotgun => TechLevel::new(5), // Industrial Revolution
+            Self::Remington870 => TechLevel::new(7),       // Digital Age
             Self::RemingtonRollingBlockPistol => TechLevel::new(5), // Industrial Revolution
             Self::RemingtonRollingBlockRifle => TechLevel::new(5), // Industrial Revolution
             Self::RemingtonModel31 => TechLevel::new(6), // Atomic Age
@@ -883,6 +906,7 @@ impl RangedWeapon {
                         Self::RocketLauncher => TechLevel::new(7), // Digital Age
             Self::Scorpion => TechLevel::new(1),       // Roman
             Self::RecurveBow => TechLevel::new(1),     // Bronze Age
+            Self::Saiga12 => TechLevel::new(7),        // Digital Age
             Self::SelfBow => TechLevel::new(0),        // Stone Age
             Self::Shotgun => TechLevel::new(5),        // Mechanized Age
                         Self::ShortBow => TechLevel::new(0),       // Stone Age
@@ -897,6 +921,7 @@ impl RangedWeapon {
             Self::SmithWessonModel3 => TechLevel::new(5), // Industrial Revolution
             Self::SMG => TechLevel::new(6),            // Atomic Age
             Self::SniperRifle => TechLevel::new(7),    // Digital Age
+            Self::SPAS12 => TechLevel::new(7),         // Digital Age
             Self::SpencerRepeatingRifle => TechLevel::new(5), // Industrial Revolution
             Self::SpringfieldModel1861 => TechLevel::new(5), // Industrial Revolution
             Self::SpringfieldM1903 => TechLevel::new(6), // Atomic Age
@@ -1000,6 +1025,10 @@ impl RangedWeapon {
             },
             Self::BarrettM82 => WeaponDamage::Fixed {
                 dice: DieLevel::new(9, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::BenelliM3 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::BerettaM92 => WeaponDamage::Fixed {
@@ -1334,6 +1363,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(4, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::Mossberg500 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
+                damage_type: DamageType::Piercing,
+            },
             Self::MP18 => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 1),
                 damage_type: DamageType::Piercing,
@@ -1422,6 +1455,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::Remington870 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
+                damage_type: DamageType::Piercing,
+            },
             Self::RemingtonRollingBlockPistol => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 0),
                 damage_type: DamageType::Piercing,
@@ -1461,6 +1498,10 @@ impl RangedWeapon {
             Self::RecurveBow => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 2),
                 damage_type: DamageType::Impaling,
+            },
+            Self::Saiga12 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
+                damage_type: DamageType::Piercing,
             },
             Self::SelfBow => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, -1),
@@ -1516,6 +1557,10 @@ impl RangedWeapon {
             },
             Self::SniperRifle => WeaponDamage::Fixed {
                 dice: DieLevel::new(7, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::SPAS12 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::SpencerRepeatingRifle => WeaponDamage::Fixed {
@@ -1674,6 +1719,7 @@ impl RangedWeapon {
             Self::BAR => 4,
             Self::BrenGun => 4,
             Self::BarrettM82 => 6,
+            Self::BenelliM3 => 3,
             Self::BerettaM92 => 2,
             Self::BrowningHiPower => 2,
             Self::BrowningM1917 => 5,
@@ -1757,6 +1803,7 @@ impl RangedWeapon {
             Self::MachineGun => 4,
             Self::Mitrailleuse => 3,
             Self::MosinNagant => 4,
+            Self::Mossberg500 => 3,
             Self::MP18 => 2,
             Self::MP40 => 3,
             Self::MP5 => 4,
@@ -1779,6 +1826,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => 5,
             Self::Prodd => 3,
             Self::PumpActionShotgun => 3,
+            Self::Remington870 => 3,
             Self::RemingtonRollingBlockPistol => 2,
             Self::RemingtonRollingBlockRifle => 4,
             Self::RemingtonModel31 => 3,
@@ -1789,6 +1837,7 @@ impl RangedWeapon {
                         Self::RocketLauncher => 4,
             Self::Scorpion => 4,
             Self::RecurveBow => 2,
+            Self::Saiga12 => 3,
             Self::SelfBow => 1,
             Self::Shotgun => 3,
                         Self::ShortBow => 1,
@@ -1803,6 +1852,7 @@ impl RangedWeapon {
             Self::SmithWessonModel3 => 2,
             Self::SMG => 4,
             Self::SniperRifle => 6,
+            Self::SPAS12 => 3,
             Self::SpencerRepeatingRifle => 3,
             Self::SpringfieldModel1861 => 4,
             Self::SpringfieldM1903 => 5,
@@ -1860,6 +1910,7 @@ impl RangedWeapon {
             Self::BAR => Skill::Guns,
             Self::BrenGun => Skill::Guns,
             Self::BarrettM82 => Skill::Guns,
+            Self::BenelliM3 => Skill::Guns,
             Self::BerettaM92 => Skill::Guns,
             Self::BrowningHiPower => Skill::Guns,
             Self::BrowningM1917 => Skill::Guns,
@@ -1943,6 +1994,7 @@ impl RangedWeapon {
             Self::MachineGun => Skill::Guns,
             Self::Mitrailleuse => Skill::Guns,
             Self::MosinNagant => Skill::Guns,
+            Self::Mossberg500 => Skill::Guns,
             Self::MP18 => Skill::Guns,
             Self::MP40 => Skill::Guns,
             Self::MP5 => Skill::Guns,
@@ -1965,6 +2017,7 @@ impl RangedWeapon {
             Self::PTRDAntiTankRifle => Skill::Guns,
             Self::Prodd => Skill::Crossbow,
             Self::PumpActionShotgun => Skill::Guns,
+            Self::Remington870 => Skill::Guns,
             Self::RemingtonRollingBlockPistol => Skill::Guns,
             Self::RemingtonRollingBlockRifle => Skill::Guns,
             Self::RemingtonModel31 => Skill::Guns,
@@ -1975,6 +2028,7 @@ impl RangedWeapon {
                         Self::RocketLauncher => Skill::Guns,
             Self::Scorpion => Skill::Artillery,
             Self::RecurveBow => Skill::Bow,
+            Self::Saiga12 => Skill::Guns,
             Self::SelfBow => Skill::Bow,
             Self::Shotgun => Skill::Guns,
                         Self::ShortBow => Skill::Bow,
@@ -1989,6 +2043,7 @@ impl RangedWeapon {
             Self::SmithWessonModel3 => Skill::Guns,
             Self::SMG => Skill::Guns,
             Self::SniperRifle => Skill::Guns,
+            Self::SPAS12 => Skill::Guns,
             Self::SpencerRepeatingRifle => Skill::Guns,
             Self::SpringfieldModel1861 => Skill::Guns,
             Self::SpringfieldM1903 => Skill::Guns,

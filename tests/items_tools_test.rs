@@ -104,7 +104,7 @@ fn test_tool_weight_range() {
 
     // Medium tools
     let rope_weight = Item::Tool(Tool::Rope).weight().amount();
-    assert!(rope_weight >= 1.0 && rope_weight <= 3.0);
+    assert!((1.0..=3.0).contains(&rope_weight));
 
     // Heavy tools
     assert!(Item::Tool(Tool::Shovel).weight().amount() >= 5.0);

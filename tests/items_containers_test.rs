@@ -123,7 +123,7 @@ fn test_container_capacity_range() {
 
     // Medium containers
     let backpack_capacity = Item::Container(Container::Backpack).capacity().unwrap().amount();
-    assert!(backpack_capacity >= 30.0 && backpack_capacity <= 50.0);
+    assert!((30.0..=50.0).contains(&backpack_capacity));
 
     // Large containers
     assert!(Item::Container(Container::LargeChest).capacity().unwrap().amount() >= 100.0);

@@ -25,8 +25,8 @@ fn test_damage_resolution_thrust_attack() {
     let result = DamageResolution::resolve(&base_damage, &weapon, &torso, dr, &mut rng);
 
     // ST 10 thrust is 1d-2, so raw is -1 to 4, modified is 0 to 5 (thrust+1 from rapier)
-    assert!(*result.raw_damage() >= -1 && *result.raw_damage() <= 4);
-    assert!(*result.modified_damage() >= 0 && *result.modified_damage() <= 5);
+    assert!((-1..=4).contains(result.raw_damage()));
+    assert!((0..=5).contains(result.modified_damage()));
     assert_eq!(*result.location_multiplier(), 2.0); // Impaling to torso
     assert_eq!(*result.dr(), 0);
     assert_eq!(*result.penetrating_damage(), *result.hp_lost()); // No DR, so equal
@@ -50,8 +50,8 @@ fn test_damage_resolution_swing_attack() {
     let result = DamageResolution::resolve(&base_damage, &weapon, &torso, dr, &mut rng);
 
     // ST 10 swing is 1d+0, so raw is 1-6, modified is 2-7 (swing+1 from broadsword)
-    assert!(*result.raw_damage() >= 1 && *result.raw_damage() <= 6);
-    assert!(*result.modified_damage() >= 2 && *result.modified_damage() <= 7);
+    assert!((1..=6).contains(result.raw_damage()));
+    assert!((2..=7).contains(result.modified_damage()));
     assert_eq!(*result.location_multiplier(), 1.5); // Cutting to torso
     assert_eq!(*result.dr(), 0);
 }
@@ -122,8 +122,8 @@ fn test_damage_resolution_fixed_damage() {
     let result = DamageResolution::resolve(&base_damage, &weapon, &torso, dr, &mut rng);
 
     // Raw damage is 2d (2-12), modified is +2 (4-14)
-    assert!(*result.raw_damage() >= 2 && *result.raw_damage() <= 12);
-    assert!(*result.modified_damage() >= 4 && *result.modified_damage() <= 14);
+    assert!((2..=12).contains(result.raw_damage()));
+    assert!((4..=14).contains(result.modified_damage()));
     assert_eq!(*result.location_multiplier(), 1.0); // Piercing to torso
     assert_eq!(*result.dr(), 2);
 }
@@ -399,7 +399,7 @@ fn test_combat_scenario_unarmored_target() {
     let result = DamageResolution::resolve(&base_damage, &broadsword, &torso, dr, &mut rng);
 
     // ST 12 swing is 1d+2, broadsword is swing+1, so total is 1d+3 = 4-9
-    assert!(*result.modified_damage() >= 4 && *result.modified_damage() <= 9);
+    assert!((4..=9).contains(result.modified_damage()));
     assert_eq!(*result.location_multiplier(), 1.5);
     assert_eq!(*result.hp_lost(), *result.location_damage()); // No DR
 }

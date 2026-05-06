@@ -207,7 +207,7 @@ fn test_expanded_weapon_weight_range() {
 
     // Medium weapons (2-5 lbs)
     let katana_weight = Item::MeleeWeapon(MeleeWeapon::Katana).weight().amount();
-    assert!(katana_weight >= 2.0 && katana_weight <= 5.0);
+    assert!((2.0..=5.0).contains(&katana_weight));
 
     // Heavy weapons (> 10 lbs)
     assert!(Item::MeleeWeapon(MeleeWeapon::Maul)

@@ -9,7 +9,7 @@ fn test_attack_roll_success() {
 
     // With seed 42, verify we get a result
     assert!(roll.effective_skill() == &14);
-    assert!(roll.dice().sum() >= &3 && roll.dice().sum() <= &18);
+    assert!((3..=18).contains(roll.dice().sum()));
 }
 
 #[test]

@@ -128,7 +128,7 @@ fn test_survival_weight_range() {
 
     // Medium items
     let torch_weight = Item::Survival(SurvivalGear::Torch).weight().amount();
-    assert!(torch_weight >= 1.0 && torch_weight <= 5.0);
+    assert!((1.0..=5.0).contains(&torch_weight));
 
     // Heavy items
     assert!(Item::Survival(SurvivalGear::LargeTent).weight().amount() >= 20.0);
@@ -142,7 +142,7 @@ fn test_survival_cost_range() {
 
     // Medium cost equipment
     let tent_cost = Item::Survival(SurvivalGear::Tent).base_cost().amount();
-    assert!(tent_cost >= 20.0 && tent_cost <= 100.0);
+    assert!((20.0..=100.0).contains(&tent_cost));
 
     // Expensive equipment
     assert!(Item::Survival(SurvivalGear::LargeTent).base_cost().amount() >= 100.0);
