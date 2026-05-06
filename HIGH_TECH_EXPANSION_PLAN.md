@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (131/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (136/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -46,6 +46,7 @@
 - ✅ Batch 21: TL8 PDWs & Modern Firearms (FN P90, HK MP7, FN Five-seveN, HK416, FN SCAR-L)
 - ✅ Batch 22: TL8 Modern Assault Rifles (AK-12, FAMAS, QBZ-95, Steyr AUG, XM8)
 - ✅ Batch 23: TL8 Modern Sniper/Precision Rifles (AI AWM, CheyTac M200, McMillan TAC-50, PGM Hecate II, Sako TRG-42)
+- ✅ Batch 24: TL8 Modern Shotguns (AA-12, Fostech Origin-12, Kel-Tec KSG, MTS-255, USAS-12)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -360,7 +361,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 131 items
+### Completed: 136 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -379,11 +380,11 @@ For each weapon:
 - 5 TL7 Shotguns
 - 4 TL7 Grenade Launchers
 - 7 TL7 Explosives & Missiles
-- 15 TL8 Modern Firearms & Sniper Rifles
+- 20 TL8 Modern Firearms & Shotguns
 
-### Remaining: ~219-369 items
+### Remaining: ~214-364 items
 
 ---
 
 **Last Updated:** 2026-05-06
-**Status:** 🔄 TL8 Modern Sniper/Precision Rifles Batch 23 COMPLETE - Phase 4 (TL8) IN PROGRESS
+**Status:** 🔄 TL8 Modern Shotguns Batch 24 COMPLETE - Phase 4 (TL8) IN PROGRESS
