@@ -20,6 +20,8 @@ pub enum RangedWeapon {
     Arbalest,
     /// Accuracy International AWM, 7d piercing. HT (British precision rifle, TL8)
     AccuracyInternationalAWM,
+    /// AA-12, 1d+1 piercing. HT (American automatic shotgun, TL8)
+    AA12,
     /// Arquebus, 3d piercing. LT (Spanish matchlock, TL4)
     Arquebus,
     /// AK-47, 5d piercing. HT (Soviet 7.62mm assault rifle, TL7)
@@ -138,6 +140,8 @@ pub enum RangedWeapon {
     FNSCARL,
     /// FN Five-seveN, 2d piercing. HT (Belgian 5.7mm pistol, TL8)
     FNFiveSeveN,
+    /// Fostech Origin-12, 1d+1 piercing. HT (American semi-auto shotgun, TL8)
+    FostechOrigin12,
     /// Fusil, 4d piercing. LT (Light musket, TL4)
     Fusil,
     /// Gatling gun, 5d piercing. HT (Hand-cranked machine gun, TL5)
@@ -184,6 +188,8 @@ pub enum RangedWeapon {
     HKMP7,
     /// Jezail, 5d piercing. LT (Afghan long gun, TL4)
     Jezail,
+    /// Kel-Tec KSG, 1d+1 piercing. HT (American bullpup pump shotgun, TL8)
+    KelTecKSG,
     /// LeMat revolver, 2d+1 piercing. HT (9-shot + shotgun revolver, TL5)
     LematRevolver,
     /// Lee-Enfield SMLE, 4d piercing. HT (British .303 bolt-action, TL6)
@@ -262,6 +268,8 @@ pub enum RangedWeapon {
     MP5,
     /// Mountain Gun, 5d crushing. HT (Light artillery, TL5)
     MountainGun,
+    /// MTS-255, 1d+1 piercing. HT (Russian revolving shotgun, TL8)
+    MTS255,
     /// Musket, 4d piercing. BS 278
     Musket,
     /// Musketoon, 3d+2 piercing. LT (Short musket, TL4)
@@ -402,6 +410,8 @@ pub enum RangedWeapon {
     TOWMissile,
     /// Uzi, 2d+2 piercing. HT (Israeli 9mm SMG, TL7)
     Uzi,
+    /// USAS-12, 1d+1 piercing. HT (American automatic shotgun, TL8)
+    USAS12,
     /// Volcanic pistol, 1d+1 piercing. HT (Lever-action pistol, TL5)
     VolcanicPistol,
     /// Vickers Machine Gun, 6d piercing. HT (British .303 HMG, TL6)
@@ -444,6 +454,7 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => Currency::dollars(300.0),
             Self::AccuracyInternationalAWM => Currency::dollars(10000.0),
+            Self::AA12 => Currency::dollars(3000.0),
             Self::Arquebus => Currency::dollars(500.0),
             Self::AK47 => Currency::dollars(600.0),
             Self::AKM => Currency::dollars(650.0),
@@ -503,6 +514,7 @@ impl RangedWeapon {
             Self::FNP90 => Currency::dollars(1800.0),
             Self::FNSCARL => Currency::dollars(2800.0),
             Self::FNFiveSeveN => Currency::dollars(1000.0),
+            Self::FostechOrigin12 => Currency::dollars(1800.0),
             Self::Fusil => Currency::dollars(350.0),
             Self::GatlingGun => Currency::dollars(3000.0),
             Self::GardnerGun => Currency::dollars(2800.0),
@@ -526,6 +538,7 @@ impl RangedWeapon {
             Self::HK416 => Currency::dollars(2800.0),
             Self::HKMP7 => Currency::dollars(1800.0),
             Self::Jezail => Currency::dollars(400.0),
+            Self::KelTecKSG => Currency::dollars(1000.0),
             Self::LematRevolver => Currency::dollars(350.0),
             Self::LeeEnfieldSMLE => Currency::dollars(425.0),
             Self::LeverActionRifle => Currency::dollars(350.0),
@@ -565,6 +578,7 @@ impl RangedWeapon {
             Self::MP40 => Currency::dollars(350.0),
             Self::MP5 => Currency::dollars(450.0),
             Self::MountainGun => Currency::dollars(3500.0),
+            Self::MTS255 => Currency::dollars(1500.0),
                         Self::Musket => Currency::dollars(300.0),
             Self::Musketoon => Currency::dollars(250.0),
             Self::NavalGun => Currency::dollars(8000.0),
@@ -635,6 +649,7 @@ impl RangedWeapon {
             Self::TNT => Currency::dollars(30.0),
             Self::TOWMissile => Currency::dollars(60000.0),
             Self::Uzi => Currency::dollars(400.0),
+            Self::USAS12 => Currency::dollars(2500.0),
             Self::VolcanicPistol => Currency::dollars(275.0),
             Self::VickersMachineGun => Currency::dollars(2500.0),
                         Self::Warbow => Currency::dollars(600.0),
@@ -661,6 +676,7 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => Weight::pounds(12.0),
             Self::AccuracyInternationalAWM => Weight::pounds(15.0),
+            Self::AA12 => Weight::pounds(10.0),
             Self::Arquebus => Weight::pounds(11.0),
             Self::AK47 => Weight::pounds(9.5),
             Self::AKM => Weight::pounds(8.0),
@@ -720,6 +736,7 @@ impl RangedWeapon {
             Self::FNP90 => Weight::pounds(5.7),
             Self::FNSCARL => Weight::pounds(7.3),
             Self::FNFiveSeveN => Weight::pounds(1.5),
+            Self::FostechOrigin12 => Weight::pounds(9.0),
             Self::Fusil => Weight::pounds(8.0),
             Self::GatlingGun => Weight::pounds(200.0),
             Self::GardnerGun => Weight::pounds(180.0),
@@ -743,6 +760,7 @@ impl RangedWeapon {
             Self::HK416 => Weight::pounds(7.5),
             Self::HKMP7 => Weight::pounds(4.2),
             Self::Jezail => Weight::pounds(11.0),
+            Self::KelTecKSG => Weight::pounds(6.9),
             Self::LematRevolver => Weight::pounds(3.0),
             Self::LeeEnfieldSMLE => Weight::pounds(8.75),
             Self::LeverActionRifle => Weight::pounds(8.0),
@@ -782,6 +800,7 @@ impl RangedWeapon {
             Self::MP40 => Weight::pounds(8.0),
             Self::MP5 => Weight::pounds(5.5),
             Self::MountainGun => Weight::pounds(800.0),
+            Self::MTS255 => Weight::pounds(9.0),
                         Self::Musket => Weight::pounds(10.0),
             Self::Musketoon => Weight::pounds(6.0),
             Self::NavalGun => Weight::pounds(5000.0),
@@ -852,6 +871,7 @@ impl RangedWeapon {
             Self::TNT => Weight::pounds(1.0),
             Self::TOWMissile => Weight::pounds(50.0),
             Self::Uzi => Weight::pounds(7.7),
+            Self::USAS12 => Weight::pounds(12.0),
             Self::VolcanicPistol => Weight::pounds(3.5),
             Self::VickersMachineGun => Weight::pounds(40.0),
                         Self::Warbow => Weight::pounds(5.0),
@@ -878,6 +898,7 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => TechLevel::new(3),       // Medieval
             Self::AccuracyInternationalAWM => TechLevel::new(8), // Information Age
+            Self::AA12 => TechLevel::new(8),           // Information Age
             Self::Arquebus => TechLevel::new(4),       // Renaissance
             Self::AK47 => TechLevel::new(7),           // Digital Age
             Self::AKM => TechLevel::new(7),            // Digital Age
@@ -937,6 +958,7 @@ impl RangedWeapon {
             Self::FNP90 => TechLevel::new(8),          // Information Age
             Self::FNSCARL => TechLevel::new(8),        // Information Age
             Self::FNFiveSeveN => TechLevel::new(8),    // Information Age
+            Self::FostechOrigin12 => TechLevel::new(8), // Information Age
             Self::Fusil => TechLevel::new(4),          // Renaissance
             Self::GatlingGun => TechLevel::new(5),     // Industrial Revolution
             Self::GardnerGun => TechLevel::new(5),     // Industrial Revolution
@@ -960,6 +982,7 @@ impl RangedWeapon {
             Self::HK416 => TechLevel::new(8),          // Information Age
             Self::HKMP7 => TechLevel::new(8),          // Information Age
             Self::Jezail => TechLevel::new(4),         // Renaissance
+            Self::KelTecKSG => TechLevel::new(8),      // Information Age
             Self::LematRevolver => TechLevel::new(5),  // Industrial Revolution
             Self::LeeEnfieldSMLE => TechLevel::new(6), // Atomic Age
             Self::LeverActionRifle => TechLevel::new(5), // Industrial Revolution
@@ -999,6 +1022,7 @@ impl RangedWeapon {
             Self::MP40 => TechLevel::new(6),           // Atomic Age
             Self::MP5 => TechLevel::new(7),            // Digital Age
             Self::MountainGun => TechLevel::new(5),    // Industrial Revolution
+            Self::MTS255 => TechLevel::new(8),         // Information Age
             Self::Musket => TechLevel::new(4),         // Age of Sail
             Self::Musketoon => TechLevel::new(4),      // Renaissance
             Self::NavalGun => TechLevel::new(5),       // Industrial Revolution
@@ -1069,6 +1093,7 @@ impl RangedWeapon {
             Self::TNT => TechLevel::new(5),            // Industrial Revolution
             Self::TOWMissile => TechLevel::new(7),     // Digital Age
             Self::Uzi => TechLevel::new(7),            // Digital Age
+            Self::USAS12 => TechLevel::new(8),         // Information Age
             Self::VolcanicPistol => TechLevel::new(5), // Industrial Revolution
             Self::VickersMachineGun => TechLevel::new(6), // Atomic Age
                         Self::Warbow => TechLevel::new(2),         // Medieval
@@ -1099,6 +1124,10 @@ impl RangedWeapon {
             },
             Self::AccuracyInternationalAWM => WeaponDamage::Fixed {
                 dice: DieLevel::new(7, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::AA12 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Arquebus => WeaponDamage::Fixed {
@@ -1337,6 +1366,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::FostechOrigin12 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
+                damage_type: DamageType::Piercing,
+            },
             Self::Fusil => WeaponDamage::Fixed {
                 dice: DieLevel::new(4, 0),
                 damage_type: DamageType::Piercing,
@@ -1427,6 +1460,10 @@ impl RangedWeapon {
             },
             Self::Jezail => WeaponDamage::Fixed {
                 dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::KelTecKSG => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::LematRevolver => WeaponDamage::Fixed {
@@ -1584,6 +1621,10 @@ impl RangedWeapon {
             Self::MountainGun => WeaponDamage::Fixed {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Crushing,
+            },
+            Self::MTS255 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
+                damage_type: DamageType::Piercing,
             },
                         Self::Musket => WeaponDamage::Fixed {
                 dice: DieLevel::new(4, 0),
@@ -1865,6 +1906,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
+            Self::USAS12 => WeaponDamage::Fixed {
+                dice: DieLevel::new(1, 1),
+                damage_type: DamageType::Piercing,
+            },
             Self::VolcanicPistol => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
@@ -1939,6 +1984,7 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => 5,
             Self::AccuracyInternationalAWM => 6,
+            Self::AA12 => 3,
             Self::Arquebus => 2,
             Self::AK47 => 4,
             Self::AKM => 4,
@@ -1998,6 +2044,7 @@ impl RangedWeapon {
             Self::FNP90 => 4,
             Self::FNSCARL => 5,
             Self::FNFiveSeveN => 2,
+            Self::FostechOrigin12 => 3,
             Self::Fusil => 3,
             Self::GatlingGun => 4,
             Self::GardnerGun => 4,
@@ -2021,6 +2068,7 @@ impl RangedWeapon {
             Self::HK416 => 5,
             Self::HKMP7 => 4,
             Self::Jezail => 4,
+            Self::KelTecKSG => 3,
             Self::LematRevolver => 2,
             Self::LeeEnfieldSMLE => 4,
             Self::LeverActionRifle => 4,
@@ -2060,6 +2108,7 @@ impl RangedWeapon {
             Self::MP40 => 3,
             Self::MP5 => 4,
             Self::MountainGun => 2,
+            Self::MTS255 => 3,
                         Self::Musket => 3,
             Self::Musketoon => 2,
             Self::NavalGun => 1,
@@ -2130,6 +2179,7 @@ impl RangedWeapon {
             Self::TNT => 1,
             Self::TOWMissile => 5,
             Self::Uzi => 3,
+            Self::USAS12 => 3,
             Self::VolcanicPistol => 1,
             Self::VickersMachineGun => 5,
                         Self::Warbow => 3,
@@ -2156,6 +2206,7 @@ impl RangedWeapon {
         match self {
             Self::Arbalest => Skill::Crossbow,
             Self::AccuracyInternationalAWM => Skill::Guns,
+            Self::AA12 => Skill::Guns,
             Self::Arquebus => Skill::Guns,
             Self::AK47 => Skill::Guns,
             Self::AKM => Skill::Guns,
@@ -2215,6 +2266,7 @@ impl RangedWeapon {
             Self::FNP90 => Skill::Guns,
             Self::FNSCARL => Skill::Guns,
             Self::FNFiveSeveN => Skill::Guns,
+            Self::FostechOrigin12 => Skill::Guns,
             Self::Fusil => Skill::Guns,
             Self::GatlingGun => Skill::Guns,
             Self::GardnerGun => Skill::Guns,
@@ -2238,6 +2290,7 @@ impl RangedWeapon {
             Self::HK416 => Skill::Guns,
             Self::HKMP7 => Skill::Guns,
             Self::Jezail => Skill::Guns,
+            Self::KelTecKSG => Skill::Guns,
             Self::LematRevolver => Skill::Guns,
             Self::LeeEnfieldSMLE => Skill::Guns,
             Self::LeverActionRifle => Skill::Guns,
@@ -2277,6 +2330,7 @@ impl RangedWeapon {
             Self::MP40 => Skill::Guns,
             Self::MP5 => Skill::Guns,
             Self::MountainGun => Skill::Artillery,
+            Self::MTS255 => Skill::Guns,
                         Self::Musket => Skill::Guns,
             Self::Musketoon => Skill::Guns,
             Self::NavalGun => Skill::Artillery,
@@ -2347,6 +2401,7 @@ impl RangedWeapon {
             Self::TNT => Skill::ThrownWeapon,
             Self::TOWMissile => Skill::Guns,
             Self::Uzi => Skill::Guns,
+            Self::USAS12 => Skill::Guns,
             Self::VolcanicPistol => Skill::Guns,
             Self::VickersMachineGun => Skill::Guns,
                         Self::Warbow => Skill::Bow,
