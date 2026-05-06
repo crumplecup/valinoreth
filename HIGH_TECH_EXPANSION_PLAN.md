@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (109/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (116/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -42,6 +42,7 @@
 - ✅ Batch 17: TL7 Sniper Rifles (Barrett M82, Dragunov SVD, L96A1, M21 SWS, PSG1)
 - ✅ Batch 18: TL7 Shotguns (Benelli M3, Mossberg 500, Remington 870, Saiga-12, SPAS-12)
 - ✅ Batch 19: TL7 Grenade Launchers (GP-25, M203, M79, Mk 19)
+- ✅ Batch 20: TL7 Explosives & Missiles (C4, Claymore, AT4, LAW M72, RPG-7, Stinger, TOW)
 
 ### TL5 Remaining Ranged Weapons
 
