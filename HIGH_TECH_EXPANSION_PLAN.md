@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (121/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (126/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -44,6 +44,7 @@
 - ✅ Batch 19: TL7 Grenade Launchers (GP-25, M203, M79, Mk 19)
 - ✅ Batch 20: TL7 Explosives & Missiles (C4, Claymore, AT4, LAW M72, RPG-7, Stinger, TOW)
 - ✅ Batch 21: TL8 PDWs & Modern Firearms (FN P90, HK MP7, FN Five-seveN, HK416, FN SCAR-L)
+- ✅ Batch 22: TL8 Modern Assault Rifles (AK-12, FAMAS, QBZ-95, Steyr AUG, XM8)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -358,7 +359,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 121 items
+### Completed: 126 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -377,11 +378,11 @@ For each weapon:
 - 5 TL7 Shotguns
 - 4 TL7 Grenade Launchers
 - 7 TL7 Explosives & Missiles
-- 5 TL8 PDWs & Modern Firearms
+- 10 TL8 PDWs & Modern Firearms
 
-### Remaining: ~229-379 items
+### Remaining: ~224-374 items
 
 ---
 
 **Last Updated:** 2026-05-06
-**Status:** 🔄 TL8 PDWs & Modern Firearms Batch 21 COMPLETE - Phase 4 (TL8) IN PROGRESS
+**Status:** 🔄 TL8 Modern Assault Rifles Batch 22 COMPLETE - Phase 4 (TL8) IN PROGRESS
