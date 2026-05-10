@@ -52,6 +52,7 @@
 - ✅ Batch 27: TL8 Final Weapons (AS Val, Barrett M107, Kriss Vector, M4 Carbine, Milkor MGL)
 - ✅ Batch 28: TL8 Experimental Weapons (Coilgun, Gauss Rifle, Laser Rifle, Plasma Rifle, Railgun)
 - ✅ Batch 29: TL5-6 Melee Weapons (Bayonet, Bowie Knife, Combat Knife, Entrenching Tool, Trench Knife)
+- ✅ Batch 30: TL5-8 Military Melee Weapons (Fairbairn-Sykes, Ka-Bar, Kukri, Machete, Tactical Tomahawk)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -366,7 +367,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 161 items
+### Completed: 166 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -392,10 +393,11 @@ For each weapon:
 - 5 TL8 Diverse (Carbine, SMG, AMR, GL, etc.)
 - 5 TL8 Experimental (Coilgun, Gauss, Laser, Plasma, Railgun)
 - 5 TL5-6 Melee Weapons (Bayonet, Bowie Knife, Combat Knife, Entrenching Tool, Trench Knife)
+- 5 TL5-8 Military Melee Weapons (Fairbairn-Sykes, Ka-Bar, Kukri, Machete, Tactical Tomahawk)
 
-### Remaining: ~189-339 items
+### Remaining: ~184-334 items
 
 ---
 
 **Last Updated:** 2026-05-10
-**Status:** 🔄 TL5-6 Melee Weapons Batch 29 COMPLETE - Phase 5 (Melee Weapons) IN PROGRESS
+**Status:** 🔄 TL5-8 Military Melee Weapons Batch 30 COMPLETE - Phase 5 (Melee Weapons) IN PROGRESS
