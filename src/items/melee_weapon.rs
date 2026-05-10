@@ -30,6 +30,8 @@ pub enum MeleeWeapon {
     Baton,
     /// Battle axe, swing+3 cutting, reach 1. BS 271
     BattleAxe,
+    /// Bayonet, thrust+1 impaling, reach 1. HT (Rifle-mounted blade, TL5+)
+    Bayonet,
     /// Bearded axe, swing+2 cutting, reach 1. LT (Viking axe)
     BeardedAxe,
     /// Bec de corbin, swing+2 impaling, reach 2-3. LT (crow's beak)
@@ -50,6 +52,8 @@ pub enum MeleeWeapon {
     Bola,
     /// Bo, swing+2 crushing, reach 1-2. LT (Japanese staff)
     Bo,
+    /// Bowie knife, thrust impaling, reach C-1. HT (Large hunting/fighting knife, TL5+)
+    BowieKnife,
     /// Brass knuckles, thrust crushing, reach C. BS 271
     BrassKnuckles,
     /// Broadsword, swing+1 cutting, reach 1. BS 271
@@ -68,6 +72,8 @@ pub enum MeleeWeapon {
     Club,
     /// Combat net, swing-2 crushing, reach 1. BS 271
     CombatNet,
+    /// Combat knife, thrust impaling, reach C. HT (Military fighting knife, TL6+)
+    CombatKnife,
     /// Crowbar, swing+2 crushing, reach 1. BS 289
     Crowbar,
     /// Cutlass, swing+1 cutting, reach 1. BS 271
@@ -82,6 +88,8 @@ pub enum MeleeWeapon {
     Estoc,
     /// Eku, swing+2 crushing, reach 1-2. LT (Okinawan oar weapon)
     Eku,
+    /// Entrenching tool, swing+2 cutting, reach 1. HT (Military shovel as weapon, TL5+)
+    EntrenchingTool,
     /// Falchion, swing+2 cutting, reach 1. BS 271
     Falchion,
     /// Falx, swing+3 cutting, reach 1. LT (Dacian curved blade)
@@ -254,6 +262,8 @@ pub enum MeleeWeapon {
     ThreeSectionStaff,
     /// Tonfa, swing+1 crushing, reach 1. BS 271
     Tonfa,
+    /// Trench knife, thrust impaling, reach C. HT (WWI knuckle-duster knife, TL6)
+    TrenchKnife,
     /// Trident, thrust+2 impaling, reach 1-2. BS 271
     Trident,
     /// Two-handed sword, swing+2 cutting, reach 1-2. BS 271
@@ -289,6 +299,7 @@ impl MeleeWeapon {
             Self::Assegai => Currency::dollars(30.0),
             Self::Baton => Currency::dollars(20.0),
             Self::BattleAxe => Currency::dollars(50.0),
+            Self::Bayonet => Currency::dollars(20.0),
             Self::BeardedAxe => Currency::dollars(60.0),
             Self::BecDeCorbin => Currency::dollars(150.0),
             Self::BastardSword => Currency::dollars(650.0),
@@ -299,6 +310,7 @@ impl MeleeWeapon {
             Self::Blackjack => Currency::dollars(20.0),
             Self::Bola => Currency::dollars(20.0),
             Self::Bo => Currency::dollars(10.0),
+            Self::BowieKnife => Currency::dollars(40.0),
             Self::BrassKnuckles => Currency::dollars(10.0),
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
@@ -308,6 +320,7 @@ impl MeleeWeapon {
             Self::Claymore => Currency::dollars(500.0),
             Self::Club => Currency::dollars(10.0),
             Self::CombatNet => Currency::dollars(40.0),
+            Self::CombatKnife => Currency::dollars(50.0),
             Self::Crowbar => Currency::dollars(20.0),
             Self::Cutlass => Currency::dollars(400.0),
             Self::Dagger => Currency::dollars(20.0),
@@ -315,6 +328,7 @@ impl MeleeWeapon {
             Self::Dirk => Currency::dollars(30.0),
             Self::Estoc => Currency::dollars(600.0),
             Self::Eku => Currency::dollars(50.0),
+            Self::EntrenchingTool => Currency::dollars(25.0),
             Self::Falchion => Currency::dollars(400.0),
             Self::Falx => Currency::dollars(350.0),
             Self::Fauchard => Currency::dollars(90.0),
@@ -401,6 +415,7 @@ impl MeleeWeapon {
             Self::Tessen => Currency::dollars(60.0),
             Self::ThreeSectionStaff => Currency::dollars(35.0),
             Self::Tonfa => Currency::dollars(20.0),
+            Self::TrenchKnife => Currency::dollars(30.0),
             Self::Trident => Currency::dollars(100.0),
             Self::TwoHandedSword => Currency::dollars(900.0),
             Self::Wakizashi => Currency::dollars(400.0),
@@ -426,6 +441,7 @@ impl MeleeWeapon {
             Self::Assegai => Weight::pounds(2.0),
             Self::Baton => Weight::pounds(1.0),
             Self::BattleAxe => Weight::pounds(6.0),
+            Self::Bayonet => Weight::pounds(1.0),
             Self::BeardedAxe => Weight::pounds(5.0),
             Self::BecDeCorbin => Weight::pounds(9.0),
             Self::Blackjack => Weight::pounds(1.0),
@@ -436,6 +452,7 @@ impl MeleeWeapon {
             Self::Billhook => Weight::pounds(5.0),
             Self::Bola => Weight::pounds(1.0),
             Self::Bo => Weight::pounds(5.0),
+            Self::BowieKnife => Weight::pounds(1.5),
             Self::BrassKnuckles => Weight::pounds(0.25),
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
@@ -445,6 +462,7 @@ impl MeleeWeapon {
             Self::Claymore => Weight::pounds(7.0),
             Self::Club => Weight::pounds(3.0),
             Self::CombatNet => Weight::pounds(5.0),
+            Self::CombatKnife => Weight::pounds(1.0),
             Self::Crowbar => Weight::pounds(3.0),
             Self::Cutlass => Weight::pounds(2.0),
             Self::Dagger => Weight::pounds(0.25),
@@ -452,6 +470,7 @@ impl MeleeWeapon {
             Self::Dirk => Weight::pounds(0.75),
             Self::Estoc => Weight::pounds(3.5),
             Self::Eku => Weight::pounds(6.0),
+            Self::EntrenchingTool => Weight::pounds(2.5),
             Self::Falchion => Weight::pounds(3.5),
             Self::Falx => Weight::pounds(4.0),
             Self::Fauchard => Weight::pounds(8.0),
@@ -538,6 +557,7 @@ impl MeleeWeapon {
             Self::Tessen => Weight::pounds(1.0),
             Self::ThreeSectionStaff => Weight::pounds(4.0),
             Self::Tonfa => Weight::pounds(1.5),
+            Self::TrenchKnife => Weight::pounds(1.0),
             Self::Trident => Weight::pounds(4.0),
             Self::TwoHandedSword => Weight::pounds(7.0),
             Self::Wakizashi => Weight::pounds(1.5),
@@ -563,6 +583,7 @@ impl MeleeWeapon {
             Self::Assegai => TechLevel::new(0),     // Stone Age
             Self::Baton => TechLevel::new(5),          // Modern (police baton)
             Self::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
+            Self::Bayonet => TechLevel::new(5),        // Industrial Revolution
             Self::BeardedAxe => TechLevel::new(2),  // Iron Age
             Self::BecDeCorbin => TechLevel::new(3), // Medieval
             Self::Blackjack => TechLevel::new(1),
@@ -573,6 +594,7 @@ impl MeleeWeapon {
             Self::Billhook => TechLevel::new(2),    // Medieval
             Self::Bola => TechLevel::new(0),           // Stone Age
             Self::Bo => TechLevel::new(0),          // Stone Age
+            Self::BowieKnife => TechLevel::new(5),     // Industrial Revolution
             Self::BrassKnuckles => TechLevel::new(3),  // Industrial
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
@@ -582,6 +604,7 @@ impl MeleeWeapon {
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
             Self::Club => TechLevel::new(0),
             Self::CombatNet => TechLevel::new(1),      // Bronze Age
+            Self::CombatKnife => TechLevel::new(6),    // Atomic Age
             Self::Crowbar => TechLevel::new(3),        // Industrial
             Self::Cutlass => TechLevel::new(4),        // Age of Sail
             Self::Dagger => TechLevel::new(1),         // Bronze Age
@@ -589,6 +612,7 @@ impl MeleeWeapon {
             Self::Dirk => TechLevel::new(3),           // Scottish Medieval
             Self::Estoc => TechLevel::new(3),          // Late Medieval
             Self::Eku => TechLevel::new(0),         // Stone Age
+            Self::EntrenchingTool => TechLevel::new(5), // Industrial Revolution
             Self::Falchion => TechLevel::new(2),       // Medieval
             Self::Falx => TechLevel::new(1),        // Dacian/Iron Age
             Self::Fauchard => TechLevel::new(3),    // Medieval
@@ -675,6 +699,7 @@ impl MeleeWeapon {
             Self::Tessen => TechLevel::new(3),      // Japanese Renaissance
             Self::ThreeSectionStaff => TechLevel::new(2), // Medieval China
             Self::Tonfa => TechLevel::new(0),          // Stone Age
+            Self::TrenchKnife => TechLevel::new(6),    // Atomic Age
             Self::Trident => TechLevel::new(0),        // Stone Age
             Self::TwoHandedSword => TechLevel::new(2), // Medieval
             Self::Wakizashi => TechLevel::new(3),      // Medieval Japan
@@ -721,6 +746,10 @@ impl MeleeWeapon {
                 modifier: 3,
                 damage_type: DamageType::Cutting,
             },
+            Self::Bayonet => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::BeardedAxe => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
@@ -761,6 +790,10 @@ impl MeleeWeapon {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
             },
+            Self::BowieKnife => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
+            },
             Self::BrassKnuckles => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
@@ -797,6 +830,10 @@ impl MeleeWeapon {
                 modifier: -2,
                 damage_type: DamageType::Crushing, // Entangling, minimal damage
             },
+            Self::CombatKnife => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
+            },
             Self::Crowbar => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
@@ -824,6 +861,10 @@ impl MeleeWeapon {
             Self::Eku => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
+            },
+            Self::EntrenchingTool => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Cutting,
             },
             Self::Falchion => WeaponDamage::Swing {
                 modifier: 2,
@@ -1169,6 +1210,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
             },
+            Self::TrenchKnife => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
+            },
             Self::Trident => WeaponDamage::Thrust {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
@@ -1224,6 +1269,7 @@ impl MeleeWeapon {
             Self::Assegai => Reach::One,
             Self::Baton => Reach::One,
             Self::BattleAxe => Reach::One,
+            Self::Bayonet => Reach::One,
             Self::BeardedAxe => Reach::One,
             Self::BecDeCorbin => Reach::TwoThree,
             Self::Blackjack => Reach::Close,
@@ -1234,6 +1280,7 @@ impl MeleeWeapon {
             Self::Billhook => Reach::OneTwo,
             Self::Bola => Reach::One,
             Self::Bo => Reach::OneTwo,
+            Self::BowieKnife => Reach::CloseOne,
             Self::BrassKnuckles => Reach::Close,
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
@@ -1243,6 +1290,7 @@ impl MeleeWeapon {
             Self::Claymore => Reach::OneTwo,
             Self::Club => Reach::One,
             Self::CombatNet => Reach::One,
+            Self::CombatKnife => Reach::Close,
             Self::Crowbar => Reach::One,
             Self::Cutlass => Reach::One,
             Self::Dagger => Reach::Close,
@@ -1250,6 +1298,7 @@ impl MeleeWeapon {
             Self::Dirk => Reach::Close,
             Self::Estoc => Reach::One,
             Self::Eku => Reach::OneTwo,
+            Self::EntrenchingTool => Reach::One,
             Self::Falchion => Reach::One,
             Self::Falx => Reach::One,
             Self::Fauchard => Reach::TwoThree,
@@ -1336,6 +1385,7 @@ impl MeleeWeapon {
             Self::Tessen => Reach::Close,
             Self::ThreeSectionStaff => Reach::OneTwo,
             Self::Tonfa => Reach::One,
+            Self::TrenchKnife => Reach::Close,
             Self::Trident => Reach::OneTwo,
             Self::TwoHandedSword => Reach::OneTwo,
             Self::Wakizashi => Reach::One,
@@ -1365,12 +1415,14 @@ impl MeleeWeapon {
             Self::BecDeCorbin => 0,
             Self::Blackjack => 0,
             Self::BastardSword => 0,
+            Self::Bayonet => 0,
             Self::BaghNakh => -1,
             Self::Bardiche => 0,
             Self::Bill => 0,
             Self::Billhook => 0,
             Self::Bola => -2,
             Self::Bo => 2,
+            Self::BowieKnife => -1,
             Self::BrassKnuckles => 0,
             Self::Broadsword => 0,
             Self::Chakram => -2,
@@ -1380,6 +1432,7 @@ impl MeleeWeapon {
             Self::Claymore => 0,
             Self::Club => 0,
             Self::CombatNet => -2,
+            Self::CombatKnife => -1,
             Self::Crowbar => 0,
             Self::Cutlass => 0,
             Self::Dagger => -1,
@@ -1387,6 +1440,7 @@ impl MeleeWeapon {
             Self::Dirk => -1,
             Self::Estoc => 1,
             Self::Eku => 2,
+            Self::EntrenchingTool => -1,
             Self::Falchion => 0,
             Self::Falx => -1,
             Self::Fauchard => 0,
@@ -1473,6 +1527,7 @@ impl MeleeWeapon {
             Self::Tessen => 1,
             Self::ThreeSectionStaff => -2,
             Self::Tonfa => 1,
+            Self::TrenchKnife => -1,
             Self::Trident => 0,
             Self::TwoHandedSword => 0,
             Self::Wakizashi => 0,
@@ -1502,12 +1557,14 @@ impl MeleeWeapon {
             Self::BecDeCorbin => Skill::Polearm,
             Self::Blackjack => Skill::Brawling,
             Self::BastardSword => Skill::Broadsword,
+            Self::Bayonet => Skill::Spear,
             Self::BaghNakh => Skill::Brawling,
             Self::Bardiche => Skill::Polearm,
             Self::Bill => Skill::Polearm,
             Self::Billhook => Skill::Polearm,
             Self::Bola => Skill::ThrownWeapon,
             Self::Bo => Skill::Staff,
+            Self::BowieKnife => Skill::Knife,
             Self::BrassKnuckles => Skill::Brawling,
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
@@ -1517,6 +1574,7 @@ impl MeleeWeapon {
             Self::Claymore => Skill::TwoHandedSword,
             Self::Club => Skill::AxeMace,
             Self::CombatNet => Skill::ThrownWeapon,
+            Self::CombatKnife => Skill::Knife,
             Self::Crowbar => Skill::AxeMace,
             Self::Cutlass => Skill::Broadsword,
             Self::Dagger => Skill::Knife,
@@ -1524,6 +1582,7 @@ impl MeleeWeapon {
             Self::Dirk => Skill::Knife,
             Self::Estoc => Skill::Rapier,
             Self::Eku => Skill::Staff,
+            Self::EntrenchingTool => Skill::AxeMace,
             Self::Falchion => Skill::Broadsword,
             Self::Falx => Skill::TwoHandedAxeMace,
             Self::Fauchard => Skill::Polearm,
@@ -1610,6 +1669,7 @@ impl MeleeWeapon {
             Self::Tessen => Skill::Shortsword,
             Self::ThreeSectionStaff => Skill::Flail,
             Self::Tonfa => Skill::Shortsword,
+            Self::TrenchKnife => Skill::Knife,
             Self::Trident => Skill::Spear,
             Self::TwoHandedSword => Skill::TwoHandedSword,
             Self::Wakizashi => Skill::Shortsword,
