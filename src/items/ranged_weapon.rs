@@ -30,6 +30,8 @@ pub enum RangedWeapon {
     AKM,
     /// AK-12, 5d piercing. HT (Modern Russian 5.45mm rifle, TL8)
     AK12,
+    /// AS Val, 4d piercing. HT (Russian suppressed 9x39mm assault rifle, TL8)
+    ASVal,
     /// Assault rifle, 5d piercing. BS 278
     AssaultRifle,
     /// Arisaka Type 38, 4d piercing. HT (Japanese bolt-action rifle, TL6)
@@ -40,6 +42,8 @@ pub enum RangedWeapon {
     Atlatl,
     /// Ballista, 3d+4 impaling. LT (Siege crossbow, TL1)
     Ballista,
+    /// Barrett M107, 9d piercing. HT (American .50 BMG semi-auto anti-materiel rifle, TL8)
+    BarrettM107,
     /// Blowgun, 1d-3 impaling. BS 277
     Blowgun,
     /// Blunderbuss, 1d+2 piercing. LT (Early shotgun, TL4)
@@ -202,6 +206,8 @@ pub enum RangedWeapon {
     Jezail,
     /// Kel-Tec KSG, 1d+1 piercing. HT (American bullpup pump shotgun, TL8)
     KelTecKSG,
+    /// Kriss Vector, 2d+2 piercing. HT (American .45 ACP low-recoil SMG, TL8)
+    KrissVector,
     /// LeMat revolver, 2d+1 piercing. HT (9-shot + shotgun revolver, TL5)
     LematRevolver,
     /// Lee-Enfield SMLE, 4d piercing. HT (British .303 bolt-action, TL6)
@@ -236,6 +242,8 @@ pub enum RangedWeapon {
     M249SAW,
     /// M60, 6d piercing. HT (American 7.62mm GPMG, TL7)
     M60,
+    /// M4 Carbine, 5d piercing. HT (American 5.56mm carbine, TL8)
+    M4Carbine,
     /// M79, 6d crushing. HT (American 40mm grenade launcher, TL7)
     M79,
     /// MAC-10, 2d+2 piercing. HT (American .45 ACP SMG, TL7)
@@ -264,6 +272,8 @@ pub enum RangedWeapon {
     MachineGun,
     /// McMillan TAC-50, 9d piercing. HT (American .50 BMG anti-materiel rifle, TL8)
     McMillanTAC50,
+    /// Milkor MGL, 6d crushing. HT (South African 40mm revolver grenade launcher, TL8)
+    MilkorMGL,
     /// Mitrailleuse, 5d piercing. HT (Volley gun, TL5)
     Mitrailleuse,
     /// Mk 19, 6d crushing. HT (American 40mm automatic grenade launcher, TL7)
@@ -479,11 +489,13 @@ impl RangedWeapon {
             Self::AK47 => Currency::dollars(600.0),
             Self::AKM => Currency::dollars(650.0),
             Self::AK12 => Currency::dollars(2500.0),
+            Self::ASVal => Currency::dollars(2500.0),
             Self::AssaultRifle => Currency::dollars(900.0),
             Self::ArisakaType38 => Currency::dollars(400.0),
             Self::AT4 => Currency::dollars(1500.0),
                         Self::Atlatl => Currency::dollars(20.0),
             Self::Ballista => Currency::dollars(2000.0),
+            Self::BarrettM107 => Currency::dollars(13000.0),
                         Self::Blowgun => Currency::dollars(30.0),
                         Self::Blunderbuss => Currency::dollars(300.0),
             Self::Bola => Currency::dollars(20.0),
@@ -565,6 +577,7 @@ impl RangedWeapon {
             Self::HKMG4 => Currency::dollars(4200.0),
             Self::Jezail => Currency::dollars(400.0),
             Self::KelTecKSG => Currency::dollars(1000.0),
+            Self::KrissVector => Currency::dollars(1600.0),
             Self::LematRevolver => Currency::dollars(350.0),
             Self::LeeEnfieldSMLE => Currency::dollars(425.0),
             Self::LeverActionRifle => Currency::dollars(350.0),
@@ -582,6 +595,7 @@ impl RangedWeapon {
             Self::M21SWS => Currency::dollars(4500.0),
             Self::M249SAW => Currency::dollars(3500.0),
             Self::M60 => Currency::dollars(3200.0),
+            Self::M4Carbine => Currency::dollars(1400.0),
             Self::M79 => Currency::dollars(1000.0),
             Self::MAC10 => Currency::dollars(350.0),
             Self::Mangonel => Currency::dollars(3500.0),
@@ -596,6 +610,7 @@ impl RangedWeapon {
             Self::MaximGun => Currency::dollars(4500.0),
             Self::MachineGun => Currency::dollars(4000.0),
             Self::McMillanTAC50 => Currency::dollars(11000.0),
+            Self::MilkorMGL => Currency::dollars(8000.0),
             Self::Mitrailleuse => Currency::dollars(3500.0),
             Self::Mk19 => Currency::dollars(15000.0),
             Self::MosinNagant => Currency::dollars(400.0),
@@ -711,11 +726,13 @@ impl RangedWeapon {
             Self::AK47 => Weight::pounds(9.5),
             Self::AKM => Weight::pounds(8.0),
             Self::AK12 => Weight::pounds(7.8),
+            Self::ASVal => Weight::pounds(5.5),
             Self::AssaultRifle => Weight::pounds(9.0),
             Self::ArisakaType38 => Weight::pounds(9.0),
             Self::AT4 => Weight::pounds(14.8),
                         Self::Atlatl => Weight::pounds(1.0),
             Self::Ballista => Weight::pounds(350.0),
+            Self::BarrettM107 => Weight::pounds(30.9),
                         Self::Blowgun => Weight::pounds(1.0),
                         Self::Blunderbuss => Weight::pounds(8.0),
             Self::Bola => Weight::pounds(1.0),
@@ -797,6 +814,7 @@ impl RangedWeapon {
             Self::HKMG4 => Weight::pounds(18.0),
             Self::Jezail => Weight::pounds(11.0),
             Self::KelTecKSG => Weight::pounds(6.9),
+            Self::KrissVector => Weight::pounds(5.5),
             Self::LematRevolver => Weight::pounds(3.0),
             Self::LeeEnfieldSMLE => Weight::pounds(8.75),
             Self::LeverActionRifle => Weight::pounds(8.0),
@@ -814,6 +832,7 @@ impl RangedWeapon {
             Self::M21SWS => Weight::pounds(11.0),
             Self::M249SAW => Weight::pounds(17.0),
             Self::M60 => Weight::pounds(23.0),
+            Self::M4Carbine => Weight::pounds(6.5),
             Self::M79 => Weight::pounds(6.0),
             Self::MAC10 => Weight::pounds(6.3),
             Self::Mangonel => Weight::pounds(600.0),
@@ -828,6 +847,7 @@ impl RangedWeapon {
             Self::MaximGun => Weight::pounds(60.0),
             Self::MachineGun => Weight::pounds(30.0),
             Self::McMillanTAC50 => Weight::pounds(26.0),
+            Self::MilkorMGL => Weight::pounds(12.0),
             Self::Mitrailleuse => Weight::pounds(300.0),
             Self::Mk19 => Weight::pounds(75.0),
             Self::MosinNagant => Weight::pounds(8.75),
@@ -943,11 +963,13 @@ impl RangedWeapon {
             Self::AK47 => TechLevel::new(7),           // Digital Age
             Self::AKM => TechLevel::new(7),            // Digital Age
             Self::AK12 => TechLevel::new(8),           // Information Age
+            Self::ASVal => TechLevel::new(8),          // Information Age
             Self::AssaultRifle => TechLevel::new(7),   // Digital Age
             Self::ArisakaType38 => TechLevel::new(6),  // Atomic Age
             Self::AT4 => TechLevel::new(7),            // Digital Age
                         Self::Atlatl => TechLevel::new(0),         // Stone Age
             Self::Ballista => TechLevel::new(1),       // Roman/Iron Age
+            Self::BarrettM107 => TechLevel::new(8),    // Information Age
                         Self::Blowgun => TechLevel::new(0),        // Stone Age
                         Self::Blunderbuss => TechLevel::new(4),    // Renaissance
             Self::Bola => TechLevel::new(0),           // Stone Age
@@ -1029,6 +1051,7 @@ impl RangedWeapon {
             Self::HKMG4 => TechLevel::new(8),          // Information Age
             Self::Jezail => TechLevel::new(4),         // Renaissance
             Self::KelTecKSG => TechLevel::new(8),      // Information Age
+            Self::KrissVector => TechLevel::new(8),    // Information Age
             Self::LematRevolver => TechLevel::new(5),  // Industrial Revolution
             Self::LeeEnfieldSMLE => TechLevel::new(6), // Atomic Age
             Self::LeverActionRifle => TechLevel::new(5), // Industrial Revolution
@@ -1045,6 +1068,7 @@ impl RangedWeapon {
             Self::M203 => TechLevel::new(7),           // Digital Age
             Self::M21SWS => TechLevel::new(7),          // Digital Age
             Self::M249SAW => TechLevel::new(7),        // Digital Age
+            Self::M4Carbine => TechLevel::new(8),      // Information Age
             Self::M60 => TechLevel::new(7),            // Digital Age
             Self::M79 => TechLevel::new(7),            // Digital Age
             Self::MAC10 => TechLevel::new(7),          // Digital Age
@@ -1062,6 +1086,7 @@ impl RangedWeapon {
             Self::McMillanTAC50 => TechLevel::new(8),  // Information Age
             Self::Mitrailleuse => TechLevel::new(5),   // Industrial Revolution
             Self::Mk19 => TechLevel::new(7),           // Digital Age
+            Self::MilkorMGL => TechLevel::new(8),      // Information Age
             Self::MosinNagant => TechLevel::new(6),    // Atomic Age
             Self::Mossberg500 => TechLevel::new(7),    // Digital Age
             Self::MP18 => TechLevel::new(6),           // Atomic Age
@@ -1196,6 +1221,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::ASVal => WeaponDamage::Fixed {
+                dice: DieLevel::new(4, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::AssaultRifle => WeaponDamage::Fixed {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
@@ -1245,6 +1274,10 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::BarrettM82 => WeaponDamage::Fixed {
+                dice: DieLevel::new(9, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::BarrettM107 => WeaponDamage::Fixed {
                 dice: DieLevel::new(9, 0),
                 damage_type: DamageType::Piercing,
             },
@@ -1540,6 +1573,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
+            Self::KrissVector => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
             Self::LematRevolver => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 1),
                 damage_type: DamageType::Piercing,
@@ -1608,6 +1645,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::M4Carbine => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::M60 => WeaponDamage::Fixed {
                 dice: DieLevel::new(6, 0),
                 damage_type: DamageType::Piercing,
@@ -1669,6 +1710,10 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::Mk19 => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Crushing,
+            },
+            Self::MilkorMGL => WeaponDamage::Fixed {
                 dice: DieLevel::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
@@ -2079,6 +2124,7 @@ impl RangedWeapon {
             Self::AK47 => 4,
             Self::AKM => 4,
             Self::AK12 => 5,
+            Self::ASVal => 4,
             Self::AssaultRifle => 5,
             Self::ArisakaType38 => 4,
             Self::AT4 => 3,
@@ -2092,6 +2138,7 @@ impl RangedWeapon {
             Self::BAR => 4,
             Self::BrenGun => 4,
             Self::BarrettM82 => 6,
+            Self::BarrettM107 => 6,
             Self::BenelliM3 => 3,
             Self::BerettaM92 => 2,
             Self::BrowningHiPower => 2,
@@ -2165,6 +2212,7 @@ impl RangedWeapon {
             Self::HKMG4 => 5,
             Self::Jezail => 4,
             Self::KelTecKSG => 3,
+            Self::KrissVector => 3,
             Self::LematRevolver => 2,
             Self::LeeEnfieldSMLE => 4,
             Self::LeverActionRifle => 4,
@@ -2182,6 +2230,7 @@ impl RangedWeapon {
             Self::M203 => 3,
             Self::M21SWS => 6,
             Self::M249SAW => 5,
+            Self::M4Carbine => 5,
             Self::M60 => 5,
             Self::M79 => 4,
             Self::Mangonel => 1,
@@ -2198,6 +2247,7 @@ impl RangedWeapon {
             Self::McMillanTAC50 => 6,
             Self::Mitrailleuse => 3,
             Self::Mk19 => 4,
+            Self::MilkorMGL => 4,
             Self::MosinNagant => 4,
             Self::Mossberg500 => 3,
             Self::MP18 => 2,
@@ -2311,6 +2361,7 @@ impl RangedWeapon {
             Self::AK47 => Skill::Guns,
             Self::AKM => Skill::Guns,
             Self::AK12 => Skill::Guns,
+            Self::ASVal => Skill::Guns,
             Self::AssaultRifle => Skill::Guns,
             Self::ArisakaType38 => Skill::Guns,
             Self::AT4 => Skill::Guns,
@@ -2324,6 +2375,7 @@ impl RangedWeapon {
             Self::BAR => Skill::Guns,
             Self::BrenGun => Skill::Guns,
             Self::BarrettM82 => Skill::Guns,
+            Self::BarrettM107 => Skill::Guns,
             Self::BenelliM3 => Skill::Guns,
             Self::BerettaM92 => Skill::Guns,
             Self::BrowningHiPower => Skill::Guns,
@@ -2397,6 +2449,7 @@ impl RangedWeapon {
             Self::HKMG4 => Skill::Guns,
             Self::Jezail => Skill::Guns,
             Self::KelTecKSG => Skill::Guns,
+            Self::KrissVector => Skill::Guns,
             Self::LematRevolver => Skill::Guns,
             Self::LeeEnfieldSMLE => Skill::Guns,
             Self::LeverActionRifle => Skill::Guns,
@@ -2414,6 +2467,7 @@ impl RangedWeapon {
             Self::M203 => Skill::Guns,
             Self::M21SWS => Skill::Guns,
             Self::M249SAW => Skill::Guns,
+            Self::M4Carbine => Skill::Guns,
             Self::M60 => Skill::Guns,
             Self::M79 => Skill::Guns,
             Self::Mangonel => Skill::Artillery,
@@ -2430,6 +2484,7 @@ impl RangedWeapon {
             Self::McMillanTAC50 => Skill::Guns,
             Self::Mitrailleuse => Skill::Guns,
             Self::Mk19 => Skill::Guns,
+            Self::MilkorMGL => Skill::Guns,
             Self::MosinNagant => Skill::Guns,
             Self::Mossberg500 => Skill::Guns,
             Self::MP18 => Skill::Guns,
