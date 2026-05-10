@@ -54,6 +54,7 @@
 - ✅ Batch 29: TL5-6 Melee Weapons (Bayonet, Bowie Knife, Combat Knife, Entrenching Tool, Trench Knife)
 - ✅ Batch 30: TL5-8 Military Melee Weapons (Fairbairn-Sykes, Ka-Bar, Kukri, Machete, Tactical Tomahawk)
 - ✅ Batch 31: TL5-8 Tactical Melee Weapons (Ceramic Knife, Push Dagger, Survival Knife, Tactical Folder, Throwing Knife)
+- ✅ Batch 32: TL5-8 Specialized Melee Weapons (ASP Baton, Monowire, Nightstick, Stun Baton, Vibro-Knife)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -368,7 +369,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 171 items
+### Completed: 176 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -396,10 +397,11 @@ For each weapon:
 - 5 TL5-6 Melee Weapons (Bayonet, Bowie Knife, Combat Knife, Entrenching Tool, Trench Knife)
 - 5 TL5-8 Military Melee Weapons (Fairbairn-Sykes, Ka-Bar, Kukri, Machete, Tactical Tomahawk)
 - 5 TL5-8 Tactical Melee Weapons (Ceramic Knife, Push Dagger, Survival Knife, Tactical Folder, Throwing Knife)
+- 5 TL5-8 Specialized Melee Weapons (ASP Baton, Monowire, Nightstick, Stun Baton, Vibro-Knife)
 
-### Remaining: ~179-329 items
+### Remaining: ~174-324 items
 
 ---
 
 **Last Updated:** 2026-05-10
-**Status:** 🔄 TL5-8 Tactical Melee Weapons Batch 31 COMPLETE - Phase 5 (Melee Weapons) IN PROGRESS
+**Status:** 🔄 TL5-8 Specialized Melee Weapons Batch 32 COMPLETE - Phase 5 (Melee Weapons) IN PROGRESS
