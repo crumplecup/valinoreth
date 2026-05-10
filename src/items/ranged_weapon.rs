@@ -86,6 +86,8 @@ pub enum RangedWeapon {
     ChassepotRifle,
     /// CheyTac M200 Intervention, 8d piercing. HT (American long-range precision rifle, TL8)
     CheyTacM200,
+    /// Chiappa Rhino, 3d-1 piercing. HT (Italian low bore-axis .357 Magnum revolver, TL8)
+    ChiappaRhino,
     /// Chu-ko-nu, 1d impaling. LT (Chinese repeating crossbow variant)
     Chukonu,
     /// Colt Walker, 2d+2 piercing. HT (Powerful cap-and-ball revolver, TL5)
@@ -96,6 +98,8 @@ pub enum RangedWeapon {
     Crossbow,
     /// CZ 75, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
     CZ75,
+    /// CZ P-10, 2d+2 piercing. HT (Czech striker-fired 9mm pistol, TL8)
+    CZP10,
     /// C4 Explosive, 8d crushing. HT (Plastic explosive, TL7)
     C4Explosive,
     /// Daikyu, 1d+3 impaling. LT (Japanese great bow)
@@ -160,6 +164,8 @@ pub enum RangedWeapon {
     GreatBow,
     /// Glock 17, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
     Glock17,
+    /// Glock 43X, 2d piercing. HT (Subcompact 9mm pistol, TL8)
+    Glock43X,
     /// G3, 5d+1 piercing. HT (German 7.62mm battle rifle, TL7)
     G3,
     /// GP-25, 6d crushing. HT (Soviet 40mm underbarrel grenade launcher, TL7)
@@ -186,6 +192,8 @@ pub enum RangedWeapon {
     HK416,
     /// HK MP7, 3d piercing. HT (German 4.6mm PDW, TL8)
     HKMP7,
+    /// HK Mark 23, 2d+2 piercing. HT (German .45 ACP SOCOM pistol, TL8)
+    HKMark23,
     /// Jezail, 5d piercing. LT (Afghan long gun, TL4)
     Jezail,
     /// Kel-Tec KSG, 1d+1 piercing. HT (American bullpup pump shotgun, TL8)
@@ -352,6 +360,8 @@ pub enum RangedWeapon {
     Skorpion,
     /// SIG P220, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
     SIGP220,
+    /// SIG P320, 2d+2 piercing. HT (Modular striker-fired 9mm pistol, TL8)
+    SIGP320,
     /// Siege crossbow, 3d+6 impaling. LT (Extra-heavy crossbow, TL2)
     SiegeCrossbow,
     /// Single-action revolver, 2d+1 piercing. HT (Colt SAA .45, TL5)
@@ -487,11 +497,13 @@ impl RangedWeapon {
             Self::ClaymoreMine => Currency::dollars(120.0),
             Self::ChassepotRifle => Currency::dollars(400.0),
             Self::CheyTacM200 => Currency::dollars(12000.0),
+            Self::ChiappaRhino => Currency::dollars(1000.0),
             Self::Chukonu => Currency::dollars(250.0),
             Self::ColtWalker => Currency::dollars(300.0),
             Self::ColtM1911 => Currency::dollars(300.0),
             Self::Crossbow => Currency::dollars(150.0),
             Self::CZ75 => Currency::dollars(500.0),
+            Self::CZP10 => Currency::dollars(500.0),
             Self::C4Explosive => Currency::dollars(50.0),
             Self::Daikyu => Currency::dollars(450.0),
             Self::Dart => Currency::dollars(10.0),
@@ -524,6 +536,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => Currency::dollars(400.0),
             Self::GreatBow => Currency::dollars(700.0),
             Self::Glock17 => Currency::dollars(400.0),
+            Self::Glock43X => Currency::dollars(550.0),
             Self::G3 => Currency::dollars(750.0),
             Self::GP25 => Currency::dollars(500.0),
             Self::HornBow => Currency::dollars(800.0),
@@ -537,6 +550,7 @@ impl RangedWeapon {
                         Self::HuntingRifle => Currency::dollars(700.0),
             Self::HK416 => Currency::dollars(2800.0),
             Self::HKMP7 => Currency::dollars(1800.0),
+            Self::HKMark23 => Currency::dollars(2400.0),
             Self::Jezail => Currency::dollars(400.0),
             Self::KelTecKSG => Currency::dollars(1000.0),
             Self::LematRevolver => Currency::dollars(350.0),
@@ -619,6 +633,7 @@ impl RangedWeapon {
             Self::SharpsRifle => Currency::dollars(425.0),
             Self::SiegeCrossbow => Currency::dollars(500.0),
             Self::SIGP220 => Currency::dollars(600.0),
+            Self::SIGP320 => Currency::dollars(600.0),
             Self::SingleActionRevolver => Currency::dollars(300.0),
             Self::Shuriken => Currency::dollars(5.0),
             Self::Skorpion => Currency::dollars(300.0),
@@ -709,11 +724,13 @@ impl RangedWeapon {
             Self::ClaymoreMine => Weight::pounds(3.5),
             Self::ChassepotRifle => Weight::pounds(9.5),
             Self::CheyTacM200 => Weight::pounds(31.0),
+            Self::ChiappaRhino => Weight::pounds(1.8),
             Self::Chukonu => Weight::pounds(7.0),
             Self::ColtWalker => Weight::pounds(4.5),
             Self::ColtM1911 => Weight::pounds(2.5),
             Self::Crossbow => Weight::pounds(6.0),
             Self::CZ75 => Weight::pounds(2.2),
+            Self::CZP10 => Weight::pounds(1.6),
             Self::C4Explosive => Weight::pounds(1.25),
             Self::Daikyu => Weight::pounds(3.5),
             Self::Dart => Weight::pounds(0.1),
@@ -746,6 +763,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => Weight::pounds(14.0),
             Self::GreatBow => Weight::pounds(6.0),
             Self::Glock17 => Weight::pounds(1.6),
+            Self::Glock43X => Weight::pounds(1.2),
             Self::G3 => Weight::pounds(9.7),
             Self::GP25 => Weight::pounds(3.5),
             Self::HornBow => Weight::pounds(3.0),
@@ -759,6 +777,7 @@ impl RangedWeapon {
                         Self::HuntingRifle => Weight::pounds(9.0),
             Self::HK416 => Weight::pounds(7.5),
             Self::HKMP7 => Weight::pounds(4.2),
+            Self::HKMark23 => Weight::pounds(2.8),
             Self::Jezail => Weight::pounds(11.0),
             Self::KelTecKSG => Weight::pounds(6.9),
             Self::LematRevolver => Weight::pounds(3.0),
@@ -841,6 +860,7 @@ impl RangedWeapon {
             Self::SharpsRifle => Weight::pounds(10.5),
             Self::SiegeCrossbow => Weight::pounds(15.0),
             Self::SIGP220 => Weight::pounds(1.9),
+            Self::SIGP320 => Weight::pounds(1.7),
             Self::SingleActionRevolver => Weight::pounds(2.5),
             Self::Shuriken => Weight::pounds(0.1),
             Self::Skorpion => Weight::pounds(3.0),
@@ -931,11 +951,13 @@ impl RangedWeapon {
             Self::ClaymoreMine => TechLevel::new(7),   // Digital Age
             Self::ChassepotRifle => TechLevel::new(5), // Industrial Revolution
             Self::CheyTacM200 => TechLevel::new(8),    // Information Age
+            Self::ChiappaRhino => TechLevel::new(8),   // Information Age
             Self::Chukonu => TechLevel::new(2),        // Medieval China
             Self::ColtWalker => TechLevel::new(5),     // Industrial Revolution
             Self::ColtM1911 => TechLevel::new(6),      // Atomic Age
             Self::Crossbow => TechLevel::new(2),       // Medieval
             Self::CZ75 => TechLevel::new(7),           // Digital Age
+            Self::CZP10 => TechLevel::new(8),          // Information Age
             Self::C4Explosive => TechLevel::new(7),    // Digital Age
             Self::Daikyu => TechLevel::new(3),        // Japanese
             Self::Dart => TechLevel::new(0),           // Stone Age
@@ -968,6 +990,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => TechLevel::new(1),   // Greek/Iron Age
             Self::GreatBow => TechLevel::new(2),       // Medieval
             Self::Glock17 => TechLevel::new(7),        // Digital Age
+            Self::Glock43X => TechLevel::new(8),       // Information Age
             Self::G3 => TechLevel::new(7),             // Digital Age
             Self::GP25 => TechLevel::new(7),           // Digital Age
             Self::HornBow => TechLevel::new(1),        // Bronze Age
@@ -981,6 +1004,7 @@ impl RangedWeapon {
                         Self::HuntingRifle => TechLevel::new(5),   // Mechanized Age
             Self::HK416 => TechLevel::new(8),          // Information Age
             Self::HKMP7 => TechLevel::new(8),          // Information Age
+            Self::HKMark23 => TechLevel::new(8),       // Information Age
             Self::Jezail => TechLevel::new(4),         // Renaissance
             Self::KelTecKSG => TechLevel::new(8),      // Information Age
             Self::LematRevolver => TechLevel::new(5),  // Industrial Revolution
@@ -1063,6 +1087,7 @@ impl RangedWeapon {
             Self::SharpsRifle => TechLevel::new(5),    // Industrial Revolution
             Self::SiegeCrossbow => TechLevel::new(2),  // Medieval
             Self::SIGP220 => TechLevel::new(7),        // Digital Age
+            Self::SIGP320 => TechLevel::new(8),        // Information Age
             Self::SingleActionRevolver => TechLevel::new(5), // Industrial Revolution
             Self::Shuriken => TechLevel::new(2),       // Medieval Japan
             Self::Skorpion => TechLevel::new(7),       // Digital Age
@@ -1258,6 +1283,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(8, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::ChiappaRhino => WeaponDamage::Fixed {
+                dice: DieLevel::new(3, -1),
+                damage_type: DamageType::Piercing,
+            },
             Self::Chukonu => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 0),
                 damage_type: DamageType::Impaling,
@@ -1275,6 +1304,10 @@ impl RangedWeapon {
                 damage_type: DamageType::Impaling,
             },
             Self::CZ75 => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
+            Self::CZP10 => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
@@ -1406,6 +1439,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
+            Self::Glock43X => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::G3 => WeaponDamage::Fixed {
                 dice: DieLevel::new(5, 1),
                 damage_type: DamageType::Piercing,
@@ -1456,6 +1493,10 @@ impl RangedWeapon {
             },
             Self::HKMP7 => WeaponDamage::Fixed {
                 dice: DieLevel::new(3, 0),
+                damage_type: DamageType::Piercing,
+            },
+            Self::HKMark23 => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Jezail => WeaponDamage::Fixed {
@@ -1786,6 +1827,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
+            Self::SIGP320 => WeaponDamage::Fixed {
+                dice: DieLevel::new(2, 2),
+                damage_type: DamageType::Piercing,
+            },
             Self::SingleActionRevolver => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 1),
                 damage_type: DamageType::Piercing,
@@ -2017,11 +2062,13 @@ impl RangedWeapon {
             Self::ClaymoreMine => 1,
             Self::ChassepotRifle => 4,
             Self::CheyTacM200 => 7,
+            Self::ChiappaRhino => 2,
             Self::Chukonu => 2,
             Self::ColtWalker => 1,
             Self::ColtM1911 => 2,
             Self::Crossbow => 4,
             Self::CZ75 => 2,
+            Self::CZP10 => 2,
             Self::C4Explosive => 1,
             Self::Daikyu => 3,
             Self::Dart => 2,
@@ -2054,6 +2101,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => 4,
             Self::GreatBow => 3,
             Self::Glock17 => 2,
+            Self::Glock43X => 2,
             Self::G3 => 5,
             Self::GP25 => 3,
             Self::HornBow => 3,
@@ -2067,6 +2115,7 @@ impl RangedWeapon {
                         Self::HuntingRifle => 5,
             Self::HK416 => 5,
             Self::HKMP7 => 4,
+            Self::HKMark23 => 3,
             Self::Jezail => 4,
             Self::KelTecKSG => 3,
             Self::LematRevolver => 2,
@@ -2149,6 +2198,7 @@ impl RangedWeapon {
             Self::SharpsRifle => 4,
             Self::SiegeCrossbow => 5,
             Self::SIGP220 => 2,
+            Self::SIGP320 => 2,
             Self::SingleActionRevolver => 2,
             Self::Shuriken => 1,
             Self::Skorpion => 2,
@@ -2239,11 +2289,13 @@ impl RangedWeapon {
             Self::ClaymoreMine => Skill::Guns,
             Self::ChassepotRifle => Skill::Guns,
             Self::CheyTacM200 => Skill::Guns,
+            Self::ChiappaRhino => Skill::Guns,
             Self::Chukonu => Skill::Crossbow,
             Self::ColtWalker => Skill::Guns,
             Self::ColtM1911 => Skill::Guns,
             Self::Crossbow => Skill::Crossbow,
             Self::CZ75 => Skill::Guns,
+            Self::CZP10 => Skill::Guns,
             Self::C4Explosive => Skill::Guns,
             Self::Daikyu => Skill::Bow,
             Self::Dart => Skill::ThrownWeapon,
@@ -2276,6 +2328,7 @@ impl RangedWeapon {
                         Self::Gastraphetes => Skill::Crossbow,
             Self::GreatBow => Skill::Bow,
             Self::Glock17 => Skill::Guns,
+            Self::Glock43X => Skill::Guns,
             Self::G3 => Skill::Guns,
             Self::GP25 => Skill::Guns,
             Self::HornBow => Skill::Bow,
@@ -2289,6 +2342,7 @@ impl RangedWeapon {
                         Self::HuntingRifle => Skill::Guns,
             Self::HK416 => Skill::Guns,
             Self::HKMP7 => Skill::Guns,
+            Self::HKMark23 => Skill::Guns,
             Self::Jezail => Skill::Guns,
             Self::KelTecKSG => Skill::Guns,
             Self::LematRevolver => Skill::Guns,
@@ -2371,6 +2425,7 @@ impl RangedWeapon {
             Self::SharpsRifle => Skill::Guns,
             Self::SiegeCrossbow => Skill::Crossbow,
             Self::SIGP220 => Skill::Guns,
+            Self::SIGP320 => Skill::Guns,
             Self::SingleActionRevolver => Skill::Guns,
             Self::Shuriken => Skill::ThrownWeapon,
             Self::Skorpion => Skill::Guns,
