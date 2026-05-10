@@ -62,6 +62,8 @@ pub enum MeleeWeapon {
     Chakram,
     /// Cestus, thrust crushing, reach C. BS 271
     Cestus,
+    /// Ceramic knife, thrust impaling, reach C. HT (Non-metallic blade, TL8)
+    CeramicKnife,
     /// Chain, swing+1 crushing, reach 1-3. BS 271
     Chain,
     /// Cinquedea, thrust impaling, reach C. LT (Italian thick dagger)
@@ -214,6 +216,8 @@ pub enum MeleeWeapon {
     Poleax,
     /// Partisan, thrust+2 impaling, reach 2-3. LT
     Partisan,
+    /// Push dagger, thrust impaling, reach C. HT (T-grip concealment dagger, TL5+)
+    PushDagger,
     /// Quarterstaff, swing+2 crushing, reach 1-2. BS 271
     Quarterstaff,
     /// Rapier, thrust+1 impaling, reach 1. BS 271
@@ -256,8 +260,12 @@ pub enum MeleeWeapon {
     Stick,
     /// Stiletto, thrust+1 impaling, reach C. LT (Italian piercing dagger)
     Stiletto,
+    /// Survival knife, thrust+1 impaling, reach C-1. HT (Large fixed-blade survival knife, TL6+)
+    SurvivalKnife,
     /// Tanto, thrust impaling, reach C. BS 271
     Tanto,
+    /// Tactical folder, thrust impaling, reach C. HT (Modern folding knife, TL7+)
+    TacticalFolder,
     /// Tactical tomahawk, swing+2 cutting, reach 1. HT (Modern combat axe, TL8)
     TacticalTomahawk,
     /// Tekko, thrust-1 crushing, reach C. LT (Okinawan knuckle weapon)
@@ -270,6 +278,8 @@ pub enum MeleeWeapon {
     Tessen,
     /// Three-section staff, swing+2 crushing, reach 1-2. LT (Chinese weapon)
     ThreeSectionStaff,
+    /// Throwing knife, swing cutting, reach 1. HT (Balanced knife for throwing, TL5+)
+    ThrowingKnife,
     /// Tonfa, swing+1 crushing, reach 1. BS 271
     Tonfa,
     /// Trench knife, thrust impaling, reach C. HT (WWI knuckle-duster knife, TL6)
@@ -325,6 +335,7 @@ impl MeleeWeapon {
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
             Self::Cestus => Currency::dollars(15.0),
+            Self::CeramicKnife => Currency::dollars(90.0),
             Self::Chain => Currency::dollars(30.0),
             Self::Cinquedea => Currency::dollars(30.0),
             Self::Claymore => Currency::dollars(500.0),
@@ -401,6 +412,7 @@ impl MeleeWeapon {
             Self::Pilum => Currency::dollars(40.0),
             Self::Poleax => Currency::dollars(120.0),
             Self::Partisan => Currency::dollars(100.0),
+            Self::PushDagger => Currency::dollars(45.0),
             Self::Quarterstaff => Currency::dollars(10.0),
             Self::Rapier => Currency::dollars(500.0),
             Self::Ranseur => Currency::dollars(90.0),
@@ -422,13 +434,16 @@ impl MeleeWeapon {
             Self::Staff => Currency::dollars(5.0),
             Self::Stick => Currency::dollars(5.0),
             Self::Stiletto => Currency::dollars(50.0),
+            Self::SurvivalKnife => Currency::dollars(70.0),
             Self::Tanto => Currency::dollars(30.0),
+            Self::TacticalFolder => Currency::dollars(55.0),
             Self::TacticalTomahawk => Currency::dollars(80.0),
             Self::Tekko => Currency::dollars(15.0),
             Self::Talwar => Currency::dollars(500.0),
             Self::Tetsubo => Currency::dollars(80.0),
             Self::Tessen => Currency::dollars(60.0),
             Self::ThreeSectionStaff => Currency::dollars(35.0),
+            Self::ThrowingKnife => Currency::dollars(25.0),
             Self::Tonfa => Currency::dollars(20.0),
             Self::TrenchKnife => Currency::dollars(30.0),
             Self::Trident => Currency::dollars(100.0),
@@ -472,6 +487,7 @@ impl MeleeWeapon {
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
             Self::Cestus => Weight::pounds(0.5),
+            Self::CeramicKnife => Weight::pounds(0.5),
             Self::Chain => Weight::pounds(3.0),
             Self::Cinquedea => Weight::pounds(1.0),
             Self::Claymore => Weight::pounds(7.0),
@@ -548,6 +564,7 @@ impl MeleeWeapon {
             Self::Pilum => Weight::pounds(4.0),
             Self::Poleax => Weight::pounds(10.0),
             Self::Partisan => Weight::pounds(7.0),
+            Self::PushDagger => Weight::pounds(0.75),
             Self::Quarterstaff => Weight::pounds(4.0),
             Self::Rapier => Weight::pounds(2.75),
             Self::Ranseur => Weight::pounds(7.0),
@@ -569,13 +586,16 @@ impl MeleeWeapon {
             Self::Staff => Weight::pounds(4.0),
             Self::Stick => Weight::pounds(2.0),
             Self::Stiletto => Weight::pounds(0.5),
+            Self::SurvivalKnife => Weight::pounds(1.5),
             Self::Tanto => Weight::pounds(0.5),
+            Self::TacticalFolder => Weight::pounds(0.5),
             Self::TacticalTomahawk => Weight::pounds(2.5),
             Self::Tekko => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
             Self::Tetsubo => Weight::pounds(10.0),
             Self::Tessen => Weight::pounds(1.0),
             Self::ThreeSectionStaff => Weight::pounds(4.0),
+            Self::ThrowingKnife => Weight::pounds(0.5),
             Self::Tonfa => Weight::pounds(1.5),
             Self::TrenchKnife => Weight::pounds(1.0),
             Self::Trident => Weight::pounds(4.0),
@@ -619,6 +639,7 @@ impl MeleeWeapon {
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
             Self::Cestus => TechLevel::new(1),          // Roman
+            Self::CeramicKnife => TechLevel::new(8),    // Modern/Digital
             Self::Chain => TechLevel::new(1),           // Ancient
             Self::Cinquedea => TechLevel::new(3),   // Late Medieval
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
@@ -695,6 +716,7 @@ impl MeleeWeapon {
             Self::Pilum => TechLevel::new(1),       // Roman
             Self::Poleax => TechLevel::new(2),
             Self::Partisan => TechLevel::new(3),    // Medieval
+            Self::PushDagger => TechLevel::new(5),     // Industrial
             Self::Quarterstaff => TechLevel::new(0),   // Stone Age
             Self::Rapier => TechLevel::new(4),         // Renaissance
             Self::Ranseur => TechLevel::new(3),     // Medieval
@@ -716,13 +738,16 @@ impl MeleeWeapon {
             Self::Staff => TechLevel::new(0),          // Stone Age
             Self::Stick => TechLevel::new(0),
             Self::Stiletto => TechLevel::new(3),       // Italian Medieval
+            Self::SurvivalKnife => TechLevel::new(6),  // WWII era
             Self::Tanto => TechLevel::new(3),          // Japanese
+            Self::TacticalFolder => TechLevel::new(7),   // Nuclear Age
             Self::TacticalTomahawk => TechLevel::new(8), // Modern Combat
             Self::Tekko => TechLevel::new(0),       // Okinawan/Stone Age
             Self::Talwar => TechLevel::new(2),         // Iron Age
             Self::Tetsubo => TechLevel::new(2),     // Medieval Japan
             Self::Tessen => TechLevel::new(3),      // Japanese Renaissance
             Self::ThreeSectionStaff => TechLevel::new(2), // Medieval China
+            Self::ThrowingKnife => TechLevel::new(5),  // Industrial
             Self::Tonfa => TechLevel::new(0),          // Stone Age
             Self::TrenchKnife => TechLevel::new(6),    // Atomic Age
             Self::Trident => TechLevel::new(0),        // Stone Age
@@ -834,6 +859,10 @@ impl MeleeWeapon {
             Self::Cestus => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
+            },
+            Self::CeramicKnife => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
             },
             Self::Chain => WeaponDamage::Swing {
                 modifier: 1,
@@ -1139,6 +1168,10 @@ impl MeleeWeapon {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
             },
+            Self::PushDagger => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
+            },
             Self::Quarterstaff => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
@@ -1223,7 +1256,15 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
             },
+            Self::SurvivalKnife => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Tanto => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
+            },
+            Self::TacticalFolder => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
@@ -1250,6 +1291,10 @@ impl MeleeWeapon {
             Self::ThreeSectionStaff => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
+            },
+            Self::ThrowingKnife => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Cutting,
             },
             Self::Tonfa => WeaponDamage::Swing {
                 modifier: 1,
@@ -1330,6 +1375,7 @@ impl MeleeWeapon {
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
             Self::Cestus => Reach::Close,
+            Self::CeramicKnife => Reach::Close,
             Self::Chain => Reach::OneThree,
             Self::Cinquedea => Reach::Close,
             Self::Claymore => Reach::OneTwo,
@@ -1406,6 +1452,7 @@ impl MeleeWeapon {
             Self::Pilum => Reach::One,
             Self::Poleax => Reach::TwoThree,
             Self::Partisan => Reach::TwoThree,
+            Self::PushDagger => Reach::Close,
             Self::Quarterstaff => Reach::OneTwo,
             Self::Rapier => Reach::One,
             Self::Ranseur => Reach::TwoThree,
@@ -1427,13 +1474,16 @@ impl MeleeWeapon {
             Self::Staff => Reach::OneTwo,
             Self::Stick => Reach::One,
             Self::Stiletto => Reach::Close,
+            Self::SurvivalKnife => Reach::CloseOne,
             Self::Tanto => Reach::Close,
+            Self::TacticalFolder => Reach::Close,
             Self::TacticalTomahawk => Reach::One,
             Self::Tekko => Reach::Close,
             Self::Talwar => Reach::One,
             Self::Tetsubo => Reach::OneTwo,
             Self::Tessen => Reach::Close,
             Self::ThreeSectionStaff => Reach::OneTwo,
+            Self::ThrowingKnife => Reach::One,
             Self::Tonfa => Reach::One,
             Self::TrenchKnife => Reach::Close,
             Self::Trident => Reach::OneTwo,
@@ -1477,6 +1527,7 @@ impl MeleeWeapon {
             Self::Broadsword => 0,
             Self::Chakram => -2,
             Self::Cestus => 0,
+            Self::CeramicKnife => -1,
             Self::Chain => -2,
             Self::Cinquedea => -1,
             Self::Claymore => 0,
@@ -1553,6 +1604,7 @@ impl MeleeWeapon {
             Self::Pilum => 0,
             Self::Poleax => 0,
             Self::Partisan => 0,
+            Self::PushDagger => -1,
             Self::Quarterstaff => 2,
             Self::Rapier => 1,
             Self::Ranseur => 0,
@@ -1574,13 +1626,16 @@ impl MeleeWeapon {
             Self::Staff => 2,
             Self::Stick => 1,
             Self::Stiletto => -1,
+            Self::SurvivalKnife => -1,
             Self::Tanto => -1,
+            Self::TacticalFolder => -1,
             Self::TacticalTomahawk => -1,
             Self::Tekko => 0,
             Self::Talwar => 0,
             Self::Tetsubo => -2,
             Self::Tessen => 1,
             Self::ThreeSectionStaff => -2,
+            Self::ThrowingKnife => -2,
             Self::Tonfa => 1,
             Self::TrenchKnife => -1,
             Self::Trident => 0,
@@ -1624,6 +1679,7 @@ impl MeleeWeapon {
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
             Self::Cestus => Skill::Brawling,
+            Self::CeramicKnife => Skill::Knife,
             Self::Chain => Skill::Flail,
             Self::Cinquedea => Skill::Knife,
             Self::Claymore => Skill::TwoHandedSword,
@@ -1700,6 +1756,7 @@ impl MeleeWeapon {
             Self::Pilum => Skill::Spear,
             Self::Poleax => Skill::Polearm,
             Self::Partisan => Skill::Polearm,
+            Self::PushDagger => Skill::Knife,
             Self::Quarterstaff => Skill::Staff,
             Self::Rapier => Skill::Rapier,
             Self::Ranseur => Skill::Polearm,
@@ -1721,13 +1778,16 @@ impl MeleeWeapon {
             Self::Staff => Skill::Staff,
             Self::Stick => Skill::Staff,
             Self::Stiletto => Skill::Knife,
+            Self::SurvivalKnife => Skill::Knife,
             Self::Tanto => Skill::Knife,
+            Self::TacticalFolder => Skill::Knife,
             Self::TacticalTomahawk => Skill::AxeMace,
             Self::Tekko => Skill::Brawling,
             Self::Talwar => Skill::Broadsword,
             Self::Tetsubo => Skill::TwoHandedAxeMace,
             Self::Tessen => Skill::Shortsword,
             Self::ThreeSectionStaff => Skill::Flail,
+            Self::ThrowingKnife => Skill::ThrownWeapon,
             Self::Tonfa => Skill::Shortsword,
             Self::TrenchKnife => Skill::Knife,
             Self::Trident => Skill::Spear,
