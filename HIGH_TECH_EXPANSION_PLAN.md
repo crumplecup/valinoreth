@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (136/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (141/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -47,6 +47,7 @@
 - ✅ Batch 22: TL8 Modern Assault Rifles (AK-12, FAMAS, QBZ-95, Steyr AUG, XM8)
 - ✅ Batch 23: TL8 Modern Sniper/Precision Rifles (AI AWM, CheyTac M200, McMillan TAC-50, PGM Hecate II, Sako TRG-42)
 - ✅ Batch 24: TL8 Modern Shotguns (AA-12, Fostech Origin-12, Kel-Tec KSG, MTS-255, USAS-12)
+- ✅ Batch 25: TL8 Modern Handguns (Chiappa Rhino, CZ P-10, Glock 43X, HK Mark 23, SIG P320)
 
 ### TL5 Remaining Ranged Weapons
 
