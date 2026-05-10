@@ -98,6 +98,8 @@ pub enum RangedWeapon {
     ColtWalker,
     /// Colt M1911, 2d+2 piercing. HT (.45 ACP semi-auto pistol, TL6)
     ColtM1911,
+    /// Coilgun, 6d piercing. HT (Electromagnetic projectile accelerator, experimental TL8)
+    Coilgun,
     /// Crossbow, 1d+4 impaling. BS 276
     Crossbow,
     /// CZ 75, 2d+2 piercing. HT (9mm semi-auto pistol, TL7)
@@ -176,6 +178,8 @@ pub enum RangedWeapon {
     G3,
     /// GP-25, 6d crushing. HT (Soviet 40mm underbarrel grenade launcher, TL7)
     GP25,
+    /// Gauss Rifle, 7d piercing. HT (Magnetic accelerator rifle, experimental TL8)
+    GaussRifle,
     /// Horn bow, 1d+2 impaling. LT (Horn composite bow, TL1)
     HornBow,
     /// Hand cannon, 2d+2 piercing. LT (Early firearm, TL3)
@@ -226,6 +230,8 @@ pub enum RangedWeapon {
     L96A1,
     /// LAW M72, 8d crushing. HT (American 66mm anti-tank rocket, TL7)
     LAWM72,
+    /// Laser Rifle, 5d burning. HT (Directed energy weapon, experimental TL8)
+    LaserRifle,
     /// M1 Garand, 5d piercing. HT (American semi-auto rifle, TL6)
     M1Garand,
     /// Makarov PM, 2d piercing. HT (9x18mm semi-auto pistol, TL7)
@@ -328,6 +334,8 @@ pub enum RangedWeapon {
     PSG1,
     /// PGM Hecate II, 9d piercing. HT (French .50 BMG anti-materiel rifle, TL8)
     PGMHecateII,
+    /// Plasma Rifle, 8d burning. HT (Superheated plasma projector, experimental TL8)
+    PlasmaRifle,
     /// PTRD Anti-Tank Rifle, 7d+1 piercing. HT (Soviet 14.5mm anti-tank rifle, TL6)
     PTRDAntiTankRifle,
     /// Prodd (stone-throwing crossbow), 1d crushing. BS 276
@@ -356,6 +364,8 @@ pub enum RangedWeapon {
     RocketLauncher,
     /// RPG-7, 8d crushing. HT (Soviet 40mm anti-tank rocket launcher, TL7)
     RPG7,
+    /// Railgun, 10d piercing. HT (Electromagnetic rail accelerator, experimental TL8)
+    Railgun,
     /// Scorpion, 2d+2 impaling. LT (Roman light ballista, TL1)
     Scorpion,
     /// Recurve bow, 1d+2 impaling. LT (Composite recurve)
@@ -523,6 +533,7 @@ impl RangedWeapon {
             Self::Chukonu => Currency::dollars(250.0),
             Self::ColtWalker => Currency::dollars(300.0),
             Self::ColtM1911 => Currency::dollars(300.0),
+            Self::Coilgun => Currency::dollars(25000.0),
             Self::Crossbow => Currency::dollars(150.0),
             Self::CZ75 => Currency::dollars(500.0),
             Self::CZP10 => Currency::dollars(500.0),
@@ -562,6 +573,7 @@ impl RangedWeapon {
             Self::Glock43X => Currency::dollars(550.0),
             Self::G3 => Currency::dollars(750.0),
             Self::GP25 => Currency::dollars(500.0),
+            Self::GaussRifle => Currency::dollars(30000.0),
             Self::HornBow => Currency::dollars(800.0),
             Self::HandCannon => Currency::dollars(1000.0),
                         Self::Hankyu => Currency::dollars(250.0),
@@ -587,6 +599,7 @@ impl RangedWeapon {
             Self::LugerP08 => Currency::dollars(350.0),
             Self::L96A1 => Currency::dollars(6000.0),
             Self::LAWM72 => Currency::dollars(1000.0),
+            Self::LaserRifle => Currency::dollars(50000.0),
             Self::M1Garand => Currency::dollars(500.0),
             Self::MakarovPM => Currency::dollars(300.0),
             Self::M14 => Currency::dollars(750.0),
@@ -638,6 +651,7 @@ impl RangedWeapon {
             Self::PKM => Currency::dollars(3000.0),
             Self::PSG1 => Currency::dollars(7000.0),
             Self::PGMHecateII => Currency::dollars(12000.0),
+            Self::PlasmaRifle => Currency::dollars(60000.0),
             Self::PTRDAntiTankRifle => Currency::dollars(1600.0),
             Self::Prodd => Currency::dollars(100.0),
             Self::PumpActionShotgun => Currency::dollars(300.0),
@@ -652,6 +666,7 @@ impl RangedWeapon {
             Self::Rock => Currency::dollars(0.0),
                         Self::RocketLauncher => Currency::dollars(2000.0),
             Self::RPG7 => Currency::dollars(500.0),
+            Self::Railgun => Currency::dollars(75000.0),
             Self::Scorpion => Currency::dollars(1000.0),
             Self::RecurveBow => Currency::dollars(500.0),
             Self::Saiga12 => Currency::dollars(900.0),
@@ -760,6 +775,7 @@ impl RangedWeapon {
             Self::Chukonu => Weight::pounds(7.0),
             Self::ColtWalker => Weight::pounds(4.5),
             Self::ColtM1911 => Weight::pounds(2.5),
+            Self::Coilgun => Weight::pounds(12.0),
             Self::Crossbow => Weight::pounds(6.0),
             Self::CZ75 => Weight::pounds(2.2),
             Self::CZP10 => Weight::pounds(1.6),
@@ -799,6 +815,7 @@ impl RangedWeapon {
             Self::Glock43X => Weight::pounds(1.2),
             Self::G3 => Weight::pounds(9.7),
             Self::GP25 => Weight::pounds(3.5),
+            Self::GaussRifle => Weight::pounds(11.0),
             Self::HornBow => Weight::pounds(3.0),
             Self::HandCannon => Weight::pounds(15.0),
                         Self::Hankyu => Weight::pounds(1.5),
@@ -824,6 +841,7 @@ impl RangedWeapon {
             Self::LugerP08 => Weight::pounds(1.75),
             Self::L96A1 => Weight::pounds(15.0),
             Self::LAWM72 => Weight::pounds(5.2),
+            Self::LaserRifle => Weight::pounds(10.0),
             Self::M1Garand => Weight::pounds(9.5),
             Self::MakarovPM => Weight::pounds(1.7),
             Self::M14 => Weight::pounds(9.2),
@@ -875,6 +893,7 @@ impl RangedWeapon {
             Self::PKM => Weight::pounds(16.5),
             Self::PSG1 => Weight::pounds(17.8),
             Self::PGMHecateII => Weight::pounds(30.0),
+            Self::PlasmaRifle => Weight::pounds(13.0),
             Self::PTRDAntiTankRifle => Weight::pounds(38.0),
             Self::Prodd => Weight::pounds(7.0),
             Self::PumpActionShotgun => Weight::pounds(8.0),
@@ -889,6 +908,7 @@ impl RangedWeapon {
             Self::Rock => Weight::pounds(0.5),
                         Self::RocketLauncher => Weight::pounds(15.0),
             Self::RPG7 => Weight::pounds(15.0),
+            Self::Railgun => Weight::pounds(15.0),
             Self::Scorpion => Weight::pounds(200.0),
             Self::RecurveBow => Weight::pounds(3.0),
             Self::Saiga12 => Weight::pounds(8.5),
@@ -997,6 +1017,7 @@ impl RangedWeapon {
             Self::Chukonu => TechLevel::new(2),        // Medieval China
             Self::ColtWalker => TechLevel::new(5),     // Industrial Revolution
             Self::ColtM1911 => TechLevel::new(6),      // Atomic Age
+            Self::Coilgun => TechLevel::new(8),        // Information Age (experimental)
             Self::Crossbow => TechLevel::new(2),       // Medieval
             Self::CZ75 => TechLevel::new(7),           // Digital Age
             Self::CZP10 => TechLevel::new(8),          // Information Age
@@ -1036,6 +1057,7 @@ impl RangedWeapon {
             Self::Glock43X => TechLevel::new(8),       // Information Age
             Self::G3 => TechLevel::new(7),             // Digital Age
             Self::GP25 => TechLevel::new(7),           // Digital Age
+            Self::GaussRifle => TechLevel::new(8),     // Information Age (experimental)
             Self::HornBow => TechLevel::new(1),        // Bronze Age
             Self::HandCannon => TechLevel::new(3),     // Medieval
                         Self::Hankyu => TechLevel::new(3),        // Japanese
@@ -1061,6 +1083,7 @@ impl RangedWeapon {
             Self::LugerP08 => TechLevel::new(6),       // Atomic Age
             Self::L96A1 => TechLevel::new(7),          // Digital Age
             Self::LAWM72 => TechLevel::new(7),         // Digital Age
+            Self::LaserRifle => TechLevel::new(8),     // Information Age (experimental)
             Self::M1Garand => TechLevel::new(6),       // Atomic Age
             Self::MakarovPM => TechLevel::new(7),      // Digital Age
             Self::M14 => TechLevel::new(7),            // Digital Age
@@ -1112,6 +1135,7 @@ impl RangedWeapon {
             Self::PKM => TechLevel::new(7),            // Digital Age
             Self::PSG1 => TechLevel::new(7),          // Digital Age
             Self::PGMHecateII => TechLevel::new(8),    // Information Age
+            Self::PlasmaRifle => TechLevel::new(8),    // Information Age (experimental)
             Self::PTRDAntiTankRifle => TechLevel::new(6), // Atomic Age
             Self::Prodd => TechLevel::new(2),          // Medieval
             Self::PumpActionShotgun => TechLevel::new(5), // Industrial Revolution
@@ -1126,6 +1150,7 @@ impl RangedWeapon {
             Self::Rock => TechLevel::new(0),           // Stone Age
                         Self::RocketLauncher => TechLevel::new(7), // Digital Age
             Self::RPG7 => TechLevel::new(7),           // Digital Age
+            Self::Railgun => TechLevel::new(8),        // Information Age (experimental)
             Self::Scorpion => TechLevel::new(1),       // Roman
             Self::RecurveBow => TechLevel::new(1),     // Bronze Age
             Self::Saiga12 => TechLevel::new(7),        // Digital Age
@@ -1357,6 +1382,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
+            Self::Coilgun => WeaponDamage::Fixed {
+                dice: DieLevel::new(6, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::Crossbow => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 4),
                 damage_type: DamageType::Impaling,
@@ -1513,6 +1542,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
+            Self::GaussRifle => WeaponDamage::Fixed {
+                dice: DieLevel::new(7, 0),
+                damage_type: DamageType::Piercing,
+            },
             Self::HornBow => WeaponDamage::Fixed {
                 dice: DieLevel::new(1, 2),
                 damage_type: DamageType::Impaling,
@@ -1612,6 +1645,10 @@ impl RangedWeapon {
             Self::LAWM72 => WeaponDamage::Fixed {
                 dice: DieLevel::new(8, 0),
                 damage_type: DamageType::Crushing,
+            },
+            Self::LaserRifle => WeaponDamage::Fixed {
+                dice: DieLevel::new(5, 0),
+                damage_type: DamageType::Piercing,
             },
             Self::MAC10 => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 2),
@@ -1817,6 +1854,10 @@ impl RangedWeapon {
                 dice: DieLevel::new(9, 0),
                 damage_type: DamageType::Piercing,
             },
+            Self::PlasmaRifle => WeaponDamage::Fixed {
+                dice: DieLevel::new(8, 0),
+                damage_type: DamageType::Crushing,
+            },
             Self::PTRDAntiTankRifle => WeaponDamage::Fixed {
                 dice: DieLevel::new(7, 1),
                 damage_type: DamageType::Piercing,
@@ -1872,6 +1913,10 @@ impl RangedWeapon {
             Self::RPG7 => WeaponDamage::Fixed {
                 dice: DieLevel::new(8, 0),
                 damage_type: DamageType::Crushing,
+            },
+            Self::Railgun => WeaponDamage::Fixed {
+                dice: DieLevel::new(10, 0),
+                damage_type: DamageType::Piercing,
             },
             Self::Scorpion => WeaponDamage::Fixed {
                 dice: DieLevel::new(2, 2),
@@ -2158,6 +2203,7 @@ impl RangedWeapon {
             Self::Chukonu => 2,
             Self::ColtWalker => 1,
             Self::ColtM1911 => 2,
+            Self::Coilgun => 6,
             Self::Crossbow => 4,
             Self::CZ75 => 2,
             Self::CZP10 => 2,
@@ -2197,6 +2243,7 @@ impl RangedWeapon {
             Self::Glock43X => 2,
             Self::G3 => 5,
             Self::GP25 => 3,
+            Self::GaussRifle => 6,
             Self::HornBow => 3,
             Self::HandCannon => 1,
                         Self::Hankyu => 2,
@@ -2222,6 +2269,7 @@ impl RangedWeapon {
             Self::LugerP08 => 2,
             Self::L96A1 => 6,
             Self::LAWM72 => 3,
+            Self::LaserRifle => 7,
             Self::MAC10 => 3,
             Self::M1Garand => 4,
             Self::MakarovPM => 2,
@@ -2273,6 +2321,7 @@ impl RangedWeapon {
             Self::PKM => 5,
             Self::PSG1 => 7,
             Self::PGMHecateII => 6,
+            Self::PlasmaRifle => 5,
             Self::PTRDAntiTankRifle => 5,
             Self::Prodd => 3,
             Self::PumpActionShotgun => 3,
@@ -2287,6 +2336,7 @@ impl RangedWeapon {
             Self::Rock => 0,
                         Self::RocketLauncher => 4,
             Self::RPG7 => 3,
+            Self::Railgun => 7,
             Self::Scorpion => 4,
             Self::RecurveBow => 2,
             Self::Saiga12 => 3,
@@ -2395,6 +2445,7 @@ impl RangedWeapon {
             Self::Chukonu => Skill::Crossbow,
             Self::ColtWalker => Skill::Guns,
             Self::ColtM1911 => Skill::Guns,
+            Self::Coilgun => Skill::Guns,
             Self::Crossbow => Skill::Crossbow,
             Self::CZ75 => Skill::Guns,
             Self::CZP10 => Skill::Guns,
@@ -2434,6 +2485,7 @@ impl RangedWeapon {
             Self::Glock43X => Skill::Guns,
             Self::G3 => Skill::Guns,
             Self::GP25 => Skill::Guns,
+            Self::GaussRifle => Skill::Guns,
             Self::HornBow => Skill::Bow,
             Self::HandCannon => Skill::Guns,
                         Self::Hankyu => Skill::Bow,
@@ -2459,6 +2511,7 @@ impl RangedWeapon {
             Self::LugerP08 => Skill::Guns,
             Self::L96A1 => Skill::Guns,
             Self::LAWM72 => Skill::Guns,
+            Self::LaserRifle => Skill::Guns,
             Self::MAC10 => Skill::Guns,
             Self::M1Garand => Skill::Guns,
             Self::MakarovPM => Skill::Guns,
@@ -2510,6 +2563,7 @@ impl RangedWeapon {
             Self::PKM => Skill::Guns,
             Self::PSG1 => Skill::Guns,
             Self::PGMHecateII => Skill::Guns,
+            Self::PlasmaRifle => Skill::Guns,
             Self::PTRDAntiTankRifle => Skill::Guns,
             Self::Prodd => Skill::Crossbow,
             Self::PumpActionShotgun => Skill::Guns,
@@ -2524,6 +2578,7 @@ impl RangedWeapon {
             Self::Rock => Skill::ThrownWeapon,
                         Self::RocketLauncher => Skill::Guns,
             Self::RPG7 => Skill::Guns,
+            Self::Railgun => Skill::Guns,
             Self::Scorpion => Skill::Artillery,
             Self::RecurveBow => Skill::Bow,
             Self::Saiga12 => Skill::Guns,
