@@ -12,7 +12,7 @@
 - 🔄 High-Tech (HT) - IN PROGRESS
 
 ### High-Tech Progress by Category
-- 🔄 Ranged Weapons - IN PROGRESS (151/~150+ items)
+- 🔄 Ranged Weapons - IN PROGRESS (156/~150+ items)
 - ⬜ Melee Weapons - NOT STARTED
 - ⬜ Armor - NOT STARTED
 - ⬜ Clothing - NOT STARTED
@@ -50,6 +50,7 @@
 - ✅ Batch 25: TL8 Modern Handguns (Chiappa Rhino, CZ P-10, Glock 43X, HK Mark 23, SIG P320)
 - ✅ Batch 26: TL8 Modern Machine Guns (FN Minimi Para, HK MG4, Negev NG7, Pecheneg, Ultimax 100)
 - ✅ Batch 27: TL8 Final Weapons (AS Val, Barrett M107, Kriss Vector, M4 Carbine, Milkor MGL)
+- ✅ Batch 28: TL8 Experimental Weapons (Coilgun, Gauss Rifle, Laser Rifle, Plasma Rifle, Railgun)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -364,7 +365,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 151 items
+### Completed: 156 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -388,10 +389,11 @@ For each weapon:
 - 5 TL8 Handguns
 - 5 TL8 Machine Guns
 - 5 TL8 Diverse (Carbine, SMG, AMR, GL, etc.)
+- 5 TL8 Experimental (Coilgun, Gauss, Laser, Plasma, Railgun)
 
-### Remaining: ~199-349 items
+### Remaining: ~194-344 items
 
 ---
 
 **Last Updated:** 2026-05-10
-**Status:** 🔄 TL8 Final Weapons Batch 27 COMPLETE - Phase 4 (TL8) IN PROGRESS
+**Status:** 🔄 TL8 Experimental Weapons Batch 28 COMPLETE - Phase 4 (TL8) IN PROGRESS
