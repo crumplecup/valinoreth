@@ -94,6 +94,8 @@ pub enum MeleeWeapon {
     Falchion,
     /// Falx, swing+3 cutting, reach 1. LT (Dacian curved blade)
     Falx,
+    /// Fairbairn-Sykes fighting knife, thrust+1 impaling, reach C. HT (WWII British commando dagger, TL6)
+    FairbairnSykes,
     /// Fauchard, swing+3 cutting, reach 2-3. LT
     Fauchard,
     /// Fist, thrust-1 crushing, reach C. BS 271
@@ -134,6 +136,8 @@ pub enum MeleeWeapon {
     Jian,
     /// Jo, swing+1 crushing, reach 1. LT (Japanese short staff)
     Jo,
+    /// Ka-Bar, thrust+1 impaling, reach C-1. HT (USMC combat knife, TL6+)
+    KaBar,
     /// Kama, swing cutting, reach 1. LT (Japanese sickle weapon)
     Kama,
     /// Katana, swing+1 cutting, reach 1. BS 271
@@ -156,6 +160,8 @@ pub enum MeleeWeapon {
     Konda,
     /// Kris, thrust impaling, reach C. LT (Indonesian wavy dagger)
     Kris,
+    /// Kukri, swing cutting, reach C-1. HT (Gurkha curved knife, TL5+)
+    Kukri,
     /// Kusarigama, swing+2 cutting, reach 1-3. LT (chain-sickle)
     Kusarigama,
     /// Kusari, swing+1 crushing, reach 1-3. BS 271
@@ -176,6 +182,8 @@ pub enum MeleeWeapon {
     Mace,
     /// Macuahuitl, swing+3 cutting, reach 1. LT (Aztec obsidian-edged club)
     Macuahuitl,
+    /// Machete, swing+1 cutting, reach 1. HT (Utility blade/tool as weapon, TL5+)
+    Machete,
     /// Main gauche, thrust-1 impaling, reach 1. BS 271
     MainGauche,
     /// Maul, swing+4 crushing, reach 1-2. BS 271
@@ -250,6 +258,8 @@ pub enum MeleeWeapon {
     Stiletto,
     /// Tanto, thrust impaling, reach C. BS 271
     Tanto,
+    /// Tactical tomahawk, swing+2 cutting, reach 1. HT (Modern combat axe, TL8)
+    TacticalTomahawk,
     /// Tekko, thrust-1 crushing, reach C. LT (Okinawan knuckle weapon)
     Tekko,
     /// Talwar, swing+1 cutting, reach 1. LT (Indian curved sword)
@@ -331,6 +341,7 @@ impl MeleeWeapon {
             Self::EntrenchingTool => Currency::dollars(25.0),
             Self::Falchion => Currency::dollars(400.0),
             Self::Falx => Currency::dollars(350.0),
+            Self::FairbairnSykes => Currency::dollars(75.0),
             Self::Fauchard => Currency::dollars(90.0),
             Self::Fist => Currency::dollars(0.0),
             Self::Francisca => Currency::dollars(50.0),
@@ -351,6 +362,7 @@ impl MeleeWeapon {
             Self::Jitte => Currency::dollars(50.0),
             Self::Jian => Currency::dollars(500.0),
             Self::Jo => Currency::dollars(5.0),
+            Self::KaBar => Currency::dollars(60.0),
             Self::Kama => Currency::dollars(40.0),
             Self::Katana => Currency::dollars(650.0),
             Self::Katar => Currency::dollars(40.0),
@@ -362,6 +374,7 @@ impl MeleeWeapon {
             Self::Kopis => Currency::dollars(300.0),
             Self::Konda => Currency::dollars(50.0),
             Self::Kris => Currency::dollars(40.0),
+            Self::Kukri => Currency::dollars(35.0),
             Self::Kusarigama => Currency::dollars(250.0),
             Self::Kusari => Currency::dollars(70.0),
             Self::LargeKnife => Currency::dollars(60.0),
@@ -372,6 +385,7 @@ impl MeleeWeapon {
             Self::LucerneHammer => Currency::dollars(150.0),
             Self::Mace => Currency::dollars(50.0),
             Self::Macuahuitl => Currency::dollars(40.0),
+            Self::Machete => Currency::dollars(30.0),
             Self::MainGauche => Currency::dollars(50.0),
             Self::Maul => Currency::dollars(80.0),
             Self::Messer => Currency::dollars(350.0),
@@ -409,6 +423,7 @@ impl MeleeWeapon {
             Self::Stick => Currency::dollars(5.0),
             Self::Stiletto => Currency::dollars(50.0),
             Self::Tanto => Currency::dollars(30.0),
+            Self::TacticalTomahawk => Currency::dollars(80.0),
             Self::Tekko => Currency::dollars(15.0),
             Self::Talwar => Currency::dollars(500.0),
             Self::Tetsubo => Currency::dollars(80.0),
@@ -473,6 +488,7 @@ impl MeleeWeapon {
             Self::EntrenchingTool => Weight::pounds(2.5),
             Self::Falchion => Weight::pounds(3.5),
             Self::Falx => Weight::pounds(4.0),
+            Self::FairbairnSykes => Weight::pounds(0.75),
             Self::Fauchard => Weight::pounds(8.0),
             Self::Fist => Weight::pounds(0.0),
             Self::Francisca => Weight::pounds(3.0),
@@ -493,6 +509,7 @@ impl MeleeWeapon {
             Self::Jitte => Weight::pounds(1.5),
             Self::Jian => Weight::pounds(2.5),
             Self::Jo => Weight::pounds(2.0),
+            Self::KaBar => Weight::pounds(1.0),
             Self::Kama => Weight::pounds(1.5),
             Self::Katana => Weight::pounds(2.5),
             Self::Katar => Weight::pounds(1.0),
@@ -504,6 +521,7 @@ impl MeleeWeapon {
             Self::Kopis => Weight::pounds(2.5),
             Self::Konda => Weight::pounds(1.5),
             Self::Kris => Weight::pounds(1.0),
+            Self::Kukri => Weight::pounds(1.5),
             Self::Kusarigama => Weight::pounds(3.0),
             Self::Kusari => Weight::pounds(5.0),
             Self::LargeKnife => Weight::pounds(1.5),
@@ -514,6 +532,7 @@ impl MeleeWeapon {
             Self::LucerneHammer => Weight::pounds(8.0),
             Self::Mace => Weight::pounds(5.0),
             Self::Macuahuitl => Weight::pounds(4.0),
+            Self::Machete => Weight::pounds(2.0),
             Self::MainGauche => Weight::pounds(1.25),
             Self::Maul => Weight::pounds(12.0),
             Self::Messer => Weight::pounds(2.5),
@@ -551,6 +570,7 @@ impl MeleeWeapon {
             Self::Stick => Weight::pounds(2.0),
             Self::Stiletto => Weight::pounds(0.5),
             Self::Tanto => Weight::pounds(0.5),
+            Self::TacticalTomahawk => Weight::pounds(2.5),
             Self::Tekko => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
             Self::Tetsubo => Weight::pounds(10.0),
@@ -615,6 +635,7 @@ impl MeleeWeapon {
             Self::EntrenchingTool => TechLevel::new(5), // Industrial Revolution
             Self::Falchion => TechLevel::new(2),       // Medieval
             Self::Falx => TechLevel::new(1),        // Dacian/Iron Age
+            Self::FairbairnSykes => TechLevel::new(6), // WWII Commando
             Self::Fauchard => TechLevel::new(3),    // Medieval
             Self::Fist => TechLevel::new(0),           // Stone Age
             Self::Francisca => TechLevel::new(2),   // Iron Age
@@ -635,6 +656,7 @@ impl MeleeWeapon {
             Self::Jitte => TechLevel::new(3),
             Self::Jian => TechLevel::new(2),        // Iron Age          // Japanese feudal
             Self::Jo => TechLevel::new(0),          // Stone Age
+            Self::KaBar => TechLevel::new(6),       // WWII USMC
             Self::Kama => TechLevel::new(2),        // Medieval Japan
             Self::Katana => TechLevel::new(3),         // Medieval Japan
             Self::Katar => TechLevel::new(2),
@@ -646,6 +668,7 @@ impl MeleeWeapon {
             Self::Kopis => TechLevel::new(1),       // Greek/Iron Age
             Self::Konda => TechLevel::new(0),       // African/Stone Age
             Self::Kris => TechLevel::new(3),        // Indonesian
+            Self::Kukri => TechLevel::new(5),       // Gurkha/Industrial
             Self::Kusarigama => TechLevel::new(3),  // Medieval Japan
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
             Self::LargeKnife => TechLevel::new(1),     // Bronze Age
@@ -656,6 +679,7 @@ impl MeleeWeapon {
             Self::LucerneHammer => TechLevel::new(3),  // Late Medieval
             Self::Mace => TechLevel::new(1),           // Bronze Age
             Self::Macuahuitl => TechLevel::new(0),  // Aztec/Stone Age
+            Self::Machete => TechLevel::new(5),     // Industrial/Utility
             Self::MainGauche => TechLevel::new(4),     // Renaissance
             Self::Maul => TechLevel::new(1),           // Bronze/Iron Age
             Self::Messer => TechLevel::new(3),      // Late Medieval
@@ -693,6 +717,7 @@ impl MeleeWeapon {
             Self::Stick => TechLevel::new(0),
             Self::Stiletto => TechLevel::new(3),       // Italian Medieval
             Self::Tanto => TechLevel::new(3),          // Japanese
+            Self::TacticalTomahawk => TechLevel::new(8), // Modern Combat
             Self::Tekko => TechLevel::new(0),       // Okinawan/Stone Age
             Self::Talwar => TechLevel::new(2),         // Iron Age
             Self::Tetsubo => TechLevel::new(2),     // Medieval Japan
@@ -874,6 +899,10 @@ impl MeleeWeapon {
                 modifier: 3,
                 damage_type: DamageType::Cutting,
             },
+            Self::FairbairnSykes => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Fauchard => WeaponDamage::Swing {
                 modifier: 3,
                 damage_type: DamageType::Cutting,
@@ -954,6 +983,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
             },
+            Self::KaBar => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Kama => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
@@ -998,6 +1031,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
+            Self::Kukri => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Cutting,
+            },
             Self::Kusarigama => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
@@ -1036,6 +1073,10 @@ impl MeleeWeapon {
             },
             Self::Macuahuitl => WeaponDamage::Swing {
                 modifier: 3,
+                damage_type: DamageType::Cutting,
+            },
+            Self::Machete => WeaponDamage::Swing {
+                modifier: 1,
                 damage_type: DamageType::Cutting,
             },
             Self::MainGauche => WeaponDamage::Thrust {
@@ -1186,6 +1227,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
+            Self::TacticalTomahawk => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Cutting,
+            },
             Self::Tekko => WeaponDamage::Thrust {
                 modifier: -1,
                 damage_type: DamageType::Crushing,
@@ -1301,6 +1346,7 @@ impl MeleeWeapon {
             Self::EntrenchingTool => Reach::One,
             Self::Falchion => Reach::One,
             Self::Falx => Reach::One,
+            Self::FairbairnSykes => Reach::Close,
             Self::Fauchard => Reach::TwoThree,
             Self::Fist => Reach::Close,
             Self::Francisca => Reach::One,
@@ -1321,6 +1367,7 @@ impl MeleeWeapon {
             Self::Jitte => Reach::One,
             Self::Jian => Reach::One,
             Self::Jo => Reach::One,
+            Self::KaBar => Reach::CloseOne,
             Self::Kama => Reach::One,
             Self::Katana => Reach::One,
             Self::Katar => Reach::Close,
@@ -1332,6 +1379,7 @@ impl MeleeWeapon {
             Self::Kopis => Reach::One,
             Self::Konda => Reach::One,
             Self::Kris => Reach::Close,
+            Self::Kukri => Reach::CloseOne,
             Self::Kusarigama => Reach::OneThree,
             Self::Kusari => Reach::OneThree,
             Self::LargeKnife => Reach::CloseOne,
@@ -1342,6 +1390,7 @@ impl MeleeWeapon {
             Self::LucerneHammer => Reach::TwoThree,
             Self::Mace => Reach::One,
             Self::Macuahuitl => Reach::One,
+            Self::Machete => Reach::One,
             Self::MainGauche => Reach::One,
             Self::Maul => Reach::OneTwo,
             Self::Messer => Reach::One,
@@ -1379,6 +1428,7 @@ impl MeleeWeapon {
             Self::Stick => Reach::One,
             Self::Stiletto => Reach::Close,
             Self::Tanto => Reach::Close,
+            Self::TacticalTomahawk => Reach::One,
             Self::Tekko => Reach::Close,
             Self::Talwar => Reach::One,
             Self::Tetsubo => Reach::OneTwo,
@@ -1443,6 +1493,7 @@ impl MeleeWeapon {
             Self::EntrenchingTool => -1,
             Self::Falchion => 0,
             Self::Falx => -1,
+            Self::FairbairnSykes => -1,
             Self::Fauchard => 0,
             Self::Fist => 0,
             Self::Francisca => -1,
@@ -1463,6 +1514,7 @@ impl MeleeWeapon {
             Self::Jitte => 1,
             Self::Jian => 0,
             Self::Jo => 1,
+            Self::KaBar => -1,
             Self::Kama => -1,
             Self::Katana => 0,
             Self::Katar => 0,
@@ -1474,6 +1526,7 @@ impl MeleeWeapon {
             Self::Kopis => 0,
             Self::Konda => -2,
             Self::Kris => -1,
+            Self::Kukri => -1,
             Self::Kusarigama => -2,
             Self::Kusari => -2,
             Self::LargeKnife => -1,
@@ -1484,6 +1537,7 @@ impl MeleeWeapon {
             Self::LucerneHammer => 0,
             Self::Mace => 0,
             Self::Macuahuitl => -1,
+            Self::Machete => 0,
             Self::MainGauche => 1,
             Self::Maul => -2,
             Self::Messer => 0,
@@ -1521,6 +1575,7 @@ impl MeleeWeapon {
             Self::Stick => 1,
             Self::Stiletto => -1,
             Self::Tanto => -1,
+            Self::TacticalTomahawk => -1,
             Self::Tekko => 0,
             Self::Talwar => 0,
             Self::Tetsubo => -2,
@@ -1585,6 +1640,7 @@ impl MeleeWeapon {
             Self::EntrenchingTool => Skill::AxeMace,
             Self::Falchion => Skill::Broadsword,
             Self::Falx => Skill::TwoHandedAxeMace,
+            Self::FairbairnSykes => Skill::Knife,
             Self::Fauchard => Skill::Polearm,
             Self::Fist => Skill::Brawling,
             Self::Francisca => Skill::AxeMace,
@@ -1605,6 +1661,7 @@ impl MeleeWeapon {
             Self::Jitte => Skill::MainGauche,
             Self::Jian => Skill::Shortsword,
             Self::Jo => Skill::Staff,
+            Self::KaBar => Skill::Knife,
             Self::Kama => Skill::Knife,
             Self::Katana => Skill::TwoHandedSword,
             Self::Katar => Skill::Knife,
@@ -1616,6 +1673,7 @@ impl MeleeWeapon {
             Self::Kopis => Skill::Broadsword,
             Self::Konda => Skill::ThrownWeapon,
             Self::Kris => Skill::Knife,
+            Self::Kukri => Skill::Knife,
             Self::Kusarigama => Skill::Flail,
             Self::Kusari => Skill::Kusari,
             Self::LargeKnife => Skill::Knife,
@@ -1626,6 +1684,7 @@ impl MeleeWeapon {
             Self::LucerneHammer => Skill::Polearm,
             Self::Mace => Skill::AxeMace,
             Self::Macuahuitl => Skill::Broadsword,
+            Self::Machete => Skill::Broadsword,
             Self::MainGauche => Skill::MainGauche,
             Self::Maul => Skill::TwoHandedAxeMace,
             Self::Messer => Skill::Broadsword,
@@ -1663,6 +1722,7 @@ impl MeleeWeapon {
             Self::Stick => Skill::Staff,
             Self::Stiletto => Skill::Knife,
             Self::Tanto => Skill::Knife,
+            Self::TacticalTomahawk => Skill::AxeMace,
             Self::Tekko => Skill::Brawling,
             Self::Talwar => Skill::Broadsword,
             Self::Tetsubo => Skill::TwoHandedAxeMace,
