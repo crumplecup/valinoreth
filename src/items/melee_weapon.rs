@@ -26,6 +26,8 @@ pub enum MeleeWeapon {
     AwlPike,
     /// Assegai, thrust+2 impaling, reach 1. LT (African throwing spear)
     Assegai,
+    /// ASP baton, swing+1 crushing, reach 1. HT (Expandable collapsible baton, TL7+)
+    AspBaton,
     /// Baton, swing crushing, reach 1. BS 271
     Baton,
     /// Battle axe, swing+3 cutting, reach 1. BS 271
@@ -198,10 +200,14 @@ pub enum MeleeWeapon {
     MilitaryFlail,
     /// Morningstar, swing+3 crushing, reach 1. BS 271
     Morningstar,
+    /// Monowire, swing+2 cutting, reach C. HT (Ultra-thin molecular cutting wire, TL8)
+    Monowire,
     /// Naginata, swing+2 cutting, reach 2-3. BS 271
     Naginata,
     /// Nunchaku, swing+1 crushing, reach 1. BS 271
     Nunchaku,
+    /// Nightstick, swing+1 crushing, reach 1. HT (Police baton/billy club, TL6+)
+    Nightstick,
     /// Nunti bo, thrust+2 impaling, reach 1-2. LT (Japanese spear-staff)
     NuntiBo,
     /// Pick, swing+2 impaling, reach 1. BS 271
@@ -260,6 +266,8 @@ pub enum MeleeWeapon {
     Stick,
     /// Stiletto, thrust+1 impaling, reach C. LT (Italian piercing dagger)
     Stiletto,
+    /// Stun baton, swing crushing, reach 1. HT (Electric shock weapon, TL8)
+    StunBaton,
     /// Survival knife, thrust+1 impaling, reach C-1. HT (Large fixed-blade survival knife, TL6+)
     SurvivalKnife,
     /// Tanto, thrust impaling, reach C. BS 271
@@ -294,6 +302,8 @@ pub enum MeleeWeapon {
     Voulge,
     /// Urumi, swing+1 cutting, reach 1-3. LT (Indian whip sword)
     Urumi,
+    /// Vibro-knife, swing+2 cutting, reach 1. HT (Vibrating blade for enhanced cutting, TL8)
+    VibroKnife,
     /// War fan, swing crushing, reach C. BS 271
     WarFan,
     /// War scythe, swing+3 cutting, reach 2-3. LT (Pole weapon with straight blade)
@@ -317,6 +327,7 @@ impl MeleeWeapon {
             Self::ArmingSword => Currency::dollars(400.0),
             Self::AwlPike => Currency::dollars(100.0),
             Self::Assegai => Currency::dollars(30.0),
+            Self::AspBaton => Currency::dollars(60.0),
             Self::Baton => Currency::dollars(20.0),
             Self::BattleAxe => Currency::dollars(50.0),
             Self::Bayonet => Currency::dollars(20.0),
@@ -403,7 +414,9 @@ impl MeleeWeapon {
             Self::Mattock => Currency::dollars(25.0),
             Self::MilitaryFlail => Currency::dollars(100.0),
             Self::Morningstar => Currency::dollars(80.0),
+            Self::Monowire => Currency::dollars(500.0),
             Self::Naginata => Currency::dollars(100.0),
+            Self::Nightstick => Currency::dollars(30.0),
             Self::Nunchaku => Currency::dollars(20.0),
             Self::NuntiBo => Currency::dollars(70.0),
             Self::Pick => Currency::dollars(70.0),
@@ -434,6 +447,7 @@ impl MeleeWeapon {
             Self::Staff => Currency::dollars(5.0),
             Self::Stick => Currency::dollars(5.0),
             Self::Stiletto => Currency::dollars(50.0),
+            Self::StunBaton => Currency::dollars(150.0),
             Self::SurvivalKnife => Currency::dollars(70.0),
             Self::Tanto => Currency::dollars(30.0),
             Self::TacticalFolder => Currency::dollars(55.0),
@@ -451,6 +465,7 @@ impl MeleeWeapon {
             Self::Wakizashi => Currency::dollars(400.0),
             Self::Voulge => Currency::dollars(110.0),
             Self::Urumi => Currency::dollars(200.0),
+            Self::VibroKnife => Currency::dollars(200.0),
             Self::WarFan => Currency::dollars(50.0),
             Self::WarScythe => Currency::dollars(150.0),
             Self::Warhammer => Currency::dollars(100.0),
@@ -469,6 +484,7 @@ impl MeleeWeapon {
             Self::ArmingSword => Weight::pounds(2.5),
             Self::AwlPike => Weight::pounds(15.0),
             Self::Assegai => Weight::pounds(2.0),
+            Self::AspBaton => Weight::pounds(1.0),
             Self::Baton => Weight::pounds(1.0),
             Self::BattleAxe => Weight::pounds(6.0),
             Self::Bayonet => Weight::pounds(1.0),
@@ -555,7 +571,9 @@ impl MeleeWeapon {
             Self::Mattock => Weight::pounds(6.0),
             Self::MilitaryFlail => Weight::pounds(10.0),
             Self::Morningstar => Weight::pounds(6.0),
+            Self::Monowire => Weight::pounds(0.25),
             Self::Naginata => Weight::pounds(9.0),
+            Self::Nightstick => Weight::pounds(1.5),
             Self::Nunchaku => Weight::pounds(1.5),
             Self::NuntiBo => Weight::pounds(5.0),
             Self::Pick => Weight::pounds(3.0),
@@ -586,6 +604,7 @@ impl MeleeWeapon {
             Self::Staff => Weight::pounds(4.0),
             Self::Stick => Weight::pounds(2.0),
             Self::Stiletto => Weight::pounds(0.5),
+            Self::StunBaton => Weight::pounds(1.5),
             Self::SurvivalKnife => Weight::pounds(1.5),
             Self::Tanto => Weight::pounds(0.5),
             Self::TacticalFolder => Weight::pounds(0.5),
@@ -603,6 +622,7 @@ impl MeleeWeapon {
             Self::Wakizashi => Weight::pounds(1.5),
             Self::Voulge => Weight::pounds(10.0),
             Self::Urumi => Weight::pounds(2.0),
+            Self::VibroKnife => Weight::pounds(1.0),
             Self::WarFan => Weight::pounds(1.0),
             Self::WarScythe => Weight::pounds(8.0),
             Self::Warhammer => Weight::pounds(7.0),
@@ -621,6 +641,7 @@ impl MeleeWeapon {
             Self::ArmingSword => TechLevel::new(3), // Medieval
             Self::AwlPike => TechLevel::new(3),     // Medieval
             Self::Assegai => TechLevel::new(0),     // Stone Age
+            Self::AspBaton => TechLevel::new(7),    // Nuclear Age
             Self::Baton => TechLevel::new(5),          // Modern (police baton)
             Self::BattleAxe => TechLevel::new(1),      // Bronze/Iron Age
             Self::Bayonet => TechLevel::new(5),        // Industrial Revolution
@@ -707,7 +728,9 @@ impl MeleeWeapon {
             Self::Mattock => TechLevel::new(1),        // Bronze/Iron Age
             Self::MilitaryFlail => TechLevel::new(2), // Medieval
             Self::Morningstar => TechLevel::new(2),    // Medieval
+            Self::Monowire => TechLevel::new(8),    // Digital/High-Tech
             Self::Naginata => TechLevel::new(3),
+            Self::Nightstick => TechLevel::new(6),    // WWII era
             Self::Nunchaku => TechLevel::new(2),       // Medieval
             Self::NuntiBo => TechLevel::new(2),     // Medieval Japan
             Self::Pick => TechLevel::new(2),           // Medieval
@@ -738,6 +761,7 @@ impl MeleeWeapon {
             Self::Staff => TechLevel::new(0),          // Stone Age
             Self::Stick => TechLevel::new(0),
             Self::Stiletto => TechLevel::new(3),       // Italian Medieval
+            Self::StunBaton => TechLevel::new(8),    // Digital/High-Tech
             Self::SurvivalKnife => TechLevel::new(6),  // WWII era
             Self::Tanto => TechLevel::new(3),          // Japanese
             Self::TacticalFolder => TechLevel::new(7),   // Nuclear Age
@@ -755,6 +779,7 @@ impl MeleeWeapon {
             Self::Wakizashi => TechLevel::new(3),      // Medieval Japan
             Self::Voulge => TechLevel::new(3),      // Medieval
             Self::Urumi => TechLevel::new(2),       // Iron Age
+            Self::VibroKnife => TechLevel::new(8),    // Digital/High-Tech
             Self::WarFan => TechLevel::new(3),         // Japanese Renaissance
             Self::WarScythe => TechLevel::new(2),      // Iron Age/Medieval
             Self::Warhammer => TechLevel::new(2),      // Medieval
@@ -787,6 +812,10 @@ impl MeleeWeapon {
             Self::Assegai => WeaponDamage::Thrust {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
+            },
+            Self::AspBaton => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::Baton => WeaponDamage::Swing {
                 modifier: 0,
@@ -1132,9 +1161,17 @@ impl MeleeWeapon {
                 modifier: 3,
                 damage_type: DamageType::Crushing,
             },
+            Self::Monowire => WeaponDamage::Swing {
+                modifier: 3,
+                damage_type: DamageType::Cutting,
+            },
             Self::Naginata => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Nightstick => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::Nunchaku => WeaponDamage::Swing {
                 modifier: 1,
@@ -1256,6 +1293,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
             },
+            Self::StunBaton => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Crushing,
+            },
             Self::SurvivalKnife => WeaponDamage::Thrust {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
@@ -1324,6 +1365,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
             },
+            Self::VibroKnife => WeaponDamage::Swing {
+                modifier: 2,
+                damage_type: DamageType::Cutting,
+            },
             Self::WarFan => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
@@ -1357,6 +1402,7 @@ impl MeleeWeapon {
             Self::ArmingSword => Reach::One,
             Self::AwlPike => Reach::TwoThree,
             Self::Assegai => Reach::One,
+            Self::AspBaton => Reach::One,
             Self::Baton => Reach::One,
             Self::BattleAxe => Reach::One,
             Self::Bayonet => Reach::One,
@@ -1443,7 +1489,9 @@ impl MeleeWeapon {
             Self::Mattock => Reach::One,
             Self::MilitaryFlail => Reach::OneTwo,
             Self::Morningstar => Reach::One,
+            Self::Monowire => Reach::Close,
             Self::Naginata => Reach::TwoThree,
+            Self::Nightstick => Reach::One,
             Self::Nunchaku => Reach::One,
             Self::NuntiBo => Reach::OneTwo,
             Self::Pick => Reach::One,
@@ -1474,6 +1522,7 @@ impl MeleeWeapon {
             Self::Staff => Reach::OneTwo,
             Self::Stick => Reach::One,
             Self::Stiletto => Reach::Close,
+            Self::StunBaton => Reach::One,
             Self::SurvivalKnife => Reach::CloseOne,
             Self::Tanto => Reach::Close,
             Self::TacticalFolder => Reach::Close,
@@ -1491,6 +1540,7 @@ impl MeleeWeapon {
             Self::Wakizashi => Reach::One,
             Self::Voulge => Reach::TwoThree,
             Self::Urumi => Reach::OneThree,
+            Self::VibroKnife => Reach::One,
             Self::WarFan => Reach::Close,
             Self::WarScythe => Reach::TwoThree,
             Self::Warhammer => Reach::OneTwo,
@@ -1509,6 +1559,7 @@ impl MeleeWeapon {
             Self::ArmingSword => 0,
             Self::AwlPike => 0,
             Self::Assegai => 0,
+            Self::AspBaton => 0,
             Self::Baton => 0,
             Self::BattleAxe => -1,
             Self::BeardedAxe => -1,
@@ -1595,7 +1646,9 @@ impl MeleeWeapon {
             Self::Mattock => -1,
             Self::MilitaryFlail => -2,
             Self::Morningstar => 0,
+            Self::Monowire => -2,
             Self::Naginata => 1,
+            Self::Nightstick => 0,
             Self::Nunchaku => -2,
             Self::NuntiBo => 1,
             Self::Pick => -1,
@@ -1626,6 +1679,7 @@ impl MeleeWeapon {
             Self::Staff => 2,
             Self::Stick => 1,
             Self::Stiletto => -1,
+            Self::StunBaton => 0,
             Self::SurvivalKnife => -1,
             Self::Tanto => -1,
             Self::TacticalFolder => -1,
@@ -1643,6 +1697,7 @@ impl MeleeWeapon {
             Self::Wakizashi => 0,
             Self::Voulge => 0,
             Self::Urumi => -2,
+            Self::VibroKnife => -1,
             Self::WarFan => 1,
             Self::WarScythe => -2,
             Self::Warhammer => -1,
@@ -1661,6 +1716,7 @@ impl MeleeWeapon {
             Self::ArmingSword => Skill::Broadsword,
             Self::AwlPike => Skill::Spear,
             Self::Assegai => Skill::Spear,
+            Self::AspBaton => Skill::AxeMace,
             Self::Baton => Skill::Shortsword,
             Self::BattleAxe => Skill::AxeMace,
             Self::BeardedAxe => Skill::AxeMace,
@@ -1747,7 +1803,9 @@ impl MeleeWeapon {
             Self::Mattock => Skill::AxeMace,
             Self::MilitaryFlail => Skill::Flail,
             Self::Morningstar => Skill::Flail,
+            Self::Monowire => Skill::Whip,
             Self::Naginata => Skill::Polearm,
+            Self::Nightstick => Skill::AxeMace,
             Self::Nunchaku => Skill::Flail,
             Self::NuntiBo => Skill::Spear,
             Self::Pick => Skill::AxeMace,
@@ -1778,6 +1836,7 @@ impl MeleeWeapon {
             Self::Staff => Skill::Staff,
             Self::Stick => Skill::Staff,
             Self::Stiletto => Skill::Knife,
+            Self::StunBaton => Skill::AxeMace,
             Self::SurvivalKnife => Skill::Knife,
             Self::Tanto => Skill::Knife,
             Self::TacticalFolder => Skill::Knife,
@@ -1795,6 +1854,7 @@ impl MeleeWeapon {
             Self::Wakizashi => Skill::Shortsword,
             Self::Voulge => Skill::Polearm,
             Self::Urumi => Skill::Shortsword,
+            Self::VibroKnife => Skill::Knife,
             Self::WarFan => Skill::Shortsword,
             Self::WarScythe => Skill::Polearm,
             Self::Warhammer => Skill::TwoHandedAxeMace,
