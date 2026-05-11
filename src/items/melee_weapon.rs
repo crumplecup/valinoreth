@@ -58,6 +58,8 @@ pub enum MeleeWeapon {
     BowieKnife,
     /// Brass knuckles, thrust crushing, reach C. BS 271
     BrassKnuckles,
+    /// Bullwhip, swing-1 cutting, reach 1-7. HT (Long reach whip weapon, TL5+)
+    Bullwhip,
     /// Broadsword, swing+1 cutting, reach 1. BS 271
     Broadsword,
     /// Chakram, swing cutting, reach 1. BS 271
@@ -94,6 +96,8 @@ pub enum MeleeWeapon {
     Dirk,
     /// Estoc, thrust+2 impaling, reach 1. BS 271
     Estoc,
+    /// Electric knuckles, thrust+1 crushing, reach C. HT (Shock weapon, TL8)
+    ElectricKnuckles,
     /// Eku, swing+2 crushing, reach 1-2. LT (Okinawan oar weapon)
     Eku,
     /// Entrenching tool, swing+2 cutting, reach 1. HT (Military shovel as weapon, TL5+)
@@ -248,6 +252,8 @@ pub enum MeleeWeapon {
     Shamshir,
     /// Sai, thrust-1 impaling, reach C. BS 271
     Sai,
+    /// Sap gloves, swing crushing, reach C. HT (Weighted striking gloves, TL6+)
+    SapGloves,
     /// Scimitar, swing+1 cutting, reach 1. BS 271
     Scimitar,
     /// Shortsword, swing cutting, reach 1. BS 271
@@ -290,6 +296,8 @@ pub enum MeleeWeapon {
     Tekko,
     /// Talwar, swing+1 cutting, reach 1. LT (Indian curved sword)
     Talwar,
+    /// Telescoping baton, swing+1 crushing, reach 1. HT (Collapsible baton, TL7+)
+    TelescopingBaton,
     /// Tetsubo, swing+3 crushing, reach 1-2. LT (Japanese war club)
     Tetsubo,
     /// Tessen, swing crushing, reach C. LT (Japanese iron fan)
@@ -322,6 +330,8 @@ pub enum MeleeWeapon {
     Warhammer,
     /// Whip, swing-1 cutting, reach 1-2. BS 271
     Whip,
+    /// Wire saw, swing+1 cutting, reach C. HT (Survival/combat garrote tool, TL6+)
+    WireSaw,
     /// Xiphos, swing cutting, reach 1. LT (Greek short sword)
     Xiphos,
 }
@@ -353,6 +363,7 @@ impl MeleeWeapon {
             Self::Bo => Currency::dollars(10.0),
             Self::BowieKnife => Currency::dollars(40.0),
             Self::BrassKnuckles => Currency::dollars(10.0),
+            Self::Bullwhip => Currency::dollars(20.0),
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
             Self::Cestus => Currency::dollars(15.0),
@@ -371,6 +382,7 @@ impl MeleeWeapon {
             Self::Dao => Currency::dollars(400.0),
             Self::Dirk => Currency::dollars(30.0),
             Self::Estoc => Currency::dollars(600.0),
+            Self::ElectricKnuckles => Currency::dollars(150.0),
             Self::Eku => Currency::dollars(50.0),
             Self::EntrenchingTool => Currency::dollars(25.0),
             Self::Falchion => Currency::dollars(400.0),
@@ -448,6 +460,7 @@ impl MeleeWeapon {
             Self::Seax => Currency::dollars(300.0),
             Self::Shamshir => Currency::dollars(500.0),
             Self::Sai => Currency::dollars(20.0),
+            Self::SapGloves => Currency::dollars(50.0),
             Self::Scimitar => Currency::dollars(500.0),
             Self::Shortsword => Currency::dollars(400.0),
             Self::Shovel => Currency::dollars(15.0),
@@ -469,6 +482,7 @@ impl MeleeWeapon {
             Self::TacticalTomahawk => Currency::dollars(80.0),
             Self::Tekko => Currency::dollars(15.0),
             Self::Talwar => Currency::dollars(500.0),
+            Self::TelescopingBaton => Currency::dollars(75.0),
             Self::Tetsubo => Currency::dollars(80.0),
             Self::Tessen => Currency::dollars(60.0),
             Self::ThreeSectionStaff => Currency::dollars(35.0),
@@ -485,6 +499,7 @@ impl MeleeWeapon {
             Self::WarScythe => Currency::dollars(150.0),
             Self::Warhammer => Currency::dollars(100.0),
             Self::Whip => Currency::dollars(20.0),
+            Self::WireSaw => Currency::dollars(15.0),
             Self::Xiphos => Currency::dollars(250.0),
         }
     }
@@ -515,6 +530,7 @@ impl MeleeWeapon {
             Self::Bo => Weight::pounds(5.0),
             Self::BowieKnife => Weight::pounds(1.5),
             Self::BrassKnuckles => Weight::pounds(0.25),
+            Self::Bullwhip => Weight::pounds(2.0),
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
             Self::Cestus => Weight::pounds(0.5),
@@ -533,6 +549,7 @@ impl MeleeWeapon {
             Self::Dao => Weight::pounds(3.0),
             Self::Dirk => Weight::pounds(0.75),
             Self::Estoc => Weight::pounds(3.5),
+            Self::ElectricKnuckles => Weight::pounds(0.5),
             Self::Eku => Weight::pounds(6.0),
             Self::EntrenchingTool => Weight::pounds(2.5),
             Self::Falchion => Weight::pounds(3.5),
@@ -610,6 +627,7 @@ impl MeleeWeapon {
             Self::Seax => Weight::pounds(2.0),
             Self::Shamshir => Weight::pounds(2.5),
             Self::Sai => Weight::pounds(1.0),
+            Self::SapGloves => Weight::pounds(0.5),
             Self::Scimitar => Weight::pounds(3.0),
             Self::Shortsword => Weight::pounds(2.0),
             Self::Shovel => Weight::pounds(6.0),
@@ -631,6 +649,7 @@ impl MeleeWeapon {
             Self::TacticalTomahawk => Weight::pounds(2.5),
             Self::Tekko => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
+            Self::TelescopingBaton => Weight::pounds(1.5),
             Self::Tetsubo => Weight::pounds(10.0),
             Self::Tessen => Weight::pounds(1.0),
             Self::ThreeSectionStaff => Weight::pounds(4.0),
@@ -647,6 +666,7 @@ impl MeleeWeapon {
             Self::WarScythe => Weight::pounds(8.0),
             Self::Warhammer => Weight::pounds(7.0),
             Self::Whip => Weight::pounds(2.0),
+            Self::WireSaw => Weight::pounds(0.1),
             Self::Xiphos => Weight::pounds(2.0),
         }
     }
@@ -677,6 +697,7 @@ impl MeleeWeapon {
             Self::Bo => TechLevel::new(0),          // Stone Age
             Self::BowieKnife => TechLevel::new(5),     // Industrial Revolution
             Self::BrassKnuckles => TechLevel::new(3),  // Industrial
+            Self::Bullwhip => TechLevel::new(5),       // Industrial Revolution
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
             Self::Cestus => TechLevel::new(1),          // Roman
@@ -695,6 +716,7 @@ impl MeleeWeapon {
             Self::Dao => TechLevel::new(2),         // Iron Age
             Self::Dirk => TechLevel::new(3),           // Scottish Medieval
             Self::Estoc => TechLevel::new(3),          // Late Medieval
+            Self::ElectricKnuckles => TechLevel::new(8), // Digital/High-Tech
             Self::Eku => TechLevel::new(0),         // Stone Age
             Self::EntrenchingTool => TechLevel::new(5), // Industrial Revolution
             Self::Falchion => TechLevel::new(2),       // Medieval
@@ -772,6 +794,7 @@ impl MeleeWeapon {
             Self::Seax => TechLevel::new(2),        // Iron Age
             Self::Shamshir => TechLevel::new(3),    // Medieval          // Age of Sail
             Self::Sai => TechLevel::new(2),            // Medieval
+            Self::SapGloves => TechLevel::new(6),      // WWII/Mechanized
             Self::Scimitar => TechLevel::new(2),       // Medieval
             Self::Shortsword => TechLevel::new(1),     // Bronze Age
             Self::Shovel => TechLevel::new(1),         // Ancient tool
@@ -793,6 +816,7 @@ impl MeleeWeapon {
             Self::TacticalTomahawk => TechLevel::new(8), // Modern Combat
             Self::Tekko => TechLevel::new(0),       // Okinawan/Stone Age
             Self::Talwar => TechLevel::new(2),         // Iron Age
+            Self::TelescopingBaton => TechLevel::new(7), // Nuclear Age
             Self::Tetsubo => TechLevel::new(2),     // Medieval Japan
             Self::Tessen => TechLevel::new(3),      // Japanese Renaissance
             Self::ThreeSectionStaff => TechLevel::new(2), // Medieval China
@@ -809,6 +833,7 @@ impl MeleeWeapon {
             Self::WarScythe => TechLevel::new(2),      // Iron Age/Medieval
             Self::Warhammer => TechLevel::new(2),      // Medieval
             Self::Whip => TechLevel::new(1),           // Bronze Age
+            Self::WireSaw => TechLevel::new(6),        // WWII/Mechanized
             Self::Xiphos => TechLevel::new(1),      // Greek/Bronze Age
         }
     }
@@ -902,6 +927,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
+            Self::Bullwhip => WeaponDamage::Swing {
+                modifier: -1,
+                damage_type: DamageType::Cutting,
+            },
             Self::Broadsword => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
@@ -973,6 +1002,10 @@ impl MeleeWeapon {
             Self::Estoc => WeaponDamage::Thrust {
                 modifier: 2,
                 damage_type: DamageType::Impaling,
+            },
+            Self::ElectricKnuckles => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
             },
             Self::Eku => WeaponDamage::Swing {
                 modifier: 2,
@@ -1282,6 +1315,10 @@ impl MeleeWeapon {
                 modifier: -1,
                 damage_type: DamageType::Impaling,
             },
+            Self::SapGloves => WeaponDamage::Swing {
+                modifier: 0,
+                damage_type: DamageType::Crushing,
+            },
             Self::Scimitar => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
@@ -1366,6 +1403,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
             },
+            Self::TelescopingBaton => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
+            },
             Self::Tetsubo => WeaponDamage::Swing {
                 modifier: 3,
                 damage_type: DamageType::Crushing,
@@ -1430,6 +1471,10 @@ impl MeleeWeapon {
                 modifier: -1,
                 damage_type: DamageType::Cutting,
             },
+            Self::WireSaw => WeaponDamage::Swing {
+                modifier: 1,
+                damage_type: DamageType::Cutting,
+            },
             Self::Xiphos => WeaponDamage::Swing {
                 modifier: 0,
                 damage_type: DamageType::Cutting,
@@ -1463,6 +1508,7 @@ impl MeleeWeapon {
             Self::Bo => Reach::OneTwo,
             Self::BowieKnife => Reach::CloseOne,
             Self::BrassKnuckles => Reach::Close,
+            Self::Bullwhip => Reach::OneThree,
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
             Self::Cestus => Reach::Close,
@@ -1481,6 +1527,7 @@ impl MeleeWeapon {
             Self::Dao => Reach::One,
             Self::Dirk => Reach::Close,
             Self::Estoc => Reach::One,
+            Self::ElectricKnuckles => Reach::Close,
             Self::Eku => Reach::OneTwo,
             Self::EntrenchingTool => Reach::One,
             Self::Falchion => Reach::One,
@@ -1558,6 +1605,7 @@ impl MeleeWeapon {
             Self::Seax => Reach::One,
             Self::Shamshir => Reach::One,
             Self::Sai => Reach::Close,
+            Self::SapGloves => Reach::Close,
             Self::Scimitar => Reach::One,
             Self::Shortsword => Reach::One,
             Self::Shovel => Reach::One,
@@ -1579,6 +1627,7 @@ impl MeleeWeapon {
             Self::TacticalTomahawk => Reach::One,
             Self::Tekko => Reach::Close,
             Self::Talwar => Reach::One,
+            Self::TelescopingBaton => Reach::One,
             Self::Tetsubo => Reach::OneTwo,
             Self::Tessen => Reach::Close,
             Self::ThreeSectionStaff => Reach::OneTwo,
@@ -1595,6 +1644,7 @@ impl MeleeWeapon {
             Self::WarScythe => Reach::TwoThree,
             Self::Warhammer => Reach::OneTwo,
             Self::Whip => Reach::OneTwo,
+            Self::WireSaw => Reach::Close,
             Self::Xiphos => Reach::One,
         }
     }
@@ -1625,6 +1675,7 @@ impl MeleeWeapon {
             Self::Bo => 2,
             Self::BowieKnife => -1,
             Self::BrassKnuckles => 0,
+            Self::Bullwhip => -2,
             Self::Broadsword => 0,
             Self::Chakram => -2,
             Self::Cestus => 0,
@@ -1643,6 +1694,7 @@ impl MeleeWeapon {
             Self::Dao => 0,
             Self::Dirk => -1,
             Self::Estoc => 1,
+            Self::ElectricKnuckles => 0,
             Self::Eku => 2,
             Self::EntrenchingTool => -1,
             Self::Falchion => 0,
@@ -1720,6 +1772,7 @@ impl MeleeWeapon {
             Self::Seax => 0,
             Self::Shamshir => 0,
             Self::Sai => 1,
+            Self::SapGloves => 0,
             Self::Scimitar => 0,
             Self::Shortsword => 0,
             Self::Shovel => -1,
@@ -1741,6 +1794,7 @@ impl MeleeWeapon {
             Self::TacticalTomahawk => -1,
             Self::Tekko => 0,
             Self::Talwar => 0,
+            Self::TelescopingBaton => 0,
             Self::Tetsubo => -2,
             Self::Tessen => 1,
             Self::ThreeSectionStaff => -2,
@@ -1757,6 +1811,7 @@ impl MeleeWeapon {
             Self::WarScythe => -2,
             Self::Warhammer => -1,
             Self::Whip => -1,
+            Self::WireSaw => -2,
             Self::Xiphos => 0,
         }
     }
@@ -1787,6 +1842,7 @@ impl MeleeWeapon {
             Self::Bo => Skill::Staff,
             Self::BowieKnife => Skill::Knife,
             Self::BrassKnuckles => Skill::Brawling,
+            Self::Bullwhip => Skill::Whip,
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
             Self::Cestus => Skill::Brawling,
@@ -1805,6 +1861,7 @@ impl MeleeWeapon {
             Self::Dao => Skill::Broadsword,
             Self::Dirk => Skill::Knife,
             Self::Estoc => Skill::Rapier,
+            Self::ElectricKnuckles => Skill::Brawling,
             Self::Eku => Skill::Staff,
             Self::EntrenchingTool => Skill::AxeMace,
             Self::Falchion => Skill::Broadsword,
@@ -1882,6 +1939,7 @@ impl MeleeWeapon {
             Self::Seax => Skill::Shortsword,
             Self::Shamshir => Skill::Saber,
             Self::Sai => Skill::Knife,
+            Self::SapGloves => Skill::Brawling,
             Self::Scimitar => Skill::Broadsword,
             Self::Shortsword => Skill::Shortsword,
             Self::Shovel => Skill::AxeMace,
@@ -1903,6 +1961,7 @@ impl MeleeWeapon {
             Self::TacticalTomahawk => Skill::AxeMace,
             Self::Tekko => Skill::Brawling,
             Self::Talwar => Skill::Broadsword,
+            Self::TelescopingBaton => Skill::AxeMace,
             Self::Tetsubo => Skill::TwoHandedAxeMace,
             Self::Tessen => Skill::Shortsword,
             Self::ThreeSectionStaff => Skill::Flail,
@@ -1919,6 +1978,7 @@ impl MeleeWeapon {
             Self::WarScythe => Skill::Polearm,
             Self::Warhammer => Skill::TwoHandedAxeMace,
             Self::Whip => Skill::Shortsword,
+            Self::WireSaw => Skill::Knife,
             Self::Xiphos => Skill::Shortsword,
         }
     }
