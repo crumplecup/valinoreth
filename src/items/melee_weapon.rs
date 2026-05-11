@@ -64,10 +64,14 @@ pub enum MeleeWeapon {
     Chakram,
     /// Cestus, thrust crushing, reach C. BS 271
     Cestus,
+    /// Cattle prod, thrust+1 crushing, reach 1. HT (Electric livestock prod, TL6+)
+    CattleProd,
     /// Ceramic knife, thrust impaling, reach C. HT (Non-metallic blade, TL8)
     CeramicKnife,
     /// Chain, swing+1 crushing, reach 1-3. BS 271
     Chain,
+    /// Chainsaw, swing+4 cutting, reach 1. HT (Improvised cutting tool, TL6+)
+    Chainsaw,
     /// Cinquedea, thrust impaling, reach C. LT (Italian thick dagger)
     Cinquedea,
     /// Claymore, swing+2 cutting, reach 1-2. BS 271
@@ -132,6 +136,8 @@ pub enum MeleeWeapon {
     HungaMunga,
     /// Iklwa, thrust+1 impaling, reach 1. LT (Zulu short stabbing spear)
     Iklwa,
+    /// Ice pick, thrust+1 impaling, reach C. HT (Climbing tool/improvised weapon, TL5+)
+    IcePick,
     /// Javelin, thrust+1 impaling, reach 1. BS 271
     Javelin,
     /// Jitte, thrust-1 impaling, reach 1. BS 271
@@ -168,6 +174,8 @@ pub enum MeleeWeapon {
     Kukri,
     /// Kusarigama, swing+2 cutting, reach 1-3. LT (chain-sickle)
     Kusarigama,
+    /// Kubotan, thrust crushing, reach C. HT (Self-defense keychain weapon, TL7+)
+    Kubotan,
     /// Kusari, swing+1 crushing, reach 1-3. BS 271
     Kusari,
     /// Large knife, swing-1 cutting, reach C-1. BS 271
@@ -274,6 +282,8 @@ pub enum MeleeWeapon {
     Tanto,
     /// Tactical folder, thrust impaling, reach C. HT (Modern folding knife, TL7+)
     TacticalFolder,
+    /// Tactical pen, thrust impaling, reach C. HT (Concealed defensive tool, TL8)
+    TacticalPen,
     /// Tactical tomahawk, swing+2 cutting, reach 1. HT (Modern combat axe, TL8)
     TacticalTomahawk,
     /// Tekko, thrust-1 crushing, reach C. LT (Okinawan knuckle weapon)
@@ -346,8 +356,10 @@ impl MeleeWeapon {
             Self::Broadsword => Currency::dollars(500.0),
             Self::Chakram => Currency::dollars(15.0),
             Self::Cestus => Currency::dollars(15.0),
+            Self::CattleProd => Currency::dollars(100.0),
             Self::CeramicKnife => Currency::dollars(90.0),
             Self::Chain => Currency::dollars(30.0),
+            Self::Chainsaw => Currency::dollars(200.0),
             Self::Cinquedea => Currency::dollars(30.0),
             Self::Claymore => Currency::dollars(500.0),
             Self::Club => Currency::dollars(10.0),
@@ -380,6 +392,7 @@ impl MeleeWeapon {
             Self::HorsemansPick => Currency::dollars(70.0),
             Self::HungaMunga => Currency::dollars(60.0),
             Self::Iklwa => Currency::dollars(40.0),
+            Self::IcePick => Currency::dollars(15.0),
             Self::Javelin => Currency::dollars(30.0),
             Self::Jitte => Currency::dollars(50.0),
             Self::Jian => Currency::dollars(500.0),
@@ -398,6 +411,7 @@ impl MeleeWeapon {
             Self::Kris => Currency::dollars(40.0),
             Self::Kukri => Currency::dollars(35.0),
             Self::Kusarigama => Currency::dollars(250.0),
+            Self::Kubotan => Currency::dollars(10.0),
             Self::Kusari => Currency::dollars(70.0),
             Self::LargeKnife => Currency::dollars(60.0),
             Self::Lasso => Currency::dollars(20.0),
@@ -451,6 +465,7 @@ impl MeleeWeapon {
             Self::SurvivalKnife => Currency::dollars(70.0),
             Self::Tanto => Currency::dollars(30.0),
             Self::TacticalFolder => Currency::dollars(55.0),
+            Self::TacticalPen => Currency::dollars(30.0),
             Self::TacticalTomahawk => Currency::dollars(80.0),
             Self::Tekko => Currency::dollars(15.0),
             Self::Talwar => Currency::dollars(500.0),
@@ -503,8 +518,10 @@ impl MeleeWeapon {
             Self::Broadsword => Weight::pounds(3.0),
             Self::Chakram => Weight::pounds(0.5),
             Self::Cestus => Weight::pounds(0.5),
+            Self::CattleProd => Weight::pounds(2.0),
             Self::CeramicKnife => Weight::pounds(0.5),
             Self::Chain => Weight::pounds(3.0),
+            Self::Chainsaw => Weight::pounds(10.0),
             Self::Cinquedea => Weight::pounds(1.0),
             Self::Claymore => Weight::pounds(7.0),
             Self::Club => Weight::pounds(3.0),
@@ -537,6 +554,7 @@ impl MeleeWeapon {
             Self::HorsemansPick => Weight::pounds(2.5),
             Self::HungaMunga => Weight::pounds(3.0),
             Self::Iklwa => Weight::pounds(2.0),
+            Self::IcePick => Weight::pounds(0.5),
             Self::Javelin => Weight::pounds(2.0),
             Self::Jitte => Weight::pounds(1.5),
             Self::Jian => Weight::pounds(2.5),
@@ -555,6 +573,7 @@ impl MeleeWeapon {
             Self::Kris => Weight::pounds(1.0),
             Self::Kukri => Weight::pounds(1.5),
             Self::Kusarigama => Weight::pounds(3.0),
+            Self::Kubotan => Weight::pounds(0.1),
             Self::Kusari => Weight::pounds(5.0),
             Self::LargeKnife => Weight::pounds(1.5),
             Self::Lasso => Weight::pounds(3.0),
@@ -608,6 +627,7 @@ impl MeleeWeapon {
             Self::SurvivalKnife => Weight::pounds(1.5),
             Self::Tanto => Weight::pounds(0.5),
             Self::TacticalFolder => Weight::pounds(0.5),
+            Self::TacticalPen => Weight::pounds(0.1),
             Self::TacticalTomahawk => Weight::pounds(2.5),
             Self::Tekko => Weight::pounds(0.5),
             Self::Talwar => Weight::pounds(3.0),
@@ -660,8 +680,10 @@ impl MeleeWeapon {
             Self::Broadsword => TechLevel::new(2),     // Medieval
             Self::Chakram => TechLevel::new(2),        // Medieval Indian
             Self::Cestus => TechLevel::new(1),          // Roman
+            Self::CattleProd => TechLevel::new(6),    // WWII/Mechanized
             Self::CeramicKnife => TechLevel::new(8),    // Modern/Digital
             Self::Chain => TechLevel::new(1),           // Ancient
+            Self::Chainsaw => TechLevel::new(6),    // WWII/Mechanized
             Self::Cinquedea => TechLevel::new(3),   // Late Medieval
             Self::Claymore => TechLevel::new(3),       // Scottish Renaissance
             Self::Club => TechLevel::new(0),
@@ -694,6 +716,7 @@ impl MeleeWeapon {
             Self::HorsemansPick => TechLevel::new(2), // Medieval
             Self::HungaMunga => TechLevel::new(0),  // African/Stone Age
             Self::Iklwa => TechLevel::new(0),       // Stone Age
+            Self::IcePick => TechLevel::new(5),    // Industrial Revolution
             Self::Javelin => TechLevel::new(0),        // Stone Age
             Self::Jitte => TechLevel::new(3),
             Self::Jian => TechLevel::new(2),        // Iron Age          // Japanese feudal
@@ -712,6 +735,7 @@ impl MeleeWeapon {
             Self::Kris => TechLevel::new(3),        // Indonesian
             Self::Kukri => TechLevel::new(5),       // Gurkha/Industrial
             Self::Kusarigama => TechLevel::new(3),  // Medieval Japan
+            Self::Kubotan => TechLevel::new(7),    // Nuclear Age
             Self::Kusari => TechLevel::new(2),         // Medieval Japan
             Self::LargeKnife => TechLevel::new(1),     // Bronze Age
             Self::Lasso => TechLevel::new(0),          // Stone Age
@@ -765,6 +789,7 @@ impl MeleeWeapon {
             Self::SurvivalKnife => TechLevel::new(6),  // WWII era
             Self::Tanto => TechLevel::new(3),          // Japanese
             Self::TacticalFolder => TechLevel::new(7),   // Nuclear Age
+            Self::TacticalPen => TechLevel::new(8),    // Digital/High-Tech
             Self::TacticalTomahawk => TechLevel::new(8), // Modern Combat
             Self::Tekko => TechLevel::new(0),       // Okinawan/Stone Age
             Self::Talwar => TechLevel::new(2),         // Iron Age
@@ -889,6 +914,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
+            Self::CattleProd => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Crushing,
+            },
             Self::CeramicKnife => WeaponDamage::Thrust {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
@@ -896,6 +925,10 @@ impl MeleeWeapon {
             Self::Chain => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
+            },
+            Self::Chainsaw => WeaponDamage::Swing {
+                modifier: 4,
+                damage_type: DamageType::Cutting,
             },
             Self::Cinquedea => WeaponDamage::Thrust {
                 modifier: 0,
@@ -1025,6 +1058,10 @@ impl MeleeWeapon {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
             },
+            Self::IcePick => WeaponDamage::Thrust {
+                modifier: 1,
+                damage_type: DamageType::Impaling,
+            },
             Self::Javelin => WeaponDamage::Thrust {
                 modifier: 1,
                 damage_type: DamageType::Impaling,
@@ -1096,6 +1133,10 @@ impl MeleeWeapon {
             Self::Kusarigama => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
+            },
+            Self::Kubotan => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Crushing,
             },
             Self::Kusari => WeaponDamage::Swing {
                 modifier: 1,
@@ -1309,6 +1350,10 @@ impl MeleeWeapon {
                 modifier: 0,
                 damage_type: DamageType::Impaling,
             },
+            Self::TacticalPen => WeaponDamage::Thrust {
+                modifier: 0,
+                damage_type: DamageType::Impaling,
+            },
             Self::TacticalTomahawk => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
@@ -1421,8 +1466,10 @@ impl MeleeWeapon {
             Self::Broadsword => Reach::One,
             Self::Chakram => Reach::One,
             Self::Cestus => Reach::Close,
+            Self::CattleProd => Reach::One,
             Self::CeramicKnife => Reach::Close,
             Self::Chain => Reach::OneThree,
+            Self::Chainsaw => Reach::One,
             Self::Cinquedea => Reach::Close,
             Self::Claymore => Reach::OneTwo,
             Self::Club => Reach::One,
@@ -1455,6 +1502,7 @@ impl MeleeWeapon {
             Self::HorsemansPick => Reach::One,
             Self::HungaMunga => Reach::One,
             Self::Iklwa => Reach::One,
+            Self::IcePick => Reach::Close,
             Self::Javelin => Reach::One,
             Self::Jitte => Reach::One,
             Self::Jian => Reach::One,
@@ -1473,6 +1521,7 @@ impl MeleeWeapon {
             Self::Kris => Reach::Close,
             Self::Kukri => Reach::CloseOne,
             Self::Kusarigama => Reach::OneThree,
+            Self::Kubotan => Reach::Close,
             Self::Kusari => Reach::OneThree,
             Self::LargeKnife => Reach::CloseOne,
             Self::Lasso => Reach::OneTwo,
@@ -1526,6 +1575,7 @@ impl MeleeWeapon {
             Self::SurvivalKnife => Reach::CloseOne,
             Self::Tanto => Reach::Close,
             Self::TacticalFolder => Reach::Close,
+            Self::TacticalPen => Reach::Close,
             Self::TacticalTomahawk => Reach::One,
             Self::Tekko => Reach::Close,
             Self::Talwar => Reach::One,
@@ -1578,8 +1628,10 @@ impl MeleeWeapon {
             Self::Broadsword => 0,
             Self::Chakram => -2,
             Self::Cestus => 0,
+            Self::CattleProd => -2,
             Self::CeramicKnife => -1,
             Self::Chain => -2,
+            Self::Chainsaw => -4,
             Self::Cinquedea => -1,
             Self::Claymore => 0,
             Self::Club => 0,
@@ -1612,6 +1664,7 @@ impl MeleeWeapon {
             Self::HorsemansPick => -1,
             Self::HungaMunga => -2,
             Self::Iklwa => 0,
+            Self::IcePick => -1,
             Self::Javelin => 0,
             Self::Jitte => 1,
             Self::Jian => 0,
@@ -1630,6 +1683,7 @@ impl MeleeWeapon {
             Self::Kris => -1,
             Self::Kukri => -1,
             Self::Kusarigama => -2,
+            Self::Kubotan => -2,
             Self::Kusari => -2,
             Self::LargeKnife => -1,
             Self::Lasso => -2,
@@ -1683,6 +1737,7 @@ impl MeleeWeapon {
             Self::SurvivalKnife => -1,
             Self::Tanto => -1,
             Self::TacticalFolder => -1,
+            Self::TacticalPen => -2,
             Self::TacticalTomahawk => -1,
             Self::Tekko => 0,
             Self::Talwar => 0,
@@ -1735,8 +1790,10 @@ impl MeleeWeapon {
             Self::Broadsword => Skill::Broadsword,
             Self::Chakram => Skill::ThrownWeapon,
             Self::Cestus => Skill::Brawling,
+            Self::CattleProd => Skill::AxeMace,
             Self::CeramicKnife => Skill::Knife,
             Self::Chain => Skill::Flail,
+            Self::Chainsaw => Skill::AxeMace,
             Self::Cinquedea => Skill::Knife,
             Self::Claymore => Skill::TwoHandedSword,
             Self::Club => Skill::AxeMace,
@@ -1769,6 +1826,7 @@ impl MeleeWeapon {
             Self::HorsemansPick => Skill::AxeMace,
             Self::HungaMunga => Skill::ThrownWeapon,
             Self::Iklwa => Skill::Spear,
+            Self::IcePick => Skill::Knife,
             Self::Javelin => Skill::Spear,
             Self::Jitte => Skill::MainGauche,
             Self::Jian => Skill::Shortsword,
@@ -1787,6 +1845,7 @@ impl MeleeWeapon {
             Self::Kris => Skill::Knife,
             Self::Kukri => Skill::Knife,
             Self::Kusarigama => Skill::Flail,
+            Self::Kubotan => Skill::Brawling,
             Self::Kusari => Skill::Kusari,
             Self::LargeKnife => Skill::Knife,
             Self::Lasso => Skill::ThrownWeapon,
@@ -1840,6 +1899,7 @@ impl MeleeWeapon {
             Self::SurvivalKnife => Skill::Knife,
             Self::Tanto => Skill::Knife,
             Self::TacticalFolder => Skill::Knife,
+            Self::TacticalPen => Skill::Knife,
             Self::TacticalTomahawk => Skill::AxeMace,
             Self::Tekko => Skill::Brawling,
             Self::Talwar => Skill::Broadsword,
