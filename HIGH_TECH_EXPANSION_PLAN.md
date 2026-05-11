@@ -231,20 +231,49 @@
 - [ ] Coilgun prototypes
 - [ ] Laser weapons (experimental)
 
-## Phase 5: High-Tech Melee Weapons
+## Phase 5: High-Tech Melee Weapons ✅ COMPLETE
 
-### TL5-6 Melee
-- [ ] Bayonets (various)
-- [ ] Trench knives
-- [ ] Combat knives
-- [ ] Entrenching tools (combat use)
+### TL5-6 Melee ✅
+- ✅ Bayonets (various) - Batch 29
+- ✅ Trench knives - Batch 29
+- ✅ Combat knives - Batch 29
+- ✅ Entrenching tools (combat use) - Batch 29
+- ✅ Bowie Knife - Batch 29
 
-### TL7-8 Melee
-- [ ] Modern combat knives
-- [ ] Tactical tomahawks
-- [ ] Stun batons
-- [ ] Monofilament weapons
-- [ ] Vibro-blades
+### TL5-8 Military/Tactical Melee ✅
+- ✅ Fairbairn-Sykes - Batch 30
+- ✅ Ka-Bar - Batch 30
+- ✅ Kukri - Batch 30
+- ✅ Machete - Batch 30
+- ✅ Tactical Tomahawk - Batch 30
+- ✅ Ceramic Knife - Batch 31
+- ✅ Push Dagger - Batch 31
+- ✅ Survival Knife - Batch 31
+- ✅ Tactical Folder - Batch 31
+- ✅ Throwing Knife - Batch 31
+
+### TL7-8 Specialized Melee ✅
+- ✅ ASP Baton - Batch 32
+- ✅ Monowire - Batch 32
+- ✅ Nightstick - Batch 32
+- ✅ Stun Baton - Batch 32
+- ✅ Vibro-Knife - Batch 32
+
+### TL5-8 Improvised/Utility ✅
+- ✅ Cattle Prod - Batch 33
+- ✅ Chainsaw - Batch 33
+- ✅ Ice Pick - Batch 33
+- ✅ Kubotan - Batch 33
+- ✅ Tactical Pen - Batch 33
+
+### TL5-8 Exotic/Specialized ✅
+- ✅ Bullwhip - Batch 34
+- ✅ Electric Knuckles - Batch 34
+- ✅ Sap Gloves - Batch 34
+- ✅ Telescoping Baton - Batch 34
+- ✅ Wire Saw - Batch 34
+
+**Phase 5 Status:** All accessible High-Tech melee weapons from public sources implemented (30 weapons across 6 batches)
 
 ## Phase 6: High-Tech Armor
 
