@@ -56,6 +56,7 @@
 - ✅ Batch 31: TL5-8 Tactical Melee Weapons (Ceramic Knife, Push Dagger, Survival Knife, Tactical Folder, Throwing Knife)
 - ✅ Batch 32: TL5-8 Specialized Melee Weapons (ASP Baton, Monowire, Nightstick, Stun Baton, Vibro-Knife)
 - ✅ Batch 33: TL5-8 Improvised/Utility Melee Weapons (Cattle Prod, Chainsaw, Ice Pick, Kubotan, Tactical Pen)
+- ✅ Batch 34: TL5-8 Exotic/Specialized Melee Weapons (Bullwhip, Electric Knuckles, Sap Gloves, Telescoping Baton, Wire Saw)
 
 ### TL5 Remaining Ranged Weapons
 
@@ -370,7 +371,7 @@ For each weapon:
 
 ## Progress Tracking
 
-### Completed: 181 items
+### Completed: 186 items
 - 13 TL5 Pistols
 - 16 TL5 Rifles
 - 3 TL5 Shotguns
@@ -400,10 +401,11 @@ For each weapon:
 - 5 TL5-8 Tactical Melee Weapons (Ceramic Knife, Push Dagger, Survival Knife, Tactical Folder, Throwing Knife)
 - 5 TL5-8 Specialized Melee Weapons (ASP Baton, Monowire, Nightstick, Stun Baton, Vibro-Knife)
 - 5 TL5-8 Improvised/Utility Melee Weapons (Cattle Prod, Chainsaw, Ice Pick, Kubotan, Tactical Pen)
+- 5 TL5-8 Exotic/Specialized Melee Weapons (Bullwhip, Electric Knuckles, Sap Gloves, Telescoping Baton, Wire Saw)
 
-### Remaining: ~169-319 items
+### Remaining: ~164-314 items
 
 ---
 
 **Last Updated:** 2026-05-10
-**Status:** 🔄 TL5-8 Improvised/Utility Melee Weapons Batch 33 COMPLETE - Phase 5 (Melee Weapons) IN PROGRESS
+**Status:** 🔄 TL5-8 Exotic/Specialized Melee Weapons Batch 34 COMPLETE - Phase 5 (Melee Weapons) IN PROGRESS
