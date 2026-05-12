@@ -44,7 +44,7 @@ pub use combat::{
     calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense, Armor,
     ArmorBuilder, AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
     CombatModifiersBuilder, DamageResolution, DamageType, DefenseResult, Modifier, Reach,
-    WeaponDamage, RETREAT_BONUS,
+    Technique, TechniqueDifficulty, WeaponDamage, RETREAT_BONUS,
 };
 pub use dice::{Dice, DieLevel, Random};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};

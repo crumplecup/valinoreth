@@ -17,6 +17,7 @@ mod attack;
 mod damage;
 mod defense;
 mod error;
+pub mod techniques;
 mod weapons;
 
 pub use attack::{AttackResult, AttackRoll, CombatModifiers, CombatModifiersBuilder, Modifier};
@@ -26,4 +27,5 @@ pub use defense::{
     DefenseResult, RETREAT_BONUS,
 };
 pub use error::{CombatError, CombatErrorKind};
+pub use techniques::{Technique, TechniqueDifficulty};
 pub use weapons::{DamageType, Reach, WeaponDamage};
