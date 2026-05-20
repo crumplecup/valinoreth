@@ -19,6 +19,7 @@ mod body;
 mod character;
 mod cli;
 mod combat;
+mod contracts;
 mod dice;
 mod disadvantages;
 mod free;
@@ -45,6 +46,34 @@ pub use combat::{
     ArmorBuilder, AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
     CombatModifiersBuilder, DamageResolution, DamageType, DefenseResult, Modifier, Reach,
     Technique, TechniqueDifficulty, WeaponDamage, RETREAT_BONUS,
+};
+pub use contracts::{
+    // Logical operators from elicitation
+    And, Established, Implies, InVariant, Is, Prop, ProvableFrom, Refines,
+    // Combat propositions
+    AimBonusApplied, AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess,
+    AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful,
+    BasicDamageCalculated, DamageResistanceApplied, DeceptiveAttackApplied,
+    DefenseCriticalFailure, DefenseCriticalSuccess, DefenseFailed, DefenseOutcomeDetermined,
+    DefenseRollMade, DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied,
+    InjuryCalculated, LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled,
+    WoundingModifierApplied,
+    // Evidence bundles
+    AllOutAttackEvidence, AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence,
+    AttackFailureEvidence, AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence,
+    CombatHitEvidence, CombatMissEvidence, DeceptiveAttackEvidence,
+    DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence, DefenseFailureEvidence,
+    DefenseResolutionEvidence, DefenseSuccessEvidence, FeintEvidence,
+    InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
+    // Trait interfaces
+    AttackMeta, AttackResolver, CombatExchangeResult, CombatExecutor, CombatResult, ContractError,
+    DamageCalculator, DamageMeta, DefenseMeta, DefenseResolver, ManeuverExecutor, MissReason,
+    // Descriptor types
+    ArmorDescriptor, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
+    CombatantDescriptor, CombatantDescriptorBuilder, DamageDescriptor, DamageDescriptorBuilder,
+    DamageResult, DamageTypeDescriptor, DefenseDescriptor, DefenseDescriptorBuilder,
+    DefenseRollResult, DefenseType, FeintDescriptor, FeintResult, HitLocation,
+    RapidStrikeDescriptor,
 };
 pub use dice::{Dice, DieLevel, Random};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};

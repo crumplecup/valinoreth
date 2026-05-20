@@ -11,6 +11,7 @@ path = "src/main.rs"
 name = "valinoreth"
 
 [dependencies]
+async-trait = "0.1"
 bio = "2.3.0"
 clap = { version = "4.5.41", features = ["derive"] }
 derive-getters = "0.5.0"
@@ -22,3 +23,12 @@ serde = { version = "1.0.219", features = ["derive"] }
 strum = { version = "0.27.1", features = ["derive", "strum_macros"] }
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+
+# Elicitation framework for contract-based game rules
+elicitation = { version = "0.11.0", features = ["serde"] }
+elicitation_derive = "0.11.0"
+rmcp = "0.7"
+schemars = "0.8"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)', 'cfg(creusot)', 'cfg(prusti)', 'cfg(verus)'] }
