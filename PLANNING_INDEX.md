@@ -4,6 +4,14 @@ This file tracks all planning documents for the valinoreth project.
 
 ## Active Plans
 
+### MARTIAL_ARTS_EXPANSION_PLAN.md
+**Status:** 🔨 IN PROGRESS (Foundation Established)
+**Started:** 2026-05-11
+**Goal:** Add combat techniques from GURPS Martial Arts
+**Progress:** 9 base techniques implemented (~5-10% of supplement, canonical foundation)
+**Current Phase:** Phase 1 complete (Core Techniques)
+**Next Steps:** Opportunistically add techniques as complete stats are discovered online
+
 ### HIGH_TECH_EXPANSION_PLAN.md
 **Status:** ✅ COMPLETE (Publicly Accessible Content)
 **Started:** 2026-05-03
@@ -26,4 +34,4 @@ This file tracks all planning documents for the valinoreth project.
 
 ---
 
-**Last Updated:** 2026-05-10
+**Last Updated:** 2026-05-11
