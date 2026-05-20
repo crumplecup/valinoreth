@@ -31,6 +31,17 @@ use crate::contracts::character::{
     QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet, SecondaryCharacteristicPurchased,
     SelfControlRollSpecified, WillSet,
 };
+use crate::contracts::magic::{
+    BaseEnergyCostDetermined, CeremonialCastingBegun, CeremonialSpellCompleted, ConcentrationBegun,
+    ConcentrationCompleted, ConcentrationMaintained, EnergyPaidFromCaster,
+    EnergyPooledFromParticipants, EnvironmentModifierApplied, FinalEnergyCostCalculated,
+    MageryRequirementMet, MaintenanceEnergyPaid, ResistanceOvercome, ResistanceRollMade,
+    ResistanceRollRequired, SizeSpeedModifierApplied, SkillBasedCostReductionApplied,
+    SpellCastingFailed, SpellCastingOutcomeDetermined, SpellCastingSucceeded, SpellCriticalFailure,
+    SpellCriticalSuccess, SpellDurationDetermined, SpellEffectApplied, SpellLearned,
+    SpellMaintained, SpellPrerequisitesMet, SpellRangeChecked, SpellResistedSuccessfully,
+    SpellSkillLevelSet, SpellSkillRollMade, SpellTargetDetermined, TimeModifierApplied,
+};
 use crate::contracts::combat::{
     AimBonusApplied, AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess,
     AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful,
@@ -475,4 +486,131 @@ proof_credential! {
 
     /// Witness that character is valid.
     pub(crate) CharacterValidated => CharacterValid;
+}
+
+// ── Spell Learning Credentials ────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that spell prerequisites were met.
+    pub(crate) PrerequisitesMet => SpellPrerequisitesMet;
+
+    /// Witness that Magery requirement was met.
+    pub(crate) MageryMet => MageryRequirementMet;
+
+    /// Witness that spell was learned.
+    pub(crate) SpellAcquired => SpellLearned;
+
+    /// Witness that spell skill level was set.
+    pub(crate) SpellSkillSet => SpellSkillLevelSet;
+}
+
+// ── Spell Casting Credentials ─────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that concentration began.
+    pub(crate) ConcentrationStarted => ConcentrationBegun;
+
+    /// Witness that concentration was maintained.
+    pub(crate) ConcentrationKept => ConcentrationMaintained;
+
+    /// Witness that concentration completed.
+    pub(crate) ConcentrationFinished => ConcentrationCompleted;
+
+    /// Witness that spell skill roll was made.
+    pub(crate) SpellRollMade => SpellSkillRollMade;
+
+    /// Witness that spell casting outcome was determined.
+    pub(crate) CastingOutcomeChecked => SpellCastingOutcomeDetermined;
+
+    /// Witness that spell casting succeeded.
+    pub(crate) CastingSucceeded => SpellCastingSucceeded;
+
+    /// Witness that spell casting failed.
+    pub(crate) CastingFailed => SpellCastingFailed;
+
+    /// Witness that spell critically succeeded.
+    pub(crate) SpellCritHit => SpellCriticalSuccess;
+
+    /// Witness that spell critically failed.
+    pub(crate) SpellCritMiss => SpellCriticalFailure;
+}
+
+// ── Energy Cost Credentials ───────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that base energy cost was determined.
+    pub(crate) BaseCostDetermined => BaseEnergyCostDetermined;
+
+    /// Witness that skill-based cost reduction was applied.
+    pub(crate) SkillReductionApplied => SkillBasedCostReductionApplied;
+
+    /// Witness that final energy cost was calculated.
+    pub(crate) FinalCostCalculated => FinalEnergyCostCalculated;
+
+    /// Witness that energy was paid from caster.
+    pub(crate) EnergyDeducted => EnergyPaidFromCaster;
+
+    /// Witness that spell is being maintained.
+    pub(crate) SpellKeptActive => SpellMaintained;
+
+    /// Witness that maintenance energy was paid.
+    pub(crate) MaintenancePaid => MaintenanceEnergyPaid;
+}
+
+// ── Spell Effect Credentials ──────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that spell effect was applied.
+    pub(crate) EffectApplied => SpellEffectApplied;
+
+    /// Witness that spell target was determined.
+    pub(crate) TargetDetermined => SpellTargetDetermined;
+
+    /// Witness that spell range was checked.
+    pub(crate) RangeChecked => SpellRangeChecked;
+
+    /// Witness that spell duration was determined.
+    pub(crate) DurationSet => SpellDurationDetermined;
+}
+
+// ── Spell Resistance Credentials ──────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that resistance roll was required.
+    pub(crate) ResistanceNeeded => ResistanceRollRequired;
+
+    /// Witness that resistance roll was made.
+    pub(crate) ResistanceRolled => ResistanceRollMade;
+
+    /// Witness that spell was successfully resisted.
+    pub(crate) SpellResisted => SpellResistedSuccessfully;
+
+    /// Witness that resistance was overcome.
+    pub(crate) ResistanceBroken => ResistanceOvercome;
+}
+
+// ── Spell Modifier Credentials ────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that size/speed modifier was applied.
+    pub(crate) SizeSpeedApplied => SizeSpeedModifierApplied;
+
+    /// Witness that time modifier was applied.
+    pub(crate) TimeModApplied => TimeModifierApplied;
+
+    /// Witness that environment modifier was applied.
+    pub(crate) EnvironmentApplied => EnvironmentModifierApplied;
+}
+
+// ── Ceremonial Magic Credentials ──────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that ceremonial casting began.
+    pub(crate) CeremonyStarted => CeremonialCastingBegun;
+
+    /// Witness that energy was pooled from participants.
+    pub(crate) EnergyPooled => EnergyPooledFromParticipants;
+
+    /// Witness that ceremonial spell completed.
+    pub(crate) CeremonyCompleted => CeremonialSpellCompleted;
 }

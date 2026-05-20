@@ -19,6 +19,7 @@
 //! - [`combat`] - Combat system propositions (attack, defense, damage)
 //! - [`skills`] - Skill check and advancement propositions
 //! - [`character`] - Character creation and validation propositions
+//! - [`magic`] - Spell casting and magic system propositions
 //! - [`proof_composition`] - Evidence bundles for multi-step operations
 //! - [`traits`] - Trait interfaces returning proof tokens
 //! - [`types`] - Descriptor types for game operations
@@ -58,7 +59,6 @@
 //! # Future Work
 //!
 //! This module will expand to cover:
-//! - Magic system (if implementing magic)
 //! - Equipment and encumbrance
 //! - Social interactions and influence
 //!
@@ -68,6 +68,7 @@
 pub mod character;
 pub mod combat;
 mod credentials;
+pub mod magic;
 pub mod proof_composition;
 pub mod skills;
 pub mod traits;
@@ -112,20 +113,37 @@ pub use character::{
     SelfControlRollSpecified, WillSet,
 };
 
+// Re-export magic propositions
+pub use magic::{
+    BaseEnergyCostDetermined, CeremonialCastingBegun, CeremonialSpellCompleted, ConcentrationBegun,
+    ConcentrationCompleted, ConcentrationMaintained, EnergyPaidFromCaster,
+    EnergyPooledFromParticipants, EnvironmentModifierApplied, FinalEnergyCostCalculated,
+    MageryRequirementMet, MaintenanceEnergyPaid, ResistanceOvercome, ResistanceRollMade,
+    ResistanceRollRequired, SizeSpeedModifierApplied, SkillBasedCostReductionApplied,
+    SpellCastingFailed, SpellCastingOutcomeDetermined, SpellCastingSucceeded, SpellCriticalFailure,
+    SpellCriticalSuccess, SpellDurationDetermined, SpellEffectApplied, SpellLearned,
+    SpellMaintained, SpellPrerequisitesMet, SpellRangeChecked, SpellResistedSuccessfully,
+    SpellSkillLevelSet, SpellSkillRollMade, SpellTargetDetermined, TimeModifierApplied,
+};
+
 // Re-export evidence bundles
 pub use proof_composition::{
     AdvantagePurchaseEvidence, AllOutAttackEvidence, AttributePurchaseEvidence,
     AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence, AttackFailureEvidence,
-    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence,
+    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence, CeremonialMagicEvidence,
     CharacterCreationEvidence, CharacterValidationEvidence, CombatHitEvidence, CombatMissEvidence,
-    ComplementarySkillEvidence, DeceptiveAttackEvidence, DefenseCriticalFailureEvidence,
-    DefenseCriticalSuccessEvidence, DefenseFailureEvidence, DefenseResolutionEvidence,
-    DefenseSuccessEvidence, DerivedStatsEvidence, DisadvantageTakenEvidence, FeintEvidence,
+    ComplementarySkillEvidence, CompleteSpellCastingEvidence, ConcentrationEvidence,
+    DeceptiveAttackEvidence, DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence,
+    DefenseFailureEvidence, DefenseResolutionEvidence, DefenseSuccessEvidence, DerivedStatsEvidence,
+    DisadvantageTakenEvidence, EnergyCostEvidence, EnergyPaymentEvidence, FeintEvidence,
     InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
-    SecondaryCharacteristicEvidence, SkillAttributeDefaultEvidence, SkillCheckCriticalFailureEvidence,
-    SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence, SkillCheckResolutionEvidence,
-    SkillCheckSuccessEvidence, SkillImprovementEvidence, SkillModifiersEvidence,
-    SkillRelatedDefaultEvidence, TechniqueUsageEvidence, WildcardSkillEvidence,
+    ResistanceOvercomeEvidence, SecondaryCharacteristicEvidence, SkillAttributeDefaultEvidence,
+    SkillCheckCriticalFailureEvidence, SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence,
+    SkillCheckResolutionEvidence, SkillCheckSuccessEvidence, SkillImprovementEvidence,
+    SkillModifiersEvidence, SkillRelatedDefaultEvidence, SpellCastingFailureEvidence,
+    SpellCastingResolutionEvidence, SpellCastingSuccessEvidence, SpellCriticalFailureEvidence,
+    SpellCriticalSuccessEvidence, SpellEffectEvidence, SpellLearningEvidence,
+    SpellMaintenanceEvidence, SpellResistanceEvidence, TechniqueUsageEvidence, WildcardSkillEvidence,
 };
 
 // Re-export trait interfaces
@@ -133,20 +151,24 @@ pub use traits::{
     AttackMeta, AttackResolver, CharacterAdvancement, CharacterBuilder, CharacterImprovement,
     CombatExchangeResult, CombatExecutor, CombatResult, ContractError, DamageCalculator,
     DamageMeta, DefenseMeta, DefenseResolver, ManeuverExecutor, MissReason, SkillCheckExecutor,
-    SkillManager,
+    SkillManager, SpellCaster, SpellEffectResolver, SpellExecutionResult, SpellExecutor,
+    SpellManager,
 };
 
 // Re-export descriptor types
 pub use types::{
     AdvantageDescriptor, AdvantageDescriptorBuilder, ArmorDescriptor, AttributeDescriptor,
     AttributeMinimums, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
-    CharacterCreationDescriptor, CharacterCreationDescriptorBuilder, CharacterDescriptor,
-    CharacterDescriptorBuilder, CombatantDescriptor, CombatantDescriptorBuilder,
+    CasterDescriptor, CasterDescriptorBuilder, CeremonialMagicDescriptor,
+    CeremonialMagicDescriptorBuilder, CharacterCreationDescriptor, CharacterCreationDescriptorBuilder,
+    CharacterDescriptor, CharacterDescriptorBuilder, CombatantDescriptor, CombatantDescriptorBuilder,
     DamageDescriptor, DamageDescriptorBuilder, DamageResult, DamageTypeDescriptor,
     DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType,
     DerivedStatsDescriptor, DisadvantageDescriptor, DisadvantageDescriptorBuilder,
-    FeintDescriptor, FeintResult, ModifierDescriptor, RapidStrikeDescriptor,
+    FeintDescriptor, FeintResult, ModifierDescriptor, RapidStrikeDescriptor, ResistanceResult,
     SecondaryCharacteristicDescriptor, SecondaryCharacteristicType, SkillCheckDescriptor,
     SkillCheckDescriptorBuilder, SkillCheckResult, SkillDefaultDescriptor, SkillDefaultType,
-    SkillDescriptor, SkillDescriptorBuilder, SkillDifficulty,
+    SkillDescriptor, SkillDescriptorBuilder, SkillDifficulty, SpellCastingDescriptor,
+    SpellCastingDescriptorBuilder, SpellCastingResult, SpellClass, SpellCollege, SpellDescriptor,
+    SpellDescriptorBuilder, SpellEffectDescriptor, SpellResistanceDescriptor,
 };

@@ -701,3 +701,313 @@ pub struct DerivedStatsDescriptor {
     /// Fatigue Points
     pub fp: i32,
 }
+
+// ── Spell Descriptors ─────────────────────────────────────────────────────────
+
+/// Describes a spell for learning.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct SpellDescriptor {
+    /// Spell name
+    pub name: String,
+
+    /// Spell college (Fire, Air, Enchantment, etc.)
+    pub college: SpellCollege,
+
+    /// Difficulty level (Hard for all spells)
+    #[builder(default = "SkillDifficulty::Hard")]
+    pub difficulty: SkillDifficulty,
+
+    /// Current skill level with this spell
+    pub skill_level: i32,
+
+    /// Character points invested in this spell
+    pub points_invested: i32,
+
+    /// Prerequisite spell names
+    #[builder(default)]
+    pub prerequisites: Vec<String>,
+
+    /// Minimum Magery level required (0-3)
+    #[builder(default)]
+    pub magery_required: i32,
+
+    /// Base energy cost to cast
+    pub base_casting_cost: i32,
+
+    /// Base energy cost to maintain (0 if not maintained)
+    #[builder(default)]
+    pub base_maintenance_cost: i32,
+
+    /// Standard casting time in seconds
+    pub base_casting_time: i32,
+
+    /// Spell class (Area, Missile, Regular, etc.)
+    pub spell_class: SpellClass,
+
+    /// Whether spell can be resisted
+    #[builder(default)]
+    pub resistible: bool,
+
+    /// Resistance attribute if resistible (Will, HT, etc.)
+    #[builder(default)]
+    pub resistance_attribute: Option<String>,
+}
+
+/// Spell colleges.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
+pub enum SpellCollege {
+    /// Air spells
+    Air,
+    /// Animal spells
+    Animal,
+    /// Body Control spells
+    BodyControl,
+    /// Communication and Empathy spells
+    CommunicationEmpathy,
+    /// Earth spells
+    Earth,
+    /// Enchantment spells
+    Enchantment,
+    /// Fire spells
+    Fire,
+    /// Food spells
+    Food,
+    /// Gate spells (teleportation)
+    Gate,
+    /// Healing spells
+    Healing,
+    /// Illusion and Creation spells
+    IllusionCreation,
+    /// Knowledge spells
+    Knowledge,
+    /// Light and Darkness spells
+    LightDarkness,
+    /// Making and Breaking spells
+    MakingBreaking,
+    /// Meta-Spells (affect other spells)
+    MetaSpells,
+    /// Mind Control spells
+    MindControl,
+    /// Movement spells
+    Movement,
+    /// Necromantic spells
+    Necromantic,
+    /// Plant spells
+    Plant,
+    /// Protection and Warning spells
+    ProtectionWarning,
+    /// Sound spells
+    Sound,
+    /// Technological spells
+    Technological,
+    /// Water spells
+    Water,
+    /// Weather spells
+    Weather,
+}
+
+/// Spell classes (casting types).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
+pub enum SpellClass {
+    /// Regular spell affecting single target
+    Regular,
+    /// Area spell affecting region
+    Area,
+    /// Missile spell (ranged projectile)
+    Missile,
+    /// Melee spell (touch or close range)
+    Melee,
+    /// Blocking spell (intercepts other spells)
+    Blocking,
+    /// Information spell (divination, sensing)
+    Information,
+    /// Special (unique mechanics)
+    Special,
+}
+
+/// Describes a spell casting attempt.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct SpellCastingDescriptor {
+    /// Spell being cast
+    pub spell_name: String,
+
+    /// Caster's effective skill with spell
+    pub effective_skill: i32,
+
+    /// Energy cost for this casting
+    pub energy_cost: i32,
+
+    /// Casting time in seconds
+    pub casting_time: i32,
+
+    /// Target identifier (if applicable)
+    #[builder(default)]
+    pub target: Option<String>,
+
+    /// Distance to target in yards
+    #[builder(default)]
+    pub range_yards: i32,
+
+    /// Size/speed modifier
+    #[builder(default)]
+    pub size_speed_modifier: i32,
+
+    /// Time modifier (extra time or rushing)
+    #[builder(default)]
+    pub time_modifier: i32,
+
+    /// Environmental modifier
+    #[builder(default)]
+    pub environment_modifier: i32,
+
+    /// Whether taking extra energy for greater effect
+    #[builder(default)]
+    pub extra_energy: i32,
+
+    /// Whether spell is being maintained (not initial cast)
+    #[builder(default)]
+    pub is_maintenance: bool,
+}
+
+/// Describes the result of a spell casting attempt.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct SpellCastingResult {
+    /// The 3d6 roll result
+    pub roll: i32,
+
+    /// The effective skill that was rolled against
+    pub effective_skill: i32,
+
+    /// Whether the spell casting succeeded
+    pub success: bool,
+
+    /// Margin of success (if success) or failure (if failure)
+    pub margin: i32,
+
+    /// Whether this was a critical success
+    pub critical_success: bool,
+
+    /// Whether this was a critical failure
+    pub critical_failure: bool,
+
+    /// Energy actually spent (may differ from cost on failure)
+    pub energy_spent: i32,
+}
+
+/// Describes caster's state for spell casting.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct CasterDescriptor {
+    /// Caster's current Fatigue Points
+    pub current_fp: i32,
+
+    /// Caster's maximum Fatigue Points
+    pub max_fp: i32,
+
+    /// Caster's current Hit Points
+    pub current_hp: i32,
+
+    /// Caster's maximum Hit Points
+    pub max_hp: i32,
+
+    /// Caster's Magery level (0-3)
+    pub magery_level: i32,
+
+    /// Caster's IQ attribute
+    pub iq: i32,
+
+    /// Spells known by caster
+    #[builder(default)]
+    pub known_spells: Vec<SpellDescriptor>,
+
+    /// Whether caster is concentrating on a spell
+    #[builder(default)]
+    pub concentrating: bool,
+
+    /// Penalties from wounds, stunning, etc.
+    #[builder(default)]
+    pub penalties: i32,
+}
+
+/// Describes spell effect details.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
+pub struct SpellEffectDescriptor {
+    /// Spell name
+    pub spell_name: String,
+
+    /// Effect description
+    pub effect_description: String,
+
+    /// Duration in seconds (0 for instant)
+    pub duration_seconds: i32,
+
+    /// Whether spell is currently maintained
+    pub is_maintained: bool,
+
+    /// Target identifier(s)
+    pub targets: Vec<String>,
+
+    /// Numerical effect value (damage, healing, etc.)
+    pub effect_value: Option<i32>,
+
+    /// Area radius in yards (0 for single target)
+    pub area_radius_yards: i32,
+}
+
+/// Describes spell resistance contest.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct SpellResistanceDescriptor {
+    /// Caster's effective spell skill
+    pub caster_skill: i32,
+
+    /// Target's resistance attribute value
+    pub target_resistance: i32,
+
+    /// Type of resistance (Will, HT, etc.)
+    pub resistance_type: String,
+}
+
+/// Describes result of resistance contest.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct ResistanceResult {
+    /// Caster's roll
+    pub caster_roll: i32,
+
+    /// Target's roll
+    pub target_roll: i32,
+
+    /// Whether target successfully resisted
+    pub resisted: bool,
+
+    /// Margin of victory (positive if caster won, negative if target won)
+    pub margin: i32,
+}
+
+/// Describes ceremonial magic attempt.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct CeremonialMagicDescriptor {
+    /// Lead caster
+    pub leader: String,
+
+    /// Participating casters
+    pub participants: Vec<String>,
+
+    /// Spell being cast
+    pub spell_name: String,
+
+    /// Total energy pooled from all participants
+    pub pooled_energy: i32,
+
+    /// Leader's effective skill
+    pub leader_skill: i32,
+
+    /// Skill bonuses from assistants
+    #[builder(default)]
+    pub assistant_bonuses: i32,
+
+    /// Ceremony duration in seconds
+    pub ceremony_time: i32,
+}

@@ -31,21 +31,27 @@
 use crate::contracts::proof_composition::{
     AdvantagePurchaseEvidence, AttributePurchaseEvidence, AttackCriticalFailureEvidence,
     AttackCriticalSuccessEvidence, AttackFailureEvidence, AttackResolutionEvidence,
-    AttackSuccessEvidence, BasicDamageEvidence, CharacterCreationEvidence,
-    CharacterValidationEvidence, CombatHitEvidence, DefenseCriticalFailureEvidence,
-    DefenseCriticalSuccessEvidence, DefenseFailureEvidence, DefenseResolutionEvidence,
-    DefenseSuccessEvidence, DerivedStatsEvidence, DisadvantageTakenEvidence, FeintEvidence,
+    AttackSuccessEvidence, BasicDamageEvidence, CeremonialMagicEvidence, CharacterCreationEvidence,
+    CharacterValidationEvidence, CombatHitEvidence, CompleteSpellCastingEvidence,
+    DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence, DefenseFailureEvidence,
+    DefenseResolutionEvidence, DefenseSuccessEvidence, DerivedStatsEvidence,
+    DisadvantageTakenEvidence, EnergyCostEvidence, EnergyPaymentEvidence, FeintEvidence,
     InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
-    SecondaryCharacteristicEvidence, SkillCheckCriticalFailureEvidence,
+    ResistanceOvercomeEvidence, SecondaryCharacteristicEvidence, SkillCheckCriticalFailureEvidence,
     SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence, SkillCheckResolutionEvidence,
-    SkillCheckSuccessEvidence, SkillImprovementEvidence,
+    SkillCheckSuccessEvidence, SkillImprovementEvidence, SpellCastingFailureEvidence,
+    SpellCastingResolutionEvidence, SpellCastingSuccessEvidence, SpellCriticalFailureEvidence,
+    SpellCriticalSuccessEvidence, SpellEffectEvidence, SpellLearningEvidence,
+    SpellMaintenanceEvidence, SpellResistanceEvidence,
 };
 use crate::contracts::types::{
     AdvantageDescriptor, ArmorDescriptor, AttributeDescriptor, AttackDescriptor, AttackRollResult,
-    CharacterCreationDescriptor, CharacterDescriptor, CombatantDescriptor, DamageDescriptor,
-    DamageResult, DefenseDescriptor, DefenseRollResult, DerivedStatsDescriptor,
-    DisadvantageDescriptor, FeintDescriptor, FeintResult, HitLocation, RapidStrikeDescriptor,
-    SecondaryCharacteristicDescriptor, SkillCheckDescriptor, SkillCheckResult, SkillDescriptor,
+    CasterDescriptor, CeremonialMagicDescriptor, CharacterCreationDescriptor, CharacterDescriptor,
+    CombatantDescriptor, DamageDescriptor, DamageResult, DefenseDescriptor, DefenseRollResult,
+    DerivedStatsDescriptor, DisadvantageDescriptor, FeintDescriptor, FeintResult, HitLocation,
+    RapidStrikeDescriptor, ResistanceResult, SecondaryCharacteristicDescriptor, SkillCheckDescriptor,
+    SkillCheckResult, SkillDescriptor, SpellCastingDescriptor, SpellCastingResult, SpellDescriptor,
+    SpellEffectDescriptor, SpellResistanceDescriptor,
 };
 use async_trait::async_trait;
 use elicitation::contracts::Established;
@@ -769,5 +775,334 @@ pub enum CharacterImprovement {
     BuyOffDisadvantage {
         /// Disadvantage name
         name: String,
+    },
+}
+
+// ── Spell Learning ────────────────────────────────────────────────────────────
+
+/// Manages spell learning and progression.
+///
+/// Provides methods to learn spells, check prerequisites, and manage
+/// spell repertoire.
+#[async_trait]
+pub trait SpellManager {
+    /// Learn a new spell.
+    ///
+    /// Validates prerequisites and Magery requirement, then adds spell
+    /// to character's known spells.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Character must know all prerequisite spells and have sufficient
+    /// Magery level.
+    ///
+    /// # Citations
+    ///
+    /// Magic 7-8 - Learning spells
+    async fn learn_spell(
+        &self,
+        caster: CasterDescriptor,
+        spell: SpellDescriptor,
+    ) -> CombatResult<(CasterDescriptor, Established<SpellLearningEvidence>)>;
+
+    /// Improve existing spell skill.
+    ///
+    /// Spends character points to increase spell skill level.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Spells are Mental/Hard skills that improve with point spending.
+    ///
+    /// # Citations
+    ///
+    /// Magic 8-9 - Improving spell skill
+    async fn improve_spell(
+        &self,
+        caster: CasterDescriptor,
+        spell_name: String,
+        points: i32,
+    ) -> CombatResult<CasterDescriptor>;
+
+    /// Check if character can learn spell.
+    ///
+    /// Validates prerequisites and Magery without actually learning.
+    ///
+    /// # GURPS Rules
+    ///
+    /// All prerequisites must be known and Magery requirement met.
+    ///
+    /// # Citations
+    ///
+    /// Magic 8 - Prerequisites
+    async fn can_learn_spell(
+        &self,
+        caster: &CasterDescriptor,
+        spell: &SpellDescriptor,
+    ) -> CombatResult<bool>;
+}
+
+// ── Spell Casting ─────────────────────────────────────────────────────────────
+
+/// Resolves spell casting attempts.
+///
+/// Provides methods to cast spells, including concentration, skill rolls,
+/// energy payment, and effect application.
+#[async_trait]
+pub trait SpellCaster {
+    /// Resolve a spell casting attempt.
+    ///
+    /// Handles concentration, skill roll, and outcome determination.
+    /// Returns casting result and proof of resolution.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Spell casting: concentrate for time, roll vs. skill, pay energy.
+    ///
+    /// # Citations
+    ///
+    /// Magic 9-11 - Spell casting
+    async fn cast_spell(
+        &self,
+        caster: CasterDescriptor,
+        descriptor: SpellCastingDescriptor,
+    ) -> CombatResult<(
+        SpellCastingResult,
+        CasterDescriptor,
+        Established<SpellCastingResolutionEvidence>,
+    )>;
+
+    /// Confirm spell casting success.
+    ///
+    /// Takes resolved casting and returns proof of success.
+    async fn confirm_casting_success(
+        &self,
+        result: SpellCastingResult,
+        base_evidence: Established<SpellCastingResolutionEvidence>,
+    ) -> CombatResult<Established<SpellCastingSuccessEvidence>>;
+
+    /// Confirm spell casting failure.
+    ///
+    /// Takes resolved casting and returns proof of failure.
+    async fn confirm_casting_failure(
+        &self,
+        result: SpellCastingResult,
+        base_evidence: Established<SpellCastingResolutionEvidence>,
+    ) -> CombatResult<Established<SpellCastingFailureEvidence>>;
+
+    /// Confirm critical success.
+    ///
+    /// Takes successful casting and returns proof of critical success.
+    async fn confirm_critical_casting_success(
+        &self,
+        result: SpellCastingResult,
+        success_evidence: Established<SpellCastingSuccessEvidence>,
+    ) -> CombatResult<Established<SpellCriticalSuccessEvidence>>;
+
+    /// Confirm critical failure.
+    ///
+    /// Takes casting and returns proof of critical failure.
+    async fn confirm_critical_casting_failure(
+        &self,
+        result: SpellCastingResult,
+        base_evidence: Established<SpellCastingResolutionEvidence>,
+    ) -> CombatResult<Established<SpellCriticalFailureEvidence>>;
+
+    /// Calculate energy cost for spell.
+    ///
+    /// Determines base cost, applies skill reductions, calculates final cost.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Energy cost = base - skill reductions + extra effect costs.
+    /// Skill 15: -1, skill 20: -2, skill 25: -3, etc.
+    ///
+    /// # Citations
+    ///
+    /// Magic 12-13 - Energy cost
+    async fn calculate_energy_cost(
+        &self,
+        spell: &SpellDescriptor,
+        effective_skill: i32,
+        extra_energy: i32,
+    ) -> CombatResult<(i32, Established<EnergyCostEvidence>)>;
+
+    /// Pay energy for spell.
+    ///
+    /// Deducts energy from caster's FP/HP and returns updated state.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Spend FP first, then HP if FP exhausted.
+    ///
+    /// # Citations
+    ///
+    /// Magic 11-12 - Energy payment
+    async fn pay_energy(
+        &self,
+        caster: CasterDescriptor,
+        cost: i32,
+        cost_evidence: Established<EnergyCostEvidence>,
+    ) -> CombatResult<(CasterDescriptor, Established<EnergyPaymentEvidence>)>;
+}
+
+// ── Spell Effects ─────────────────────────────────────────────────────────────
+
+/// Applies spell effects to targets.
+///
+/// Provides methods to resolve spell effects, including resistance,
+/// damage, healing, and other magical effects.
+#[async_trait]
+pub trait SpellEffectResolver {
+    /// Apply spell effect to target(s).
+    ///
+    /// Resolves target determination, range check, and effect application.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Successful spell applies its effect per spell description.
+    ///
+    /// # Citations
+    ///
+    /// Magic 10-11 - Spell effects
+    async fn apply_spell_effect(
+        &self,
+        spell: &SpellDescriptor,
+        descriptor: SpellEffectDescriptor,
+        casting_evidence: Established<SpellCastingSuccessEvidence>,
+    ) -> CombatResult<Established<SpellEffectEvidence>>;
+
+    /// Resolve spell resistance.
+    ///
+    /// Runs Quick Contest between caster's skill and target's resistance.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Resistance: Quick Contest of caster's skill vs. target's attribute.
+    ///
+    /// # Citations
+    ///
+    /// Magic 18-20 - Resistance
+    async fn resolve_resistance(
+        &self,
+        descriptor: SpellResistanceDescriptor,
+    ) -> CombatResult<(ResistanceResult, Established<SpellResistanceEvidence>)>;
+
+    /// Confirm resistance overcome.
+    ///
+    /// Takes resistance result where caster won and returns proof.
+    async fn confirm_resistance_overcome(
+        &self,
+        result: ResistanceResult,
+        base_evidence: Established<SpellResistanceEvidence>,
+    ) -> CombatResult<Established<ResistanceOvercomeEvidence>>;
+
+    /// Maintain ongoing spell.
+    ///
+    /// Pays maintenance cost to keep spell active for another second.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Pay maintenance cost each second or spell ends.
+    ///
+    /// # Citations
+    ///
+    /// Magic 14 - Maintenance
+    async fn maintain_spell(
+        &self,
+        caster: CasterDescriptor,
+        spell: &SpellDescriptor,
+    ) -> CombatResult<(CasterDescriptor, Established<SpellMaintenanceEvidence>)>;
+}
+
+// ── Complete Spell Operations ─────────────────────────────────────────────────
+
+/// High-level spell operations.
+///
+/// Combines casting, energy payment, and effect application into
+/// complete spell operations.
+#[async_trait]
+pub trait SpellExecutor {
+    /// Execute complete spell casting.
+    ///
+    /// Handles entire spell casting flow: concentration, roll, energy, effect.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Complete spell: concentrate → roll → pay energy → apply effect.
+    ///
+    /// # Citations
+    ///
+    /// Magic 9-14 - Complete casting
+    async fn execute_spell(
+        &self,
+        caster: CasterDescriptor,
+        spell_descriptor: SpellCastingDescriptor,
+        effect_descriptor: SpellEffectDescriptor,
+    ) -> CombatResult<SpellExecutionResult>;
+
+    /// Execute ceremonial magic.
+    ///
+    /// Coordinates multiple casters for powerful ceremonial spell.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Ceremonial magic pools energy and skill from multiple mages.
+    ///
+    /// # Citations
+    ///
+    /// Magic 20-21 - Ceremonial magic
+    async fn execute_ceremonial_spell(
+        &self,
+        descriptor: CeremonialMagicDescriptor,
+    ) -> CombatResult<(SpellCastingResult, Established<CeremonialMagicEvidence>)>;
+}
+
+/// Result of complete spell execution.
+#[derive(Debug, Clone)]
+pub enum SpellExecutionResult {
+    /// Spell succeeded and affected target(s)
+    Success {
+        /// Casting result
+        result: SpellCastingResult,
+        /// Updated caster state
+        caster: CasterDescriptor,
+        /// Effect details
+        effect: SpellEffectDescriptor,
+        /// Complete proof of successful spell
+        evidence: Established<CompleteSpellCastingEvidence>,
+    },
+
+    /// Spell failed (insufficient skill)
+    Failure {
+        /// Casting result
+        result: SpellCastingResult,
+        /// Updated caster state (energy may be lost)
+        caster: CasterDescriptor,
+        /// Proof of failure
+        evidence: Established<SpellCastingFailureEvidence>,
+    },
+
+    /// Target resisted spell
+    Resisted {
+        /// Casting result (succeeded)
+        result: SpellCastingResult,
+        /// Updated caster state
+        caster: CasterDescriptor,
+        /// Resistance contest result
+        resistance: ResistanceResult,
+        /// Proof of resistance
+        evidence: Established<SpellResistanceEvidence>,
+    },
+
+    /// Critical failure (mishap occurred)
+    CriticalFailure {
+        /// Casting result
+        result: SpellCastingResult,
+        /// Updated caster state (may be injured)
+        caster: CasterDescriptor,
+        /// Mishap description
+        mishap: String,
+        /// Proof of critical failure
+        evidence: Established<SpellCriticalFailureEvidence>,
     },
 }

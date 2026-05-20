@@ -29,6 +29,16 @@ use crate::contracts::character::{
     FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
     SecondaryCharacteristicPurchased, WillSet,
 };
+use crate::contracts::magic::{
+    BaseEnergyCostDetermined, CeremonialCastingBegun, CeremonialSpellCompleted, ConcentrationBegun,
+    ConcentrationCompleted, ConcentrationMaintained, EnergyPaidFromCaster,
+    EnergyPooledFromParticipants, FinalEnergyCostCalculated, MageryRequirementMet,
+    MaintenanceEnergyPaid, ResistanceOvercome, ResistanceRollMade, ResistanceRollRequired,
+    SkillBasedCostReductionApplied, SpellCastingFailed, SpellCastingOutcomeDetermined,
+    SpellCastingSucceeded, SpellCriticalFailure, SpellCriticalSuccess, SpellDurationDetermined,
+    SpellEffectApplied, SpellLearned, SpellMaintained, SpellPrerequisitesMet, SpellRangeChecked,
+    SpellResistedSuccessfully, SpellSkillRollMade, SpellTargetDetermined,
+};
 use crate::contracts::combat::{
     AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess, AttackFailed,
     AttackOutcomeDetermined, AttackRollMade, AttackSuccessful, BasicDamageCalculated,
@@ -965,4 +975,364 @@ pub struct CharacterValidationEvidence {
     pub creation: CharacterCreationEvidence,
     /// Proof that character is valid
     pub valid: Established<CharacterValid>,
+}
+
+// ── Spell Learning Evidence ───────────────────────────────────────────────────
+
+/// Evidence that a spell was learned.
+///
+/// Composite proof establishing that:
+/// 1. All prerequisites were met
+/// 2. Magery requirement was satisfied
+/// 3. Spell was successfully learned
+///
+/// # GURPS Rules
+///
+/// To learn a spell, character must know prerequisites and have
+/// sufficient Magery level.
+///
+/// # Citations
+///
+/// Magic 7-8 - Learning spells
+#[derive(Prop)]
+pub struct SpellLearningEvidence {
+    /// Proof that prerequisites were met
+    pub prerequisites: Established<SpellPrerequisitesMet>,
+    /// Proof that Magery requirement was met
+    pub magery: Established<MageryRequirementMet>,
+    /// Proof that spell was learned
+    pub learned: Established<SpellLearned>,
+}
+
+// ── Spell Casting Evidence ────────────────────────────────────────────────────
+
+/// Evidence that concentration was completed.
+///
+/// Composite proof establishing that:
+/// 1. Concentration was begun
+/// 2. Concentration was maintained despite distractions
+/// 3. Concentration time was completed
+///
+/// # GURPS Rules
+///
+/// Casting requires uninterrupted concentration for the spell's
+/// casting time.
+///
+/// # Citations
+///
+/// Magic 9-10 - Concentration
+#[derive(Prop)]
+pub struct ConcentrationEvidence {
+    /// Proof that concentration began
+    pub begun: Established<ConcentrationBegun>,
+    /// Proof that concentration was maintained (if interrupted)
+    pub maintained: Option<Established<ConcentrationMaintained>>,
+    /// Proof that concentration completed
+    pub completed: Established<ConcentrationCompleted>,
+}
+
+/// Evidence that spell casting was resolved.
+///
+/// Composite proof establishing that:
+/// 1. Concentration was completed
+/// 2. Skill roll was made
+/// 3. Outcome was determined
+///
+/// # GURPS Rules
+///
+/// After concentrating, roll vs. spell skill to determine success.
+///
+/// # Citations
+///
+/// Magic 9-11 - Spell casting
+#[derive(Prop)]
+pub struct SpellCastingResolutionEvidence {
+    /// Proof of completed concentration
+    pub concentration: ConcentrationEvidence,
+    /// Proof that skill roll was made
+    pub roll_made: Established<SpellSkillRollMade>,
+    /// Proof that outcome was determined
+    pub outcome: Established<SpellCastingOutcomeDetermined>,
+}
+
+/// Evidence that spell casting succeeded.
+///
+/// Composite proof establishing that:
+/// 1. Spell casting was resolved
+/// 2. Casting succeeded
+///
+/// # GURPS Rules
+///
+/// Successful spell roll means spell takes effect.
+///
+/// # Citations
+///
+/// Magic 10 - Successful casting
+#[derive(Prop)]
+pub struct SpellCastingSuccessEvidence {
+    /// Proof of spell casting resolution
+    pub resolution: SpellCastingResolutionEvidence,
+    /// Proof that casting succeeded
+    pub success: Established<SpellCastingSucceeded>,
+}
+
+/// Evidence that spell casting failed.
+///
+/// Composite proof establishing that:
+/// 1. Spell casting was resolved
+/// 2. Casting failed
+///
+/// # GURPS Rules
+///
+/// Failed spell roll means spell doesn't work, partial energy loss.
+///
+/// # Citations
+///
+/// Magic 11 - Spell failure
+#[derive(Prop)]
+pub struct SpellCastingFailureEvidence {
+    /// Proof of spell casting resolution
+    pub resolution: SpellCastingResolutionEvidence,
+    /// Proof that casting failed
+    pub failure: Established<SpellCastingFailed>,
+}
+
+/// Evidence that spell critically succeeded.
+///
+/// Composite proof establishing that:
+/// 1. Spell casting succeeded
+/// 2. Roll was a critical success
+///
+/// # GURPS Rules
+///
+/// Critical success grants special benefits (no energy, double effect, etc.).
+///
+/// # Citations
+///
+/// Magic 15 - Critical success
+#[derive(Prop)]
+pub struct SpellCriticalSuccessEvidence {
+    /// Proof of successful casting
+    pub success: SpellCastingSuccessEvidence,
+    /// Proof of critical success
+    pub critical: Established<SpellCriticalSuccess>,
+}
+
+/// Evidence that spell critically failed.
+///
+/// Composite proof establishing that:
+/// 1. Spell casting was resolved
+/// 2. Roll was a critical failure
+///
+/// # GURPS Rules
+///
+/// Critical failure causes mishaps (injury, wrong target, etc.).
+///
+/// # Citations
+///
+/// Magic 16 - Critical failure
+/// Magic 71 - Critical failure table
+#[derive(Prop)]
+pub struct SpellCriticalFailureEvidence {
+    /// Proof of spell casting resolution
+    pub resolution: SpellCastingResolutionEvidence,
+    /// Proof of critical failure
+    pub critical: Established<SpellCriticalFailure>,
+}
+
+// ── Energy Cost Evidence ──────────────────────────────────────────────────────
+
+/// Evidence that energy cost was calculated.
+///
+/// Composite proof establishing that:
+/// 1. Base cost was determined
+/// 2. Skill-based reduction was applied
+/// 3. Final cost was calculated
+///
+/// # GURPS Rules
+///
+/// Energy cost = base - skill reductions + extra effect costs.
+///
+/// # Citations
+///
+/// Magic 12-13 - Energy cost calculation
+#[derive(Prop)]
+pub struct EnergyCostEvidence {
+    /// Proof that base cost was determined
+    pub base_cost: Established<BaseEnergyCostDetermined>,
+    /// Proof that skill reduction was applied
+    pub skill_reduction: Established<SkillBasedCostReductionApplied>,
+    /// Proof that final cost was calculated
+    pub final_cost: Established<FinalEnergyCostCalculated>,
+}
+
+/// Evidence that energy was paid for spell.
+///
+/// Composite proof establishing that:
+/// 1. Energy cost was calculated
+/// 2. Energy was paid from caster's FP/HP
+///
+/// # GURPS Rules
+///
+/// Caster spends FP (or HP if FP exhausted) to power spell.
+///
+/// # Citations
+///
+/// Magic 11-12 - Energy payment
+#[derive(Prop)]
+pub struct EnergyPaymentEvidence {
+    /// Evidence of cost calculation
+    pub cost: EnergyCostEvidence,
+    /// Proof that energy was paid
+    pub paid: Established<EnergyPaidFromCaster>,
+}
+
+/// Evidence that spell is being maintained.
+///
+/// Composite proof establishing that:
+/// 1. Spell has maintenance cost
+/// 2. Maintenance energy was paid this second
+///
+/// # GURPS Rules
+///
+/// Maintained spells require ongoing energy payment each second.
+///
+/// # Citations
+///
+/// Magic 14 - Spell maintenance
+#[derive(Prop)]
+pub struct SpellMaintenanceEvidence {
+    /// Proof that spell is maintained
+    pub maintained: Established<SpellMaintained>,
+    /// Proof that maintenance energy was paid
+    pub energy_paid: Established<MaintenanceEnergyPaid>,
+}
+
+// ── Spell Effect Evidence ─────────────────────────────────────────────────────
+
+/// Evidence that spell effect was applied.
+///
+/// Composite proof establishing that:
+/// 1. Target was determined
+/// 2. Range was checked
+/// 3. Duration was determined
+/// 4. Effect was applied
+///
+/// # GURPS Rules
+///
+/// Successful spell applies its effect to valid target within range.
+///
+/// # Citations
+///
+/// Magic 10-11 - Spell effects
+#[derive(Prop)]
+pub struct SpellEffectEvidence {
+    /// Proof that target was determined
+    pub target: Established<SpellTargetDetermined>,
+    /// Proof that range was checked
+    pub range: Established<SpellRangeChecked>,
+    /// Proof that duration was determined
+    pub duration: Established<SpellDurationDetermined>,
+    /// Proof that effect was applied
+    pub effect: Established<SpellEffectApplied>,
+}
+
+/// Evidence that complete spell was cast successfully.
+///
+/// Composite proof establishing that:
+/// 1. Spell casting succeeded
+/// 2. Energy was paid
+/// 3. Effect was applied
+///
+/// # GURPS Rules
+///
+/// Complete successful spell: concentrate, roll, pay energy, apply effect.
+///
+/// # Citations
+///
+/// Magic 9-14 - Complete spell casting
+#[derive(Prop)]
+pub struct CompleteSpellCastingEvidence {
+    /// Proof of successful casting
+    pub casting: SpellCastingSuccessEvidence,
+    /// Evidence of energy payment
+    pub energy: EnergyPaymentEvidence,
+    /// Evidence of effect application
+    pub effect: SpellEffectEvidence,
+}
+
+// ── Spell Resistance Evidence ─────────────────────────────────────────────────
+
+/// Evidence that spell was resisted.
+///
+/// Composite proof establishing that:
+/// 1. Resistance roll was required
+/// 2. Resistance roll was made
+/// 3. Spell was successfully resisted
+///
+/// # GURPS Rules
+///
+/// Target rolls to resist spell in Quick Contest vs. caster's skill.
+///
+/// # Citations
+///
+/// Magic 18-20 - Resistance
+#[derive(Prop)]
+pub struct SpellResistanceEvidence {
+    /// Proof that resistance was required
+    pub required: Established<ResistanceRollRequired>,
+    /// Proof that roll was made
+    pub roll_made: Established<ResistanceRollMade>,
+    /// Proof that spell was resisted
+    pub resisted: Established<SpellResistedSuccessfully>,
+}
+
+/// Evidence that resistance was overcome.
+///
+/// Composite proof establishing that:
+/// 1. Resistance roll was required
+/// 2. Resistance roll was made
+/// 3. Caster overcame resistance
+///
+/// # GURPS Rules
+///
+/// If caster wins Quick Contest, spell affects resistant target.
+///
+/// # Citations
+///
+/// Magic 18 - Overcoming resistance
+#[derive(Prop)]
+pub struct ResistanceOvercomeEvidence {
+    /// Proof that resistance was required
+    pub required: Established<ResistanceRollRequired>,
+    /// Proof that roll was made
+    pub roll_made: Established<ResistanceRollMade>,
+    /// Proof that resistance was overcome
+    pub overcome: Established<ResistanceOvercome>,
+}
+
+// ── Ceremonial Magic Evidence ─────────────────────────────────────────────────
+
+/// Evidence that ceremonial spell was cast.
+///
+/// Composite proof establishing that:
+/// 1. Ceremonial casting was begun
+/// 2. Energy was pooled from participants
+/// 3. Ceremonial spell was completed
+///
+/// # GURPS Rules
+///
+/// Multiple mages combine energy and skill for powerful ceremonies.
+///
+/// # Citations
+///
+/// Magic 20-21 - Ceremonial magic
+#[derive(Prop)]
+pub struct CeremonialMagicEvidence {
+    /// Proof that ceremonial casting begun
+    pub begun: Established<CeremonialCastingBegun>,
+    /// Proof that energy was pooled
+    pub energy_pooled: Established<EnergyPooledFromParticipants>,
+    /// Proof that ceremony completed
+    pub completed: Established<CeremonialSpellCompleted>,
 }
