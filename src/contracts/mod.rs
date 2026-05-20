@@ -17,7 +17,11 @@
 //! # Structure
 //!
 //! - [`combat`] - Combat system propositions (attack, defense, damage)
+//! - [`skills`] - Skill check and advancement propositions
+//! - [`character`] - Character creation and validation propositions
 //! - [`proof_composition`] - Evidence bundles for multi-step operations
+//! - [`traits`] - Trait interfaces returning proof tokens
+//! - [`types`] - Descriptor types for game operations
 //!
 //! # Example
 //!
@@ -54,8 +58,6 @@
 //! # Future Work
 //!
 //! This module will expand to cover:
-//! - Skill checks and task resolution
-//! - Character creation and advancement
 //! - Magic system (if implementing magic)
 //! - Equipment and encumbrance
 //! - Social interactions and influence
@@ -63,9 +65,11 @@
 //! Eventually, the entire GURPS ruleset will form a [`VerifiedStateMachine`][elicitation::contracts::VerifiedStateMachine]
 //! with formally verified state transitions.
 
+pub mod character;
 pub mod combat;
 mod credentials;
 pub mod proof_composition;
+pub mod skills;
 pub mod traits;
 pub mod types;
 
@@ -85,28 +89,64 @@ pub use combat::{
     WoundingModifierApplied,
 };
 
+// Re-export skill propositions
+pub use skills::{
+    CharacterPointsSpentOnSkill, ComplementarySkillBonusApplied, ContestWinnerDetermined,
+    DefaultPenaltyApplied, FamiliarityPenaltyApplied, SituationalModifierApplied,
+    SkillCheckCriticalFailure, SkillCheckCriticalSuccess, SkillCheckFailed,
+    SkillCheckOutcomeDetermined, SkillCheckRollMade, SkillCheckSuccessful, SkillContestResolved,
+    SkillDefaultedToAttribute, SkillDefaultedToRelatedSkill, SkillLevelIncreased,
+    SkillPointBudgetValid, SkillPrerequisiteMet, TaskDifficultyModifierApplied, TechniqueUsed,
+    TimeSpentModifierApplied, WildcardSkillUsed,
+};
+
+// Re-export character propositions
+pub use character::{
+    AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePurchased,
+    AdvantagePrerequisiteMet, AttributeCostCalculated, AttributePurchased,
+    AttributesMeetCampaignMinimums, BasicMoveCalculated, BasicSpeedCalculated, CharacterComplete,
+    CharacterIdentified, CharacterPointValueSet, CharacterValid, DisadvantageLevelValid,
+    DisadvantageTaken, DisadvantagePointLimitRespected, DisadvantagesNotConflicting,
+    DodgeCalculated, FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
+    QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet, SecondaryCharacteristicPurchased,
+    SelfControlRollSpecified, WillSet,
+};
+
 // Re-export evidence bundles
 pub use proof_composition::{
-    AllOutAttackEvidence, AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence,
-    AttackFailureEvidence, AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence,
-    CombatHitEvidence, CombatMissEvidence, DeceptiveAttackEvidence,
-    DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence, DefenseFailureEvidence,
-    DefenseResolutionEvidence, DefenseSuccessEvidence, FeintEvidence,
+    AdvantagePurchaseEvidence, AllOutAttackEvidence, AttributePurchaseEvidence,
+    AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence, AttackFailureEvidence,
+    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence,
+    CharacterCreationEvidence, CharacterValidationEvidence, CombatHitEvidence, CombatMissEvidence,
+    ComplementarySkillEvidence, DeceptiveAttackEvidence, DefenseCriticalFailureEvidence,
+    DefenseCriticalSuccessEvidence, DefenseFailureEvidence, DefenseResolutionEvidence,
+    DefenseSuccessEvidence, DerivedStatsEvidence, DisadvantageTakenEvidence, FeintEvidence,
     InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
+    SecondaryCharacteristicEvidence, SkillAttributeDefaultEvidence, SkillCheckCriticalFailureEvidence,
+    SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence, SkillCheckResolutionEvidence,
+    SkillCheckSuccessEvidence, SkillImprovementEvidence, SkillModifiersEvidence,
+    SkillRelatedDefaultEvidence, TechniqueUsageEvidence, WildcardSkillEvidence,
 };
 
 // Re-export trait interfaces
 pub use traits::{
-    AttackMeta, AttackResolver, CombatExchangeResult, CombatExecutor, CombatResult,
-    ContractError, DamageCalculator, DamageMeta, DefenseMeta, DefenseResolver, ManeuverExecutor,
-    MissReason,
+    AttackMeta, AttackResolver, CharacterAdvancement, CharacterBuilder, CharacterImprovement,
+    CombatExchangeResult, CombatExecutor, CombatResult, ContractError, DamageCalculator,
+    DamageMeta, DefenseMeta, DefenseResolver, ManeuverExecutor, MissReason, SkillCheckExecutor,
+    SkillManager,
 };
 
 // Re-export descriptor types
 pub use types::{
-    ArmorDescriptor, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
-    CombatantDescriptor, CombatantDescriptorBuilder, DamageDescriptor, DamageDescriptorBuilder,
-    DamageResult, DamageTypeDescriptor, DefenseDescriptor, DefenseDescriptorBuilder,
-    DefenseRollResult, DefenseType, FeintDescriptor, FeintResult, HitLocation,
-    RapidStrikeDescriptor,
+    AdvantageDescriptor, AdvantageDescriptorBuilder, ArmorDescriptor, AttributeDescriptor,
+    AttributeMinimums, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
+    CharacterCreationDescriptor, CharacterCreationDescriptorBuilder, CharacterDescriptor,
+    CharacterDescriptorBuilder, CombatantDescriptor, CombatantDescriptorBuilder,
+    DamageDescriptor, DamageDescriptorBuilder, DamageResult, DamageTypeDescriptor,
+    DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType,
+    DerivedStatsDescriptor, DisadvantageDescriptor, DisadvantageDescriptorBuilder,
+    FeintDescriptor, FeintResult, ModifierDescriptor, RapidStrikeDescriptor,
+    SecondaryCharacteristicDescriptor, SecondaryCharacteristicType, SkillCheckDescriptor,
+    SkillCheckDescriptorBuilder, SkillCheckResult, SkillDefaultDescriptor, SkillDefaultType,
+    SkillDescriptor, SkillDescriptorBuilder, SkillDifficulty,
 };

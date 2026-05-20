@@ -29,16 +29,23 @@
 //! ```
 
 use crate::contracts::proof_composition::{
-    AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence, AttackFailureEvidence,
-    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence, CombatHitEvidence,
-    DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence, DefenseFailureEvidence,
-    DefenseResolutionEvidence, DefenseSuccessEvidence, FeintEvidence,
+    AdvantagePurchaseEvidence, AttributePurchaseEvidence, AttackCriticalFailureEvidence,
+    AttackCriticalSuccessEvidence, AttackFailureEvidence, AttackResolutionEvidence,
+    AttackSuccessEvidence, BasicDamageEvidence, CharacterCreationEvidence,
+    CharacterValidationEvidence, CombatHitEvidence, DefenseCriticalFailureEvidence,
+    DefenseCriticalSuccessEvidence, DefenseFailureEvidence, DefenseResolutionEvidence,
+    DefenseSuccessEvidence, DerivedStatsEvidence, DisadvantageTakenEvidence, FeintEvidence,
     InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
+    SecondaryCharacteristicEvidence, SkillCheckCriticalFailureEvidence,
+    SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence, SkillCheckResolutionEvidence,
+    SkillCheckSuccessEvidence, SkillImprovementEvidence,
 };
 use crate::contracts::types::{
-    ArmorDescriptor, AttackDescriptor, AttackRollResult, CombatantDescriptor, DamageDescriptor,
-    DamageResult, DefenseDescriptor, DefenseRollResult, FeintDescriptor, FeintResult, HitLocation,
-    RapidStrikeDescriptor,
+    AdvantageDescriptor, ArmorDescriptor, AttributeDescriptor, AttackDescriptor, AttackRollResult,
+    CharacterCreationDescriptor, CharacterDescriptor, CombatantDescriptor, DamageDescriptor,
+    DamageResult, DefenseDescriptor, DefenseRollResult, DerivedStatsDescriptor,
+    DisadvantageDescriptor, FeintDescriptor, FeintResult, HitLocation, RapidStrikeDescriptor,
+    SecondaryCharacteristicDescriptor, SkillCheckDescriptor, SkillCheckResult, SkillDescriptor,
 };
 use async_trait::async_trait;
 use elicitation::contracts::Established;
@@ -432,4 +439,335 @@ pub trait DamageMeta {
 
     /// Returns the final injury to HP.
     fn injury(&self) -> i32;
+}
+
+// ── Skill Check Resolution ────────────────────────────────────────────────────
+
+/// Resolves skill checks and determines outcomes.
+///
+/// Provides methods to execute GURPS skill checks, returning
+/// proofs that the skill check was properly rolled and evaluated.
+#[async_trait]
+pub trait SkillCheckExecutor {
+    /// Resolve a skill check roll.
+    ///
+    /// Rolls 3d6 against effective skill and determines success/failure.
+    /// Returns the roll result and proof that the skill check was resolved.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Roll 3d6 ≤ effective skill for success.
+    /// Critical success on 3-4, or 5-6 if skill ≥ 15.
+    /// Critical failure on 17-18, or if margin ≥ 10.
+    ///
+    /// # Citations
+    ///
+    /// BS 171 - Skill checks
+    /// BS 344 - Success rolls
+    async fn resolve_skill_check(
+        &self,
+        descriptor: SkillCheckDescriptor,
+    ) -> CombatResult<(SkillCheckResult, Established<SkillCheckResolutionEvidence>)>;
+
+    /// Confirm skill check success.
+    ///
+    /// Takes an already-resolved skill check and returns proof that it succeeded.
+    async fn confirm_skill_check_success(
+        &self,
+        result: SkillCheckResult,
+        base_evidence: Established<SkillCheckResolutionEvidence>,
+    ) -> CombatResult<Established<SkillCheckSuccessEvidence>>;
+
+    /// Confirm skill check failure.
+    ///
+    /// Takes an already-resolved skill check and returns proof that it failed.
+    async fn confirm_skill_check_failure(
+        &self,
+        result: SkillCheckResult,
+        base_evidence: Established<SkillCheckResolutionEvidence>,
+    ) -> CombatResult<Established<SkillCheckFailureEvidence>>;
+
+    /// Confirm critical success on skill check.
+    ///
+    /// Takes a successful skill check and returns proof of critical success.
+    async fn confirm_critical_skill_success(
+        &self,
+        result: SkillCheckResult,
+        success_evidence: Established<SkillCheckSuccessEvidence>,
+    ) -> CombatResult<Established<SkillCheckCriticalSuccessEvidence>>;
+
+    /// Confirm critical failure on skill check.
+    ///
+    /// Takes a skill check and returns proof of critical failure.
+    async fn confirm_critical_skill_failure(
+        &self,
+        result: SkillCheckResult,
+        base_evidence: Established<SkillCheckResolutionEvidence>,
+    ) -> CombatResult<Established<SkillCheckCriticalFailureEvidence>>;
+}
+
+// ── Skill Management ──────────────────────────────────────────────────────────
+
+/// Manages character skills and improvement.
+///
+/// Provides methods to add skills, improve skills, and calculate skill levels.
+#[async_trait]
+pub trait SkillManager {
+    /// Add a new skill to a character.
+    ///
+    /// Creates a new skill entry with the specified base level and point cost.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Skills start at attribute level - penalty (based on difficulty).
+    /// Spending 1-4 points raises relative skill level.
+    ///
+    /// # Citations
+    ///
+    /// BS 170 - Skill costs
+    async fn add_skill(
+        &self,
+        character: CharacterDescriptor,
+        skill: SkillDescriptor,
+    ) -> CombatResult<CharacterDescriptor>;
+
+    /// Improve an existing skill.
+    ///
+    /// Spends character points to increase skill level.
+    /// Returns updated character and proof that improvement was valid.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Cost increases exponentially: 1/2/4/8/16 points per level.
+    ///
+    /// # Citations
+    ///
+    /// BS 170 - Improving skills
+    async fn improve_skill(
+        &self,
+        character: CharacterDescriptor,
+        skill_name: String,
+        points_to_spend: i32,
+    ) -> CombatResult<(CharacterDescriptor, Established<SkillImprovementEvidence>)>;
+
+    /// Calculate effective skill level.
+    ///
+    /// Computes effective skill including modifiers, defaults, and bonuses.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Effective skill = base skill + modifiers - penalties
+    ///
+    /// # Citations
+    ///
+    /// BS 171 - Effective skill
+    async fn calculate_effective_skill(
+        &self,
+        character: &CharacterDescriptor,
+        skill_name: String,
+        modifiers: i32,
+    ) -> CombatResult<i32>;
+}
+
+// ── Character Creation ────────────────────────────────────────────────────────
+
+/// Creates and validates GURPS characters.
+///
+/// Provides methods to build characters step-by-step, ensuring all
+/// GURPS rules and campaign restrictions are followed.
+#[async_trait]
+pub trait CharacterBuilder {
+    /// Create a new character with basic parameters.
+    ///
+    /// Initializes character with name, point total, and default attributes.
+    ///
+    /// # GURPS Rules
+    ///
+    /// All characters start with 10 in each attribute (ST, DX, IQ, HT).
+    ///
+    /// # Citations
+    ///
+    /// BS 10 - Character creation
+    async fn create_character(
+        &self,
+        descriptor: CharacterCreationDescriptor,
+    ) -> CombatResult<CharacterDescriptor>;
+
+    /// Purchase a primary attribute.
+    ///
+    /// Sets attribute level and calculates point cost.
+    /// Returns updated character and proof of valid purchase.
+    ///
+    /// # GURPS Rules
+    ///
+    /// ST/HT cost 10 points per level, DX/IQ cost 20 points per level.
+    ///
+    /// # Citations
+    ///
+    /// BS 14-16 - Attributes
+    async fn purchase_attribute(
+        &self,
+        character: CharacterDescriptor,
+        attribute: AttributeDescriptor,
+    ) -> CombatResult<(CharacterDescriptor, Established<AttributePurchaseEvidence>)>;
+
+    /// Purchase a secondary characteristic.
+    ///
+    /// Buys extra HP, Will, Per, FP, Basic Speed, or Basic Move.
+    /// Returns updated character and proof of valid purchase.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Secondary characteristics have varying costs (2-20 points per level).
+    ///
+    /// # Citations
+    ///
+    /// BS 16-17 - Secondary characteristics
+    async fn purchase_secondary_characteristic(
+        &self,
+        character: CharacterDescriptor,
+        characteristic: SecondaryCharacteristicDescriptor,
+    ) -> CombatResult<(CharacterDescriptor, Established<SecondaryCharacteristicEvidence>)>;
+
+    /// Add an advantage.
+    ///
+    /// Purchases advantage with modifiers and level (if applicable).
+    /// Returns updated character and proof of valid purchase.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Advantages cost points based on base cost and modifiers.
+    ///
+    /// # Citations
+    ///
+    /// BS 100-132 - Advantages
+    async fn add_advantage(
+        &self,
+        character: CharacterDescriptor,
+        advantage: AdvantageDescriptor,
+    ) -> CombatResult<(CharacterDescriptor, Established<AdvantagePurchaseEvidence>)>;
+
+    /// Add a disadvantage.
+    ///
+    /// Takes disadvantage for bonus points.
+    /// Returns updated character and proof of valid disadvantage.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Disadvantages provide points up to campaign limit (typically -50).
+    ///
+    /// # Citations
+    ///
+    /// BS 133-166 - Disadvantages
+    async fn add_disadvantage(
+        &self,
+        character: CharacterDescriptor,
+        disadvantage: DisadvantageDescriptor,
+    ) -> CombatResult<(CharacterDescriptor, Established<DisadvantageTakenEvidence>)>;
+
+    /// Calculate all derived statistics.
+    ///
+    /// Computes Basic Speed, Basic Move, Dodge, HP, Will, Per, FP.
+    /// Returns updated character and proof of correct calculation.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Derived stats follow formulas based on primary attributes.
+    ///
+    /// # Citations
+    ///
+    /// BS 16-17 - Derived statistics
+    async fn calculate_derived_stats(
+        &self,
+        character: CharacterDescriptor,
+    ) -> CombatResult<(DerivedStatsDescriptor, Established<DerivedStatsEvidence>)>;
+
+    /// Finalize character creation.
+    ///
+    /// Validates complete character and returns proof of validity.
+    /// Ensures point budget is balanced and all requirements are met.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Characters must be complete, valid, and within point budget.
+    ///
+    /// # Citations
+    ///
+    /// BS 10-15 - Character validation
+    async fn finalize_character(
+        &self,
+        character: CharacterDescriptor,
+    ) -> CombatResult<(CharacterDescriptor, Established<CharacterValidationEvidence>)>;
+}
+
+// ── Character Advancement ─────────────────────────────────────────────────────
+
+/// Manages character advancement and experience.
+///
+/// Provides methods to award experience points and improve characters.
+#[async_trait]
+pub trait CharacterAdvancement {
+    /// Award experience points to character.
+    ///
+    /// Adds unspent character points for future improvements.
+    ///
+    /// # GURPS Rules
+    ///
+    /// GM awards points based on game progress.
+    ///
+    /// # Citations
+    ///
+    /// BS 498 - Character advancement
+    async fn award_experience(
+        &self,
+        character: CharacterDescriptor,
+        points: i32,
+    ) -> CombatResult<CharacterDescriptor>;
+
+    /// Spend experience points on improvements.
+    ///
+    /// Applies points to attributes, skills, or advantages.
+    /// Returns updated character with proof of valid spending.
+    ///
+    /// # GURPS Rules
+    ///
+    /// Improvements follow same costs as character creation.
+    ///
+    /// # Citations
+    ///
+    /// BS 498 - Spending points
+    async fn spend_experience(
+        &self,
+        character: CharacterDescriptor,
+        improvement: CharacterImprovement,
+    ) -> CombatResult<(CharacterDescriptor, Established<CharacterCreationEvidence>)>;
+}
+
+/// Types of character improvements.
+#[derive(Debug, Clone, PartialEq)]
+pub enum CharacterImprovement {
+    /// Raise an attribute
+    Attribute {
+        /// Attribute to improve
+        attribute_type: crate::contracts::types::AttributeType,
+        /// Levels to increase
+        levels: i32,
+    },
+    /// Improve a skill
+    Skill {
+        /// Skill name
+        name: String,
+        /// Points to spend
+        points: i32,
+    },
+    /// Purchase new advantage
+    Advantage {
+        /// Advantage descriptor
+        advantage: AdvantageDescriptor,
+    },
+    /// Buy off disadvantage
+    BuyOffDisadvantage {
+        /// Disadvantage name
+        name: String,
+    },
 }

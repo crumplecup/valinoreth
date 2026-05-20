@@ -21,6 +21,16 @@
 //! This ensures proofs can only be minted by code that actually performed
 //! the validation.
 
+use crate::contracts::character::{
+    AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePurchased,
+    AdvantagePrerequisiteMet, AttributeCostCalculated, AttributePurchased,
+    AttributesMeetCampaignMinimums, BasicMoveCalculated, BasicSpeedCalculated, CharacterComplete,
+    CharacterIdentified, CharacterPointValueSet, CharacterValid, DisadvantageLevelValid,
+    DisadvantageTaken, DisadvantagePointLimitRespected, DisadvantagesNotConflicting,
+    DodgeCalculated, FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
+    QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet, SecondaryCharacteristicPurchased,
+    SelfControlRollSpecified, WillSet,
+};
 use crate::contracts::combat::{
     AimBonusApplied, AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess,
     AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful,
@@ -29,6 +39,15 @@ use crate::contracts::combat::{
     DefenseRollMade, DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied,
     InjuryCalculated, LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled,
     WoundingModifierApplied,
+};
+use crate::contracts::skills::{
+    CharacterPointsSpentOnSkill, ComplementarySkillBonusApplied, ContestWinnerDetermined,
+    DefaultPenaltyApplied, FamiliarityPenaltyApplied, SituationalModifierApplied,
+    SkillCheckCriticalFailure, SkillCheckCriticalSuccess, SkillCheckFailed,
+    SkillCheckOutcomeDetermined, SkillCheckRollMade, SkillCheckSuccessful, SkillContestResolved,
+    SkillDefaultedToAttribute, SkillDefaultedToRelatedSkill, SkillLevelIncreased,
+    SkillPointBudgetValid, SkillPrerequisiteMet, TaskDifficultyModifierApplied, TechniqueUsed,
+    TimeSpentModifierApplied, WildcardSkillUsed,
 };
 use elicitation::proof_credential;
 
@@ -258,4 +277,202 @@ impl DamageCalculation {
             injury,
         }
     }
+}
+
+// ── Skill Check Credentials ───────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that 3d6 was rolled for a skill check.
+    pub(crate) ValidSkillCheckRoll => SkillCheckRollMade;
+
+    /// Witness that skill check roll was compared to effective skill.
+    pub(crate) SkillCheckOutcomeChecked => SkillCheckOutcomeDetermined;
+
+    /// Witness that skill check succeeded (roll ≤ skill).
+    pub(crate) SkillCheckHit => SkillCheckSuccessful;
+
+    /// Witness that skill check failed (roll > skill).
+    pub(crate) SkillCheckMiss => SkillCheckFailed;
+
+    /// Witness that skill check achieved critical success.
+    pub(crate) SkillCheckCriticalHit => SkillCheckCriticalSuccess;
+
+    /// Witness that skill check suffered critical failure.
+    pub(crate) SkillCheckCriticalMiss => SkillCheckCriticalFailure;
+}
+
+// ── Skill Default Credentials ─────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that skill defaulted to an attribute.
+    pub(crate) AttributeDefaultUsed => SkillDefaultedToAttribute;
+
+    /// Witness that skill defaulted to a related skill.
+    pub(crate) RelatedSkillDefaultUsed => SkillDefaultedToRelatedSkill;
+
+    /// Witness that default penalty was applied.
+    pub(crate) DefaultPenaltyAppliedCredential => DefaultPenaltyApplied;
+}
+
+// ── Skill Modifier Credentials ────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that situational modifier was applied.
+    pub(crate) SituationalModApplied => SituationalModifierApplied;
+
+    /// Witness that task difficulty modifier was applied.
+    pub(crate) TaskDifficultyApplied => TaskDifficultyModifierApplied;
+
+    /// Witness that time spent modifier was applied.
+    pub(crate) TimeSpentApplied => TimeSpentModifierApplied;
+
+    /// Witness that complementary skill bonus was applied.
+    pub(crate) ComplementaryBonusApplied => ComplementarySkillBonusApplied;
+
+    /// Witness that familiarity penalty was applied.
+    pub(crate) FamiliarityPenaltyAppliedCredential => FamiliarityPenaltyApplied;
+}
+
+// ── Skill Improvement Credentials ─────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that character points were spent on skill.
+    pub(crate) PointsSpentOnSkill => CharacterPointsSpentOnSkill;
+
+    /// Witness that skill level was increased.
+    pub(crate) SkillLevelRaised => SkillLevelIncreased;
+
+    /// Witness that skill prerequisite was met.
+    pub(crate) PrerequisiteMet => SkillPrerequisiteMet;
+
+    /// Witness that skill point budget is valid.
+    pub(crate) SkillBudgetValid => SkillPointBudgetValid;
+}
+
+// ── Special Skill Usage Credentials ───────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that wildcard skill was used.
+    pub(crate) WildcardUsed => WildcardSkillUsed;
+
+    /// Witness that technique was used.
+    pub(crate) TechniqueApplied => TechniqueUsed;
+
+    /// Witness that skill contest was resolved.
+    pub(crate) ContestResolved => SkillContestResolved;
+
+    /// Witness that contest winner was determined.
+    pub(crate) WinnerDetermined => ContestWinnerDetermined;
+}
+
+// ── Character Point Budget Credentials ────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that character point value was set.
+    pub(crate) PointValueSet => CharacterPointValueSet;
+
+    /// Witness that point budget is balanced.
+    pub(crate) BudgetBalanced => PointBudgetBalanced;
+
+    /// Witness that disadvantage point limit is respected.
+    pub(crate) DisadvantageLimitRespected => DisadvantagePointLimitRespected;
+}
+
+// ── Attribute Purchase Credentials ────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that attribute was purchased.
+    pub(crate) AttributeBought => AttributePurchased;
+
+    /// Witness that attribute cost was calculated correctly.
+    pub(crate) AttributeCostComputed => AttributeCostCalculated;
+
+    /// Witness that secondary characteristic was purchased.
+    pub(crate) SecondaryCharacteristicBought => SecondaryCharacteristicPurchased;
+}
+
+// ── Advantage Selection Credentials ───────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that advantage was purchased.
+    pub(crate) AdvantageBought => AdvantagePurchased;
+
+    /// Witness that advantage modifiers were calculated.
+    pub(crate) AdvantageModifiersComputed => AdvantageModifiersCostCalculated;
+
+    /// Witness that advantage level is valid.
+    pub(crate) AdvantageLevelValidated => AdvantageLevelValid;
+
+    /// Witness that advantage prerequisite was met.
+    pub(crate) AdvantagePrereqMet => AdvantagePrerequisiteMet;
+}
+
+// ── Disadvantage Selection Credentials ────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that disadvantage was taken.
+    pub(crate) DisadvantageTakenCredential => DisadvantageTaken;
+
+    /// Witness that self-control roll was specified.
+    pub(crate) SelfControlSpecified => SelfControlRollSpecified;
+
+    /// Witness that disadvantage level is valid.
+    pub(crate) DisadvantageLevelValidated => DisadvantageLevelValid;
+
+    /// Witness that disadvantages do not conflict.
+    pub(crate) NoConflicts => DisadvantagesNotConflicting;
+}
+
+// ── Quirk Credentials ─────────────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that quirk was taken.
+    pub(crate) QuirkTakenCredential => QuirkTaken;
+
+    /// Witness that quirk limit is respected.
+    pub(crate) QuirkLimitRespectedCredential => QuirkLimitRespected;
+}
+
+// ── Derived Statistics Credentials ────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that Basic Speed was calculated.
+    pub(crate) BasicSpeedComputed => BasicSpeedCalculated;
+
+    /// Witness that Basic Move was calculated.
+    pub(crate) BasicMoveComputed => BasicMoveCalculated;
+
+    /// Witness that Dodge was calculated.
+    pub(crate) DodgeComputed => DodgeCalculated;
+
+    /// Witness that HP was set.
+    pub(crate) HpSet => HitPointsSet;
+
+    /// Witness that Will was set.
+    pub(crate) WillSetCredential => WillSet;
+
+    /// Witness that Perception was set.
+    pub(crate) PerceptionSetCredential => PerceptionSet;
+
+    /// Witness that FP was set.
+    pub(crate) FpSet => FatiguePointsSet;
+}
+
+// ── Character Validity Credentials ────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that attributes meet campaign minimums.
+    pub(crate) MinimumsMet => AttributesMeetCampaignMinimums;
+
+    /// Witness that racial template requirements were met.
+    pub(crate) RacialRequirementsMet => RacialTemplateRequirementsMet;
+
+    /// Witness that character is identified.
+    pub(crate) CharacterNamed => CharacterIdentified;
+
+    /// Witness that character is complete.
+    pub(crate) CharacterCompleteCredential => CharacterComplete;
+
+    /// Witness that character is valid.
+    pub(crate) CharacterValidated => CharacterValid;
 }

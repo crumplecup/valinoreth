@@ -362,3 +362,342 @@ pub struct CombatantDescriptor {
     #[builder(default)]
     pub shock_penalty: i32,
 }
+
+// ── Skill Check Descriptors ───────────────────────────────────────────────────
+
+/// Describes a skill check attempt.
+///
+/// Contains all information needed to resolve a skill check:
+/// skill level, modifiers, and task difficulty.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct SkillCheckDescriptor {
+    /// Character's effective skill level (base skill + modifiers)
+    pub effective_skill: i32,
+
+    /// Situational modifiers (equipment, lighting, etc.)
+    #[builder(default)]
+    pub situational_modifier: i32,
+
+    /// Task difficulty modifier (-10 to +10)
+    #[builder(default)]
+    pub task_difficulty: i32,
+
+    /// Time spent modifier (rushing or taking extra time)
+    #[builder(default)]
+    pub time_modifier: i32,
+
+    /// Whether using complementary skill bonus
+    #[builder(default)]
+    pub complementary_bonus: Option<i32>,
+}
+
+/// Describes the result of a skill check roll.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct SkillCheckResult {
+    /// The 3d6 roll result
+    pub roll: i32,
+
+    /// The effective skill that was rolled against
+    pub effective_skill: i32,
+
+    /// Whether the skill check succeeded (roll ≤ effective_skill)
+    pub success: bool,
+
+    /// Margin of success (if success) or failure (if failure)
+    pub margin: i32,
+
+    /// Whether this was a critical success
+    pub critical_success: bool,
+
+    /// Whether this was a critical failure
+    pub critical_failure: bool,
+}
+
+/// Describes a skill for a character.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct SkillDescriptor {
+    /// Skill name
+    pub name: String,
+
+    /// Skill specialization (if any)
+    #[builder(default)]
+    pub specialization: Option<String>,
+
+    /// Skill difficulty (Easy, Average, Hard, Very Hard)
+    pub difficulty: SkillDifficulty,
+
+    /// Base attribute (DX, IQ, HT, Per, Will)
+    pub base_attribute: AttributeType,
+
+    /// Points invested in the skill
+    pub points: i32,
+
+    /// Current skill level
+    pub level: i32,
+
+    /// Whether this is a wildcard skill
+    #[builder(default)]
+    pub wildcard: bool,
+}
+
+/// Skill difficulty levels.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
+pub enum SkillDifficulty {
+    /// Easy skills (E)
+    Easy,
+    /// Average skills (A)
+    Average,
+    /// Hard skills (H)
+    Hard,
+    /// Very Hard skills (VH)
+    VeryHard,
+}
+
+/// Describes a skill default (fallback when skill not trained).
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct SkillDefaultDescriptor {
+    /// What the skill defaults to
+    pub default_type: SkillDefaultType,
+
+    /// Penalty when using default
+    pub penalty: i32,
+}
+
+/// Types of skill defaults.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub enum SkillDefaultType {
+    /// Defaults to an attribute (DX, IQ, etc.)
+    Attribute(AttributeType),
+    /// Defaults to a related skill
+    Skill {
+        /// Name of the skill to default to
+        name: String,
+        /// Specialization (if any)
+        specialization: Option<String>,
+    },
+    /// No default (skill must be learned)
+    None,
+}
+
+// ── Character Creation Descriptors ────────────────────────────────────────────
+
+/// Describes a character's primary attribute.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct AttributeDescriptor {
+    /// Attribute type (ST, DX, IQ, HT)
+    pub attribute_type: AttributeType,
+
+    /// Attribute level (typically 1-20)
+    pub level: i32,
+
+    /// Point cost (10 or 20 per level based on type)
+    pub cost: i32,
+}
+
+/// Primary attribute types.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
+pub enum AttributeType {
+    /// Strength
+    ST,
+    /// Dexterity
+    DX,
+    /// Intelligence
+    IQ,
+    /// Health
+    HT,
+    /// Perception (secondary, defaults to IQ)
+    Per,
+    /// Will (secondary, defaults to IQ)
+    Will,
+}
+
+/// Describes a secondary characteristic purchase.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct SecondaryCharacteristicDescriptor {
+    /// Type of secondary characteristic
+    pub characteristic_type: SecondaryCharacteristicType,
+
+    /// Levels bought above/below default
+    pub levels: i32,
+
+    /// Point cost
+    pub cost: i32,
+}
+
+/// Secondary characteristic types.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
+pub enum SecondaryCharacteristicType {
+    /// Hit Points (defaults to ST)
+    HP,
+    /// Will (defaults to IQ)
+    Will,
+    /// Perception (defaults to IQ)
+    Per,
+    /// Fatigue Points (defaults to HT)
+    FP,
+    /// Basic Speed (defaults to (DX+HT)/4)
+    BasicSpeed,
+    /// Basic Move (defaults to Basic Speed)
+    BasicMove,
+}
+
+/// Describes an advantage for a character.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct AdvantageDescriptor {
+    /// Advantage name
+    pub name: String,
+
+    /// Base point cost
+    pub base_cost: i32,
+
+    /// Level (if leveled advantage)
+    #[builder(default)]
+    pub level: Option<i32>,
+
+    /// Enhancement modifiers (percentage bonuses)
+    #[builder(default)]
+    pub enhancements: Vec<ModifierDescriptor>,
+
+    /// Limitation modifiers (percentage penalties)
+    #[builder(default)]
+    pub limitations: Vec<ModifierDescriptor>,
+
+    /// Final point cost after modifiers
+    pub final_cost: i32,
+}
+
+/// Describes a disadvantage for a character.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct DisadvantageDescriptor {
+    /// Disadvantage name
+    pub name: String,
+
+    /// Base point value (negative)
+    pub base_cost: i32,
+
+    /// Level (if leveled disadvantage)
+    #[builder(default)]
+    pub level: Option<i32>,
+
+    /// Self-control roll (6, 9, 12, 15) if applicable
+    #[builder(default)]
+    pub self_control: Option<i32>,
+
+    /// Final point value (negative)
+    pub final_cost: i32,
+}
+
+/// Describes an enhancement or limitation modifier.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct ModifierDescriptor {
+    /// Modifier name
+    pub name: String,
+
+    /// Percentage modifier (+/-10, +/-20, etc.)
+    pub percentage: i32,
+}
+
+/// Describes complete character creation parameters.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct CharacterCreationDescriptor {
+    /// Character name
+    pub name: String,
+
+    /// Character description
+    #[builder(default)]
+    pub description: String,
+
+    /// Total character point value (100, 150, 200, etc.)
+    pub total_points: i32,
+
+    /// Disadvantage point limit (typically -50)
+    #[builder(default = "-50")]
+    pub disadvantage_limit: i32,
+
+    /// Campaign attribute minimums
+    #[builder(default)]
+    pub attribute_minimums: Option<AttributeMinimums>,
+}
+
+/// Campaign-specific attribute minimums.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
+pub struct AttributeMinimums {
+    /// Minimum ST
+    pub st: i32,
+    /// Minimum DX
+    pub dx: i32,
+    /// Minimum IQ
+    pub iq: i32,
+    /// Minimum HT
+    pub ht: i32,
+}
+
+/// Describes a complete character state.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Builder)]
+#[builder(setter(into))]
+pub struct CharacterDescriptor {
+    /// Character name
+    pub name: String,
+
+    /// Character description
+    #[builder(default)]
+    pub description: String,
+
+    /// Total character point value
+    pub total_points: i32,
+
+    /// Points spent so far
+    pub points_spent: i32,
+
+    /// Primary attributes
+    pub attributes: Vec<AttributeDescriptor>,
+
+    /// Secondary characteristics (if purchased)
+    #[builder(default)]
+    pub secondary_characteristics: Vec<SecondaryCharacteristicDescriptor>,
+
+    /// Advantages
+    #[builder(default)]
+    pub advantages: Vec<AdvantageDescriptor>,
+
+    /// Disadvantages
+    #[builder(default)]
+    pub disadvantages: Vec<DisadvantageDescriptor>,
+
+    /// Skills
+    #[builder(default)]
+    pub skills: Vec<SkillDescriptor>,
+
+    /// Derived statistics
+    pub derived_stats: DerivedStatsDescriptor,
+}
+
+/// Describes derived statistics.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, JsonSchema)]
+pub struct DerivedStatsDescriptor {
+    /// Basic Speed
+    pub basic_speed: f32,
+
+    /// Basic Move
+    pub basic_move: i32,
+
+    /// Dodge score
+    pub dodge: i32,
+
+    /// Hit Points
+    pub hp: i32,
+
+    /// Will
+    pub will: i32,
+
+    /// Perception
+    pub perception: i32,
+
+    /// Fatigue Points
+    pub fp: i32,
+}
