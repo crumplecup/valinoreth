@@ -1011,3 +1011,51 @@ pub struct CeremonialMagicDescriptor {
     /// Ceremony duration in seconds
     pub ceremony_time: i32,
 }
+
+// ── Metadata Trait Implementations ───────────────────────────────────────────
+
+impl crate::contracts::traits::AttackMeta for AttackDescriptor {
+    fn effective_skill(&self) -> i32 {
+        self.effective_skill
+    }
+
+    fn is_all_out(&self) -> bool {
+        self.all_out_attack
+    }
+
+    fn deceptive_penalty(&self) -> i32 {
+        self.deceptive_penalty
+    }
+}
+
+impl crate::contracts::traits::DefenseMeta for DefenseDescriptor {
+    fn defense_score(&self) -> i32 {
+        self.defense_score
+    }
+
+    fn defense_type(&self) -> DefenseType {
+        self.defense_type
+    }
+
+    fn is_retreating(&self) -> bool {
+        self.retreating
+    }
+}
+
+impl crate::contracts::traits::DamageMeta for DamageResult {
+    fn raw_damage(&self) -> i32 {
+        self.raw_damage
+    }
+
+    fn damage_resistance(&self) -> i32 {
+        self.dr
+    }
+
+    fn hit_location(&self) -> HitLocation {
+        self.location
+    }
+
+    fn injury(&self) -> i32 {
+        self.injury
+    }
+}
