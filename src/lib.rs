@@ -29,6 +29,7 @@ mod movement;
 mod players;
 mod skills;
 mod special_features;
+mod vsm;
 
 pub use advantages::{
     AbsoluteDirection, Advantage, Appearance, Claws, EiditicMemory, Flexible, Flight,
@@ -122,6 +123,10 @@ pub use dice::{DieFace, ThreeDiceRoll};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use free::trace_init;
 pub use game_master::{GameMaster, GameMasterConfig, ManaLevel};
+pub use vsm::{
+    CombatConsistent, CombatMachine, CombatState, apply_damage, begin_turn, combat_consistent,
+    declare_attack, end_turn, initialize_combat, resolve_attack, resolve_defense,
+};
 pub use items::{
     Armor as ItemArmor, Capacity, Clothing, Container, Currency, DamageType, Item, MeleeWeapon,
     Quality, RangedWeapon, Reach, SurvivalGear, TechLevel, Tool, WeaponDamage, Weight,

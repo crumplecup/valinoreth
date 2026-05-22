@@ -8798,6 +8798,7 @@ dependencies = [
  "elicitation",
  "elicitation_derive",
  "elicitation_rand",
+ "proc-macro2",
  "rand 0.10.1",
  "rmcp",
  "schemars",
