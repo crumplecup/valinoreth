@@ -60,6 +60,11 @@ use crate::contracts::skills::{
     SkillPointBudgetValid, SkillPrerequisiteMet, TaskDifficultyModifierApplied, TechniqueUsed,
     TimeSpentModifierApplied, WildcardSkillUsed,
 };
+use crate::contracts::combat_flow::{
+    AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
+    CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
+    RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
+};
 use elicitation::proof_credential;
 
 // ── Attack Roll Credentials ───────────────────────────────────────────────────
@@ -613,4 +618,65 @@ proof_credential! {
 
     /// Witness that ceremonial spell completed.
     pub CeremonyCompleted => CeremonialSpellCompleted;
+}
+
+// ── Combat Flow Credentials (Game State Management) ───────────────────────────
+
+proof_credential! {
+    /// Witness that combat has been initialized.
+    pub CombatStarted => CombatInitialized;
+
+    /// Witness that victory condition has been met.
+    pub VictoryAchieved => VictoryConditionMet;
+
+    /// Witness that combat has been concluded.
+    pub CombatFinished => CombatConcluded;
+}
+
+// ── Turn Structure Credentials ────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that turn order has been established.
+    pub TurnOrderSet => TurnOrderEstablished;
+
+    /// Witness that a turn has begun.
+    pub TurnStarted => TurnBegan;
+
+    /// Witness that a turn has ended.
+    pub TurnCompleted => TurnEnded;
+
+    /// Witness that a round has completed.
+    pub RoundFinished => RoundCompleted;
+}
+
+// ── Action Economy Credentials ────────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that combatant can take action.
+    pub ActionAvailable => CanTakeAction;
+
+    /// Witness that a maneuver has been selected.
+    pub ManeuverChosen => ManeuverSelected;
+
+    /// Witness that an attack has been declared.
+    pub AttackAnnounced => AttackDeclared;
+
+    /// Witness that a defense is required.
+    pub MustDefend => DefenseRequired;
+}
+
+// ── Action Resolution Credentials ─────────────────────────────────────────────
+
+proof_credential! {
+    /// Witness that an attack has been resolved.
+    pub AttackCompleted => AttackResolved;
+
+    /// Witness that a defense has been resolved.
+    pub DefenseCompleted => DefenseResolved;
+
+    /// Witness that damage can be applied.
+    pub DamageReady => CanApplyDamage;
+
+    /// Witness that damage has been applied.
+    pub DamageDealt => DamageApplied;
 }
