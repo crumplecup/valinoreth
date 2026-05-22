@@ -37,5 +37,5 @@ mod types;
 mod water;
 mod weather;
 
-pub use core::{Spell, SpellCollege};
+pub use core::Spell;
 pub use types::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};

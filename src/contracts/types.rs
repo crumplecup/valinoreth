@@ -497,7 +497,7 @@ pub struct AttributeDescriptor {
 }
 
 /// Primary attribute types.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize, JsonSchema)]
 pub enum AttributeType {
     /// Strength
     ST,

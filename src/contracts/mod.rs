@@ -67,7 +67,7 @@
 
 pub mod character;
 pub mod combat;
-mod credentials;
+pub mod credentials;
 pub mod magic;
 pub mod proof_composition;
 pub mod skills;
@@ -158,12 +158,12 @@ pub use traits::{
 // Re-export descriptor types
 pub use types::{
     AdvantageDescriptor, AdvantageDescriptorBuilder, ArmorDescriptor, AttributeDescriptor,
-    AttributeMinimums, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
+    AttributeMinimums, AttributeType, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
     CasterDescriptor, CasterDescriptorBuilder, CeremonialMagicDescriptor,
     CeremonialMagicDescriptorBuilder, CharacterCreationDescriptor, CharacterCreationDescriptorBuilder,
     CharacterDescriptor, CharacterDescriptorBuilder, CombatantDescriptor, CombatantDescriptorBuilder,
     DamageDescriptor, DamageDescriptorBuilder, DamageResult, DamageTypeDescriptor,
-    DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType,
+    DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType, HitLocation,
     DerivedStatsDescriptor, DisadvantageDescriptor, DisadvantageDescriptorBuilder,
     FeintDescriptor, FeintResult, ModifierDescriptor, RapidStrikeDescriptor, ResistanceResult,
     SecondaryCharacteristicDescriptor, SecondaryCharacteristicType, SkillCheckDescriptor,

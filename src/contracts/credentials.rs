@@ -68,101 +68,101 @@ proof_credential! {
     /// Witness that 3d6 was rolled for an attack.
     ///
     /// Only constructible by code that actually rolled the dice.
-    pub(crate) ValidAttackRoll => AttackRollMade;
+    pub ValidAttackRoll => AttackRollMade;
 
     /// Witness that attack roll was compared to effective skill.
     ///
     /// Only constructible by code that performed the comparison.
-    pub(crate) AttackOutcomeChecked => AttackOutcomeDetermined;
+    pub AttackOutcomeChecked => AttackOutcomeDetermined;
 
     /// Witness that attack succeeded (roll ≤ skill).
     ///
     /// Only constructible when roll result confirms success.
-    pub(crate) AttackHit => AttackSuccessful;
+    pub AttackHit => AttackSuccessful;
 
     /// Witness that attack failed (roll > skill).
     ///
     /// Only constructible when roll result confirms failure.
-    pub(crate) AttackMiss => AttackFailed;
+    pub AttackMiss => AttackFailed;
 
     /// Witness that attack achieved critical success.
     ///
     /// Only constructible when roll meets critical success criteria.
-    pub(crate) AttackCriticalHit => AttackCriticalSuccess;
+    pub AttackCriticalHit => AttackCriticalSuccess;
 
     /// Witness that attack suffered critical failure.
     ///
     /// Only constructible when roll meets critical failure criteria.
-    pub(crate) AttackCriticalMiss => AttackCriticalFailure;
+    pub AttackCriticalMiss => AttackCriticalFailure;
 }
 
 // ── Defense Roll Credentials ──────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that 3d6 was rolled for defense.
-    pub(crate) ValidDefenseRoll => DefenseRollMade;
+    pub ValidDefenseRoll => DefenseRollMade;
 
     /// Witness that defense roll was compared to defense score.
-    pub(crate) DefenseOutcomeChecked => DefenseOutcomeDetermined;
+    pub DefenseOutcomeChecked => DefenseOutcomeDetermined;
 
     /// Witness that defense succeeded (roll ≤ defense score).
-    pub(crate) DefenseWorked => DefenseSuccessful;
+    pub DefenseWorked => DefenseSuccessful;
 
     /// Witness that defense failed (roll > defense score).
-    pub(crate) DefenseDidNotWork => DefenseFailed;
+    pub DefenseDidNotWork => DefenseFailed;
 
     /// Witness that defense achieved critical success.
-    pub(crate) DefenseCriticalWin => DefenseCriticalSuccess;
+    pub DefenseCriticalWin => DefenseCriticalSuccess;
 
     /// Witness that defense suffered critical failure.
-    pub(crate) DefenseCriticalMiss => DefenseCriticalFailure;
+    pub DefenseCriticalMiss => DefenseCriticalFailure;
 }
 
 // ── Damage Calculation Credentials ────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that weapon damage dice were rolled.
-    pub(crate) ValidDamageRoll => WeaponDamageRolled;
+    pub ValidDamageRoll => WeaponDamageRolled;
 
     /// Witness that Damage Resistance was subtracted from damage.
-    pub(crate) DrSubtracted => DamageResistanceApplied;
+    pub DrSubtracted => DamageResistanceApplied;
 
     /// Witness that basic (pre-multiplier) damage was calculated.
-    pub(crate) BasicDamageComputed => BasicDamageCalculated;
+    pub BasicDamageComputed => BasicDamageCalculated;
 
     /// Witness that hit location was determined (rolled or targeted).
-    pub(crate) LocationDetermined => HitLocationDetermined;
+    pub LocationDetermined => HitLocationDetermined;
 
     /// Witness that hit location damage multiplier was applied.
-    pub(crate) LocationMultiplierComputed => LocationMultiplierApplied;
+    pub LocationMultiplierComputed => LocationMultiplierApplied;
 
     /// Witness that wounding modifier for damage type was applied.
-    pub(crate) WoundingMultiplierComputed => WoundingModifierApplied;
+    pub WoundingMultiplierComputed => WoundingModifierApplied;
 
     /// Witness that final injury to HP was calculated.
-    pub(crate) InjuryComputed => InjuryCalculated;
+    pub InjuryComputed => InjuryCalculated;
 
     /// Witness that injury was subtracted from character's HP.
-    pub(crate) InjurySubtracted => InjuryApplied;
+    pub InjurySubtracted => InjuryApplied;
 }
 
 // ── Special Maneuver Credentials ──────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that All-Out Attack maneuver was declared.
-    pub(crate) AllOutAttackChosen => AllOutAttackDeclared;
+    pub AllOutAttackChosen => AllOutAttackDeclared;
 
     /// Witness that Aim maneuver accumulated accuracy bonus.
-    pub(crate) AimAccumulated => AimBonusApplied;
+    pub AimAccumulated => AimBonusApplied;
 
     /// Witness that Feint succeeded in Quick Contest.
-    pub(crate) FeintWon => FeintSuccessful;
+    pub FeintWon => FeintSuccessful;
 
     /// Witness that Deceptive Attack penalty was applied.
-    pub(crate) DeceptiveApplied => DeceptiveAttackApplied;
+    pub DeceptiveApplied => DeceptiveAttackApplied;
 
     /// Witness that Rapid Strike was executed.
-    pub(crate) RapidStrikePerformed => RapidStrikeExecuted;
+    pub RapidStrikePerformed => RapidStrikeExecuted;
 }
 
 // ── Helper Types ──────────────────────────────────────────────────────────────
@@ -172,7 +172,7 @@ proof_credential! {
 /// Contains the roll value and serves as evidence that dice were actually rolled.
 /// Only constructible by code that performed the roll.
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct DiceRollResult {
+pub struct DiceRollResult {
     /// The sum of 3d6
     pub value: i32,
 }
@@ -183,7 +183,7 @@ impl DiceRollResult {
     /// # Safety
     ///
     /// Caller must ensure `value` is an actual 3d6 roll (3-18).
-    pub(crate) fn new(value: i32) -> Self {
+    pub fn new(value: i32) -> Self {
         debug_assert!(
             (3..=18).contains(&value),
             "Dice roll must be 3-18, got {}",
@@ -198,7 +198,7 @@ impl DiceRollResult {
 /// Contains the margin of success/failure and serves as evidence that
 /// roll-vs-skill comparison was performed.
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct SkillCheckResult {
+pub struct SkillCheckResult {
     /// The roll value
     pub roll: i32,
     /// The skill level rolled against
@@ -211,7 +211,7 @@ pub(crate) struct SkillCheckResult {
 
 impl SkillCheckResult {
     /// Construct from validated comparison.
-    pub(crate) fn new(roll: i32, skill: i32) -> Self {
+    pub fn new(roll: i32, skill: i32) -> Self {
         let success = roll <= skill;
         let margin = if success {
             skill - roll
@@ -233,7 +233,7 @@ impl SkillCheckResult {
     /// Critical success when:
     /// - Roll is 3 or 4, OR
     /// - Roll is 5 or 6 AND skill ≥ 15
-    pub(crate) fn is_critical_success(&self) -> bool {
+    pub fn is_critical_success(&self) -> bool {
         self.roll <= 4 || (self.roll <= 6 && self.skill >= 15)
     }
 
@@ -245,7 +245,7 @@ impl SkillCheckResult {
     /// - Roll is 18, OR
     /// - Roll is 17 AND skill < 16, OR
     /// - Margin of failure ≥ 10
-    pub(crate) fn is_critical_failure(&self) -> bool {
+    pub fn is_critical_failure(&self) -> bool {
         self.roll >= 18 || (self.roll >= 17 && self.skill < 16) || (!self.success && self.margin >= 10)
     }
 }
@@ -254,7 +254,7 @@ impl SkillCheckResult {
 ///
 /// Contains damage components and serves as evidence that damage was calculated.
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct DamageCalculation {
+pub struct DamageCalculation {
     /// Raw damage rolled
     pub raw: i32,
     /// Damage Resistance applied
@@ -271,7 +271,7 @@ pub(crate) struct DamageCalculation {
 
 impl DamageCalculation {
     /// Construct from validated calculation.
-    pub(crate) fn new(
+    pub fn new(
         raw: i32,
         dr: i32,
         location_mult: f32,
@@ -294,323 +294,323 @@ impl DamageCalculation {
 
 proof_credential! {
     /// Witness that 3d6 was rolled for a skill check.
-    pub(crate) ValidSkillCheckRoll => SkillCheckRollMade;
+    pub ValidSkillCheckRoll => SkillCheckRollMade;
 
     /// Witness that skill check roll was compared to effective skill.
-    pub(crate) SkillCheckOutcomeChecked => SkillCheckOutcomeDetermined;
+    pub SkillCheckOutcomeChecked => SkillCheckOutcomeDetermined;
 
     /// Witness that skill check succeeded (roll ≤ skill).
-    pub(crate) SkillCheckHit => SkillCheckSuccessful;
+    pub SkillCheckHit => SkillCheckSuccessful;
 
     /// Witness that skill check failed (roll > skill).
-    pub(crate) SkillCheckMiss => SkillCheckFailed;
+    pub SkillCheckMiss => SkillCheckFailed;
 
     /// Witness that skill check achieved critical success.
-    pub(crate) SkillCheckCriticalHit => SkillCheckCriticalSuccess;
+    pub SkillCheckCriticalHit => SkillCheckCriticalSuccess;
 
     /// Witness that skill check suffered critical failure.
-    pub(crate) SkillCheckCriticalMiss => SkillCheckCriticalFailure;
+    pub SkillCheckCriticalMiss => SkillCheckCriticalFailure;
 }
 
 // ── Skill Default Credentials ─────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that skill defaulted to an attribute.
-    pub(crate) AttributeDefaultUsed => SkillDefaultedToAttribute;
+    pub AttributeDefaultUsed => SkillDefaultedToAttribute;
 
     /// Witness that skill defaulted to a related skill.
-    pub(crate) RelatedSkillDefaultUsed => SkillDefaultedToRelatedSkill;
+    pub RelatedSkillDefaultUsed => SkillDefaultedToRelatedSkill;
 
     /// Witness that default penalty was applied.
-    pub(crate) DefaultPenaltyAppliedCredential => DefaultPenaltyApplied;
+    pub DefaultPenaltyAppliedCredential => DefaultPenaltyApplied;
 }
 
 // ── Skill Modifier Credentials ────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that situational modifier was applied.
-    pub(crate) SituationalModApplied => SituationalModifierApplied;
+    pub SituationalModApplied => SituationalModifierApplied;
 
     /// Witness that task difficulty modifier was applied.
-    pub(crate) TaskDifficultyApplied => TaskDifficultyModifierApplied;
+    pub TaskDifficultyApplied => TaskDifficultyModifierApplied;
 
     /// Witness that time spent modifier was applied.
-    pub(crate) TimeSpentApplied => TimeSpentModifierApplied;
+    pub TimeSpentApplied => TimeSpentModifierApplied;
 
     /// Witness that complementary skill bonus was applied.
-    pub(crate) ComplementaryBonusApplied => ComplementarySkillBonusApplied;
+    pub ComplementaryBonusApplied => ComplementarySkillBonusApplied;
 
     /// Witness that familiarity penalty was applied.
-    pub(crate) FamiliarityPenaltyAppliedCredential => FamiliarityPenaltyApplied;
+    pub FamiliarityPenaltyAppliedCredential => FamiliarityPenaltyApplied;
 }
 
 // ── Skill Improvement Credentials ─────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that character points were spent on skill.
-    pub(crate) PointsSpentOnSkill => CharacterPointsSpentOnSkill;
+    pub PointsSpentOnSkill => CharacterPointsSpentOnSkill;
 
     /// Witness that skill level was increased.
-    pub(crate) SkillLevelRaised => SkillLevelIncreased;
+    pub SkillLevelRaised => SkillLevelIncreased;
 
     /// Witness that skill prerequisite was met.
-    pub(crate) PrerequisiteMet => SkillPrerequisiteMet;
+    pub PrerequisiteMet => SkillPrerequisiteMet;
 
     /// Witness that skill point budget is valid.
-    pub(crate) SkillBudgetValid => SkillPointBudgetValid;
+    pub SkillBudgetValid => SkillPointBudgetValid;
 }
 
 // ── Special Skill Usage Credentials ───────────────────────────────────────────
 
 proof_credential! {
     /// Witness that wildcard skill was used.
-    pub(crate) WildcardUsed => WildcardSkillUsed;
+    pub WildcardUsed => WildcardSkillUsed;
 
     /// Witness that technique was used.
-    pub(crate) TechniqueApplied => TechniqueUsed;
+    pub TechniqueApplied => TechniqueUsed;
 
     /// Witness that skill contest was resolved.
-    pub(crate) ContestResolved => SkillContestResolved;
+    pub ContestResolved => SkillContestResolved;
 
     /// Witness that contest winner was determined.
-    pub(crate) WinnerDetermined => ContestWinnerDetermined;
+    pub WinnerDetermined => ContestWinnerDetermined;
 }
 
 // ── Character Point Budget Credentials ────────────────────────────────────────
 
 proof_credential! {
     /// Witness that character point value was set.
-    pub(crate) PointValueSet => CharacterPointValueSet;
+    pub PointValueSet => CharacterPointValueSet;
 
     /// Witness that point budget is balanced.
-    pub(crate) BudgetBalanced => PointBudgetBalanced;
+    pub BudgetBalanced => PointBudgetBalanced;
 
     /// Witness that disadvantage point limit is respected.
-    pub(crate) DisadvantageLimitRespected => DisadvantagePointLimitRespected;
+    pub DisadvantageLimitRespected => DisadvantagePointLimitRespected;
 }
 
 // ── Attribute Purchase Credentials ────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that attribute was purchased.
-    pub(crate) AttributeBought => AttributePurchased;
+    pub AttributeBought => AttributePurchased;
 
     /// Witness that attribute cost was calculated correctly.
-    pub(crate) AttributeCostComputed => AttributeCostCalculated;
+    pub AttributeCostComputed => AttributeCostCalculated;
 
     /// Witness that secondary characteristic was purchased.
-    pub(crate) SecondaryCharacteristicBought => SecondaryCharacteristicPurchased;
+    pub SecondaryCharacteristicBought => SecondaryCharacteristicPurchased;
 }
 
 // ── Advantage Selection Credentials ───────────────────────────────────────────
 
 proof_credential! {
     /// Witness that advantage was purchased.
-    pub(crate) AdvantageBought => AdvantagePurchased;
+    pub AdvantageBought => AdvantagePurchased;
 
     /// Witness that advantage modifiers were calculated.
-    pub(crate) AdvantageModifiersComputed => AdvantageModifiersCostCalculated;
+    pub AdvantageModifiersComputed => AdvantageModifiersCostCalculated;
 
     /// Witness that advantage level is valid.
-    pub(crate) AdvantageLevelValidated => AdvantageLevelValid;
+    pub AdvantageLevelValidated => AdvantageLevelValid;
 
     /// Witness that advantage prerequisite was met.
-    pub(crate) AdvantagePrereqMet => AdvantagePrerequisiteMet;
+    pub AdvantagePrereqMet => AdvantagePrerequisiteMet;
 }
 
 // ── Disadvantage Selection Credentials ────────────────────────────────────────
 
 proof_credential! {
     /// Witness that disadvantage was taken.
-    pub(crate) DisadvantageTakenCredential => DisadvantageTaken;
+    pub DisadvantageTakenCredential => DisadvantageTaken;
 
     /// Witness that self-control roll was specified.
-    pub(crate) SelfControlSpecified => SelfControlRollSpecified;
+    pub SelfControlSpecified => SelfControlRollSpecified;
 
     /// Witness that disadvantage level is valid.
-    pub(crate) DisadvantageLevelValidated => DisadvantageLevelValid;
+    pub DisadvantageLevelValidated => DisadvantageLevelValid;
 
     /// Witness that disadvantages do not conflict.
-    pub(crate) NoConflicts => DisadvantagesNotConflicting;
+    pub NoConflicts => DisadvantagesNotConflicting;
 }
 
 // ── Quirk Credentials ─────────────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that quirk was taken.
-    pub(crate) QuirkTakenCredential => QuirkTaken;
+    pub QuirkTakenCredential => QuirkTaken;
 
     /// Witness that quirk limit is respected.
-    pub(crate) QuirkLimitRespectedCredential => QuirkLimitRespected;
+    pub QuirkLimitRespectedCredential => QuirkLimitRespected;
 }
 
 // ── Derived Statistics Credentials ────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that Basic Speed was calculated.
-    pub(crate) BasicSpeedComputed => BasicSpeedCalculated;
+    pub BasicSpeedComputed => BasicSpeedCalculated;
 
     /// Witness that Basic Move was calculated.
-    pub(crate) BasicMoveComputed => BasicMoveCalculated;
+    pub BasicMoveComputed => BasicMoveCalculated;
 
     /// Witness that Dodge was calculated.
-    pub(crate) DodgeComputed => DodgeCalculated;
+    pub DodgeComputed => DodgeCalculated;
 
     /// Witness that HP was set.
-    pub(crate) HpSet => HitPointsSet;
+    pub HpSet => HitPointsSet;
 
     /// Witness that Will was set.
-    pub(crate) WillSetCredential => WillSet;
+    pub WillSetCredential => WillSet;
 
     /// Witness that Perception was set.
-    pub(crate) PerceptionSetCredential => PerceptionSet;
+    pub PerceptionSetCredential => PerceptionSet;
 
     /// Witness that FP was set.
-    pub(crate) FpSet => FatiguePointsSet;
+    pub FpSet => FatiguePointsSet;
 }
 
 // ── Character Validity Credentials ────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that attributes meet campaign minimums.
-    pub(crate) MinimumsMet => AttributesMeetCampaignMinimums;
+    pub MinimumsMet => AttributesMeetCampaignMinimums;
 
     /// Witness that racial template requirements were met.
-    pub(crate) RacialRequirementsMet => RacialTemplateRequirementsMet;
+    pub RacialRequirementsMet => RacialTemplateRequirementsMet;
 
     /// Witness that character is identified.
-    pub(crate) CharacterNamed => CharacterIdentified;
+    pub CharacterNamed => CharacterIdentified;
 
     /// Witness that character is complete.
-    pub(crate) CharacterCompleteCredential => CharacterComplete;
+    pub CharacterCompleteCredential => CharacterComplete;
 
     /// Witness that character is valid.
-    pub(crate) CharacterValidated => CharacterValid;
+    pub CharacterValidated => CharacterValid;
 }
 
 // ── Spell Learning Credentials ────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that spell prerequisites were met.
-    pub(crate) PrerequisitesMet => SpellPrerequisitesMet;
+    pub PrerequisitesMet => SpellPrerequisitesMet;
 
     /// Witness that Magery requirement was met.
-    pub(crate) MageryMet => MageryRequirementMet;
+    pub MageryMet => MageryRequirementMet;
 
     /// Witness that spell was learned.
-    pub(crate) SpellAcquired => SpellLearned;
+    pub SpellAcquired => SpellLearned;
 
     /// Witness that spell skill level was set.
-    pub(crate) SpellSkillSet => SpellSkillLevelSet;
+    pub SpellSkillSet => SpellSkillLevelSet;
 }
 
 // ── Spell Casting Credentials ─────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that concentration began.
-    pub(crate) ConcentrationStarted => ConcentrationBegun;
+    pub ConcentrationStarted => ConcentrationBegun;
 
     /// Witness that concentration was maintained.
-    pub(crate) ConcentrationKept => ConcentrationMaintained;
+    pub ConcentrationKept => ConcentrationMaintained;
 
     /// Witness that concentration completed.
-    pub(crate) ConcentrationFinished => ConcentrationCompleted;
+    pub ConcentrationFinished => ConcentrationCompleted;
 
     /// Witness that spell skill roll was made.
-    pub(crate) SpellRollMade => SpellSkillRollMade;
+    pub SpellRollMade => SpellSkillRollMade;
 
     /// Witness that spell casting outcome was determined.
-    pub(crate) CastingOutcomeChecked => SpellCastingOutcomeDetermined;
+    pub CastingOutcomeChecked => SpellCastingOutcomeDetermined;
 
     /// Witness that spell casting succeeded.
-    pub(crate) CastingSucceeded => SpellCastingSucceeded;
+    pub CastingSucceeded => SpellCastingSucceeded;
 
     /// Witness that spell casting failed.
-    pub(crate) CastingFailed => SpellCastingFailed;
+    pub CastingFailed => SpellCastingFailed;
 
     /// Witness that spell critically succeeded.
-    pub(crate) SpellCritHit => SpellCriticalSuccess;
+    pub SpellCritHit => SpellCriticalSuccess;
 
     /// Witness that spell critically failed.
-    pub(crate) SpellCritMiss => SpellCriticalFailure;
+    pub SpellCritMiss => SpellCriticalFailure;
 }
 
 // ── Energy Cost Credentials ───────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that base energy cost was determined.
-    pub(crate) BaseCostDetermined => BaseEnergyCostDetermined;
+    pub BaseCostDetermined => BaseEnergyCostDetermined;
 
     /// Witness that skill-based cost reduction was applied.
-    pub(crate) SkillReductionApplied => SkillBasedCostReductionApplied;
+    pub SkillReductionApplied => SkillBasedCostReductionApplied;
 
     /// Witness that final energy cost was calculated.
-    pub(crate) FinalCostCalculated => FinalEnergyCostCalculated;
+    pub FinalCostCalculated => FinalEnergyCostCalculated;
 
     /// Witness that energy was paid from caster.
-    pub(crate) EnergyDeducted => EnergyPaidFromCaster;
+    pub EnergyDeducted => EnergyPaidFromCaster;
 
     /// Witness that spell is being maintained.
-    pub(crate) SpellKeptActive => SpellMaintained;
+    pub SpellKeptActive => SpellMaintained;
 
     /// Witness that maintenance energy was paid.
-    pub(crate) MaintenancePaid => MaintenanceEnergyPaid;
+    pub MaintenancePaid => MaintenanceEnergyPaid;
 }
 
 // ── Spell Effect Credentials ──────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that spell effect was applied.
-    pub(crate) EffectApplied => SpellEffectApplied;
+    pub EffectApplied => SpellEffectApplied;
 
     /// Witness that spell target was determined.
-    pub(crate) TargetDetermined => SpellTargetDetermined;
+    pub TargetDetermined => SpellTargetDetermined;
 
     /// Witness that spell range was checked.
-    pub(crate) RangeChecked => SpellRangeChecked;
+    pub RangeChecked => SpellRangeChecked;
 
     /// Witness that spell duration was determined.
-    pub(crate) DurationSet => SpellDurationDetermined;
+    pub DurationSet => SpellDurationDetermined;
 }
 
 // ── Spell Resistance Credentials ──────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that resistance roll was required.
-    pub(crate) ResistanceNeeded => ResistanceRollRequired;
+    pub ResistanceNeeded => ResistanceRollRequired;
 
     /// Witness that resistance roll was made.
-    pub(crate) ResistanceRolled => ResistanceRollMade;
+    pub ResistanceRolled => ResistanceRollMade;
 
     /// Witness that spell was successfully resisted.
-    pub(crate) SpellResisted => SpellResistedSuccessfully;
+    pub SpellResisted => SpellResistedSuccessfully;
 
     /// Witness that resistance was overcome.
-    pub(crate) ResistanceBroken => ResistanceOvercome;
+    pub ResistanceBroken => ResistanceOvercome;
 }
 
 // ── Spell Modifier Credentials ────────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that size/speed modifier was applied.
-    pub(crate) SizeSpeedApplied => SizeSpeedModifierApplied;
+    pub SizeSpeedApplied => SizeSpeedModifierApplied;
 
     /// Witness that time modifier was applied.
-    pub(crate) TimeModApplied => TimeModifierApplied;
+    pub TimeModApplied => TimeModifierApplied;
 
     /// Witness that environment modifier was applied.
-    pub(crate) EnvironmentApplied => EnvironmentModifierApplied;
+    pub EnvironmentApplied => EnvironmentModifierApplied;
 }
 
 // ── Ceremonial Magic Credentials ──────────────────────────────────────────────
 
 proof_credential! {
     /// Witness that ceremonial casting began.
-    pub(crate) CeremonyStarted => CeremonialCastingBegun;
+    pub CeremonyStarted => CeremonialCastingBegun;
 
     /// Witness that energy was pooled from participants.
-    pub(crate) EnergyPooled => EnergyPooledFromParticipants;
+    pub EnergyPooled => EnergyPooledFromParticipants;
 
     /// Witness that ceremonial spell completed.
-    pub(crate) CeremonyCompleted => CeremonialSpellCompleted;
+    pub CeremonyCompleted => CeremonialSpellCompleted;
 }

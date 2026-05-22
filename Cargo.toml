@@ -18,7 +18,7 @@ derive-getters = "0.5.0"
 derive-new = "0.7.0"
 derive_builder = "0.20.2"
 derive_more = { version = "2.0.1", features = ["full"] }
-rand = "0.9.1"
+rand = "0.10"
 serde = { version = "1.0.219", features = ["derive"] }
 strum = { version = "0.27.1", features = ["derive", "strum_macros"] }
 tracing = "0.1.41"
@@ -27,8 +27,12 @@ tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 # Elicitation framework for contract-based game rules
 elicitation = { version = "0.11.0", features = ["serde"] }
 elicitation_derive = "0.11.0"
-rmcp = "0.7"
-schemars = "0.8"
+elicitation_rand = "0.11.0"
+rmcp = "1"
+schemars = "1"
+
+[dev-dependencies]
+tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)', 'cfg(creusot)', 'cfg(prusti)', 'cfg(verus)'] }

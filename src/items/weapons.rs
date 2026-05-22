@@ -1,10 +1,9 @@
-//! Weapon combat mechanics.
+//! Weapon combat properties.
 //!
 //! # GURPS Rules
 //!
-//! This module defines core combat mechanics for weapons: damage types,
-//! reach specifications, and damage calculations. Actual weapon items are
-//! enumerated in the `items` module.
+//! This module defines core properties for weapons: damage types,
+//! reach specifications, and damage calculations.
 //!
 //! # Citations
 //!
@@ -12,7 +11,7 @@
 //! - BS 271-276 - Melee weapons table
 //! - BS 276-278 - Ranged weapons table
 
-use crate::DieLevel;
+use crate::DamageDice;
 use tracing::instrument;
 
 /// Weapon damage specification.
@@ -51,7 +50,7 @@ pub enum WeaponDamage {
     /// Fixed dice damage (for ranged weapons)
     Fixed {
         /// Damage dice (e.g., 2d+1)
-        dice: DieLevel,
+        dice: DamageDice,
         /// Type of damage
         damage_type: DamageType,
     },

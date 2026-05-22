@@ -28,101 +28,35 @@ use derive_more::Display;
 use serde::{Deserialize, Serialize};
 use strum::{EnumIter, IntoEnumIterator};
 
-use crate::DieLevel;
-
-/// Character attribute types.
+/// Damage dice specification for GURPS.
 ///
-/// # GURPS Rules
-///
-/// Four primary attributes (Strength, Dexterity, Intelligence, Health)
-/// form the basis of a character. Four secondary attributes (Hit Points,
-/// Willpower, Perception, Fatigue) default to primary values but can be
-/// purchased separately.
-///
-/// # Citations
-///
-/// BS 13-17 - Attribute definitions and costs
+/// Represents damage in the form "XdY+Z" where:
+/// - X is the number of dice
+/// - Y is always 6 (implied)
+/// - Z is the adds (modifier), can be negative
 ///
 /// # Examples
 ///
-/// ```
-/// use valinoreth::AttributeType;
-///
-/// let attr = AttributeType::Strength;
-/// assert_eq!(attr.to_string(), "Strength");
-/// ```
-#[derive(
-    Debug,
-    Default,
-    Copy,
-    Clone,
-    PartialEq,
-    PartialOrd,
-    Eq,
-    Ord,
-    Hash,
-    derive_more::Display,
-    derive_more::FromStr,
-    strum::EnumIter,
-    serde::Serialize,
-    serde::Deserialize,
-)]
-pub enum AttributeType {
-    /// Physical strength, 10 points per ±1 from 10. BS 14
-    #[default]
-    Strength,
-    /// Manual dexterity and agility, 10 points per ±1 from 10. BS 15
-    Dexterity,
-    /// Reasoning and memory, 10 points per ±1 from 10. BS 15
-    Intelligence,
-    /// Endurance and vitality, 10 points per ±1 from 10. BS 14
-    Health,
-    /// Injury capacity, defaults to ST, 2 points per ±1. BS 16
-    HitPoints,
-    /// Mental strength, defaults to IQ, 5 points per ±1. BS 16
-    Willpower,
-    /// Awareness and alertness, defaults to IQ, 5 points per ±1. BS 16
-    Perception,
-    /// Energy for physical exertion, defaults to HT, 3 points per ±1. BS 16
-    Fatigue,
+/// - `DamageDice::new(1, -2)` = "1d-2"
+/// - `DamageDice::new(2, 0)` = "2d"
+/// - `DamageDice::new(3, 1)` = "3d+1"
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+pub struct DamageDice {
+    /// Number of dice to roll
+    pub dice: i64,
+    /// Modifier to add to the roll (adds)
+    pub adds: i64,
 }
 
-impl AttributeType {
-    /// Parse attribute from abbreviation (case-insensitive).
-    ///
-    /// # Arguments
-    ///
-    /// * `abbr` - Abbreviation like "st", "dx", "iq", "ht", "hp", "will", "per", "fp"
-    ///
-    /// # Returns
-    ///
-    /// Some(AttributeType) if abbreviation is valid, None otherwise.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use valinoreth::AttributeType;
-    ///
-    /// assert_eq!(AttributeType::from_abbr("st"), Some(AttributeType::Strength));
-    /// assert_eq!(AttributeType::from_abbr("DX"), Some(AttributeType::Dexterity));
-    /// assert_eq!(AttributeType::from_abbr("invalid"), None);
-    /// ```
-    pub fn from_abbr(abbr: &str) -> Option<Self> {
-        let lwr = abbr.to_lowercase();
-        let value = match lwr.as_str() {
-            "st" => Self::Strength,
-            "dx" => Self::Dexterity,
-            "iq" => Self::Intelligence,
-            "ht" => Self::Health,
-            "hp" => Self::HitPoints,
-            "will" => Self::Willpower,
-            "per" => Self::Perception,
-            "fp" => Self::Fatigue,
-            _ => return None,
-        };
-        Some(value)
+impl DamageDice {
+    /// Create new damage dice specification.
+    pub const fn new(dice: i64, adds: i64) -> Self {
+        Self { dice, adds }
     }
 }
+
+// AttributeType is defined in contracts/types.rs
+// Use crate::AttributeType with variants: ST, DX, IQ, HT, Per, Will
 
 /// Character attributes container.
 ///
@@ -247,22 +181,23 @@ impl Attributes {
     /// use valinoreth::{Attributes, AttributeType};
     ///
     /// let attrs = Attributes::from_base(10, 10, 10, 10);
-    /// assert_eq!(attrs.name(&AttributeType::Strength), "Strength");
+    /// assert_eq!(attrs.name(&AttributeType::ST), "Strength");
     /// ```
-    pub fn name(&self, attribute: &AttributeType) -> String {
+    pub fn name(&self, attribute: &crate::AttributeType) -> String {
         match *attribute {
-            AttributeType::Strength => "Strength".to_string(),
-            AttributeType::Dexterity => "Dexterity".to_string(),
-            AttributeType::Intelligence => "Intelligence".to_string(),
-            AttributeType::Health => "Health".to_string(),
-            AttributeType::HitPoints => "Hit Points".to_string(),
-            AttributeType::Willpower => "Willpower".to_string(),
-            AttributeType::Perception => "Perception".to_string(),
-            AttributeType::Fatigue => "Fatigue".to_string(),
+            crate::AttributeType::ST => "Strength".to_string(),
+            crate::AttributeType::DX => "Dexterity".to_string(),
+            crate::AttributeType::IQ => "Intelligence".to_string(),
+            crate::AttributeType::HT => "Health".to_string(),
+            crate::AttributeType::Will => "Will".to_string(),
+            crate::AttributeType::Per => "Perception".to_string(),
         }
     }
 
     /// Returns the numeric value of an attribute.
+    ///
+    /// Note: Only supports rollable attributes (ST, DX, IQ, HT, Will, Per).
+    /// For HP and FP, use dedicated getters.
     ///
     /// # Examples
     ///
@@ -270,19 +205,17 @@ impl Attributes {
     /// use valinoreth::{Attributes, AttributeType};
     ///
     /// let attrs = Attributes::from_base(12, 10, 10, 10);
-    /// assert_eq!(attrs.value(&AttributeType::Strength), 12);
-    /// assert_eq!(attrs.value(&AttributeType::HitPoints), 12); // HP defaults to ST
+    /// assert_eq!(attrs.value(&AttributeType::ST), 12);
+    /// assert_eq!(attrs.value(&AttributeType::Will), 10); // Will defaults to IQ
     /// ```
-    pub fn value(&self, attribute: &AttributeType) -> usize {
+    pub fn value(&self, attribute: &crate::AttributeType) -> usize {
         match *attribute {
-            AttributeType::Strength => self.st,
-            AttributeType::Dexterity => self.dx,
-            AttributeType::Intelligence => self.iq,
-            AttributeType::Health => self.ht,
-            AttributeType::HitPoints => self.hp,
-            AttributeType::Willpower => self.will,
-            AttributeType::Perception => self.per,
-            AttributeType::Fatigue => self.fp,
+            crate::AttributeType::ST => self.st,
+            crate::AttributeType::DX => self.dx,
+            crate::AttributeType::IQ => self.iq,
+            crate::AttributeType::HT => self.ht,
+            crate::AttributeType::Will => self.will,
+            crate::AttributeType::Per => self.per,
         }
     }
 
@@ -294,10 +227,10 @@ impl Attributes {
     /// use valinoreth::{Attributes, AttributeType, AttributeColumns};
     ///
     /// let attrs = Attributes::from_base(12, 10, 10, 10);
-    /// assert_eq!(attrs.column(&AttributeType::Strength, &AttributeColumns::Name), "Strength");
-    /// assert_eq!(attrs.column(&AttributeType::Strength, &AttributeColumns::Value), "12");
+    /// assert_eq!(attrs.column(&AttributeType::ST, &AttributeColumns::Name), "Strength");
+    /// assert_eq!(attrs.column(&AttributeType::ST, &AttributeColumns::Value), "12");
     /// ```
-    pub fn column(&self, attribute: &AttributeType, column: &AttributeColumns) -> String {
+    pub fn column(&self, attribute: &crate::AttributeType, column: &AttributeColumns) -> String {
         match *column {
             AttributeColumns::Name => self.name(attribute),
             AttributeColumns::Value => self.value(attribute).to_string(),
@@ -312,10 +245,10 @@ impl Attributes {
     /// use valinoreth::{Attributes, AttributeType};
     ///
     /// let attrs = Attributes::from_base(12, 10, 10, 10);
-    /// let cols = attrs.columns(&AttributeType::Strength);
+    /// let cols = attrs.columns(&AttributeType::ST);
     /// assert_eq!(cols, vec!["Strength", "12"]);
     /// ```
-    pub fn columns(&self, attribute: &AttributeType) -> Vec<String> {
+    pub fn columns(&self, attribute: &crate::AttributeType) -> Vec<String> {
         AttributeColumns::iter()
             .map(|c| self.column(attribute, &c))
             .collect::<Vec<String>>()
@@ -508,10 +441,10 @@ pub struct CombatStats {
 /// # Examples
 ///
 /// ```
-/// use valinoreth::{DamageKind, DieLevel};
+/// use valinoreth::{DamageKind, DamageDice};
 ///
-/// let thrust = DamageKind::Thrust(DieLevel::new(1, -1));
-/// let swing = DamageKind::Swing(DieLevel::new(1, 2));
+/// let thrust = DamageKind::Thrust(DamageDice::new(1, -1));
+/// let swing = DamageKind::Swing(DamageDice::new(1, 2));
 /// ```
 #[derive(
     Debug,
@@ -528,9 +461,9 @@ pub struct CombatStats {
 )]
 pub enum DamageKind {
     /// Thrust attack using stabbing motion. BS 269
-    Thrust(DieLevel),
+    Thrust(DamageDice),
     /// Swing attack using sweeping motion. BS 269
-    Swing(DieLevel),
+    Swing(DamageDice),
 }
 
 /// Base damage values for a character.
@@ -605,64 +538,64 @@ impl From<Attributes> for BaseDamage {
     /// ```
     fn from(value: Attributes) -> Self {
         let (thrust, swing) = match value.st {
-            0 => (DieLevel::new(0, 0), DieLevel::new(0, 1)),
-            1 => (DieLevel::new(1, -6), DieLevel::new(1, -5)),
-            2 => (DieLevel::new(1, -6), DieLevel::new(1, -5)),
-            3 => (DieLevel::new(1, -5), DieLevel::new(1, -4)),
-            4 => (DieLevel::new(1, -5), DieLevel::new(1, -4)),
-            5 => (DieLevel::new(1, -4), DieLevel::new(1, -3)),
-            6 => (DieLevel::new(1, -4), DieLevel::new(1, -3)),
-            7 => (DieLevel::new(1, -3), DieLevel::new(1, -2)),
-            8 => (DieLevel::new(1, -3), DieLevel::new(1, -2)),
-            9 => (DieLevel::new(1, -2), DieLevel::new(1, -1)),
-            10 => (DieLevel::new(1, -2), DieLevel::new(1, 0)),
-            11 => (DieLevel::new(1, -1), DieLevel::new(1, 1)),
-            12 => (DieLevel::new(1, -1), DieLevel::new(1, 2)),
-            13 => (DieLevel::new(1, 0), DieLevel::new(2, -1)),
-            14 => (DieLevel::new(1, 0), DieLevel::new(2, 0)),
-            15 => (DieLevel::new(1, 1), DieLevel::new(2, 1)),
-            16 => (DieLevel::new(1, 1), DieLevel::new(2, 2)),
-            17 => (DieLevel::new(1, 2), DieLevel::new(3, -1)),
-            18 => (DieLevel::new(1, 2), DieLevel::new(3, 0)),
-            19 => (DieLevel::new(2, -1), DieLevel::new(3, 1)),
-            20 => (DieLevel::new(2, -1), DieLevel::new(3, 2)),
-            21 => (DieLevel::new(2, 0), DieLevel::new(4, -1)),
-            22 => (DieLevel::new(2, 0), DieLevel::new(4, 0)),
-            23 => (DieLevel::new(2, 1), DieLevel::new(4, 1)),
-            24 => (DieLevel::new(2, 1), DieLevel::new(4, 2)),
-            25 => (DieLevel::new(2, 2), DieLevel::new(5, -1)),
-            26 => (DieLevel::new(2, 2), DieLevel::new(5, 0)),
-            27 => (DieLevel::new(3, -1), DieLevel::new(5, 1)),
-            28 => (DieLevel::new(3, -1), DieLevel::new(5, 1)),
-            29 => (DieLevel::new(3, 0), DieLevel::new(5, 2)),
-            30 => (DieLevel::new(3, 0), DieLevel::new(5, 2)),
-            31 => (DieLevel::new(3, 1), DieLevel::new(6, -1)),
-            32 => (DieLevel::new(3, 1), DieLevel::new(6, -1)),
-            33 => (DieLevel::new(3, 2), DieLevel::new(6, 0)),
-            34 => (DieLevel::new(3, 2), DieLevel::new(6, 0)),
-            35 => (DieLevel::new(4, -1), DieLevel::new(6, 1)),
-            36 => (DieLevel::new(4, -1), DieLevel::new(6, 1)),
-            37 => (DieLevel::new(4, 0), DieLevel::new(6, 2)),
-            38 => (DieLevel::new(4, 0), DieLevel::new(6, 2)),
-            39 => (DieLevel::new(4, 1), DieLevel::new(7, -1)),
-            40..45 => (DieLevel::new(4, 1), DieLevel::new(7, -1)),
-            45..50 => (DieLevel::new(5, 0), DieLevel::new(7, 1)),
-            50..55 => (DieLevel::new(5, 2), DieLevel::new(8, -1)),
-            55..60 => (DieLevel::new(6, 0), DieLevel::new(8, 1)),
-            60..65 => (DieLevel::new(7, -1), DieLevel::new(9, 0)),
-            65..70 => (DieLevel::new(7, 1), DieLevel::new(9, 2)),
-            70..75 => (DieLevel::new(8, 0), DieLevel::new(10, 0)),
-            75..80 => (DieLevel::new(8, 2), DieLevel::new(10, 2)),
-            80..85 => (DieLevel::new(9, 0), DieLevel::new(11, 0)),
-            85..90 => (DieLevel::new(9, 2), DieLevel::new(11, 2)),
-            90..95 => (DieLevel::new(10, 0), DieLevel::new(12, 0)),
-            95..100 => (DieLevel::new(10, 2), DieLevel::new(12, 2)),
-            100 => (DieLevel::new(11, 0), DieLevel::new(13, 0)),
+            0 => (DamageDice::new(0, 0), DamageDice::new(0, 1)),
+            1 => (DamageDice::new(1, -6), DamageDice::new(1, -5)),
+            2 => (DamageDice::new(1, -6), DamageDice::new(1, -5)),
+            3 => (DamageDice::new(1, -5), DamageDice::new(1, -4)),
+            4 => (DamageDice::new(1, -5), DamageDice::new(1, -4)),
+            5 => (DamageDice::new(1, -4), DamageDice::new(1, -3)),
+            6 => (DamageDice::new(1, -4), DamageDice::new(1, -3)),
+            7 => (DamageDice::new(1, -3), DamageDice::new(1, -2)),
+            8 => (DamageDice::new(1, -3), DamageDice::new(1, -2)),
+            9 => (DamageDice::new(1, -2), DamageDice::new(1, -1)),
+            10 => (DamageDice::new(1, -2), DamageDice::new(1, 0)),
+            11 => (DamageDice::new(1, -1), DamageDice::new(1, 1)),
+            12 => (DamageDice::new(1, -1), DamageDice::new(1, 2)),
+            13 => (DamageDice::new(1, 0), DamageDice::new(2, -1)),
+            14 => (DamageDice::new(1, 0), DamageDice::new(2, 0)),
+            15 => (DamageDice::new(1, 1), DamageDice::new(2, 1)),
+            16 => (DamageDice::new(1, 1), DamageDice::new(2, 2)),
+            17 => (DamageDice::new(1, 2), DamageDice::new(3, -1)),
+            18 => (DamageDice::new(1, 2), DamageDice::new(3, 0)),
+            19 => (DamageDice::new(2, -1), DamageDice::new(3, 1)),
+            20 => (DamageDice::new(2, -1), DamageDice::new(3, 2)),
+            21 => (DamageDice::new(2, 0), DamageDice::new(4, -1)),
+            22 => (DamageDice::new(2, 0), DamageDice::new(4, 0)),
+            23 => (DamageDice::new(2, 1), DamageDice::new(4, 1)),
+            24 => (DamageDice::new(2, 1), DamageDice::new(4, 2)),
+            25 => (DamageDice::new(2, 2), DamageDice::new(5, -1)),
+            26 => (DamageDice::new(2, 2), DamageDice::new(5, 0)),
+            27 => (DamageDice::new(3, -1), DamageDice::new(5, 1)),
+            28 => (DamageDice::new(3, -1), DamageDice::new(5, 1)),
+            29 => (DamageDice::new(3, 0), DamageDice::new(5, 2)),
+            30 => (DamageDice::new(3, 0), DamageDice::new(5, 2)),
+            31 => (DamageDice::new(3, 1), DamageDice::new(6, -1)),
+            32 => (DamageDice::new(3, 1), DamageDice::new(6, -1)),
+            33 => (DamageDice::new(3, 2), DamageDice::new(6, 0)),
+            34 => (DamageDice::new(3, 2), DamageDice::new(6, 0)),
+            35 => (DamageDice::new(4, -1), DamageDice::new(6, 1)),
+            36 => (DamageDice::new(4, -1), DamageDice::new(6, 1)),
+            37 => (DamageDice::new(4, 0), DamageDice::new(6, 2)),
+            38 => (DamageDice::new(4, 0), DamageDice::new(6, 2)),
+            39 => (DamageDice::new(4, 1), DamageDice::new(7, -1)),
+            40..45 => (DamageDice::new(4, 1), DamageDice::new(7, -1)),
+            45..50 => (DamageDice::new(5, 0), DamageDice::new(7, 1)),
+            50..55 => (DamageDice::new(5, 2), DamageDice::new(8, -1)),
+            55..60 => (DamageDice::new(6, 0), DamageDice::new(8, 1)),
+            60..65 => (DamageDice::new(7, -1), DamageDice::new(9, 0)),
+            65..70 => (DamageDice::new(7, 1), DamageDice::new(9, 2)),
+            70..75 => (DamageDice::new(8, 0), DamageDice::new(10, 0)),
+            75..80 => (DamageDice::new(8, 2), DamageDice::new(10, 2)),
+            80..85 => (DamageDice::new(9, 0), DamageDice::new(11, 0)),
+            85..90 => (DamageDice::new(9, 2), DamageDice::new(11, 2)),
+            90..95 => (DamageDice::new(10, 0), DamageDice::new(12, 0)),
+            95..100 => (DamageDice::new(10, 2), DamageDice::new(12, 2)),
+            100 => (DamageDice::new(11, 0), DamageDice::new(13, 0)),
             above => {
                 let buff = (above - 100) % 10;
                 (
-                    DieLevel::new(11 + buff as i64, 0),
-                    DieLevel::new(13 + buff as i64, 0),
+                    DamageDice::new(11 + buff as i64, 0),
+                    DamageDice::new(13 + buff as i64, 0),
                 )
             }
         };

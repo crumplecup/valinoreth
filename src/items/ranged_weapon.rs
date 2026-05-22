@@ -10,7 +10,7 @@
 //!
 //! BS 276-278 - Ranged weapons table
 
-use crate::{Currency, DamageType, DieLevel, Skill, TechLevel, WeaponDamage, Weight};
+use crate::{Currency, DamageDice, DamageType, Skill, TechLevel, WeaponDamage, Weight};
 use tracing::{debug, instrument};
 
 /// Ranged weapon types.
@@ -1219,47 +1219,47 @@ impl RangedWeapon {
         debug!("Getting ranged weapon damage");
         match self {
             Self::Arbalest => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 7),
+                dice: DamageDice::new(1, 7),
                 damage_type: DamageType::Impaling,
             },
             Self::AccuracyInternationalAWM => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AA12 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Arquebus => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AK47 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AKM => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AK12 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::ASVal => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AssaultRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::ArisakaType38 => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::AT4 => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
                         Self::Atlatl => WeaponDamage::Thrust {
@@ -1267,15 +1267,15 @@ impl RangedWeapon {
                 damage_type: DamageType::Impaling,
             },
             Self::Ballista => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 4),
+                dice: DamageDice::new(3, 4),
                 damage_type: DamageType::Impaling,
             },
                         Self::Blowgun => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, -3),
+                dice: DamageDice::new(1, -3),
                 damage_type: DamageType::Impaling,
             },
                         Self::Blunderbuss => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Bola => WeaponDamage::Swing {
@@ -1283,71 +1283,71 @@ impl RangedWeapon {
                 damage_type: DamageType::Crushing,
             },
                         Self::Bow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 0),
+                dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
             Self::BoysAntiTankRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BAR => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BrenGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BarrettM82 => WeaponDamage::Fixed {
-                dice: DieLevel::new(9, 0),
+                dice: DamageDice::new(9, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BarrettM107 => WeaponDamage::Fixed {
-                dice: DieLevel::new(9, 0),
+                dice: DamageDice::new(9, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BenelliM3 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::BerettaM92 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::BrowningHiPower => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::BrowningM1917 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BrowningM2 => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::BrowningAuto5 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
                                     Self::Carbine => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Caliver => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::CapLockPistol => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Catapult => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::CompositeBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 3),
+                dice: DamageDice::new(1, 3),
                 damage_type: DamageType::Impaling,
             },
                         Self::Chakram => WeaponDamage::Thrust {
@@ -1355,55 +1355,55 @@ impl RangedWeapon {
                 damage_type: DamageType::Cutting,
             },
             Self::ClaymoreMine => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::ChassepotRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::CheyTacM200 => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::ChiappaRhino => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, -1),
+                dice: DamageDice::new(3, -1),
                 damage_type: DamageType::Piercing,
             },
             Self::Chukonu => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 0),
+                dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
             Self::ColtWalker => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::ColtM1911 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Coilgun => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Crossbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 4),
+                dice: DamageDice::new(1, 4),
                 damage_type: DamageType::Impaling,
             },
             Self::CZ75 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::CZP10 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::C4Explosive => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::Daikyu => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 3),
+                dice: DamageDice::new(1, 3),
                 damage_type: DamageType::Impaling,
             },
             Self::Dart => WeaponDamage::Thrust {
@@ -1411,167 +1411,167 @@ impl RangedWeapon {
                 damage_type: DamageType::Impaling,
             },
             Self::Dynamite => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::DreyseNeedleRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 2),
+                dice: DamageDice::new(3, 2),
                 damage_type: DamageType::Piercing,
             },
                         Self::Derringer => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::DesertEagle => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::DoubleActionRevolver => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::DoubleBarrelShotgun => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::DragunovSVD => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Espringal => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Impaling,
             },
             Self::EnfieldPattern1853 => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
                         Self::Flamethrower => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Crushing, // Burning damage
             },
             Self::FlareGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 0),
+                dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Crushing, // Signaling, minimal damage
             },
             Self::FieldGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::Flintlock => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::FAMAS => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::FNFAL => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 1),
+                dice: DamageDice::new(5, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::FNMAG => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::FNP90 => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 1),
+                dice: DamageDice::new(3, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::FNSCARL => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::FNFiveSeveN => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::FNMinimiPara => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::FostechOrigin12 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Fusil => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::GatlingGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::GardnerGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
                         Self::Grenade => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0), // 3d×2 fragmentation
+                dice: DamageDice::new(3, 0), // 3d×2 fragmentation
                 damage_type: DamageType::Crushing,
             },
             Self::GreaseGunM3 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Hackbut => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
                         Self::Gastraphetes => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 6),
+                dice: DamageDice::new(1, 6),
                 damage_type: DamageType::Impaling,
             },
             Self::GreatBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 4),
+                dice: DamageDice::new(1, 4),
                 damage_type: DamageType::Impaling,
             },
             Self::Glock17 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Glock43X => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::G3 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 1),
+                dice: DamageDice::new(5, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::GP25 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::GaussRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::HornBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Impaling,
             },
             Self::HandCannon => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
                         Self::Hankyu => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 0),
+                dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
             Self::HandMortar => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::HenryRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 1),
+                dice: DamageDice::new(3, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::HandCrossbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 0),
+                dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
                         Self::HeavyCrossbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 5),
+                dice: DamageDice::new(1, 5),
                 damage_type: DamageType::Impaling,
             },
             Self::Hurlbat => WeaponDamage::Swing {
@@ -1579,239 +1579,239 @@ impl RangedWeapon {
                 damage_type: DamageType::Cutting,
             },
                         Self::HuntingRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::HK416 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::HKMP7 => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::HKMark23 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::HKMG4 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Jezail => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::KelTecKSG => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::KrissVector => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::LematRevolver => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 1),
+                dice: DamageDice::new(2, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::LeeEnfieldSMLE => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::LeverActionRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::LewisGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::LightCrossbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Impaling,
             },
                                     Self::Longbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Impaling,
             },
             Self::LugerP08 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::L96A1 => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::LAWM72 => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::LaserRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MAC10 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::M1Garand => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MakarovPM => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::M14 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 1),
+                dice: DamageDice::new(5, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::M16 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::M203 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::M21SWS => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::M249SAW => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::M4Carbine => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::M60 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::M79 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::Mangonel => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::Matchlock => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 2),
+                dice: DamageDice::new(3, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::MartiniHenryRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MauserModel1871 => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 1),
+                dice: DamageDice::new(4, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::MauserC96 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MauserGewehr98 => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 1),
+                dice: DamageDice::new(4, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::MG34 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MG42 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MG3 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MaximGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::MachineGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::McMillanTAC50 => WeaponDamage::Fixed {
-                dice: DieLevel::new(9, 0),
+                dice: DamageDice::new(9, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Mitrailleuse => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Mk19 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::MilkorMGL => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::MosinNagant => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 1),
+                dice: DamageDice::new(4, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Mossberg500 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::MP18 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 1),
+                dice: DamageDice::new(2, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::MP40 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::MP5 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::MountainGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::MTS255 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
                         Self::Musket => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Musketoon => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 2),
+                dice: DamageDice::new(3, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::NavalGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::NegevNG7 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::NordenfeltGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Pecheneg => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::PelletBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 4),
+                dice: DamageDice::new(1, 4),
                 damage_type: DamageType::Impaling,
             },
                         Self::Pistol => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
                         Self::PelletSling => WeaponDamage::Swing {
@@ -1819,15 +1819,15 @@ impl RangedWeapon {
                 damage_type: DamageType::Crushing,
             },
             Self::Petronel => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::PepperboxRevolver => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::PercussionRevolver => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Plumbata => WeaponDamage::Thrust {
@@ -1835,71 +1835,71 @@ impl RangedWeapon {
                 damage_type: DamageType::Impaling,
             },
             Self::PPS43 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::PPSh41 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::PKM => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::PSG1 => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::PGMHecateII => WeaponDamage::Fixed {
-                dice: DieLevel::new(9, 0),
+                dice: DamageDice::new(9, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::PlasmaRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::PTRDAntiTankRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 1),
+                dice: DamageDice::new(7, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Prodd => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Crushing,
             },
             Self::PumpActionShotgun => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::QBZ95 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Remington870 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::RemingtonRollingBlockPistol => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::RemingtonRollingBlockRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::RemingtonModel31 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Revolver => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::RepeatingCrossbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Impaling,
             },
             Self::Rifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Rock => WeaponDamage::Thrust {
@@ -1907,63 +1907,63 @@ impl RangedWeapon {
                 damage_type: DamageType::Crushing,
             },
                         Self::RocketLauncher => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::RPG7 => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::Railgun => WeaponDamage::Fixed {
-                dice: DieLevel::new(10, 0),
+                dice: DamageDice::new(10, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Scorpion => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Impaling,
             },
             Self::RecurveBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Impaling,
             },
             Self::Saiga12 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::SakoTRG42 => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SelfBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, -1),
+                dice: DamageDice::new(1, -1),
                 damage_type: DamageType::Impaling,
             },
             Self::Shotgun => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
                         Self::ShortBow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, -1),
+                dice: DamageDice::new(1, -1),
                 damage_type: DamageType::Impaling,
             },
             Self::SharpsRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SiegeCrossbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 6),
+                dice: DamageDice::new(3, 6),
                 damage_type: DamageType::Impaling,
             },
             Self::SIGP220 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::SIGP320 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::SingleActionRevolver => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 1),
+                dice: DamageDice::new(2, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Shuriken => WeaponDamage::Thrust {
@@ -1971,7 +1971,7 @@ impl RangedWeapon {
                 damage_type: DamageType::Impaling,
             },
             Self::Skorpion => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Sling => WeaponDamage::Swing {
@@ -1979,55 +1979,55 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::SmithWessonModel1 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 0),
+                dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SmithWessonModel3 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SMG => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::SniperRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(7, 0),
+                dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SPAS12 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::SpencerRepeatingRifle => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 2),
+                dice: DamageDice::new(3, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::SpringfieldModel1861 => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::SpringfieldM1903 => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 1),
+                dice: DamageDice::new(4, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::TrapdoorSpringfield => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::StenGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 1),
+                dice: DamageDice::new(2, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Sterling => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::SteyrAUG => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::StingerMissile => WeaponDamage::Fixed {
-                dice: DieLevel::new(12, 0),
+                dice: DamageDice::new(12, 0),
                 damage_type: DamageType::Crushing,
             },
                         Self::StaffSling => WeaponDamage::Swing {
@@ -2035,7 +2035,7 @@ impl RangedWeapon {
                 damage_type: DamageType::Piercing,
             },
             Self::Stonebow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Crushing,
             },
             Self::Boomerang => WeaponDamage::Swing {
@@ -2063,87 +2063,87 @@ impl RangedWeapon {
                 damage_type: DamageType::Crushing,
             },
             Self::ThompsonM1928 => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Trebuchet => WeaponDamage::Fixed {
-                dice: DieLevel::new(4, 0),
+                dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::TNT => WeaponDamage::Fixed {
-                dice: DieLevel::new(8, 0),
+                dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::TOWMissile => WeaponDamage::Fixed {
-                dice: DieLevel::new(12, 0),
+                dice: DamageDice::new(12, 0),
                 damage_type: DamageType::Crushing,
             },
             Self::Uzi => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 2),
+                dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Ultimax100 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::USAS12 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::VolcanicPistol => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::VickersMachineGun => WeaponDamage::Fixed {
-                dice: DieLevel::new(6, 0),
+                dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
                         Self::Warbow => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 3),
+                dice: DamageDice::new(1, 3),
                 damage_type: DamageType::Impaling,
             },
             Self::WaltherPPK => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, -1),
+                dice: DamageDice::new(2, -1),
                 damage_type: DamageType::Piercing,
             },
             Self::WebleyRIC => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::WebleyMkVI => WeaponDamage::Fixed {
-                dice: DieLevel::new(2, 0),
+                dice: DamageDice::new(2, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Wheellock => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 2),
+                dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
             Self::Winchester1866 => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 0),
+                dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Winchester1873 => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 1),
+                dice: DamageDice::new(3, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Winchester1887 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::Winchester1897 => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::WinchesterRepeater => WeaponDamage::Fixed {
-                dice: DieLevel::new(3, 1),
+                dice: DamageDice::new(3, 1),
                 damage_type: DamageType::Piercing,
             },
             Self::XM8 => WeaponDamage::Fixed {
-                dice: DieLevel::new(5, 0),
+                dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
             Self::Yumi => WeaponDamage::Fixed {
-                dice: DieLevel::new(1, 1),
+                dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Impaling,
             },
             Self::ThrownBola => WeaponDamage::Swing {

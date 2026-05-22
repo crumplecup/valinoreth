@@ -1,248 +1,250 @@
-//! Dice rolling and probability mechanics.
+//! Dice types for GURPS.
 //!
-//! # GURPS Rules
+//! GURPS uses 3d6 for all checks. [`DieFace`] represents a single
+//! six-sided die (1–6) and [`ThreeDiceRoll`] bundles three dice together,
+//! providing the sum (3–18) used for all GURPS checks.
 //!
-//! GURPS uses 3d6 (three six-sided dice) as its core mechanic:
-//! - Success rolls: Roll 3d6 ≤ skill level
-//! - Damage rolls: Roll dice specified by weapon (e.g., 2d+1)
-//! - Average roll: 10-11 (bell curve distribution)
-//! - Critical success: 3-4, or 5-6 if skill 15+
-//! - Critical failure: 17-18, or 10+ over skill
+//! # Random Generation
 //!
-//! # Citations
+//! Both types integrate with the elicitation framework's [`Generator`] system
+//! via `#[derive(Rand)]`. This provides seeded, deterministic dice generation:
 //!
-//! - BS 10 - Success Rolls
-//! - BS 269 - Damage Rolls
-//! - BS 347 - Critical Success/Failure
+//! ```rust,ignore
+//! use elicitation::Generator;
+//! use valinoreth::ThreeDiceRoll;
 //!
-//! # Examples
+//! // Create a deterministic dice generator
+//! let dice = ThreeDiceRoll::random_generator(42);
 //!
-//! ```
-//! use valinoreth::{Random, Dice};
-//!
-//! let mut rng = Random::from_seed(42).unwrap();
-//! let roll = Dice::from_random(&mut rng);
-//! // Roll is between 3-18
+//! // Each call produces the next roll in the sequence
+//! let roll = dice.generate();
+//! println!("Rolled {}", roll.sum());
 //! ```
 
-use rand::distr::Distribution;
+use elicitation::Elicit;
+use elicitation::Generator;
+use serde::{Deserialize, Serialize};
+#[cfg(not(kani))]
+use tracing::instrument;
 
-/// Result of rolling 3d6.
+/// A single die face (1–6).
 ///
-/// # GURPS Rules
+/// Using an enum guarantees at the type level that a face can never be 0 or 7+.
 ///
-/// Stores individual die results and their sum. The 3d6 bell curve
-/// means rolls cluster around 10-11 (16.2% chance each).
-///
-/// # Citations
-///
-/// BS 10 - 3d6 probability distribution
-///
-/// # Examples
-///
-/// ```
-/// use valinoreth::{Random, Dice};
-///
-/// let mut rng = Random::from_seed(42).unwrap();
-/// let dice = Dice::from_random(&mut rng);
-/// // dice.sum() is between 3-18
-/// ```
+/// Derives `Rand` for uniform random face selection via `DieFace::random_generator(seed)`.
 #[derive(
     Debug,
-    Default,
-    Copy,
     Clone,
+    Copy,
+    Default,
     PartialEq,
     Eq,
+    Hash,
     PartialOrd,
     Ord,
-    Hash,
-    serde::Serialize,
-    serde::Deserialize,
-    derive_new::new,
-    derive_getters::Getters,
+    Serialize,
+    Deserialize,
+    Elicit,
+    strum::EnumIter,
+    schemars::JsonSchema,
+    elicitation_derive::Rand,
 )]
-pub struct Dice {
-    /// First die (1-6)
-    d1: usize,
-    /// Second die (1-6)
-    d2: usize,
-    /// Third die (1-6)
-    d3: usize,
-    /// Sum of all three dice (3-18)
-    sum: usize,
+#[cfg_attr(kani, derive(kani::Arbitrary, elicitation::KaniCompose))]
+pub enum DieFace {
+    /// Face showing 1.
+    #[default]
+    One = 1,
+    /// Face showing 2.
+    Two = 2,
+    /// Face showing 3.
+    Three = 3,
+    /// Face showing 4.
+    Four = 4,
+    /// Face showing 5.
+    Five = 5,
+    /// Face showing 6.
+    Six = 6,
 }
 
-impl Dice {
-    /// Rolls 3d6 using the provided random number generator.
+impl DieFace {
+    /// Returns the numeric value (1–6).
+    pub fn value(self) -> u8 {
+        self as u8
+    }
+
+    /// All six faces in order.
+    pub const ALL: [DieFace; 6] = [
+        DieFace::One,
+        DieFace::Two,
+        DieFace::Three,
+        DieFace::Four,
+        DieFace::Five,
+        DieFace::Six,
+    ];
+
+    /// Creates a [`DieFace`] from a numeric value (1–6).
     ///
-    /// # Examples
-    ///
-    /// ```
-    /// use valinoreth::{Random, Dice};
-    ///
-    /// let mut rng = Random::from_seed(42).unwrap();
-    /// let dice = Dice::from_random(&mut rng);
-    /// ```
-    pub fn from_random(random: &mut Random) -> Self {
-        let d1 = random.roll_die();
-        let d2 = random.roll_die();
-        let d3 = random.roll_die();
-        let sum = d1 + d2 + d3;
-        Self { d1, d2, d3, sum }
+    /// Returns `None` for values outside 1..=6.
+    #[cfg_attr(not(kani), instrument)]
+    pub fn from_value(v: u8) -> Option<Self> {
+        match v {
+            1 => Some(DieFace::One),
+            2 => Some(DieFace::Two),
+            3 => Some(DieFace::Three),
+            4 => Some(DieFace::Four),
+            5 => Some(DieFace::Five),
+            6 => Some(DieFace::Six),
+            _ => None,
+        }
     }
 }
 
-/// Damage dice specification.
+impl std::fmt::Display for DieFace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.value())
+    }
+}
+
+/// A roll of three dice (3d6).
 ///
-/// # GURPS Rules
+/// The sum is always in 3..=18. This is the standard check roll in GURPS.
 ///
-/// Damage is specified as NdM where:
-/// - N = number of dice
-/// - M = modifier (pips) added/subtracted
+/// # Random Generation
 ///
-/// Examples:
-/// - 2d+1: Roll 2 dice, add 1
-/// - 3d-2: Roll 3 dice, subtract 2
-/// - 1d: Roll 1 die, no modifier
+/// Use `ThreeDiceRoll::random_generator(seed)` to create a deterministic dice generator.
+/// Each `generate()` call produces an independent roll by composing three [`DieFace`]
+/// generators with split seeds:
 ///
-/// # Citations
+/// ```rust,ignore
+/// use elicitation::Generator;
+/// use valinoreth::ThreeDiceRoll;
 ///
-/// BS 269 - Damage notation
-/// BS 16 - Damage Table
-///
-/// # Examples
-///
-/// ```
-/// use valinoreth::DieLevel;
-///
-/// // 2d+1 damage
-/// let damage = DieLevel::new(2, 1);
-///
-/// // 1d-2 damage
-/// let damage = DieLevel::new(1, -2);
+/// let dice = ThreeDiceRoll::random_generator(42);
+/// let roll = dice.generate(); // Independent, seeded roll
+/// assert!(roll.sum() >= 3 && roll.sum() <= 18);
 /// ```
 #[derive(
-    Debug,
-    Default,
-    Copy,
-    Clone,
-    PartialEq,
-    Eq,
-    PartialOrd,
-    Ord,
-    Hash,
-    serde::Serialize,
-    serde::Deserialize,
-    derive_new::new,
-    derive_getters::Getters,
+    Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, Elicit, schemars::JsonSchema,
 )]
-pub struct DieLevel {
-    /// Number of dice to roll
-    dice: i64,
-    /// Modifier (pips) to add/subtract
-    pips: i64,
+#[cfg_attr(kani, derive(kani::Arbitrary, elicitation::KaniCompose))]
+pub struct ThreeDiceRoll {
+    /// First die.
+    die1: DieFace,
+    /// Second die.
+    die2: DieFace,
+    /// Third die.
+    die3: DieFace,
 }
 
-/// Random number generator for dice rolls.
-///
-/// Wraps the standard RNG with a uniform distribution for 1d6.
-/// Provides reproducible results when seeded.
-///
-/// # Examples
-///
-/// ```
-/// use valinoreth::Random;
-///
-/// // Seeded for reproducibility
-/// let mut rng = Random::from_seed(42).unwrap();
-/// let roll = rng.roll_die(); // 1-6
-///
-/// // Default uses system entropy
-/// let mut rng = Random::default();
-/// let total = rng.roll(); // 3d6, result 3-18
-/// ```
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Random {
-    /// Standard RNG
-    range: rand::rngs::StdRng,
-    /// Uniform distribution for 1-6
-    die: rand::distr::Uniform<usize>,
-}
-
-impl Random {
-    /// Creates a seeded random number generator.
-    ///
-    /// Use this for reproducible dice rolls (e.g., testing).
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use valinoreth::Random;
-    ///
-    /// let mut rng = Random::from_seed(42).unwrap();
-    /// let roll = rng.roll_die();
-    /// ```
-    pub fn from_seed(seed: u64) -> Result<Self, rand::distr::uniform::Error> {
-        let range = rand::SeedableRng::seed_from_u64(seed);
-        let die = rand::distr::Uniform::new(1, 7)?;
-        Ok(Self { range, die })
+impl ThreeDiceRoll {
+    /// Creates a new dice roll from three faces.
+    pub fn new(die1: DieFace, die2: DieFace, die3: DieFace) -> Self {
+        Self { die1, die2, die3 }
     }
 
-    /// Rolls a single six-sided die (1-6).
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use valinoreth::Random;
-    ///
-    /// let mut rng = Random::from_seed(42).unwrap();
-    /// let result = rng.roll_die(); // 1-6
-    /// ```
-    pub fn roll_die(&mut self) -> usize {
-        self.die.sample(&mut self.range)
+    /// Returns the first die.
+    pub fn die1(self) -> DieFace {
+        self.die1
     }
 
-    /// Rolls 3d6 and returns the sum (3-18).
+    /// Returns the second die.
+    pub fn die2(self) -> DieFace {
+        self.die2
+    }
+
+    /// Returns the third die.
+    pub fn die3(self) -> DieFace {
+        self.die3
+    }
+
+    /// Returns the sum of all three dice (3–18).
+    pub fn sum(self) -> i32 {
+        (self.die1.value() + self.die2.value() + self.die3.value()) as i32
+    }
+
+    /// Returns true for critical success (3 or 4).
     ///
     /// # GURPS Rules
     ///
-    /// Most GURPS rolls use 3d6, which creates a bell curve
-    /// distribution centered around 10-11.
+    /// A roll of 3 or 4 is always a critical success.
+    /// A roll of 5 or 6 is also a critical success if skill ≥ 15.
+    pub fn is_automatic_critical_success(self) -> bool {
+        let s = self.sum();
+        s <= 4
+    }
+
+    /// Returns true for potential critical success with high skill (5 or 6).
+    pub fn is_conditional_critical_success(self) -> bool {
+        let s = self.sum();
+        s == 5 || s == 6
+    }
+
+    /// Returns true for automatic critical failure (18).
     ///
-    /// # Citations
+    /// # GURPS Rules
     ///
-    /// BS 10 - Success rolls
+    /// A roll of 18 is always a critical failure.
+    /// A roll of 17 is also a critical failure if skill < 16.
+    pub fn is_automatic_critical_failure(self) -> bool {
+        self.sum() == 18
+    }
+
+    /// Returns true for conditional critical failure (17).
+    pub fn is_conditional_critical_failure(self) -> bool {
+        self.sum() == 17
+    }
+
+    /// Creates a seeded dice generator using the elicitation framework.
     ///
-    /// # Examples
+    /// The generator composes three independent [`DieFace`] generators with
+    /// split seeds, ensuring die1, die2, and die3 are uncorrelated. Same seed
+    /// always produces the same sequence — ideal for replays and testing.
     ///
+    /// # Example
+    ///
+    /// ```rust,ignore
+    /// use elicitation::Generator;
+    /// use valinoreth::ThreeDiceRoll;
+    ///
+    /// let dice = ThreeDiceRoll::random_generator(42);
+    /// let roll1 = dice.generate();
+    /// let roll2 = dice.generate();
+    /// // Deterministic: same seed → same sequence
     /// ```
-    /// use valinoreth::Random;
-    ///
-    /// let mut rng = Random::from_seed(42).unwrap();
-    /// let result = rng.roll(); // 3-18
-    /// ```
-    pub fn roll(&mut self) -> usize {
-        (0..3).fold(0, |acc, _| acc + self.die.sample(&mut self.range))
+    pub fn random_generator(seed: u64) -> impl elicitation::Generator<Target = Self> {
+        elicitation_rand::generators::MapGenerator::new(
+            elicitation_rand::generators::RandomGenerator::<u64>::with_seed(seed),
+            |inner_seed: u64| {
+                // Split seed for independent dice
+                let gen1 = DieFace::random_generator(inner_seed);
+                let gen2 = DieFace::random_generator(inner_seed.wrapping_add(1));
+                let gen3 = DieFace::random_generator(inner_seed.wrapping_add(2));
+                ThreeDiceRoll::new(gen1.generate(), gen2.generate(), gen3.generate())
+            },
+        )
+    }
+
+    /// All 216 possible dice roll combinations (6³).
+    pub fn all_combinations() -> impl Iterator<Item = ThreeDiceRoll> {
+        DieFace::ALL.iter().flat_map(|&d1| {
+            DieFace::ALL.iter().flat_map(move |&d2| {
+                DieFace::ALL
+                    .iter()
+                    .map(move |&d3| ThreeDiceRoll::new(d1, d2, d3))
+            })
+        })
     }
 }
 
-impl Default for Random {
-    /// Creates a random number generator using system entropy.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use valinoreth::Random;
-    ///
-    /// let mut rng = Random::default();
-    /// let roll = rng.roll(); // Unpredictable 3d6
-    /// ```
-    fn default() -> Self {
-        let mut rng = rand::rng();
-        let range = <rand::rngs::StdRng as rand::SeedableRng>::from_rng(&mut rng);
-        // Quick and dirty method, may panic on ...?
-        let die = rand::distr::Uniform::new(1, 7).unwrap();
-        Self { range, die }
+impl std::fmt::Display for ThreeDiceRoll {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}+{}+{}={}",
+            self.die1,
+            self.die2,
+            self.die3,
+            self.sum()
+        )
     }
 }

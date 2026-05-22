@@ -40,6 +40,7 @@ mod ranged_weapon;
 mod survival;
 mod tools;
 mod types;
+mod weapons;
 
 // Re-export all public types
 pub use armor::Armor;
@@ -51,3 +52,4 @@ pub use ranged_weapon::RangedWeapon;
 pub use survival::SurvivalGear;
 pub use tools::Tool;
 pub use types::{Capacity, Currency, Quality, TechLevel, Weight};
+pub use weapons::{DamageType, Reach, WeaponDamage};

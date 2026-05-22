@@ -1,5 +1,6 @@
 use clap::Parser;
-use valinoreth::{trace_init, Cli, Players, Random};
+use elicitation::Generator;
+use valinoreth::{trace_init, Cli, Players, ThreeDiceRoll};
 
 fn main() {
     trace_init();
@@ -11,8 +12,8 @@ fn main() {
             tracing::info!("6 choose 3 equals {}", prob);
         }
         "roll" => {
-            let mut random = Random::default();
-            tracing::info!("Roll is {}", random.roll());
+            let roll = ThreeDiceRoll::random_generator(42).generate();
+            tracing::info!("Roll is {}", roll.sum());
         }
         "tanithas" => Players::tanithas(),
         _ => tracing::info!("Command not recognized."),

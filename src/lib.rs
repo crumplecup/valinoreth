@@ -18,11 +18,11 @@ mod advantages;
 mod body;
 mod character;
 mod cli;
-mod combat;
 mod contracts;
 mod dice;
 mod disadvantages;
 mod free;
+mod game_master;
 mod items;
 mod magic;
 mod movement;
@@ -37,16 +37,10 @@ pub use advantages::{
 };
 pub use body::{Arms, BodyArea, BodyLocation, Head, Legs, Torso};
 pub use character::{
-    AttributeColumns, AttributeType, Attributes, BaseDamage, CombatStats, DamageKind, Encumbrance,
-    EncumbranceDodge, EncumbranceLevel, EncumbranceMove, EncumbranceWeight, Stats,
+    AttributeColumns, Attributes, BaseDamage, CombatStats, DamageDice, DamageKind,
+    Encumbrance, EncumbranceDodge, EncumbranceLevel, EncumbranceMove, EncumbranceWeight, Stats,
 };
 pub use cli::Cli;
-pub use combat::{
-    calculate_block, calculate_dodge, calculate_parry, defense_succeeds, ActiveDefense, Armor,
-    ArmorBuilder, AttackResult, AttackRoll, CombatError, CombatErrorKind, CombatModifiers,
-    CombatModifiersBuilder, DamageResolution, DamageType, DefenseResult, Modifier, Reach,
-    Technique, TechniqueDifficulty, WeaponDamage, RETREAT_BONUS,
-};
 pub use contracts::{
     // Logical operators from elicitation
     And, Established, Implies, InVariant, Is, Prop, ProvableFrom, Refines,
@@ -110,12 +104,12 @@ pub use contracts::{
     SpellManager,
     // Descriptor types
     AdvantageDescriptor, AdvantageDescriptorBuilder, ArmorDescriptor, AttributeDescriptor,
-    AttributeMinimums, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
+    AttributeMinimums, AttributeType, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
     CasterDescriptor, CasterDescriptorBuilder, CeremonialMagicDescriptor,
     CeremonialMagicDescriptorBuilder, CharacterCreationDescriptor, CharacterCreationDescriptorBuilder,
     CharacterDescriptor, CharacterDescriptorBuilder, CombatantDescriptor, CombatantDescriptorBuilder,
     DamageDescriptor, DamageDescriptorBuilder, DamageResult, DamageTypeDescriptor,
-    DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType,
+    DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType, HitLocation,
     DerivedStatsDescriptor, DisadvantageDescriptor, DisadvantageDescriptorBuilder,
     FeintDescriptor, FeintResult, ModifierDescriptor, RapidStrikeDescriptor, ResistanceResult,
     SecondaryCharacteristicDescriptor, SecondaryCharacteristicType, SkillCheckDescriptor,
@@ -124,12 +118,13 @@ pub use contracts::{
     SpellCastingDescriptorBuilder, SpellCastingResult, SpellClass, SpellCollege, SpellDescriptor,
     SpellDescriptorBuilder, SpellEffectDescriptor, SpellResistanceDescriptor,
 };
-pub use dice::{Dice, DieLevel, Random};
+pub use dice::{DieFace, ThreeDiceRoll};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use free::trace_init;
+pub use game_master::{GameMaster, GameMasterConfig, ManaLevel};
 pub use items::{
-    Armor as ItemArmor, Capacity, Clothing, Container, Currency, Item, MeleeWeapon, Quality,
-    RangedWeapon, SurvivalGear, TechLevel, Tool, Weight,
+    Armor as ItemArmor, Capacity, Clothing, Container, Currency, DamageType, Item, MeleeWeapon,
+    Quality, RangedWeapon, Reach, SurvivalGear, TechLevel, Tool, WeaponDamage, Weight,
 };
 pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellPrerequisite, SpellType,
