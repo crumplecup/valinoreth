@@ -160,15 +160,44 @@ pub struct DamageApplied;
 
 // ── Bridges from GameMaster Mechanics ─────────────────────────────────────────
 
-// These ProvableFrom implementations will connect GameMaster evidence
-// to combat flow propositions. They go in contracts/credentials.rs
-// using proof_credential! macro.
-//
-// Examples:
-// - AttackSuccessful -> DefenseRequired
-// - DefenseFailed -> CanApplyDamage
-// - InjuryApplied -> DamageApplied
-// - CombatantIncapacitated -> VictoryConditionMet
+use crate::contracts::combat::{
+    AttackFailed, AttackOutcomeDetermined, AttackSuccessful, DefenseFailed,
+    DefenseOutcomeDetermined, DefenseSuccessful, InjuryApplied,
+};
+use elicitation::contracts::ProvableFrom;
+
+// Attack mechanics → combat flow
+
+/// Successful attack requires defense.
+impl ProvableFrom<AttackSuccessful> for DefenseRequired {}
+
+/// Attack outcome determined means attack is resolved.
+impl ProvableFrom<AttackOutcomeDetermined> for AttackResolved {}
+
+/// Successful attack also counts as resolved.
+impl ProvableFrom<AttackSuccessful> for AttackResolved {}
+
+/// Failed attack also counts as resolved.
+impl ProvableFrom<AttackFailed> for AttackResolved {}
+
+// Defense mechanics → combat flow
+
+/// Defense outcome determined means defense is resolved.
+impl ProvableFrom<DefenseOutcomeDetermined> for DefenseResolved {}
+
+/// Successful defense also counts as resolved.
+impl ProvableFrom<DefenseSuccessful> for DefenseResolved {}
+
+/// Failed defense also counts as resolved.
+impl ProvableFrom<DefenseFailed> for DefenseResolved {}
+
+/// Failed defense enables damage application.
+impl ProvableFrom<DefenseFailed> for CanApplyDamage {}
+
+// Damage mechanics → combat flow
+
+/// Injury applied completes damage application.
+impl ProvableFrom<InjuryApplied> for DamageApplied {}
 
 // ── Future Extensions ─────────────────────────────────────────────────────────
 
