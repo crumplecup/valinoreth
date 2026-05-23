@@ -27,6 +27,7 @@ mod items;
 mod magic;
 mod movement;
 mod players;
+mod proofs;
 mod skills;
 mod special_features;
 mod vsm;
