@@ -39,3 +39,6 @@ mod weather;
 
 pub use core::Spell;
 pub use types::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
+
+// Re-export SpellCollege from contracts for convenience
+pub use crate::contracts::SpellCollege;

@@ -116,7 +116,7 @@ pub use contracts::{
     SecondaryCharacteristicDescriptor, SecondaryCharacteristicType, SkillCheckDescriptor,
     SkillCheckDescriptorBuilder, SkillCheckResult, SkillDefaultDescriptor, SkillDefaultType,
     SkillDescriptor, SkillDescriptorBuilder, SkillDifficulty, SpellCastingDescriptor,
-    SpellCastingDescriptorBuilder, SpellCastingResult, SpellClass, SpellCollege, SpellDescriptor,
+    SpellCastingDescriptorBuilder, SpellCastingResult, SpellClass, SpellDescriptor,
     SpellDescriptorBuilder, SpellEffectDescriptor, SpellResistanceDescriptor,
 };
 pub use dice::{DieFace, ThreeDiceRoll};
@@ -133,7 +133,7 @@ pub use items::{
     Quality, RangedWeapon, Reach, SurvivalGear, TechLevel, Tool, WeaponDamage, Weight,
 };
 pub use magic::{
-    Duration, EnergyCost, ResistanceType, Spell, SpellPrerequisite, SpellType,
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
 };
 pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
 pub use players::Players;

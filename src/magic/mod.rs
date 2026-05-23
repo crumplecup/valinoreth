@@ -16,5 +16,5 @@
 mod spells;
 
 pub use spells::{
-    Duration, EnergyCost, ResistanceType, Spell, SpellPrerequisite, SpellType,
+    Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
 };

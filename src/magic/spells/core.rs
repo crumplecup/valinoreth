@@ -12,6 +12,8 @@
 
 use tracing::{debug, instrument};
 
+use crate::contracts::SpellCollege;
+
 use super::{
     air, animal, body_control, communication_empathy, earth, enchantment, fire, food, gate,
     healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells,
@@ -19,76 +21,6 @@ use super::{
     weather,
 };
 use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
-
-/// Magic spell colleges.
-///
-/// # GURPS Rules
-///
-/// Spells are grouped into thematic colleges. Prerequisites often
-/// require knowing other spells from the same college.
-///
-/// # Citations
-///
-/// M 10 - Spell colleges
-///
-/// # Examples
-///
-/// ```
-/// use valinoreth::SpellCollege;
-///
-/// let college = SpellCollege::Knowledge;
-/// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, strum::EnumIter)]
-pub enum SpellCollege {
-    /// Air and wind manipulation spells. M 24
-    Air,
-    /// Animal control and beast spells. M 16
-    Animal,
-    /// Physical enhancement and affliction spells. M 36
-    BodyControl,
-    /// Communication and empathy spells. M 48
-    CommunicationEmpathy,
-    /// Earth and stone manipulation spells. M 56
-    Earth,
-    /// Enchantment and permanent magic. M 60
-    Enchantment,
-    /// Fire and heat manipulation spells. M 68
-    Fire,
-    /// Food creation and preservation spells. M 78
-    Food,
-    /// Portal and teleportation circle spells. M 82
-    Gate,
-    /// Healing and restoration spells. M 90
-    Healing,
-    /// Illusion and creation spells. M 94
-    IllusionCreation,
-    /// Information and divination spells. M 106
-    Knowledge,
-    /// Light and darkness manipulation spells. M 114
-    LightDarkness,
-    /// Object creation and destruction spells. M 116
-    MakingBreaking,
-    /// Spell manipulation and meta-magic. M 117
-    MetaSpells,
-    /// Mental influence and control spells. M 118
-    MindControl,
-    /// Movement and teleportation spells. M 146
-    Movement,
-    /// Death magic and undead spells. M 149
-    Necromantic,
-    /// Plant control and growth spells. M 155
-    Plant,
-    /// Protection and warning spells. M 162
-    ProtectionWarning,
-    /// Sound manipulation spells. M 171
-    Sound,
-    /// Technology and machine spells. M 176
-    Technological,
-    /// Water and ice manipulation spells. M 186
-    Water,
-    /// Weather control spells. M 193
-    Weather,
-}
 
 /// GURPS magic spells (Knowledge college canary implementation).
 ///
