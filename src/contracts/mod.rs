@@ -83,12 +83,11 @@ pub use elicitation::contracts::{
 // Re-export combat propositions
 pub use combat::{
     AimBonusApplied, AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess,
-    AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful,
-    BasicDamageCalculated, DamageResistanceApplied, DeceptiveAttackApplied,
-    DefenseCriticalFailure, DefenseCriticalSuccess, DefenseFailed, DefenseOutcomeDetermined,
-    DefenseRollMade, DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied,
-    InjuryCalculated, LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled,
-    WoundingModifierApplied,
+    AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful, BasicDamageCalculated,
+    DamageResistanceApplied, DeceptiveAttackApplied, DefenseCriticalFailure,
+    DefenseCriticalSuccess, DefenseFailed, DefenseOutcomeDetermined, DefenseRollMade,
+    DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied, InjuryCalculated,
+    LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled, WoundingModifierApplied,
 };
 
 // Re-export skill propositions
@@ -104,14 +103,14 @@ pub use skills::{
 
 // Re-export character propositions
 pub use character::{
-    AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePurchased,
-    AdvantagePrerequisiteMet, AttributeCostCalculated, AttributePurchased,
+    AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePrerequisiteMet,
+    AdvantagePurchased, AttributeCostCalculated, AttributePurchased,
     AttributesMeetCampaignMinimums, BasicMoveCalculated, BasicSpeedCalculated, CharacterComplete,
     CharacterIdentified, CharacterPointValueSet, CharacterValid, DisadvantageLevelValid,
-    DisadvantageTaken, DisadvantagePointLimitRespected, DisadvantagesNotConflicting,
+    DisadvantagePointLimitRespected, DisadvantageTaken, DisadvantagesNotConflicting,
     DodgeCalculated, FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
-    QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet, SecondaryCharacteristicPurchased,
-    SelfControlRollSpecified, WillSet,
+    QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet,
+    SecondaryCharacteristicPurchased, SelfControlRollSpecified, WillSet,
 };
 
 // Re-export magic propositions
@@ -136,22 +135,23 @@ pub use combat_flow::{
 
 // Re-export evidence bundles
 pub use proof_composition::{
-    AdvantagePurchaseEvidence, AllOutAttackEvidence, AttributePurchaseEvidence,
-    AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence, AttackFailureEvidence,
-    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence, CeremonialMagicEvidence,
+    AdvantagePurchaseEvidence, AllOutAttackEvidence, AttackCriticalFailureEvidence,
+    AttackCriticalSuccessEvidence, AttackFailureEvidence, AttackResolutionEvidence,
+    AttackSuccessEvidence, AttributePurchaseEvidence, BasicDamageEvidence, CeremonialMagicEvidence,
     CharacterCreationEvidence, CharacterValidationEvidence, CombatHitEvidence, CombatMissEvidence,
     ComplementarySkillEvidence, CompleteSpellCastingEvidence, ConcentrationEvidence,
     DeceptiveAttackEvidence, DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence,
-    DefenseFailureEvidence, DefenseResolutionEvidence, DefenseSuccessEvidence, DerivedStatsEvidence,
-    DisadvantageTakenEvidence, EnergyCostEvidence, EnergyPaymentEvidence, FeintEvidence,
-    InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
+    DefenseFailureEvidence, DefenseResolutionEvidence, DefenseSuccessEvidence,
+    DerivedStatsEvidence, DisadvantageTakenEvidence, EnergyCostEvidence, EnergyPaymentEvidence,
+    FeintEvidence, InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
     ResistanceOvercomeEvidence, SecondaryCharacteristicEvidence, SkillAttributeDefaultEvidence,
-    SkillCheckCriticalFailureEvidence, SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence,
-    SkillCheckResolutionEvidence, SkillCheckSuccessEvidence, SkillImprovementEvidence,
-    SkillModifiersEvidence, SkillRelatedDefaultEvidence, SpellCastingFailureEvidence,
-    SpellCastingResolutionEvidence, SpellCastingSuccessEvidence, SpellCriticalFailureEvidence,
-    SpellCriticalSuccessEvidence, SpellEffectEvidence, SpellLearningEvidence,
-    SpellMaintenanceEvidence, SpellResistanceEvidence, TechniqueUsageEvidence, WildcardSkillEvidence,
+    SkillCheckCriticalFailureEvidence, SkillCheckCriticalSuccessEvidence,
+    SkillCheckFailureEvidence, SkillCheckResolutionEvidence, SkillCheckSuccessEvidence,
+    SkillImprovementEvidence, SkillModifiersEvidence, SkillRelatedDefaultEvidence,
+    SpellCastingFailureEvidence, SpellCastingResolutionEvidence, SpellCastingSuccessEvidence,
+    SpellCriticalFailureEvidence, SpellCriticalSuccessEvidence, SpellEffectEvidence,
+    SpellLearningEvidence, SpellMaintenanceEvidence, SpellResistanceEvidence,
+    TechniqueUsageEvidence, WildcardSkillEvidence,
 };
 
 // Re-export trait interfaces
@@ -165,18 +165,19 @@ pub use traits::{
 
 // Re-export descriptor types
 pub use types::{
-    AdvantageDescriptor, AdvantageDescriptorBuilder, ArmorDescriptor, AttributeDescriptor,
-    AttributeMinimums, AttributeType, AttackDescriptor, AttackDescriptorBuilder, AttackRollResult,
-    CasterDescriptor, CasterDescriptorBuilder, CeremonialMagicDescriptor,
-    CeremonialMagicDescriptorBuilder, CharacterCreationDescriptor, CharacterCreationDescriptorBuilder,
-    CharacterDescriptor, CharacterDescriptorBuilder, CombatantDescriptor, CombatantDescriptorBuilder,
-    DamageDescriptor, DamageDescriptorBuilder, DamageResult, DamageTypeDescriptor,
-    DefenseDescriptor, DefenseDescriptorBuilder, DefenseRollResult, DefenseType, HitLocation,
-    DerivedStatsDescriptor, DisadvantageDescriptor, DisadvantageDescriptorBuilder,
-    FeintDescriptor, FeintResult, ModifierDescriptor, RapidStrikeDescriptor, ResistanceResult,
-    SecondaryCharacteristicDescriptor, SecondaryCharacteristicType, SkillCheckDescriptor,
-    SkillCheckDescriptorBuilder, SkillCheckResult, SkillDefaultDescriptor, SkillDefaultType,
-    SkillDescriptor, SkillDescriptorBuilder, SkillDifficulty, SpellCastingDescriptor,
-    SpellCastingDescriptorBuilder, SpellCastingResult, SpellClass, SpellCollege, SpellDescriptor,
-    SpellDescriptorBuilder, SpellEffectDescriptor, SpellResistanceDescriptor,
+    AdvantageDescriptor, AdvantageDescriptorBuilder, ArmorDescriptor, AttackDescriptor,
+    AttackDescriptorBuilder, AttackRollResult, AttributeDescriptor, AttributeMinimums,
+    AttributeType, CasterDescriptor, CasterDescriptorBuilder, CeremonialMagicDescriptor,
+    CeremonialMagicDescriptorBuilder, CharacterCreationDescriptor,
+    CharacterCreationDescriptorBuilder, CharacterDescriptor, CharacterDescriptorBuilder,
+    CombatantDescriptor, CombatantDescriptorBuilder, DamageDescriptor, DamageDescriptorBuilder,
+    DamageResult, DamageTypeDescriptor, DefenseDescriptor, DefenseDescriptorBuilder,
+    DefenseRollResult, DefenseType, DerivedStatsDescriptor, DisadvantageDescriptor,
+    DisadvantageDescriptorBuilder, FeintDescriptor, FeintResult, HitLocation, ModifierDescriptor,
+    RapidStrikeDescriptor, ResistanceResult, SecondaryCharacteristicDescriptor,
+    SecondaryCharacteristicType, SkillCheckDescriptor, SkillCheckDescriptorBuilder,
+    SkillCheckResult, SkillDefaultDescriptor, SkillDefaultType, SkillDescriptor,
+    SkillDescriptorBuilder, SkillDifficulty, SpellCastingDescriptor, SpellCastingDescriptorBuilder,
+    SpellCastingResult, SpellClass, SpellCollege, SpellDescriptor, SpellDescriptorBuilder,
+    SpellEffectDescriptor, SpellResistanceDescriptor,
 };

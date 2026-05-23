@@ -1,15 +1,14 @@
 //! Complete combat execution implementation.
 
 use crate::contracts::credentials::{
-    AttackHit, AttackOutcomeChecked, BasicDamageComputed, DefenseDidNotWork,
-    DefenseOutcomeChecked, DrSubtracted, InjuryComputed, InjurySubtracted,
-    LocationDetermined, LocationMultiplierComputed, ValidAttackRoll, ValidDamageRoll,
-    ValidDefenseRoll, WoundingMultiplierComputed,
+    AttackHit, AttackOutcomeChecked, BasicDamageComputed, DefenseDidNotWork, DefenseOutcomeChecked,
+    DrSubtracted, InjuryComputed, InjurySubtracted, LocationDetermined, LocationMultiplierComputed,
+    ValidAttackRoll, ValidDamageRoll, ValidDefenseRoll, WoundingMultiplierComputed,
 };
 use crate::contracts::proof_composition::{
-    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence,
-    CombatHitEvidence, DefenseFailureEvidence, DefenseResolutionEvidence,
-    InjuryApplicationEvidence, InjuryCalculationEvidence,
+    AttackResolutionEvidence, AttackSuccessEvidence, BasicDamageEvidence, CombatHitEvidence,
+    DefenseFailureEvidence, DefenseResolutionEvidence, InjuryApplicationEvidence,
+    InjuryCalculationEvidence,
 };
 use crate::contracts::traits::{
     AttackResolver, CombatExchangeResult, CombatExecutor, CombatResult, DamageCalculator,
@@ -53,8 +52,7 @@ impl CombatExecutor for GameMaster {
         }
 
         // Step 2: Attack succeeded, resolve defense
-        let (defense_result, defense_evidence) =
-            self.resolve_defense(defense_descriptor).await?;
+        let (defense_result, defense_evidence) = self.resolve_defense(defense_descriptor).await?;
 
         // Check if defense succeeded
         if defense_result.success {
@@ -118,10 +116,7 @@ impl CombatExecutor for GameMaster {
 fn reconstruct_attack_success() -> AttackSuccessEvidence {
     let roll_made = Established::prove(&ValidAttackRoll);
     let outcome = Established::prove(&AttackOutcomeChecked);
-    let resolution = AttackResolutionEvidence {
-        roll_made,
-        outcome,
-    };
+    let resolution = AttackResolutionEvidence { roll_made, outcome };
     let success = Established::prove(&AttackHit);
     AttackSuccessEvidence {
         resolution,
@@ -133,10 +128,7 @@ fn reconstruct_attack_success() -> AttackSuccessEvidence {
 fn reconstruct_defense_failure() -> DefenseFailureEvidence {
     let roll_made = Established::prove(&ValidDefenseRoll);
     let outcome = Established::prove(&DefenseOutcomeChecked);
-    let resolution = DefenseResolutionEvidence {
-        roll_made,
-        outcome,
-    };
+    let resolution = DefenseResolutionEvidence { roll_made, outcome };
     let failure = Established::prove(&DefenseDidNotWork);
     DefenseFailureEvidence {
         resolution,

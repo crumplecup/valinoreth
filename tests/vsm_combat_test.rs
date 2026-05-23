@@ -1,8 +1,8 @@
 //! Tests for Combat VSM transitions and invariants.
 
 use valinoreth::{
-    CombatConsistent, CombatState, CombatantState, apply_damage, begin_turn, combat_consistent,
-    declare_attack, end_turn, initialize_combat, resolve_attack, resolve_defense,
+    apply_damage, begin_turn, combat_consistent, declare_attack, end_turn, initialize_combat,
+    resolve_attack, resolve_defense, CombatConsistent, CombatState, CombatantState,
 };
 
 // Helper to create test combatants
@@ -296,7 +296,12 @@ fn test_end_turn_advances_to_next_combatant() {
     let (state, proof) = initialize_combat(state, proof, combatants, init_proof);
 
     // Start at current_actor = 0, round = 1
-    if let CombatState::Active { current_actor, round, .. } = &state {
+    if let CombatState::Active {
+        current_actor,
+        round,
+        ..
+    } = &state
+    {
         assert_eq!(*current_actor, 0);
         assert_eq!(*round, 1);
     }
@@ -305,7 +310,12 @@ fn test_end_turn_advances_to_next_combatant() {
     let (new_state, new_proof) = end_turn(state, proof, turn_proof);
 
     // Should advance to current_actor = 1, same round
-    if let CombatState::Active { current_actor, round, .. } = new_state {
+    if let CombatState::Active {
+        current_actor,
+        round,
+        ..
+    } = new_state
+    {
         assert_eq!(current_actor, 1);
         assert_eq!(round, 1);
     } else {
@@ -334,7 +344,12 @@ fn test_end_turn_wraps_to_new_round() {
     }
 
     // Should wrap to current_actor = 0, round = 2
-    if let CombatState::Active { current_actor, round, .. } = state {
+    if let CombatState::Active {
+        current_actor,
+        round,
+        ..
+    } = state
+    {
         assert_eq!(current_actor, 0);
         assert_eq!(round, 2);
     } else {
@@ -401,7 +416,12 @@ fn test_complete_combat_flow() {
     let (state, proof) = end_turn(state, proof, turn_proof);
 
     // Verify we advanced to next combatant
-    if let CombatState::Active { current_actor, round, .. } = state {
+    if let CombatState::Active {
+        current_actor,
+        round,
+        ..
+    } = state
+    {
         assert_eq!(current_actor, 1);
         assert_eq!(round, 1);
     } else {

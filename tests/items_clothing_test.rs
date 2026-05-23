@@ -46,7 +46,11 @@ fn test_all_clothing_have_properties() {
             "{:?} has invalid weight",
             clothing
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", clothing);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            clothing
+        );
 
         // Clothing doesn't have weapon/armor properties
         assert!(item.weapon_damage().is_none());
@@ -58,36 +62,20 @@ fn test_all_clothing_have_properties() {
 #[test]
 fn test_clothing_tech_levels() {
     // Stone Age (TL 0)
-    assert_eq!(
-        Item::Clothing(Clothing::Belt).tech_level().level(),
-        0
-    );
-    assert_eq!(
-        Item::Clothing(Clothing::Sandals).tech_level().level(),
-        0
-    );
+    assert_eq!(Item::Clothing(Clothing::Belt).tech_level().level(), 0);
+    assert_eq!(Item::Clothing(Clothing::Sandals).tech_level().level(), 0);
 
     // Bronze Age (TL 1)
-    assert_eq!(
-        Item::Clothing(Clothing::Clothing).tech_level().level(),
-        1
-    );
-    assert_eq!(
-        Item::Clothing(Clothing::Boots).tech_level().level(),
-        1
-    );
-    assert_eq!(
-        Item::Clothing(Clothing::Gloves).tech_level().level(),
-        1
-    );
+    assert_eq!(Item::Clothing(Clothing::Clothing).tech_level().level(), 1);
+    assert_eq!(Item::Clothing(Clothing::Boots).tech_level().level(), 1);
+    assert_eq!(Item::Clothing(Clothing::Gloves).tech_level().level(), 1);
 
     // Medieval (TL 2)
+    assert_eq!(Item::Clothing(Clothing::HeavyBoots).tech_level().level(), 2);
     assert_eq!(
-        Item::Clothing(Clothing::HeavyBoots).tech_level().level(),
-        2
-    );
-    assert_eq!(
-        Item::Clothing(Clothing::ReinforcedGloves).tech_level().level(),
+        Item::Clothing(Clothing::ReinforcedGloves)
+            .tech_level()
+            .level(),
         2
     );
 }

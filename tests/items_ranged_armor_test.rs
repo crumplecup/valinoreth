@@ -50,10 +50,22 @@ fn test_all_ranged_weapons_have_properties() {
             "{:?} has invalid weight",
             weapon
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", weapon);
-        assert!(item.weapon_damage().is_some(), "{:?} missing damage", weapon);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            weapon
+        );
+        assert!(
+            item.weapon_damage().is_some(),
+            "{:?} missing damage",
+            weapon
+        );
         assert!(item.accuracy().is_some(), "{:?} missing accuracy", weapon);
-        assert!(item.required_skill().is_some(), "{:?} missing skill", weapon);
+        assert!(
+            item.required_skill().is_some(),
+            "{:?} missing skill",
+            weapon
+        );
 
         // Ranged weapons don't have melee properties
         assert!(item.reach().is_none(), "{:?} should not have reach", weapon);
@@ -123,7 +135,11 @@ fn test_all_armor_have_properties() {
             "{:?} has invalid weight",
             armor
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", armor);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            armor
+        );
         assert!(item.damage_resistance().is_some(), "{:?} missing DR", armor);
 
         // Armor doesn't have weapon properties
@@ -154,10 +170,7 @@ fn test_all_armor_have_properties() {
 #[test]
 fn test_armor_dr_progression() {
     // DR should increase with better armor
-    assert_eq!(
-        Item::Armor(ItemArmor::NoArmor).damage_resistance(),
-        Some(0)
-    );
+    assert_eq!(Item::Armor(ItemArmor::NoArmor).damage_resistance(), Some(0));
     assert_eq!(
         Item::Armor(ItemArmor::LeatherArmor).damage_resistance(),
         Some(1)

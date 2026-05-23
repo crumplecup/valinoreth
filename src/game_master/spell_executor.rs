@@ -12,8 +12,8 @@ use crate::contracts::proof_composition::{
     SpellCastingResolutionEvidence, SpellCastingSuccessEvidence, SpellEffectEvidence,
 };
 use crate::contracts::traits::{
-    CombatResult, ContractError, ContractErrorKind, SpellCaster, SpellEffectResolver, SpellExecutor,
-    SpellExecutionResult,
+    CombatResult, ContractError, ContractErrorKind, SpellCaster, SpellEffectResolver,
+    SpellExecutionResult, SpellExecutor,
 };
 use crate::contracts::types::{
     CasterDescriptor, CeremonialMagicDescriptor, SpellCastingDescriptor, SpellCastingResult,
@@ -32,9 +32,8 @@ impl SpellExecutor for GameMaster {
         effect_descriptor: SpellEffectDescriptor,
     ) -> CombatResult<SpellExecutionResult> {
         // Step 1: Cast the spell
-        let (result, updated_caster, casting_evidence) = self
-            .cast_spell(caster, spell_descriptor)
-            .await?;
+        let (result, updated_caster, casting_evidence) =
+            self.cast_spell(caster, spell_descriptor).await?;
 
         // Check for critical failure
         if result.critical_failure {

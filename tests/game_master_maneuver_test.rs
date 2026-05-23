@@ -50,7 +50,10 @@ async fn test_execute_feint_defender_wins() {
     if !result.attacker_success {
         // When defender wins, margin is still recorded (could be used for other purposes)
         // The important thing is attacker_success is false
-        assert_eq!(result.attacker_success, false, "Attacker should not succeed");
+        assert_eq!(
+            result.attacker_success, false,
+            "Attacker should not succeed"
+        );
     }
 }
 
@@ -121,10 +124,7 @@ async fn test_execute_rapid_strike_single_attack() {
     assert_eq!(results.len(), 1, "Should have 1 attack");
 
     let attack = &results[0];
-    assert_eq!(
-        attack.effective_skill, 8,
-        "Skill should be 14 - 6 = 8"
-    );
+    assert_eq!(attack.effective_skill, 8, "Skill should be 14 - 6 = 8");
     assert!(
         attack.roll >= 3 && attack.roll <= 18,
         "Roll should be 3d6 range"
@@ -178,10 +178,7 @@ async fn test_execute_rapid_strike_weapon_master() {
     assert_eq!(results.len(), 2, "Should have 2 attacks");
 
     for attack in &results {
-        assert_eq!(
-            attack.effective_skill, 12,
-            "Weapon Master: 15 - 3 = 12"
-        );
+        assert_eq!(attack.effective_skill, 12, "Weapon Master: 15 - 3 = 12");
     }
 }
 

@@ -23,11 +23,19 @@
 
 use crate::contracts::character::{
     AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePurchased,
-    AttributeCostCalculated, AttributePurchased, AttributesMeetCampaignMinimums, BasicMoveCalculated,
-    BasicSpeedCalculated, CharacterComplete, CharacterIdentified, CharacterValid,
-    DisadvantageLevelValid, DisadvantageTaken, DisadvantagesNotConflicting, DodgeCalculated,
-    FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
+    AttributeCostCalculated, AttributePurchased, AttributesMeetCampaignMinimums,
+    BasicMoveCalculated, BasicSpeedCalculated, CharacterComplete, CharacterIdentified,
+    CharacterValid, DisadvantageLevelValid, DisadvantageTaken, DisadvantagesNotConflicting,
+    DodgeCalculated, FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
     SecondaryCharacteristicPurchased, WillSet,
+};
+use crate::contracts::combat::{
+    AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess, AttackFailed,
+    AttackOutcomeDetermined, AttackRollMade, AttackSuccessful, BasicDamageCalculated,
+    DamageResistanceApplied, DeceptiveAttackApplied, DefenseCriticalFailure,
+    DefenseCriticalSuccess, DefenseFailed, DefenseOutcomeDetermined, DefenseRollMade,
+    DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied, InjuryCalculated,
+    LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled, WoundingModifierApplied,
 };
 use crate::contracts::magic::{
     BaseEnergyCostDetermined, CeremonialCastingBegun, CeremonialSpellCompleted, ConcentrationBegun,
@@ -38,14 +46,6 @@ use crate::contracts::magic::{
     SpellCastingSucceeded, SpellCriticalFailure, SpellCriticalSuccess, SpellDurationDetermined,
     SpellEffectApplied, SpellLearned, SpellMaintained, SpellPrerequisitesMet, SpellRangeChecked,
     SpellResistedSuccessfully, SpellSkillRollMade, SpellTargetDetermined,
-};
-use crate::contracts::combat::{
-    AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess, AttackFailed,
-    AttackOutcomeDetermined, AttackRollMade, AttackSuccessful, BasicDamageCalculated,
-    DamageResistanceApplied, DefenseCriticalFailure, DefenseCriticalSuccess, DefenseFailed,
-    DefenseOutcomeDetermined, DefenseRollMade, DefenseSuccessful, DeceptiveAttackApplied,
-    FeintSuccessful, HitLocationDetermined, InjuryApplied, InjuryCalculated,
-    LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled, WoundingModifierApplied,
 };
 use crate::contracts::skills::{
     CharacterPointsSpentOnSkill, ComplementarySkillBonusApplied, DefaultPenaltyApplied,

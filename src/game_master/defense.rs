@@ -68,10 +68,7 @@ impl DefenseResolver for GameMaster {
         let outcome = Established::prove(&DefenseOutcomeChecked);
 
         // Compose evidence bundle
-        let _evidence = DefenseResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let _evidence = DefenseResolutionEvidence { roll_made, outcome };
 
         Ok((result, Established::assert()))
     }
@@ -93,10 +90,7 @@ impl DefenseResolver for GameMaster {
         // Reconstruct resolution evidence (zero-sized, exists only for type system)
         let roll_made = Established::prove(&ValidDefenseRoll);
         let outcome = Established::prove(&DefenseOutcomeChecked);
-        let resolution = DefenseResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = DefenseResolutionEvidence { roll_made, outcome };
 
         // Mint success proof
         let success = Established::prove(&DefenseWorked);
@@ -127,10 +121,7 @@ impl DefenseResolver for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidDefenseRoll);
         let outcome = Established::prove(&DefenseOutcomeChecked);
-        let resolution = DefenseResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = DefenseResolutionEvidence { roll_made, outcome };
 
         // Mint failure proof
         let failure = Established::prove(&DefenseDidNotWork);
@@ -161,10 +152,7 @@ impl DefenseResolver for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidDefenseRoll);
         let outcome = Established::prove(&DefenseOutcomeChecked);
-        let resolution = DefenseResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = DefenseResolutionEvidence { roll_made, outcome };
 
         // Reconstruct success evidence
         let success_proof = Established::prove(&DefenseWorked);
@@ -199,10 +187,7 @@ impl DefenseResolver for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidDefenseRoll);
         let outcome = Established::prove(&DefenseOutcomeChecked);
-        let resolution = DefenseResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = DefenseResolutionEvidence { roll_made, outcome };
 
         // Mint critical failure proof
         let critical = Established::prove(&DefenseCriticalMiss);

@@ -20,7 +20,10 @@ async fn test_resolve_skill_check_success() {
         .expect("Skill check resolution succeeded");
 
     // With seed 42, verify roll is deterministic
-    assert!(result.roll >= 3 && result.roll <= 18, "Roll should be 3d6 range");
+    assert!(
+        result.roll >= 3 && result.roll <= 18,
+        "Roll should be 3d6 range"
+    );
     assert_eq!(result.effective_skill, 14);
 }
 
@@ -31,8 +34,8 @@ async fn test_resolve_skill_check_with_modifiers() {
     let descriptor = SkillCheckDescriptorBuilder::default()
         .effective_skill(12)
         .situational_modifier(2) // Good lighting
-        .task_difficulty(-2)      // Difficult task
-        .time_modifier(1)         // Taking extra time
+        .task_difficulty(-2) // Difficult task
+        .time_modifier(1) // Taking extra time
         .build()
         .expect("Valid descriptor");
 
@@ -187,7 +190,7 @@ async fn test_skill_check_with_negative_modifiers() {
     let descriptor = SkillCheckDescriptorBuilder::default()
         .effective_skill(14)
         .situational_modifier(-3) // Bad conditions
-        .task_difficulty(-4)       // Very difficult
+        .task_difficulty(-4) // Very difficult
         .build()
         .expect("Valid descriptor");
 

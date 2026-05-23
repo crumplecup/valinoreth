@@ -23,11 +23,7 @@ impl SpellManager for GameMaster {
         }
 
         // Check if spell already known
-        if caster
-            .known_spells
-            .iter()
-            .any(|s| s.name == spell.name)
-        {
+        if caster.known_spells.iter().any(|s| s.name == spell.name) {
             return Err(ContractError::new(ContractErrorKind::StateViolation(
                 format!("Spell {} already known", spell.name),
             )));
@@ -98,10 +94,7 @@ impl SpellManager for GameMaster {
 
         // Check prerequisites
         for prereq in &spell.prerequisites {
-            let has_prereq = caster
-                .known_spells
-                .iter()
-                .any(|s| &s.name == prereq);
+            let has_prereq = caster.known_spells.iter().any(|s| &s.name == prereq);
 
             if !has_prereq {
                 return Ok(false);

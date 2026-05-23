@@ -6,9 +6,9 @@ use crate::contracts::credentials::{
     SkillReductionApplied, SpellCritHit, SpellCritMiss, SpellRollMade,
 };
 use crate::contracts::proof_composition::{
-    ConcentrationEvidence, EnergyCostEvidence, EnergyPaymentEvidence,
-    SpellCastingFailureEvidence, SpellCastingResolutionEvidence, SpellCastingSuccessEvidence,
-    SpellCriticalFailureEvidence, SpellCriticalSuccessEvidence,
+    ConcentrationEvidence, EnergyCostEvidence, EnergyPaymentEvidence, SpellCastingFailureEvidence,
+    SpellCastingResolutionEvidence, SpellCastingSuccessEvidence, SpellCriticalFailureEvidence,
+    SpellCriticalSuccessEvidence,
 };
 use crate::contracts::traits::{CombatResult, ContractError, ContractErrorKind, SpellCaster};
 use crate::contracts::types::{

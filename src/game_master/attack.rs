@@ -25,9 +25,8 @@ impl AttackResolver for GameMaster {
         let roll = dice_roll.sum();
 
         // Calculate effective skill with modifiers
-        let effective_skill = descriptor.effective_skill
-            + descriptor.aim_bonus
-            - descriptor.deceptive_penalty;
+        let effective_skill =
+            descriptor.effective_skill + descriptor.aim_bonus - descriptor.deceptive_penalty;
 
         // Determine outcome
         let (success, margin) = Self::calculate_margin(roll, effective_skill);
@@ -51,10 +50,7 @@ impl AttackResolver for GameMaster {
         let outcome = Established::prove(&AttackOutcomeChecked);
 
         // Compose evidence bundle
-        let _evidence = AttackResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let _evidence = AttackResolutionEvidence { roll_made, outcome };
 
         Ok((result, Established::assert()))
     }
@@ -76,10 +72,7 @@ impl AttackResolver for GameMaster {
         // Reconstruct resolution evidence (zero-sized, exists only for type system)
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
-        let resolution = AttackResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = AttackResolutionEvidence { roll_made, outcome };
 
         // Mint success proof
         let success = Established::prove(&AttackHit);
@@ -110,10 +103,7 @@ impl AttackResolver for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
-        let resolution = AttackResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = AttackResolutionEvidence { roll_made, outcome };
 
         // Mint failure proof
         let failure = Established::prove(&AttackMiss);
@@ -144,10 +134,7 @@ impl AttackResolver for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
-        let resolution = AttackResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = AttackResolutionEvidence { roll_made, outcome };
 
         // Reconstruct success evidence
         let success_proof = Established::prove(&AttackHit);
@@ -160,10 +147,7 @@ impl AttackResolver for GameMaster {
         let critical = Established::prove(&AttackCriticalHit);
 
         // Compose critical success evidence
-        let _evidence = AttackCriticalSuccessEvidence {
-            success,
-            critical,
-        };
+        let _evidence = AttackCriticalSuccessEvidence { success, critical };
 
         Ok(Established::assert())
     }
@@ -185,10 +169,7 @@ impl AttackResolver for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
-        let resolution = AttackResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = AttackResolutionEvidence { roll_made, outcome };
 
         // Mint critical failure proof
         let critical = Established::prove(&AttackCriticalMiss);

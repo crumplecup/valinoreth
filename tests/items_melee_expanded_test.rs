@@ -82,11 +82,27 @@ fn test_all_expanded_melee_have_properties() {
             "{:?} has invalid weight",
             weapon
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", weapon);
-        assert!(item.weapon_damage().is_some(), "{:?} missing damage", weapon);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            weapon
+        );
+        assert!(
+            item.weapon_damage().is_some(),
+            "{:?} missing damage",
+            weapon
+        );
         assert!(item.reach().is_some(), "{:?} missing reach", weapon);
-        assert!(item.parry_modifier().is_some(), "{:?} missing parry", weapon);
-        assert!(item.required_skill().is_some(), "{:?} missing skill", weapon);
+        assert!(
+            item.parry_modifier().is_some(),
+            "{:?} missing parry",
+            weapon
+        );
+        assert!(
+            item.required_skill().is_some(),
+            "{:?} missing skill",
+            weapon
+        );
     }
 }
 
@@ -94,17 +110,10 @@ fn test_all_expanded_melee_have_properties() {
 fn test_expanded_weapon_tech_level_range() {
     // Bronze/Iron Age (TL 1)
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Gladius)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Gladius).tech_level().level(),
         1
     );
-    assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Maul)
-            .tech_level()
-            .level(),
-        1
-    );
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Maul).tech_level().level(), 1);
 
     // Medieval (TL 2)
     assert_eq!(
@@ -131,16 +140,9 @@ fn test_expanded_weapon_tech_level_range() {
             .level(),
         2
     );
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Sai).tech_level().level(), 2);
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Sai)
-            .tech_level()
-            .level(),
-        2
-    );
-    assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Katar)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Katar).tech_level().level(),
         2
     );
     assert_eq!(
@@ -149,18 +151,11 @@ fn test_expanded_weapon_tech_level_range() {
             .level(),
         2
     );
-    assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Pick)
-            .tech_level()
-            .level(),
-        2
-    );
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Pick).tech_level().level(), 2);
 
     // Late Medieval/Japan (TL 3)
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Katana)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Katana).tech_level().level(),
         3
     );
     assert_eq!(
@@ -170,17 +165,13 @@ fn test_expanded_weapon_tech_level_range() {
         3
     );
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Estoc)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Estoc).tech_level().level(),
         3
     );
 
     // Age of Sail (TL 4)
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Cutlass)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Cutlass).tech_level().level(),
         4
     );
 }
@@ -188,30 +179,15 @@ fn test_expanded_weapon_tech_level_range() {
 #[test]
 fn test_expanded_weapon_weight_range() {
     // Light weapons (< 2 lbs)
-    assert!(Item::MeleeWeapon(MeleeWeapon::Wakizashi)
-        .weight()
-        .amount()
-        < 2.0);
-    assert!(Item::MeleeWeapon(MeleeWeapon::Sai)
-        .weight()
-        .amount()
-        < 2.0);
-    assert!(Item::MeleeWeapon(MeleeWeapon::Katar)
-        .weight()
-        .amount()
-        < 2.0);
-    assert!(Item::MeleeWeapon(MeleeWeapon::Nunchaku)
-        .weight()
-        .amount()
-        < 2.0);
+    assert!(Item::MeleeWeapon(MeleeWeapon::Wakizashi).weight().amount() < 2.0);
+    assert!(Item::MeleeWeapon(MeleeWeapon::Sai).weight().amount() < 2.0);
+    assert!(Item::MeleeWeapon(MeleeWeapon::Katar).weight().amount() < 2.0);
+    assert!(Item::MeleeWeapon(MeleeWeapon::Nunchaku).weight().amount() < 2.0);
 
     // Medium weapons (2-5 lbs)
     let katana_weight = Item::MeleeWeapon(MeleeWeapon::Katana).weight().amount();
     assert!((2.0..=5.0).contains(&katana_weight));
 
     // Heavy weapons (> 10 lbs)
-    assert!(Item::MeleeWeapon(MeleeWeapon::Maul)
-        .weight()
-        .amount()
-        >= 10.0);
+    assert!(Item::MeleeWeapon(MeleeWeapon::Maul).weight().amount() >= 10.0);
 }

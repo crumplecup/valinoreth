@@ -8,7 +8,9 @@ use crate::contracts::proof_composition::{
     ResistanceOvercomeEvidence, SpellCastingSuccessEvidence, SpellEffectEvidence,
     SpellMaintenanceEvidence, SpellResistanceEvidence,
 };
-use crate::contracts::traits::{CombatResult, ContractError, ContractErrorKind, SpellEffectResolver};
+use crate::contracts::traits::{
+    CombatResult, ContractError, ContractErrorKind, SpellEffectResolver,
+};
 use crate::contracts::types::{
     CasterDescriptor, ResistanceResult, SpellDescriptor, SpellEffectDescriptor,
     SpellResistanceDescriptor,

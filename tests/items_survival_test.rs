@@ -47,7 +47,11 @@ fn test_all_survival_have_properties() {
             "{:?} has invalid weight",
             survival
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", survival);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            survival
+        );
 
         // Survival items don't have weapon, armor, or container properties
         assert!(
@@ -71,14 +75,8 @@ fn test_all_survival_have_properties() {
 #[test]
 fn test_survival_tech_levels() {
     // Stone Age (TL 0)
-    assert_eq!(
-        Item::Survival(SurvivalGear::Torch).tech_level().level(),
-        0
-    );
-    assert_eq!(
-        Item::Survival(SurvivalGear::Tent).tech_level().level(),
-        0
-    );
+    assert_eq!(Item::Survival(SurvivalGear::Torch).tech_level().level(), 0);
+    assert_eq!(Item::Survival(SurvivalGear::Tent).tech_level().level(), 0);
     assert_eq!(
         Item::Survival(SurvivalGear::Blanket).tech_level().level(),
         0
@@ -101,10 +99,7 @@ fn test_survival_tech_levels() {
         Item::Survival(SurvivalGear::LargeTent).tech_level().level(),
         1
     );
-    assert_eq!(
-        Item::Survival(SurvivalGear::Candle).tech_level().level(),
-        1
-    );
+    assert_eq!(Item::Survival(SurvivalGear::Candle).tech_level().level(), 1);
 
     // Medieval (TL 2)
     assert_eq!(

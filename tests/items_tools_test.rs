@@ -87,10 +87,7 @@ fn test_tool_tech_levels() {
     assert_eq!(Item::Tool(Tool::Lockpicks).tech_level().level(), 3);
 
     // Renaissance (TL 4)
-    assert_eq!(
-        Item::Tool(Tool::MagnifyingGlass).tech_level().level(),
-        4
-    );
+    assert_eq!(Item::Tool(Tool::MagnifyingGlass).tech_level().level(), 4);
 
     // Industrial (TL 5)
     assert_eq!(Item::Tool(Tool::FirstAidKit).tech_level().level(), 5);

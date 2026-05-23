@@ -199,7 +199,10 @@ async fn test_calculate_effective_skill() {
         .await
         .expect("Calculate succeeded");
 
-    assert_eq!(effective_skill, 11, "Effective skill should equal base level");
+    assert_eq!(
+        effective_skill, 11,
+        "Effective skill should equal base level"
+    );
 }
 
 #[tokio::test]
@@ -274,8 +277,5 @@ async fn test_calculate_nonexistent_skill_fails() {
         .calculate_effective_skill(&character, "Nonexistent".to_string(), 0)
         .await;
 
-    assert!(
-        result.is_err(),
-        "Calculating nonexistent skill should fail"
-    );
+    assert!(result.is_err(), "Calculating nonexistent skill should fail");
 }

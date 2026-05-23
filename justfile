@@ -171,3 +171,55 @@ markdown-check:
 # Fix markdown formatting
 markdown-fix:
     markdownlint-cli2 "**/*.md" --fix
+
+# ── Formal Verification ───────────────────────────────────────────────────────
+
+# Regenerate all proof files for Combat VSM (Kani + Creusot + Verus)
+generate-proofs: generate-proofs-kani generate-proofs-creusot generate-proofs-verus
+    cargo fmt
+
+# Regenerate Kani harnesses for Combat VSM
+generate-proofs-kani:
+    elicitation generate kani \
+        --crate-path src/vsm \
+        --out src/proofs/kani/generated
+
+# Regenerate Creusot companions for Combat VSM
+generate-proofs-creusot:
+    elicitation generate creusot \
+        --crate-path src/vsm \
+        --out src/proofs/creusot/generated
+
+# Regenerate Verus companions for Combat VSM
+generate-proofs-verus:
+    elicitation generate verus \
+        --crate-path src/vsm \
+        --out src/proofs/verus/generated
+
+# Run Kani verification for Combat VSM
+verify-kani:
+    elicitation prove --kani
+
+# Run Kani verification with CSV tracking
+verify-kani-csv csv="kani_results.csv" timeout="300":
+    elicitation prove --kani --csv {{csv}} --timeout {{timeout}}
+
+# Run Kani verification for specific harness
+verify-kani-harness harness:
+    elicitation prove --kani --kani-harness {{harness}}
+
+# Resume Kani verification (skips already-passed tests)
+verify-kani-resume csv="kani_results.csv":
+    elicitation prove --kani --csv {{csv}} --resume
+
+# Run Creusot verification for Combat VSM
+verify-creusot:
+    elicitation prove --creusot
+
+# Run Verus verification for Combat VSM
+verify-verus:
+    elicitation prove --verus
+
+# Run all verification backends
+verify-all:
+    elicitation prove --kani --creusot --verus

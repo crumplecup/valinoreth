@@ -13,12 +13,16 @@ async fn test_resolve_attack_success() {
         .build()
         .expect("Valid descriptor");
 
-    let (result, _evidence) = gm.resolve_attack(descriptor)
+    let (result, _evidence) = gm
+        .resolve_attack(descriptor)
         .await
         .expect("Attack resolution succeeded");
 
     // With seed 42, verify roll is deterministic
-    assert!(result.roll >= 3 && result.roll <= 18, "Roll should be 3d6 range");
+    assert!(
+        result.roll >= 3 && result.roll <= 18,
+        "Roll should be 3d6 range"
+    );
     assert_eq!(result.effective_skill, 15);
 }
 
@@ -33,12 +37,14 @@ async fn test_confirm_attack_success() {
         .build()
         .expect("Valid descriptor");
 
-    let (result, evidence) = gm.resolve_attack(descriptor)
+    let (result, evidence) = gm
+        .resolve_attack(descriptor)
         .await
         .expect("Attack resolution succeeded");
 
     if result.success {
-        let _success_evidence = gm.confirm_attack_success(result, evidence)
+        let _success_evidence = gm
+            .confirm_attack_success(result, evidence)
             .await
             .expect("Confirm success");
     }
@@ -55,12 +61,14 @@ async fn test_confirm_attack_failure() {
         .build()
         .expect("Valid descriptor");
 
-    let (result, evidence) = gm.resolve_attack(descriptor)
+    let (result, evidence) = gm
+        .resolve_attack(descriptor)
         .await
         .expect("Attack resolution succeeded");
 
     if !result.success {
-        let _failure_evidence = gm.confirm_attack_failure(result, evidence)
+        let _failure_evidence = gm
+            .confirm_attack_failure(result, evidence)
             .await
             .expect("Confirm failure");
     }
@@ -77,7 +85,8 @@ async fn test_critical_success_detection() {
         .build()
         .expect("Valid descriptor");
 
-    let (result, _evidence) = gm.resolve_attack(descriptor)
+    let (result, _evidence) = gm
+        .resolve_attack(descriptor)
         .await
         .expect("Attack resolution succeeded");
 
@@ -98,7 +107,8 @@ async fn test_critical_failure_detection() {
         .build()
         .expect("Valid descriptor");
 
-    let (result, _evidence) = gm.resolve_attack(descriptor)
+    let (result, _evidence) = gm
+        .resolve_attack(descriptor)
         .await
         .expect("Attack resolution succeeded");
 
@@ -119,7 +129,8 @@ async fn test_margin_calculation() {
         .build()
         .expect("Valid descriptor");
 
-    let (result, _evidence) = gm.resolve_attack(descriptor)
+    let (result, _evidence) = gm
+        .resolve_attack(descriptor)
         .await
         .expect("Attack resolution succeeded");
 

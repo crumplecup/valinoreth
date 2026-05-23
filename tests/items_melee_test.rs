@@ -94,47 +94,48 @@ fn test_all_melee_weapons_have_properties() {
             "{:?} has invalid weight",
             weapon
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", weapon);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            weapon
+        );
 
         // All melee weapons must have weapon-specific properties
-        assert!(item.weapon_damage().is_some(), "{:?} missing damage", weapon);
+        assert!(
+            item.weapon_damage().is_some(),
+            "{:?} missing damage",
+            weapon
+        );
         assert!(item.reach().is_some(), "{:?} missing reach", weapon);
         assert!(
             item.parry_modifier().is_some(),
             "{:?} missing parry modifier",
             weapon
         );
-        assert!(item.required_skill().is_some(), "{:?} missing skill", weapon);
+        assert!(
+            item.required_skill().is_some(),
+            "{:?} missing skill",
+            weapon
+        );
     }
 }
 
 #[test]
 fn test_tech_levels() {
     // Stone Age weapons (TL 0)
+    assert_eq!(Item::MeleeWeapon(MeleeWeapon::Axe).tech_level().level(), 0);
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Axe)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Spear).tech_level().level(),
         0
     );
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Spear)
-            .tech_level()
-            .level(),
-        0
-    );
-    assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Staff)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Staff).tech_level().level(),
         0
     );
 
     // Bronze Age (TL 1)
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Dagger)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Dagger).tech_level().level(),
         1
     );
     assert_eq!(
@@ -158,17 +159,13 @@ fn test_tech_levels() {
         2
     );
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Halberd)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Halberd).tech_level().level(),
         2
     );
 
     // Renaissance (TL 4)
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Rapier)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Rapier).tech_level().level(),
         4
     );
     assert_eq!(
@@ -180,9 +177,7 @@ fn test_tech_levels() {
 
     // Modern (TL 5)
     assert_eq!(
-        Item::MeleeWeapon(MeleeWeapon::Baton)
-            .tech_level()
-            .level(),
+        Item::MeleeWeapon(MeleeWeapon::Baton).tech_level().level(),
         5
     );
 }

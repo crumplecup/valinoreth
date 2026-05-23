@@ -50,8 +50,16 @@ fn test_all_containers_have_properties() {
             "{:?} has invalid weight",
             container
         );
-        assert!(item.tech_level().level() <= 12, "{:?} has invalid TL", container);
-        assert!(item.capacity().is_some(), "{:?} should have capacity", container);
+        assert!(
+            item.tech_level().level() <= 12,
+            "{:?} has invalid TL",
+            container
+        );
+        assert!(
+            item.capacity().is_some(),
+            "{:?} should have capacity",
+            container
+        );
 
         // Containers don't have weapon or armor properties
         assert!(
@@ -74,10 +82,7 @@ fn test_container_tech_levels() {
         Item::Container(Container::SmallPouch).tech_level().level(),
         0
     );
-    assert_eq!(
-        Item::Container(Container::Pouch).tech_level().level(),
-        0
-    );
+    assert_eq!(Item::Container(Container::Pouch).tech_level().level(), 0);
     assert_eq!(
         Item::Container(Container::LargePouch).tech_level().level(),
         0
@@ -93,13 +98,12 @@ fn test_container_tech_levels() {
 
     // Bronze Age (TL 1)
     assert_eq!(
-        Item::Container(Container::SmallBackpack).tech_level().level(),
+        Item::Container(Container::SmallBackpack)
+            .tech_level()
+            .level(),
         1
     );
-    assert_eq!(
-        Item::Container(Container::Backpack).tech_level().level(),
-        1
-    );
+    assert_eq!(Item::Container(Container::Backpack).tech_level().level(), 1);
     assert_eq!(
         Item::Container(Container::SmallChest).tech_level().level(),
         1
@@ -111,7 +115,9 @@ fn test_container_tech_levels() {
 
     // Medieval (TL 2)
     assert_eq!(
-        Item::Container(Container::LargeBackpack).tech_level().level(),
+        Item::Container(Container::LargeBackpack)
+            .tech_level()
+            .level(),
         2
     );
 }
@@ -119,12 +125,27 @@ fn test_container_tech_levels() {
 #[test]
 fn test_container_capacity_range() {
     // Small containers
-    assert!(Item::Container(Container::SmallPouch).capacity().unwrap().amount() <= 10.0);
+    assert!(
+        Item::Container(Container::SmallPouch)
+            .capacity()
+            .unwrap()
+            .amount()
+            <= 10.0
+    );
 
     // Medium containers
-    let backpack_capacity = Item::Container(Container::Backpack).capacity().unwrap().amount();
+    let backpack_capacity = Item::Container(Container::Backpack)
+        .capacity()
+        .unwrap()
+        .amount();
     assert!((30.0..=50.0).contains(&backpack_capacity));
 
     // Large containers
-    assert!(Item::Container(Container::LargeChest).capacity().unwrap().amount() >= 100.0);
+    assert!(
+        Item::Container(Container::LargeChest)
+            .capacity()
+            .unwrap()
+            .amount()
+            >= 100.0
+    );
 }

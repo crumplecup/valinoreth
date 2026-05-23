@@ -19,16 +19,16 @@
 //! Each transition carries proof tokens from GameMaster mechanics and combat flow contracts.
 
 use elicitation::{
-    Elicit, Established, KaniVariantState, Prop, VerifiedStateMachine, contracts::ProvableFrom,
-    formal_method,
+    contracts::ProvableFrom, formal_method, Elicit, Established, KaniVariantState, Prop,
+    VerifiedStateMachine,
 };
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
 use crate::contracts::combat_flow::{
-    CombatInitialized, TurnBegan, AttackDeclared, AttackResolved,
-    DefenseResolved, DamageApplied, TurnEnded, VictoryConditionMet,
+    AttackDeclared, AttackResolved, CombatInitialized, DamageApplied, DefenseResolved, TurnBegan,
+    TurnEnded, VictoryConditionMet,
 };
 
 // ── CombatantState ────────────────────────────────────────────────────────────
@@ -66,15 +66,7 @@ pub struct CombatantState {
 
 /// Lifecycle state of a GURPS combat encounter.
 #[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    Serialize,
-    Deserialize,
-    JsonSchema,
-    Elicit,
-    KaniVariantState,
+    Debug, Clone, Default, PartialEq, Serialize, Deserialize, JsonSchema, Elicit, KaniVariantState,
 )]
 #[cfg_attr(kani, derive(elicitation::KaniCompose))]
 pub enum CombatState {
@@ -207,9 +199,7 @@ pub fn initialize_combat(
 ) -> (CombatState, Established<CombatConsistent>) {
     // Sort combatants by Basic Speed (descending) for turn order
     let mut turn_order: Vec<usize> = (0..combatants.len()).collect();
-    turn_order.sort_by(|&a, &b| {
-        combatants[b].basic_speed.cmp(&combatants[a].basic_speed)
-    });
+    turn_order.sort_by(|&a, &b| combatants[b].basic_speed.cmp(&combatants[a].basic_speed));
 
     (
         CombatState::Active {

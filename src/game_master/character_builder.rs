@@ -3,10 +3,9 @@
 use crate::contracts::credentials::{
     AdvantageBought, AdvantageLevelValidated, AdvantageModifiersComputed, AttributeBought,
     AttributeCostComputed, BasicMoveComputed, BasicSpeedComputed, BudgetBalanced,
-    CharacterCompleteCredential, CharacterNamed, CharacterValidated,
-    DisadvantageLevelValidated, DisadvantageTakenCredential, DodgeComputed, FpSet, HpSet,
-    MinimumsMet, NoConflicts, PerceptionSetCredential, SecondaryCharacteristicBought,
-    WillSetCredential,
+    CharacterCompleteCredential, CharacterNamed, CharacterValidated, DisadvantageLevelValidated,
+    DisadvantageTakenCredential, DodgeComputed, FpSet, HpSet, MinimumsMet, NoConflicts,
+    PerceptionSetCredential, SecondaryCharacteristicBought, WillSetCredential,
 };
 use crate::contracts::proof_composition::{
     AdvantagePurchaseEvidence, AttributePurchaseEvidence, CharacterCreationEvidence,
@@ -37,13 +36,13 @@ impl CharacterBuilder for GameMaster {
             .points_spent(0)
             .attributes(vec![])
             .derived_stats(DerivedStatsDescriptor {
-                basic_speed: 5.0,  // Default (DX+HT)/4 = (10+10)/4 = 5
-                basic_move: 5,     // Default floor(basic_speed) = 5
-                dodge: 8,          // Default floor(basic_speed) + 3 = 5 + 3 = 8
-                hp: 10,            // Default ST = 10
-                will: 10,          // Default IQ = 10
-                perception: 10,    // Default IQ = 10
-                fp: 10,            // Default HT = 10
+                basic_speed: 5.0, // Default (DX+HT)/4 = (10+10)/4 = 5
+                basic_move: 5,    // Default floor(basic_speed) = 5
+                dodge: 8,         // Default floor(basic_speed) + 3 = 5 + 3 = 8
+                hp: 10,           // Default ST = 10
+                will: 10,         // Default IQ = 10
+                perception: 10,   // Default IQ = 10
+                fp: 10,           // Default HT = 10
             })
             .build()
             .map_err(|e| ContractError::new(ContractErrorKind::StateViolation(e.to_string())))?;
@@ -60,16 +59,15 @@ impl CharacterBuilder for GameMaster {
         // ST/HT: 10 points per level from 10
         // DX/IQ: 20 points per level from 10
         let expected_cost = match attribute.attribute_type {
-            crate::AttributeType::ST | crate::AttributeType::HT => {
-                (attribute.level - 10) * 10
-            }
-            crate::AttributeType::DX | crate::AttributeType::IQ => {
-                (attribute.level - 10) * 20
-            }
+            crate::AttributeType::ST | crate::AttributeType::HT => (attribute.level - 10) * 10,
+            crate::AttributeType::DX | crate::AttributeType::IQ => (attribute.level - 10) * 20,
             // Per and Will are secondary characteristics, not primary attributes
             crate::AttributeType::Per | crate::AttributeType::Will => {
                 return Err(ContractError::new(ContractErrorKind::StateViolation(
-                    format!("{:?} is a secondary characteristic, not a primary attribute", attribute.attribute_type),
+                    format!(
+                        "{:?} is a secondary characteristic, not a primary attribute",
+                        attribute.attribute_type
+                    ),
                 )));
             }
         };
@@ -111,7 +109,10 @@ impl CharacterBuilder for GameMaster {
         &self,
         mut character: CharacterDescriptor,
         characteristic: SecondaryCharacteristicDescriptor,
-    ) -> CombatResult<(CharacterDescriptor, Established<SecondaryCharacteristicEvidence>)> {
+    ) -> CombatResult<(
+        CharacterDescriptor,
+        Established<SecondaryCharacteristicEvidence>,
+    )> {
         // Verify cost calculation
         // HP: 2 points per level
         // Will: 5 points per level
@@ -141,9 +142,7 @@ impl CharacterBuilder for GameMaster {
         }
 
         // Add to secondary characteristics
-        character
-            .secondary_characteristics
-            .push(characteristic);
+        character.secondary_characteristics.push(characteristic);
         character.points_spent += characteristic.cost;
 
         // Mint proof tokens
@@ -243,10 +242,10 @@ impl CharacterBuilder for GameMaster {
         // Apply self-control roll multiplier if applicable
         if let Some(control_roll) = disadvantage.self_control {
             let multiplier = match control_roll {
-                6 => 2.0,   // Very hard to resist (×2)
-                9 => 1.5,   // Hard to resist (×1.5)
-                12 => 1.0,  // Fairly hard to resist (×1)
-                15 => 0.5,  // Not too hard to resist (×0.5)
+                6 => 2.0,  // Very hard to resist (×2)
+                9 => 1.5,  // Hard to resist (×1.5)
+                12 => 1.0, // Fairly hard to resist (×1)
+                15 => 0.5, // Not too hard to resist (×0.5)
                 _ => {
                     return Err(ContractError::new(ContractErrorKind::StateViolation(
                         format!("Invalid self-control roll: {}", control_roll),
@@ -414,7 +413,10 @@ impl CharacterBuilder for GameMaster {
     async fn finalize_character(
         &self,
         mut character: CharacterDescriptor,
-    ) -> CombatResult<(CharacterDescriptor, Established<CharacterValidationEvidence>)> {
+    ) -> CombatResult<(
+        CharacterDescriptor,
+        Established<CharacterValidationEvidence>,
+    )> {
         // Calculate and set derived stats
         let (derived_stats, _) = self.calculate_derived_stats(character.clone()).await?;
         character.derived_stats = derived_stats;

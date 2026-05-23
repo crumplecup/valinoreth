@@ -7,7 +7,9 @@ use crate::contracts::proof_composition::{
     AttackResolutionEvidence, FeintEvidence, RapidStrikeEvidence,
 };
 use crate::contracts::traits::{CombatResult, ManeuverExecutor};
-use crate::contracts::types::{AttackRollResult, FeintDescriptor, FeintResult, RapidStrikeDescriptor};
+use crate::contracts::types::{
+    AttackRollResult, FeintDescriptor, FeintResult, RapidStrikeDescriptor,
+};
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
 use elicitation::contracts::Established;
@@ -98,7 +100,8 @@ impl ManeuverExecutor for GameMaster {
             // Determine outcome
             let (success, margin) = Self::calculate_margin(roll, effective_skill);
             let critical_success = Self::is_critical_success(roll, effective_skill);
-            let critical_failure = Self::is_critical_failure(roll, effective_skill, success, margin);
+            let critical_failure =
+                Self::is_critical_failure(roll, effective_skill, success, margin);
 
             let result = AttackRollResult {
                 roll,
@@ -114,10 +117,7 @@ impl ManeuverExecutor for GameMaster {
             // Construct evidence for this attack
             let roll_made = Established::prove(&ValidAttackRoll);
             let outcome = Established::prove(&AttackOutcomeChecked);
-            let evidence = AttackResolutionEvidence {
-                roll_made,
-                outcome,
-            };
+            let evidence = AttackResolutionEvidence { roll_made, outcome };
             attack_evidences.push(evidence);
         }
 

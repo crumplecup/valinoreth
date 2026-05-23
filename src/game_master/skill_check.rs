@@ -55,10 +55,7 @@ impl SkillCheckExecutor for GameMaster {
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
 
         // Compose evidence bundle
-        let _evidence = SkillCheckResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let _evidence = SkillCheckResolutionEvidence { roll_made, outcome };
 
         Ok((result, Established::assert()))
     }
@@ -80,10 +77,7 @@ impl SkillCheckExecutor for GameMaster {
         // Reconstruct resolution evidence (zero-sized, exists only for type system)
         let roll_made = Established::prove(&ValidSkillCheckRoll);
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
-        let resolution = SkillCheckResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
 
         // Mint success proof
         let success = Established::prove(&SkillCheckHit);
@@ -114,10 +108,7 @@ impl SkillCheckExecutor for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidSkillCheckRoll);
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
-        let resolution = SkillCheckResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
 
         // Mint failure proof
         let failure = Established::prove(&SkillCheckMiss);
@@ -148,10 +139,7 @@ impl SkillCheckExecutor for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidSkillCheckRoll);
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
-        let resolution = SkillCheckResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
 
         // Reconstruct success evidence
         let success_proof = Established::prove(&SkillCheckHit);
@@ -186,10 +174,7 @@ impl SkillCheckExecutor for GameMaster {
         // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidSkillCheckRoll);
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
-        let resolution = SkillCheckResolutionEvidence {
-            roll_made,
-            outcome,
-        };
+        let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
 
         // Mint critical failure proof
         let critical = Established::prove(&SkillCheckCriticalMiss);

@@ -73,7 +73,10 @@ impl CharacterAdvancement for GameMaster {
                     // Per and Will are secondary characteristics
                     AttributeType::Per | AttributeType::Will => {
                         return Err(ContractError::new(ContractErrorKind::StateViolation(
-                            format!("{:?} is a secondary characteristic, not a primary attribute", attribute_type),
+                            format!(
+                                "{:?} is a secondary characteristic, not a primary attribute",
+                                attribute_type
+                            ),
                         )));
                     }
                 };
@@ -92,8 +95,9 @@ impl CharacterAdvancement for GameMaster {
                     .retain(|a| a.attribute_type != attribute_type);
 
                 // Use CharacterBuilder to purchase the attribute
-                let (character_with_attr, _) =
-                    self.purchase_attribute(updated_character, attribute).await?;
+                let (character_with_attr, _) = self
+                    .purchase_attribute(updated_character, attribute)
+                    .await?;
 
                 // Create evidence
                 let evidence = self.create_advancement_evidence(character_with_attr.clone())?;
@@ -141,9 +145,7 @@ impl CharacterAdvancement for GameMaster {
 
                 // Remove the disadvantage
                 let mut updated_character = character.clone();
-                updated_character
-                    .disadvantages
-                    .retain(|d| d.name != name);
+                updated_character.disadvantages.retain(|d| d.name != name);
                 updated_character.points_spent += cost;
 
                 // Create evidence

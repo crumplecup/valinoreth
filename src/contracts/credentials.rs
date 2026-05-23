@@ -22,14 +22,27 @@
 //! the validation.
 
 use crate::contracts::character::{
-    AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePurchased,
-    AdvantagePrerequisiteMet, AttributeCostCalculated, AttributePurchased,
+    AdvantageLevelValid, AdvantageModifiersCostCalculated, AdvantagePrerequisiteMet,
+    AdvantagePurchased, AttributeCostCalculated, AttributePurchased,
     AttributesMeetCampaignMinimums, BasicMoveCalculated, BasicSpeedCalculated, CharacterComplete,
     CharacterIdentified, CharacterPointValueSet, CharacterValid, DisadvantageLevelValid,
-    DisadvantageTaken, DisadvantagePointLimitRespected, DisadvantagesNotConflicting,
+    DisadvantagePointLimitRespected, DisadvantageTaken, DisadvantagesNotConflicting,
     DodgeCalculated, FatiguePointsSet, HitPointsSet, PerceptionSet, PointBudgetBalanced,
-    QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet, SecondaryCharacteristicPurchased,
-    SelfControlRollSpecified, WillSet,
+    QuirkLimitRespected, QuirkTaken, RacialTemplateRequirementsMet,
+    SecondaryCharacteristicPurchased, SelfControlRollSpecified, WillSet,
+};
+use crate::contracts::combat::{
+    AimBonusApplied, AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess,
+    AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful, BasicDamageCalculated,
+    DamageResistanceApplied, DeceptiveAttackApplied, DefenseCriticalFailure,
+    DefenseCriticalSuccess, DefenseFailed, DefenseOutcomeDetermined, DefenseRollMade,
+    DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied, InjuryCalculated,
+    LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled, WoundingModifierApplied,
+};
+use crate::contracts::combat_flow::{
+    AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
+    CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
+    RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
 };
 use crate::contracts::magic::{
     BaseEnergyCostDetermined, CeremonialCastingBegun, CeremonialSpellCompleted, ConcentrationBegun,
@@ -42,15 +55,6 @@ use crate::contracts::magic::{
     SpellMaintained, SpellPrerequisitesMet, SpellRangeChecked, SpellResistedSuccessfully,
     SpellSkillLevelSet, SpellSkillRollMade, SpellTargetDetermined, TimeModifierApplied,
 };
-use crate::contracts::combat::{
-    AimBonusApplied, AllOutAttackDeclared, AttackCriticalFailure, AttackCriticalSuccess,
-    AttackFailed, AttackOutcomeDetermined, AttackRollMade, AttackSuccessful,
-    BasicDamageCalculated, DamageResistanceApplied, DeceptiveAttackApplied,
-    DefenseCriticalFailure, DefenseCriticalSuccess, DefenseFailed, DefenseOutcomeDetermined,
-    DefenseRollMade, DefenseSuccessful, FeintSuccessful, HitLocationDetermined, InjuryApplied,
-    InjuryCalculated, LocationMultiplierApplied, RapidStrikeExecuted, WeaponDamageRolled,
-    WoundingModifierApplied,
-};
 use crate::contracts::skills::{
     CharacterPointsSpentOnSkill, ComplementarySkillBonusApplied, ContestWinnerDetermined,
     DefaultPenaltyApplied, FamiliarityPenaltyApplied, SituationalModifierApplied,
@@ -59,11 +63,6 @@ use crate::contracts::skills::{
     SkillDefaultedToAttribute, SkillDefaultedToRelatedSkill, SkillLevelIncreased,
     SkillPointBudgetValid, SkillPrerequisiteMet, TaskDifficultyModifierApplied, TechniqueUsed,
     TimeSpentModifierApplied, WildcardSkillUsed,
-};
-use crate::contracts::combat_flow::{
-    AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
-    CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
-    RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
 };
 use elicitation::proof_credential;
 
@@ -218,11 +217,7 @@ impl SkillCheckResult {
     /// Construct from validated comparison.
     pub fn new(roll: i32, skill: i32) -> Self {
         let success = roll <= skill;
-        let margin = if success {
-            skill - roll
-        } else {
-            roll - skill
-        };
+        let margin = if success { skill - roll } else { roll - skill };
         Self {
             roll,
             skill,
@@ -251,7 +246,9 @@ impl SkillCheckResult {
     /// - Roll is 17 AND skill < 16, OR
     /// - Margin of failure ≥ 10
     pub fn is_critical_failure(&self) -> bool {
-        self.roll >= 18 || (self.roll >= 17 && self.skill < 16) || (!self.success && self.margin >= 10)
+        self.roll >= 18
+            || (self.roll >= 17 && self.skill < 16)
+            || (!self.success && self.margin >= 10)
     }
 }
 
@@ -276,12 +273,7 @@ pub struct DamageCalculation {
 
 impl DamageCalculation {
     /// Construct from validated calculation.
-    pub fn new(
-        raw: i32,
-        dr: i32,
-        location_mult: f32,
-        wounding_mult: f32,
-    ) -> Self {
+    pub fn new(raw: i32, dr: i32, location_mult: f32, wounding_mult: f32) -> Self {
         let penetrating = (raw - dr).max(0);
         let injury = ((penetrating as f32) * location_mult * wounding_mult).round() as i32;
         Self {

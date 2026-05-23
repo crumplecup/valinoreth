@@ -112,11 +112,7 @@ impl GameMaster {
     /// Returns (success, margin).
     pub(crate) fn calculate_margin(roll: i32, skill: i32) -> (bool, i32) {
         let success = roll <= skill;
-        let margin = if success {
-            skill - roll
-        } else {
-            roll - skill
-        };
+        let margin = if success { skill - roll } else { roll - skill };
         (success, margin)
     }
 }

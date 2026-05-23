@@ -21,7 +21,10 @@ async fn test_resolve_defense_success() {
         .expect("Defense resolution succeeded");
 
     // With seed 42, verify roll is deterministic
-    assert!(result.roll >= 3 && result.roll <= 18, "Roll should be 3d6 range");
+    assert!(
+        result.roll >= 3 && result.roll <= 18,
+        "Roll should be 3d6 range"
+    );
     assert_eq!(result.defense_score, 10);
 }
 
@@ -160,8 +163,7 @@ async fn test_defense_critical_success_detection() {
         assert!(
             result.critical_success,
             "Should be critical success for roll {} with defense {}",
-            result.roll,
-            result.defense_score
+            result.roll, result.defense_score
         );
     }
 }
@@ -186,8 +188,7 @@ async fn test_defense_critical_failure_detection() {
         assert!(
             result.critical_failure,
             "Should be critical failure for roll {} with defense {}",
-            result.roll,
-            result.defense_score
+            result.roll, result.defense_score
         );
     }
 }

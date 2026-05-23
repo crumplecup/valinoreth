@@ -184,42 +184,42 @@ impl SurvivalGear {
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting survival gear tech level");
         match self {
-            Self::Bedroll => TechLevel::new(0),       // Stone Age
-            Self::Blanket => TechLevel::new(0),       // Stone Age
-            Self::BronzeMirror => TechLevel::new(1),  // Bronze Age
-            Self::CampBed => TechLevel::new(2),       // Medieval
-            Self::CampStool => TechLevel::new(1),     // Bronze Age
-            Self::Candle => TechLevel::new(1),        // Bronze Age
-            Self::Canteen => TechLevel::new(3),       // Medieval (metal canteen)
-            Self::CookingPot => TechLevel::new(0),    // Stone Age (stone pot)
-            Self::DriedMeat => TechLevel::new(0),     // Stone Age
-            Self::FireDrill => TechLevel::new(0),     // Stone Age
-            Self::FishingKit => TechLevel::new(0),    // Stone Age
-            Self::FlintAndSteel => TechLevel::new(0), // Stone Age
-            Self::FurBlanket => TechLevel::new(0),    // Stone Age
-            Self::Hammock => TechLevel::new(0),       // Stone Age
-            Self::Lantern => TechLevel::new(2),       // Medieval (oil lantern)
-            Self::LargeTent => TechLevel::new(1),     // Bronze Age
-            Self::Map => TechLevel::new(3),           // Medieval
-            Self::Matches => TechLevel::new(5),       // Industrial
-            Self::MessKit => TechLevel::new(1),       // Bronze Age
-            Self::OilLamp => TechLevel::new(1),       // Bronze Age
+            Self::Bedroll => TechLevel::new(0),        // Stone Age
+            Self::Blanket => TechLevel::new(0),        // Stone Age
+            Self::BronzeMirror => TechLevel::new(1),   // Bronze Age
+            Self::CampBed => TechLevel::new(2),        // Medieval
+            Self::CampStool => TechLevel::new(1),      // Bronze Age
+            Self::Candle => TechLevel::new(1),         // Bronze Age
+            Self::Canteen => TechLevel::new(3),        // Medieval (metal canteen)
+            Self::CookingPot => TechLevel::new(0),     // Stone Age (stone pot)
+            Self::DriedMeat => TechLevel::new(0),      // Stone Age
+            Self::FireDrill => TechLevel::new(0),      // Stone Age
+            Self::FishingKit => TechLevel::new(0),     // Stone Age
+            Self::FlintAndSteel => TechLevel::new(0),  // Stone Age
+            Self::FurBlanket => TechLevel::new(0),     // Stone Age
+            Self::Hammock => TechLevel::new(0),        // Stone Age
+            Self::Lantern => TechLevel::new(2),        // Medieval (oil lantern)
+            Self::LargeTent => TechLevel::new(1),      // Bronze Age
+            Self::Map => TechLevel::new(3),            // Medieval
+            Self::Matches => TechLevel::new(5),        // Industrial
+            Self::MessKit => TechLevel::new(1),        // Bronze Age
+            Self::OilLamp => TechLevel::new(1),        // Bronze Age
             Self::PersonalBasics => TechLevel::new(0), // Stone Age
-            Self::PilgrimStaff => TechLevel::new(0),  // Stone Age
-            Self::Rations => TechLevel::new(0),       // Stone Age (preserved food)
-            Self::SignalHorn => TechLevel::new(0),    // Stone Age
-            Self::SignalWhistle => TechLevel::new(2), // Medieval
-            Self::SleepingBag => TechLevel::new(5),   // Industrial (synthetic insulation)
-            Self::StormLantern => TechLevel::new(3),  // Medieval
-            Self::SnareWire => TechLevel::new(1),     // Bronze Age
-            Self::Tarp => TechLevel::new(5),          // Industrial (waterproof fabric)
-            Self::Tent => TechLevel::new(0),          // Stone Age
-            Self::Tinderbox => TechLevel::new(1),     // Bronze Age
-            Self::Tinder => TechLevel::new(0),        // Stone Age
-            Self::Torch => TechLevel::new(0),         // Stone Age
-            Self::TravelRations => TechLevel::new(0), // Stone Age
-            Self::WaterBag => TechLevel::new(0),      // Stone Age
-            Self::Waterskin => TechLevel::new(0),     // Stone Age
+            Self::PilgrimStaff => TechLevel::new(0),   // Stone Age
+            Self::Rations => TechLevel::new(0),        // Stone Age (preserved food)
+            Self::SignalHorn => TechLevel::new(0),     // Stone Age
+            Self::SignalWhistle => TechLevel::new(2),  // Medieval
+            Self::SleepingBag => TechLevel::new(5),    // Industrial (synthetic insulation)
+            Self::StormLantern => TechLevel::new(3),   // Medieval
+            Self::SnareWire => TechLevel::new(1),      // Bronze Age
+            Self::Tarp => TechLevel::new(5),           // Industrial (waterproof fabric)
+            Self::Tent => TechLevel::new(0),           // Stone Age
+            Self::Tinderbox => TechLevel::new(1),      // Bronze Age
+            Self::Tinder => TechLevel::new(0),         // Stone Age
+            Self::Torch => TechLevel::new(0),          // Stone Age
+            Self::TravelRations => TechLevel::new(0),  // Stone Age
+            Self::WaterBag => TechLevel::new(0),       // Stone Age
+            Self::Waterskin => TechLevel::new(0),      // Stone Age
         }
     }
 }

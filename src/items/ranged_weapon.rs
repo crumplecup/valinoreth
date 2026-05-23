@@ -503,13 +503,13 @@ impl RangedWeapon {
             Self::AssaultRifle => Currency::dollars(900.0),
             Self::ArisakaType38 => Currency::dollars(400.0),
             Self::AT4 => Currency::dollars(1500.0),
-                        Self::Atlatl => Currency::dollars(20.0),
+            Self::Atlatl => Currency::dollars(20.0),
             Self::Ballista => Currency::dollars(2000.0),
             Self::BarrettM107 => Currency::dollars(13000.0),
-                        Self::Blowgun => Currency::dollars(30.0),
-                        Self::Blunderbuss => Currency::dollars(300.0),
+            Self::Blowgun => Currency::dollars(30.0),
+            Self::Blunderbuss => Currency::dollars(300.0),
             Self::Bola => Currency::dollars(20.0),
-                        Self::Bow => Currency::dollars(100.0),
+            Self::Bow => Currency::dollars(100.0),
             Self::BoysAntiTankRifle => Currency::dollars(1500.0),
             Self::BAR => Currency::dollars(1200.0),
             Self::BrenGun => Currency::dollars(1100.0),
@@ -520,12 +520,12 @@ impl RangedWeapon {
             Self::BrowningM1917 => Currency::dollars(2000.0),
             Self::BrowningM2 => Currency::dollars(3500.0),
             Self::BrowningAuto5 => Currency::dollars(400.0),
-                                    Self::Carbine => Currency::dollars(300.0),
+            Self::Carbine => Currency::dollars(300.0),
             Self::Caliver => Currency::dollars(300.0),
             Self::CapLockPistol => Currency::dollars(150.0),
             Self::Catapult => Currency::dollars(3000.0),
             Self::CompositeBow => Currency::dollars(900.0),
-                        Self::Chakram => Currency::dollars(20.0),
+            Self::Chakram => Currency::dollars(20.0),
             Self::ClaymoreMine => Currency::dollars(120.0),
             Self::ChassepotRifle => Currency::dollars(400.0),
             Self::CheyTacM200 => Currency::dollars(12000.0),
@@ -549,7 +549,7 @@ impl RangedWeapon {
             Self::DragunovSVD => Currency::dollars(3500.0),
             Self::Espringal => Currency::dollars(1500.0),
             Self::EnfieldPattern1853 => Currency::dollars(375.0),
-                        Self::Flamethrower => Currency::dollars(1000.0),
+            Self::Flamethrower => Currency::dollars(1000.0),
             Self::FlareGun => Currency::dollars(50.0),
             Self::FieldGun => Currency::dollars(5000.0),
             Self::Flintlock => Currency::dollars(200.0),
@@ -567,7 +567,7 @@ impl RangedWeapon {
             Self::Grenade => Currency::dollars(30.0),
             Self::GreaseGunM3 => Currency::dollars(225.0),
             Self::Hackbut => Currency::dollars(500.0),
-                        Self::Gastraphetes => Currency::dollars(400.0),
+            Self::Gastraphetes => Currency::dollars(400.0),
             Self::GreatBow => Currency::dollars(700.0),
             Self::Glock17 => Currency::dollars(400.0),
             Self::Glock43X => Currency::dollars(550.0),
@@ -576,13 +576,13 @@ impl RangedWeapon {
             Self::GaussRifle => Currency::dollars(30000.0),
             Self::HornBow => Currency::dollars(800.0),
             Self::HandCannon => Currency::dollars(1000.0),
-                        Self::Hankyu => Currency::dollars(250.0),
+            Self::Hankyu => Currency::dollars(250.0),
             Self::HandMortar => Currency::dollars(800.0),
             Self::HenryRifle => Currency::dollars(400.0),
             Self::HandCrossbow => Currency::dollars(150.0),
-                        Self::HeavyCrossbow => Currency::dollars(200.0),
+            Self::HeavyCrossbow => Currency::dollars(200.0),
             Self::Hurlbat => Currency::dollars(30.0),
-                        Self::HuntingRifle => Currency::dollars(700.0),
+            Self::HuntingRifle => Currency::dollars(700.0),
             Self::HK416 => Currency::dollars(2800.0),
             Self::HKMP7 => Currency::dollars(1800.0),
             Self::HKMark23 => Currency::dollars(2400.0),
@@ -595,7 +595,7 @@ impl RangedWeapon {
             Self::LeverActionRifle => Currency::dollars(350.0),
             Self::LewisGun => Currency::dollars(1800.0),
             Self::LightCrossbow => Currency::dollars(150.0),
-                                    Self::Longbow => Currency::dollars(200.0),
+            Self::Longbow => Currency::dollars(200.0),
             Self::LugerP08 => Currency::dollars(350.0),
             Self::L96A1 => Currency::dollars(6000.0),
             Self::LAWM72 => Currency::dollars(1000.0),
@@ -633,15 +633,15 @@ impl RangedWeapon {
             Self::MP5 => Currency::dollars(450.0),
             Self::MountainGun => Currency::dollars(3500.0),
             Self::MTS255 => Currency::dollars(1500.0),
-                        Self::Musket => Currency::dollars(300.0),
+            Self::Musket => Currency::dollars(300.0),
             Self::Musketoon => Currency::dollars(250.0),
             Self::NavalGun => Currency::dollars(8000.0),
             Self::NegevNG7 => Currency::dollars(5000.0),
             Self::NordenfeltGun => Currency::dollars(3200.0),
             Self::Pecheneg => Currency::dollars(4800.0),
             Self::PelletBow => Currency::dollars(400.0),
-                        Self::Pistol => Currency::dollars(350.0),
-                        Self::PelletSling => Currency::dollars(15.0),
+            Self::Pistol => Currency::dollars(350.0),
+            Self::PelletSling => Currency::dollars(15.0),
             Self::Petronel => Currency::dollars(300.0),
             Self::PepperboxRevolver => Currency::dollars(200.0),
             Self::PercussionRevolver => Currency::dollars(250.0),
@@ -664,7 +664,7 @@ impl RangedWeapon {
             Self::RepeatingCrossbow => Currency::dollars(300.0),
             Self::Rifle => Currency::dollars(500.0),
             Self::Rock => Currency::dollars(0.0),
-                        Self::RocketLauncher => Currency::dollars(2000.0),
+            Self::RocketLauncher => Currency::dollars(2000.0),
             Self::RPG7 => Currency::dollars(500.0),
             Self::Railgun => Currency::dollars(75000.0),
             Self::Scorpion => Currency::dollars(1000.0),
@@ -673,7 +673,7 @@ impl RangedWeapon {
             Self::SakoTRG42 => Currency::dollars(9000.0),
             Self::SelfBow => Currency::dollars(50.0),
             Self::Shotgun => Currency::dollars(500.0),
-                        Self::ShortBow => Currency::dollars(50.0),
+            Self::ShortBow => Currency::dollars(50.0),
             Self::SharpsRifle => Currency::dollars(425.0),
             Self::SiegeCrossbow => Currency::dollars(500.0),
             Self::SIGP220 => Currency::dollars(600.0),
@@ -695,14 +695,14 @@ impl RangedWeapon {
             Self::Sterling => Currency::dollars(400.0),
             Self::SteyrAUG => Currency::dollars(2400.0),
             Self::StingerMissile => Currency::dollars(40000.0),
-                        Self::StaffSling => Currency::dollars(20.0),
+            Self::StaffSling => Currency::dollars(20.0),
             Self::Stonebow => Currency::dollars(120.0),
             Self::Boomerang => Currency::dollars(15.0),
-                        Self::ThrowingAxe => Currency::dollars(60.0),
+            Self::ThrowingAxe => Currency::dollars(60.0),
             Self::ThrowingHammer => Currency::dollars(70.0),
-                        Self::ThrowingKnife => Currency::dollars(30.0),
+            Self::ThrowingKnife => Currency::dollars(30.0),
             Self::ThrowingSpear => Currency::dollars(50.0),
-                        Self::ThrowingStick => Currency::dollars(5.0),
+            Self::ThrowingStick => Currency::dollars(5.0),
             Self::ThompsonM1928 => Currency::dollars(600.0),
             Self::Trebuchet => Currency::dollars(5000.0),
             Self::TNT => Currency::dollars(30.0),
@@ -712,7 +712,7 @@ impl RangedWeapon {
             Self::USAS12 => Currency::dollars(2500.0),
             Self::VolcanicPistol => Currency::dollars(275.0),
             Self::VickersMachineGun => Currency::dollars(2500.0),
-                        Self::Warbow => Currency::dollars(600.0),
+            Self::Warbow => Currency::dollars(600.0),
             Self::WaltherPPK => Currency::dollars(250.0),
             Self::WebleyRIC => Currency::dollars(200.0),
             Self::WebleyMkVI => Currency::dollars(225.0),
@@ -745,13 +745,13 @@ impl RangedWeapon {
             Self::AssaultRifle => Weight::pounds(9.0),
             Self::ArisakaType38 => Weight::pounds(9.0),
             Self::AT4 => Weight::pounds(14.8),
-                        Self::Atlatl => Weight::pounds(1.0),
+            Self::Atlatl => Weight::pounds(1.0),
             Self::Ballista => Weight::pounds(350.0),
             Self::BarrettM107 => Weight::pounds(30.9),
-                        Self::Blowgun => Weight::pounds(1.0),
-                        Self::Blunderbuss => Weight::pounds(8.0),
+            Self::Blowgun => Weight::pounds(1.0),
+            Self::Blunderbuss => Weight::pounds(8.0),
             Self::Bola => Weight::pounds(1.0),
-                        Self::Bow => Weight::pounds(2.0),
+            Self::Bow => Weight::pounds(2.0),
             Self::BoysAntiTankRifle => Weight::pounds(36.0),
             Self::BAR => Weight::pounds(19.0),
             Self::BrenGun => Weight::pounds(22.0),
@@ -762,12 +762,12 @@ impl RangedWeapon {
             Self::BrowningM1917 => Weight::pounds(40.0),
             Self::BrowningM2 => Weight::pounds(84.0),
             Self::BrowningAuto5 => Weight::pounds(8.5),
-                                    Self::Carbine => Weight::pounds(7.0),
+            Self::Carbine => Weight::pounds(7.0),
             Self::Caliver => Weight::pounds(8.0),
             Self::CapLockPistol => Weight::pounds(2.5),
             Self::Catapult => Weight::pounds(500.0),
             Self::CompositeBow => Weight::pounds(2.0),
-                        Self::Chakram => Weight::pounds(1.0),
+            Self::Chakram => Weight::pounds(1.0),
             Self::ClaymoreMine => Weight::pounds(3.5),
             Self::ChassepotRifle => Weight::pounds(9.5),
             Self::CheyTacM200 => Weight::pounds(31.0),
@@ -784,14 +784,14 @@ impl RangedWeapon {
             Self::Dart => Weight::pounds(0.1),
             Self::Dynamite => Weight::pounds(0.5),
             Self::DreyseNeedleRifle => Weight::pounds(10.5),
-                        Self::Derringer => Weight::pounds(0.5),
+            Self::Derringer => Weight::pounds(0.5),
             Self::DesertEagle => Weight::pounds(4.4),
             Self::DoubleActionRevolver => Weight::pounds(2.0),
             Self::DoubleBarrelShotgun => Weight::pounds(7.5),
             Self::DragunovSVD => Weight::pounds(9.5),
             Self::Espringal => Weight::pounds(300.0),
             Self::EnfieldPattern1853 => Weight::pounds(9.5),
-                        Self::Flamethrower => Weight::pounds(70.0),
+            Self::Flamethrower => Weight::pounds(70.0),
             Self::FlareGun => Weight::pounds(2.0),
             Self::FieldGun => Weight::pounds(2000.0),
             Self::Flintlock => Weight::pounds(2.5),
@@ -806,10 +806,10 @@ impl RangedWeapon {
             Self::Fusil => Weight::pounds(8.0),
             Self::GatlingGun => Weight::pounds(200.0),
             Self::GardnerGun => Weight::pounds(180.0),
-                        Self::Grenade => Weight::pounds(1.0),
+            Self::Grenade => Weight::pounds(1.0),
             Self::GreaseGunM3 => Weight::pounds(8.0),
             Self::Hackbut => Weight::pounds(25.0),
-                        Self::Gastraphetes => Weight::pounds(14.0),
+            Self::Gastraphetes => Weight::pounds(14.0),
             Self::GreatBow => Weight::pounds(6.0),
             Self::Glock17 => Weight::pounds(1.6),
             Self::Glock43X => Weight::pounds(1.2),
@@ -818,13 +818,13 @@ impl RangedWeapon {
             Self::GaussRifle => Weight::pounds(11.0),
             Self::HornBow => Weight::pounds(3.0),
             Self::HandCannon => Weight::pounds(15.0),
-                        Self::Hankyu => Weight::pounds(1.5),
+            Self::Hankyu => Weight::pounds(1.5),
             Self::HandMortar => Weight::pounds(20.0),
             Self::HenryRifle => Weight::pounds(9.5),
             Self::HandCrossbow => Weight::pounds(3.0),
-                        Self::HeavyCrossbow => Weight::pounds(8.0),
+            Self::HeavyCrossbow => Weight::pounds(8.0),
             Self::Hurlbat => Weight::pounds(1.5),
-                        Self::HuntingRifle => Weight::pounds(9.0),
+            Self::HuntingRifle => Weight::pounds(9.0),
             Self::HK416 => Weight::pounds(7.5),
             Self::HKMP7 => Weight::pounds(4.2),
             Self::HKMark23 => Weight::pounds(2.8),
@@ -837,7 +837,7 @@ impl RangedWeapon {
             Self::LeverActionRifle => Weight::pounds(8.0),
             Self::LewisGun => Weight::pounds(28.0),
             Self::LightCrossbow => Weight::pounds(4.0),
-                                    Self::Longbow => Weight::pounds(3.0),
+            Self::Longbow => Weight::pounds(3.0),
             Self::LugerP08 => Weight::pounds(1.75),
             Self::L96A1 => Weight::pounds(15.0),
             Self::LAWM72 => Weight::pounds(5.2),
@@ -875,15 +875,15 @@ impl RangedWeapon {
             Self::MP5 => Weight::pounds(5.5),
             Self::MountainGun => Weight::pounds(800.0),
             Self::MTS255 => Weight::pounds(9.0),
-                        Self::Musket => Weight::pounds(10.0),
+            Self::Musket => Weight::pounds(10.0),
             Self::Musketoon => Weight::pounds(6.0),
             Self::NavalGun => Weight::pounds(5000.0),
             Self::NegevNG7 => Weight::pounds(16.5),
             Self::NordenfeltGun => Weight::pounds(250.0),
             Self::Pecheneg => Weight::pounds(19.0),
             Self::PelletBow => Weight::pounds(3.0),
-                        Self::Pistol => Weight::pounds(1.5),
-                        Self::PelletSling => Weight::pounds(0.5),
+            Self::Pistol => Weight::pounds(1.5),
+            Self::PelletSling => Weight::pounds(0.5),
             Self::Petronel => Weight::pounds(5.0),
             Self::PepperboxRevolver => Weight::pounds(2.0),
             Self::PercussionRevolver => Weight::pounds(2.5),
@@ -906,7 +906,7 @@ impl RangedWeapon {
             Self::RepeatingCrossbow => Weight::pounds(8.0),
             Self::Rifle => Weight::pounds(9.0),
             Self::Rock => Weight::pounds(0.5),
-                        Self::RocketLauncher => Weight::pounds(15.0),
+            Self::RocketLauncher => Weight::pounds(15.0),
             Self::RPG7 => Weight::pounds(15.0),
             Self::Railgun => Weight::pounds(15.0),
             Self::Scorpion => Weight::pounds(200.0),
@@ -915,7 +915,7 @@ impl RangedWeapon {
             Self::SakoTRG42 => Weight::pounds(11.0),
             Self::SelfBow => Weight::pounds(2.0),
             Self::Shotgun => Weight::pounds(8.0),
-                        Self::ShortBow => Weight::pounds(1.0),
+            Self::ShortBow => Weight::pounds(1.0),
             Self::SharpsRifle => Weight::pounds(10.5),
             Self::SiegeCrossbow => Weight::pounds(15.0),
             Self::SIGP220 => Weight::pounds(1.9),
@@ -937,14 +937,14 @@ impl RangedWeapon {
             Self::Sterling => Weight::pounds(6.0),
             Self::SteyrAUG => Weight::pounds(7.9),
             Self::StingerMissile => Weight::pounds(34.5),
-                        Self::StaffSling => Weight::pounds(1.0),
+            Self::StaffSling => Weight::pounds(1.0),
             Self::Stonebow => Weight::pounds(6.0),
             Self::Boomerang => Weight::pounds(1.0),
-                        Self::ThrowingAxe => Weight::pounds(2.0),
+            Self::ThrowingAxe => Weight::pounds(2.0),
             Self::ThrowingHammer => Weight::pounds(3.0),
-                        Self::ThrowingKnife => Weight::pounds(0.5),
+            Self::ThrowingKnife => Weight::pounds(0.5),
             Self::ThrowingSpear => Weight::pounds(3.0),
-                        Self::ThrowingStick => Weight::pounds(1.0),
+            Self::ThrowingStick => Weight::pounds(1.0),
             Self::ThompsonM1928 => Weight::pounds(10.5),
             Self::Trebuchet => Weight::pounds(1000.0),
             Self::TNT => Weight::pounds(1.0),
@@ -954,7 +954,7 @@ impl RangedWeapon {
             Self::USAS12 => Weight::pounds(12.0),
             Self::VolcanicPistol => Weight::pounds(3.5),
             Self::VickersMachineGun => Weight::pounds(40.0),
-                        Self::Warbow => Weight::pounds(5.0),
+            Self::Warbow => Weight::pounds(5.0),
             Self::WaltherPPK => Weight::pounds(1.25),
             Self::WebleyRIC => Weight::pounds(2.0),
             Self::WebleyMkVI => Weight::pounds(2.5),
@@ -976,240 +976,240 @@ impl RangedWeapon {
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting ranged weapon tech level");
         match self {
-            Self::Arbalest => TechLevel::new(3),       // Medieval
+            Self::Arbalest => TechLevel::new(3),                 // Medieval
             Self::AccuracyInternationalAWM => TechLevel::new(8), // Information Age
-            Self::AA12 => TechLevel::new(8),           // Information Age
-            Self::Arquebus => TechLevel::new(4),       // Renaissance
-            Self::AK47 => TechLevel::new(7),           // Digital Age
-            Self::AKM => TechLevel::new(7),            // Digital Age
-            Self::AK12 => TechLevel::new(8),           // Information Age
-            Self::ASVal => TechLevel::new(8),          // Information Age
-            Self::AssaultRifle => TechLevel::new(7),   // Digital Age
-            Self::ArisakaType38 => TechLevel::new(6),  // Atomic Age
-            Self::AT4 => TechLevel::new(7),            // Digital Age
-                        Self::Atlatl => TechLevel::new(0),         // Stone Age
-            Self::Ballista => TechLevel::new(1),       // Roman/Iron Age
-            Self::BarrettM107 => TechLevel::new(8),    // Information Age
-                        Self::Blowgun => TechLevel::new(0),        // Stone Age
-                        Self::Blunderbuss => TechLevel::new(4),    // Renaissance
-            Self::Bola => TechLevel::new(0),           // Stone Age
-                        Self::Bow => TechLevel::new(0),            // Stone Age
-            Self::BoysAntiTankRifle => TechLevel::new(6), // Atomic Age
-            Self::BAR => TechLevel::new(6),            // Atomic Age
-            Self::BrenGun => TechLevel::new(6),        // Atomic Age
-            Self::BarrettM82 => TechLevel::new(7),     // Digital Age
-            Self::BenelliM3 => TechLevel::new(7),      // Digital Age
-            Self::BerettaM92 => TechLevel::new(7),     // Digital Age
-            Self::BrowningHiPower => TechLevel::new(6), // Atomic Age
-            Self::BrowningM1917 => TechLevel::new(6),  // Atomic Age
-            Self::BrowningM2 => TechLevel::new(6),     // Atomic Age
-            Self::BrowningAuto5 => TechLevel::new(6),  // Atomic Age
-                                    Self::Carbine => TechLevel::new(5),        // Mechanized Age
-            Self::Caliver => TechLevel::new(4),        // Renaissance
-            Self::CapLockPistol => TechLevel::new(5),  // Industrial Revolution
-            Self::Catapult => TechLevel::new(1),       // Roman/Iron Age
-            Self::CompositeBow => TechLevel::new(2),   // Medieval
-                        Self::Chakram => TechLevel::new(1),        // Bronze Age
-            Self::ClaymoreMine => TechLevel::new(7),   // Digital Age
-            Self::ChassepotRifle => TechLevel::new(5), // Industrial Revolution
-            Self::CheyTacM200 => TechLevel::new(8),    // Information Age
-            Self::ChiappaRhino => TechLevel::new(8),   // Information Age
-            Self::Chukonu => TechLevel::new(2),        // Medieval China
-            Self::ColtWalker => TechLevel::new(5),     // Industrial Revolution
-            Self::ColtM1911 => TechLevel::new(6),      // Atomic Age
-            Self::Coilgun => TechLevel::new(8),        // Information Age (experimental)
-            Self::Crossbow => TechLevel::new(2),       // Medieval
-            Self::CZ75 => TechLevel::new(7),           // Digital Age
-            Self::CZP10 => TechLevel::new(8),          // Information Age
-            Self::C4Explosive => TechLevel::new(7),    // Digital Age
-            Self::Daikyu => TechLevel::new(3),        // Japanese
-            Self::Dart => TechLevel::new(0),           // Stone Age
-            Self::Dynamite => TechLevel::new(5),       // Industrial Revolution
-            Self::DreyseNeedleRifle => TechLevel::new(5), // Industrial Revolution
-            Self::Derringer => TechLevel::new(5),      // Mechanized Age
-            Self::DesertEagle => TechLevel::new(7),    // Digital Age
-            Self::DoubleActionRevolver => TechLevel::new(5), // Industrial Revolution
-            Self::DoubleBarrelShotgun => TechLevel::new(5), // Industrial Revolution
-            Self::DragunovSVD => TechLevel::new(7),    // Digital Age
-            Self::Espringal => TechLevel::new(2),      // Medieval
-            Self::EnfieldPattern1853 => TechLevel::new(5), // Industrial Revolution
-                        Self::Flamethrower => TechLevel::new(6),   // Atomic Age
-            Self::FlareGun => TechLevel::new(6),       // Atomic Age
-            Self::FieldGun => TechLevel::new(5),       // Industrial Revolution
-            Self::Flintlock => TechLevel::new(4),      // Renaissance
-            Self::FAMAS => TechLevel::new(8),          // Information Age
-            Self::FNFAL => TechLevel::new(7),          // Digital Age
-            Self::FNMAG => TechLevel::new(7),          // Digital Age
-            Self::FNP90 => TechLevel::new(8),          // Information Age
-            Self::FNSCARL => TechLevel::new(8),        // Information Age
-            Self::FNFiveSeveN => TechLevel::new(8),    // Information Age
-            Self::FNMinimiPara => TechLevel::new(8),   // Information Age
-            Self::FostechOrigin12 => TechLevel::new(8), // Information Age
-            Self::Fusil => TechLevel::new(4),          // Renaissance
-            Self::GatlingGun => TechLevel::new(5),     // Industrial Revolution
-            Self::GardnerGun => TechLevel::new(5),     // Industrial Revolution
-                        Self::Grenade => TechLevel::new(6),        // Atomic Age
-            Self::GreaseGunM3 => TechLevel::new(6),    // Atomic Age
-            Self::Hackbut => TechLevel::new(4),        // Renaissance
-                        Self::Gastraphetes => TechLevel::new(1),   // Greek/Iron Age
-            Self::GreatBow => TechLevel::new(2),       // Medieval
-            Self::Glock17 => TechLevel::new(7),        // Digital Age
-            Self::Glock43X => TechLevel::new(8),       // Information Age
-            Self::G3 => TechLevel::new(7),             // Digital Age
-            Self::GP25 => TechLevel::new(7),           // Digital Age
-            Self::GaussRifle => TechLevel::new(8),     // Information Age (experimental)
-            Self::HornBow => TechLevel::new(1),        // Bronze Age
-            Self::HandCannon => TechLevel::new(3),     // Medieval
-                        Self::Hankyu => TechLevel::new(3),        // Japanese
-            Self::HandMortar => TechLevel::new(4),     // Renaissance
-            Self::HenryRifle => TechLevel::new(5),     // Industrial Revolution
-            Self::HandCrossbow => TechLevel::new(2),   // Medieval
-                        Self::HeavyCrossbow => TechLevel::new(2),  // Medieval
-            Self::Hurlbat => TechLevel::new(1),        // Bronze Age
-                        Self::HuntingRifle => TechLevel::new(5),   // Mechanized Age
-            Self::HK416 => TechLevel::new(8),          // Information Age
-            Self::HKMP7 => TechLevel::new(8),          // Information Age
-            Self::HKMark23 => TechLevel::new(8),       // Information Age
-            Self::HKMG4 => TechLevel::new(8),          // Information Age
-            Self::Jezail => TechLevel::new(4),         // Renaissance
-            Self::KelTecKSG => TechLevel::new(8),      // Information Age
-            Self::KrissVector => TechLevel::new(8),    // Information Age
-            Self::LematRevolver => TechLevel::new(5),  // Industrial Revolution
-            Self::LeeEnfieldSMLE => TechLevel::new(6), // Atomic Age
-            Self::LeverActionRifle => TechLevel::new(5), // Industrial Revolution
-            Self::LewisGun => TechLevel::new(6),       // Atomic Age
-            Self::LightCrossbow => TechLevel::new(2),  // Medieval
-                        Self::Longbow => TechLevel::new(0),        // Stone Age
-            Self::LugerP08 => TechLevel::new(6),       // Atomic Age
-            Self::L96A1 => TechLevel::new(7),          // Digital Age
-            Self::LAWM72 => TechLevel::new(7),         // Digital Age
-            Self::LaserRifle => TechLevel::new(8),     // Information Age (experimental)
-            Self::M1Garand => TechLevel::new(6),       // Atomic Age
-            Self::MakarovPM => TechLevel::new(7),      // Digital Age
-            Self::M14 => TechLevel::new(7),            // Digital Age
-            Self::M16 => TechLevel::new(7),            // Digital Age
-            Self::M203 => TechLevel::new(7),           // Digital Age
-            Self::M21SWS => TechLevel::new(7),          // Digital Age
-            Self::M249SAW => TechLevel::new(7),        // Digital Age
-            Self::M4Carbine => TechLevel::new(8),      // Information Age
-            Self::M60 => TechLevel::new(7),            // Digital Age
-            Self::M79 => TechLevel::new(7),            // Digital Age
-            Self::MAC10 => TechLevel::new(7),          // Digital Age
-            Self::Mangonel => TechLevel::new(1),       // Roman/Iron Age
-            Self::Matchlock => TechLevel::new(4),      // Renaissance
-            Self::MartiniHenryRifle => TechLevel::new(5), // Industrial Revolution
-            Self::MauserModel1871 => TechLevel::new(5), // Industrial Revolution
-            Self::MauserC96 => TechLevel::new(6),      // Atomic Age
-            Self::MauserGewehr98 => TechLevel::new(6), // Atomic Age
-            Self::MG34 => TechLevel::new(6),           // Atomic Age
-            Self::MG42 => TechLevel::new(6),           // Atomic Age
-            Self::MG3 => TechLevel::new(7),            // Digital Age
-            Self::MaximGun => TechLevel::new(5),       // Industrial Revolution
-            Self::MachineGun => TechLevel::new(6),     // Atomic Age
-            Self::McMillanTAC50 => TechLevel::new(8),  // Information Age
-            Self::Mitrailleuse => TechLevel::new(5),   // Industrial Revolution
-            Self::Mk19 => TechLevel::new(7),           // Digital Age
-            Self::MilkorMGL => TechLevel::new(8),      // Information Age
-            Self::MosinNagant => TechLevel::new(6),    // Atomic Age
-            Self::Mossberg500 => TechLevel::new(7),    // Digital Age
-            Self::MP18 => TechLevel::new(6),           // Atomic Age
-            Self::MP40 => TechLevel::new(6),           // Atomic Age
-            Self::MP5 => TechLevel::new(7),            // Digital Age
-            Self::MountainGun => TechLevel::new(5),    // Industrial Revolution
-            Self::MTS255 => TechLevel::new(8),         // Information Age
-            Self::Musket => TechLevel::new(4),         // Age of Sail
-            Self::Musketoon => TechLevel::new(4),      // Renaissance
-            Self::NavalGun => TechLevel::new(5),       // Industrial Revolution
-            Self::NegevNG7 => TechLevel::new(8),       // Information Age
-            Self::NordenfeltGun => TechLevel::new(5),  // Industrial Revolution
-            Self::Pecheneg => TechLevel::new(8),       // Information Age
-            Self::PelletBow => TechLevel::new(7),      // Digital Age
-                        Self::Pistol => TechLevel::new(6),         // Atomic Age
-                        Self::PelletSling => TechLevel::new(0),    // Stone Age
-            Self::Petronel => TechLevel::new(4),       // Renaissance
-            Self::PepperboxRevolver => TechLevel::new(5), // Industrial Revolution
-            Self::PercussionRevolver => TechLevel::new(5), // Industrial Revolution
-            Self::Plumbata => TechLevel::new(1),       // Roman
-            Self::PPS43 => TechLevel::new(6),          // Atomic Age
-            Self::PPSh41 => TechLevel::new(6),         // Atomic Age
-            Self::PKM => TechLevel::new(7),            // Digital Age
-            Self::PSG1 => TechLevel::new(7),          // Digital Age
-            Self::PGMHecateII => TechLevel::new(8),    // Information Age
-            Self::PlasmaRifle => TechLevel::new(8),    // Information Age (experimental)
-            Self::PTRDAntiTankRifle => TechLevel::new(6), // Atomic Age
-            Self::Prodd => TechLevel::new(2),          // Medieval
-            Self::PumpActionShotgun => TechLevel::new(5), // Industrial Revolution
-            Self::QBZ95 => TechLevel::new(8),              // Information Age
-            Self::Remington870 => TechLevel::new(7),       // Digital Age
+            Self::AA12 => TechLevel::new(8),                     // Information Age
+            Self::Arquebus => TechLevel::new(4),                 // Renaissance
+            Self::AK47 => TechLevel::new(7),                     // Digital Age
+            Self::AKM => TechLevel::new(7),                      // Digital Age
+            Self::AK12 => TechLevel::new(8),                     // Information Age
+            Self::ASVal => TechLevel::new(8),                    // Information Age
+            Self::AssaultRifle => TechLevel::new(7),             // Digital Age
+            Self::ArisakaType38 => TechLevel::new(6),            // Atomic Age
+            Self::AT4 => TechLevel::new(7),                      // Digital Age
+            Self::Atlatl => TechLevel::new(0),                   // Stone Age
+            Self::Ballista => TechLevel::new(1),                 // Roman/Iron Age
+            Self::BarrettM107 => TechLevel::new(8),              // Information Age
+            Self::Blowgun => TechLevel::new(0),                  // Stone Age
+            Self::Blunderbuss => TechLevel::new(4),              // Renaissance
+            Self::Bola => TechLevel::new(0),                     // Stone Age
+            Self::Bow => TechLevel::new(0),                      // Stone Age
+            Self::BoysAntiTankRifle => TechLevel::new(6),        // Atomic Age
+            Self::BAR => TechLevel::new(6),                      // Atomic Age
+            Self::BrenGun => TechLevel::new(6),                  // Atomic Age
+            Self::BarrettM82 => TechLevel::new(7),               // Digital Age
+            Self::BenelliM3 => TechLevel::new(7),                // Digital Age
+            Self::BerettaM92 => TechLevel::new(7),               // Digital Age
+            Self::BrowningHiPower => TechLevel::new(6),          // Atomic Age
+            Self::BrowningM1917 => TechLevel::new(6),            // Atomic Age
+            Self::BrowningM2 => TechLevel::new(6),               // Atomic Age
+            Self::BrowningAuto5 => TechLevel::new(6),            // Atomic Age
+            Self::Carbine => TechLevel::new(5),                  // Mechanized Age
+            Self::Caliver => TechLevel::new(4),                  // Renaissance
+            Self::CapLockPistol => TechLevel::new(5),            // Industrial Revolution
+            Self::Catapult => TechLevel::new(1),                 // Roman/Iron Age
+            Self::CompositeBow => TechLevel::new(2),             // Medieval
+            Self::Chakram => TechLevel::new(1),                  // Bronze Age
+            Self::ClaymoreMine => TechLevel::new(7),             // Digital Age
+            Self::ChassepotRifle => TechLevel::new(5),           // Industrial Revolution
+            Self::CheyTacM200 => TechLevel::new(8),              // Information Age
+            Self::ChiappaRhino => TechLevel::new(8),             // Information Age
+            Self::Chukonu => TechLevel::new(2),                  // Medieval China
+            Self::ColtWalker => TechLevel::new(5),               // Industrial Revolution
+            Self::ColtM1911 => TechLevel::new(6),                // Atomic Age
+            Self::Coilgun => TechLevel::new(8),                  // Information Age (experimental)
+            Self::Crossbow => TechLevel::new(2),                 // Medieval
+            Self::CZ75 => TechLevel::new(7),                     // Digital Age
+            Self::CZP10 => TechLevel::new(8),                    // Information Age
+            Self::C4Explosive => TechLevel::new(7),              // Digital Age
+            Self::Daikyu => TechLevel::new(3),                   // Japanese
+            Self::Dart => TechLevel::new(0),                     // Stone Age
+            Self::Dynamite => TechLevel::new(5),                 // Industrial Revolution
+            Self::DreyseNeedleRifle => TechLevel::new(5),        // Industrial Revolution
+            Self::Derringer => TechLevel::new(5),                // Mechanized Age
+            Self::DesertEagle => TechLevel::new(7),              // Digital Age
+            Self::DoubleActionRevolver => TechLevel::new(5),     // Industrial Revolution
+            Self::DoubleBarrelShotgun => TechLevel::new(5),      // Industrial Revolution
+            Self::DragunovSVD => TechLevel::new(7),              // Digital Age
+            Self::Espringal => TechLevel::new(2),                // Medieval
+            Self::EnfieldPattern1853 => TechLevel::new(5),       // Industrial Revolution
+            Self::Flamethrower => TechLevel::new(6),             // Atomic Age
+            Self::FlareGun => TechLevel::new(6),                 // Atomic Age
+            Self::FieldGun => TechLevel::new(5),                 // Industrial Revolution
+            Self::Flintlock => TechLevel::new(4),                // Renaissance
+            Self::FAMAS => TechLevel::new(8),                    // Information Age
+            Self::FNFAL => TechLevel::new(7),                    // Digital Age
+            Self::FNMAG => TechLevel::new(7),                    // Digital Age
+            Self::FNP90 => TechLevel::new(8),                    // Information Age
+            Self::FNSCARL => TechLevel::new(8),                  // Information Age
+            Self::FNFiveSeveN => TechLevel::new(8),              // Information Age
+            Self::FNMinimiPara => TechLevel::new(8),             // Information Age
+            Self::FostechOrigin12 => TechLevel::new(8),          // Information Age
+            Self::Fusil => TechLevel::new(4),                    // Renaissance
+            Self::GatlingGun => TechLevel::new(5),               // Industrial Revolution
+            Self::GardnerGun => TechLevel::new(5),               // Industrial Revolution
+            Self::Grenade => TechLevel::new(6),                  // Atomic Age
+            Self::GreaseGunM3 => TechLevel::new(6),              // Atomic Age
+            Self::Hackbut => TechLevel::new(4),                  // Renaissance
+            Self::Gastraphetes => TechLevel::new(1),             // Greek/Iron Age
+            Self::GreatBow => TechLevel::new(2),                 // Medieval
+            Self::Glock17 => TechLevel::new(7),                  // Digital Age
+            Self::Glock43X => TechLevel::new(8),                 // Information Age
+            Self::G3 => TechLevel::new(7),                       // Digital Age
+            Self::GP25 => TechLevel::new(7),                     // Digital Age
+            Self::GaussRifle => TechLevel::new(8),               // Information Age (experimental)
+            Self::HornBow => TechLevel::new(1),                  // Bronze Age
+            Self::HandCannon => TechLevel::new(3),               // Medieval
+            Self::Hankyu => TechLevel::new(3),                   // Japanese
+            Self::HandMortar => TechLevel::new(4),               // Renaissance
+            Self::HenryRifle => TechLevel::new(5),               // Industrial Revolution
+            Self::HandCrossbow => TechLevel::new(2),             // Medieval
+            Self::HeavyCrossbow => TechLevel::new(2),            // Medieval
+            Self::Hurlbat => TechLevel::new(1),                  // Bronze Age
+            Self::HuntingRifle => TechLevel::new(5),             // Mechanized Age
+            Self::HK416 => TechLevel::new(8),                    // Information Age
+            Self::HKMP7 => TechLevel::new(8),                    // Information Age
+            Self::HKMark23 => TechLevel::new(8),                 // Information Age
+            Self::HKMG4 => TechLevel::new(8),                    // Information Age
+            Self::Jezail => TechLevel::new(4),                   // Renaissance
+            Self::KelTecKSG => TechLevel::new(8),                // Information Age
+            Self::KrissVector => TechLevel::new(8),              // Information Age
+            Self::LematRevolver => TechLevel::new(5),            // Industrial Revolution
+            Self::LeeEnfieldSMLE => TechLevel::new(6),           // Atomic Age
+            Self::LeverActionRifle => TechLevel::new(5),         // Industrial Revolution
+            Self::LewisGun => TechLevel::new(6),                 // Atomic Age
+            Self::LightCrossbow => TechLevel::new(2),            // Medieval
+            Self::Longbow => TechLevel::new(0),                  // Stone Age
+            Self::LugerP08 => TechLevel::new(6),                 // Atomic Age
+            Self::L96A1 => TechLevel::new(7),                    // Digital Age
+            Self::LAWM72 => TechLevel::new(7),                   // Digital Age
+            Self::LaserRifle => TechLevel::new(8),               // Information Age (experimental)
+            Self::M1Garand => TechLevel::new(6),                 // Atomic Age
+            Self::MakarovPM => TechLevel::new(7),                // Digital Age
+            Self::M14 => TechLevel::new(7),                      // Digital Age
+            Self::M16 => TechLevel::new(7),                      // Digital Age
+            Self::M203 => TechLevel::new(7),                     // Digital Age
+            Self::M21SWS => TechLevel::new(7),                   // Digital Age
+            Self::M249SAW => TechLevel::new(7),                  // Digital Age
+            Self::M4Carbine => TechLevel::new(8),                // Information Age
+            Self::M60 => TechLevel::new(7),                      // Digital Age
+            Self::M79 => TechLevel::new(7),                      // Digital Age
+            Self::MAC10 => TechLevel::new(7),                    // Digital Age
+            Self::Mangonel => TechLevel::new(1),                 // Roman/Iron Age
+            Self::Matchlock => TechLevel::new(4),                // Renaissance
+            Self::MartiniHenryRifle => TechLevel::new(5),        // Industrial Revolution
+            Self::MauserModel1871 => TechLevel::new(5),          // Industrial Revolution
+            Self::MauserC96 => TechLevel::new(6),                // Atomic Age
+            Self::MauserGewehr98 => TechLevel::new(6),           // Atomic Age
+            Self::MG34 => TechLevel::new(6),                     // Atomic Age
+            Self::MG42 => TechLevel::new(6),                     // Atomic Age
+            Self::MG3 => TechLevel::new(7),                      // Digital Age
+            Self::MaximGun => TechLevel::new(5),                 // Industrial Revolution
+            Self::MachineGun => TechLevel::new(6),               // Atomic Age
+            Self::McMillanTAC50 => TechLevel::new(8),            // Information Age
+            Self::Mitrailleuse => TechLevel::new(5),             // Industrial Revolution
+            Self::Mk19 => TechLevel::new(7),                     // Digital Age
+            Self::MilkorMGL => TechLevel::new(8),                // Information Age
+            Self::MosinNagant => TechLevel::new(6),              // Atomic Age
+            Self::Mossberg500 => TechLevel::new(7),              // Digital Age
+            Self::MP18 => TechLevel::new(6),                     // Atomic Age
+            Self::MP40 => TechLevel::new(6),                     // Atomic Age
+            Self::MP5 => TechLevel::new(7),                      // Digital Age
+            Self::MountainGun => TechLevel::new(5),              // Industrial Revolution
+            Self::MTS255 => TechLevel::new(8),                   // Information Age
+            Self::Musket => TechLevel::new(4),                   // Age of Sail
+            Self::Musketoon => TechLevel::new(4),                // Renaissance
+            Self::NavalGun => TechLevel::new(5),                 // Industrial Revolution
+            Self::NegevNG7 => TechLevel::new(8),                 // Information Age
+            Self::NordenfeltGun => TechLevel::new(5),            // Industrial Revolution
+            Self::Pecheneg => TechLevel::new(8),                 // Information Age
+            Self::PelletBow => TechLevel::new(7),                // Digital Age
+            Self::Pistol => TechLevel::new(6),                   // Atomic Age
+            Self::PelletSling => TechLevel::new(0),              // Stone Age
+            Self::Petronel => TechLevel::new(4),                 // Renaissance
+            Self::PepperboxRevolver => TechLevel::new(5),        // Industrial Revolution
+            Self::PercussionRevolver => TechLevel::new(5),       // Industrial Revolution
+            Self::Plumbata => TechLevel::new(1),                 // Roman
+            Self::PPS43 => TechLevel::new(6),                    // Atomic Age
+            Self::PPSh41 => TechLevel::new(6),                   // Atomic Age
+            Self::PKM => TechLevel::new(7),                      // Digital Age
+            Self::PSG1 => TechLevel::new(7),                     // Digital Age
+            Self::PGMHecateII => TechLevel::new(8),              // Information Age
+            Self::PlasmaRifle => TechLevel::new(8),              // Information Age (experimental)
+            Self::PTRDAntiTankRifle => TechLevel::new(6),        // Atomic Age
+            Self::Prodd => TechLevel::new(2),                    // Medieval
+            Self::PumpActionShotgun => TechLevel::new(5),        // Industrial Revolution
+            Self::QBZ95 => TechLevel::new(8),                    // Information Age
+            Self::Remington870 => TechLevel::new(7),             // Digital Age
             Self::RemingtonRollingBlockPistol => TechLevel::new(5), // Industrial Revolution
             Self::RemingtonRollingBlockRifle => TechLevel::new(5), // Industrial Revolution
-            Self::RemingtonModel31 => TechLevel::new(6), // Atomic Age
-            Self::Revolver => TechLevel::new(6),       // Atomic Age
-            Self::RepeatingCrossbow => TechLevel::new(2), // Medieval China
-            Self::Rifle => TechLevel::new(6),          // Atomic Age
-            Self::Rock => TechLevel::new(0),           // Stone Age
-                        Self::RocketLauncher => TechLevel::new(7), // Digital Age
-            Self::RPG7 => TechLevel::new(7),           // Digital Age
-            Self::Railgun => TechLevel::new(8),        // Information Age (experimental)
-            Self::Scorpion => TechLevel::new(1),       // Roman
-            Self::RecurveBow => TechLevel::new(1),     // Bronze Age
-            Self::Saiga12 => TechLevel::new(7),        // Digital Age
-            Self::SakoTRG42 => TechLevel::new(8),      // Information Age
-            Self::SelfBow => TechLevel::new(0),        // Stone Age
-            Self::Shotgun => TechLevel::new(5),        // Mechanized Age
-                        Self::ShortBow => TechLevel::new(0),       // Stone Age
-            Self::SharpsRifle => TechLevel::new(5),    // Industrial Revolution
-            Self::SiegeCrossbow => TechLevel::new(2),  // Medieval
-            Self::SIGP220 => TechLevel::new(7),        // Digital Age
-            Self::SIGP320 => TechLevel::new(8),        // Information Age
-            Self::SingleActionRevolver => TechLevel::new(5), // Industrial Revolution
-            Self::Shuriken => TechLevel::new(2),       // Medieval Japan
-            Self::Skorpion => TechLevel::new(7),       // Digital Age
-            Self::Sling => TechLevel::new(0),          // Stone Age
-            Self::SmithWessonModel1 => TechLevel::new(5), // Industrial Revolution
-            Self::SmithWessonModel3 => TechLevel::new(5), // Industrial Revolution
-            Self::SMG => TechLevel::new(6),            // Atomic Age
-            Self::SniperRifle => TechLevel::new(7),    // Digital Age
-            Self::SPAS12 => TechLevel::new(7),         // Digital Age
-            Self::SpencerRepeatingRifle => TechLevel::new(5), // Industrial Revolution
-            Self::SpringfieldModel1861 => TechLevel::new(5), // Industrial Revolution
-            Self::SpringfieldM1903 => TechLevel::new(6), // Atomic Age
-            Self::TrapdoorSpringfield => TechLevel::new(5), // Industrial Revolution
-            Self::StenGun => TechLevel::new(6),        // Atomic Age
-            Self::Sterling => TechLevel::new(7),       // Digital Age
-            Self::SteyrAUG => TechLevel::new(8),        // Information Age
-            Self::StingerMissile => TechLevel::new(7), // Digital Age
-                        Self::StaffSling => TechLevel::new(1),     // Bronze Age
-            Self::Stonebow => TechLevel::new(2),       // Medieval
-            Self::Boomerang => TechLevel::new(0),      // Stone Age
-                        Self::ThrowingAxe => TechLevel::new(0),    // Stone Age
-            Self::ThrowingHammer => TechLevel::new(0), // Stone Age
-                        Self::ThrowingKnife => TechLevel::new(0),  // Stone Age
-            Self::ThrowingSpear => TechLevel::new(0),  // Stone Age
-                        Self::ThrowingStick => TechLevel::new(0),  // Stone Age
-            Self::ThompsonM1928 => TechLevel::new(6),  // Atomic Age
-            Self::Trebuchet => TechLevel::new(2),      // Medieval
-            Self::TNT => TechLevel::new(5),            // Industrial Revolution
-            Self::TOWMissile => TechLevel::new(7),     // Digital Age
-            Self::Uzi => TechLevel::new(7),            // Digital Age
-            Self::Ultimax100 => TechLevel::new(8),     // Information Age
-            Self::USAS12 => TechLevel::new(8),         // Information Age
-            Self::VolcanicPistol => TechLevel::new(5), // Industrial Revolution
-            Self::VickersMachineGun => TechLevel::new(6), // Atomic Age
-                        Self::Warbow => TechLevel::new(2),         // Medieval
-            Self::WaltherPPK => TechLevel::new(6),     // Atomic Age
-            Self::WebleyRIC => TechLevel::new(5),      // Industrial Revolution
-            Self::WebleyMkVI => TechLevel::new(6),     // Atomic Age
-            Self::Wheellock => TechLevel::new(4),      // Renaissance
-            Self::Winchester1866 => TechLevel::new(5), // Industrial Revolution
-            Self::Winchester1873 => TechLevel::new(5), // Industrial Revolution
-            Self::Winchester1887 => TechLevel::new(5), // Industrial Revolution
-            Self::Winchester1897 => TechLevel::new(6), // Atomic Age
-            Self::WinchesterRepeater => TechLevel::new(5), // Industrial Revolution
-            Self::XM8 => TechLevel::new(8),            // Information Age
-            Self::Yumi => TechLevel::new(2),           // Medieval Japan
-            Self::ThrownBola => TechLevel::new(0),     // Stone Age
-            Self::ThrownNet => TechLevel::new(1),      // Bronze Age
+            Self::RemingtonModel31 => TechLevel::new(6),         // Atomic Age
+            Self::Revolver => TechLevel::new(6),                 // Atomic Age
+            Self::RepeatingCrossbow => TechLevel::new(2),        // Medieval China
+            Self::Rifle => TechLevel::new(6),                    // Atomic Age
+            Self::Rock => TechLevel::new(0),                     // Stone Age
+            Self::RocketLauncher => TechLevel::new(7),           // Digital Age
+            Self::RPG7 => TechLevel::new(7),                     // Digital Age
+            Self::Railgun => TechLevel::new(8),                  // Information Age (experimental)
+            Self::Scorpion => TechLevel::new(1),                 // Roman
+            Self::RecurveBow => TechLevel::new(1),               // Bronze Age
+            Self::Saiga12 => TechLevel::new(7),                  // Digital Age
+            Self::SakoTRG42 => TechLevel::new(8),                // Information Age
+            Self::SelfBow => TechLevel::new(0),                  // Stone Age
+            Self::Shotgun => TechLevel::new(5),                  // Mechanized Age
+            Self::ShortBow => TechLevel::new(0),                 // Stone Age
+            Self::SharpsRifle => TechLevel::new(5),              // Industrial Revolution
+            Self::SiegeCrossbow => TechLevel::new(2),            // Medieval
+            Self::SIGP220 => TechLevel::new(7),                  // Digital Age
+            Self::SIGP320 => TechLevel::new(8),                  // Information Age
+            Self::SingleActionRevolver => TechLevel::new(5),     // Industrial Revolution
+            Self::Shuriken => TechLevel::new(2),                 // Medieval Japan
+            Self::Skorpion => TechLevel::new(7),                 // Digital Age
+            Self::Sling => TechLevel::new(0),                    // Stone Age
+            Self::SmithWessonModel1 => TechLevel::new(5),        // Industrial Revolution
+            Self::SmithWessonModel3 => TechLevel::new(5),        // Industrial Revolution
+            Self::SMG => TechLevel::new(6),                      // Atomic Age
+            Self::SniperRifle => TechLevel::new(7),              // Digital Age
+            Self::SPAS12 => TechLevel::new(7),                   // Digital Age
+            Self::SpencerRepeatingRifle => TechLevel::new(5),    // Industrial Revolution
+            Self::SpringfieldModel1861 => TechLevel::new(5),     // Industrial Revolution
+            Self::SpringfieldM1903 => TechLevel::new(6),         // Atomic Age
+            Self::TrapdoorSpringfield => TechLevel::new(5),      // Industrial Revolution
+            Self::StenGun => TechLevel::new(6),                  // Atomic Age
+            Self::Sterling => TechLevel::new(7),                 // Digital Age
+            Self::SteyrAUG => TechLevel::new(8),                 // Information Age
+            Self::StingerMissile => TechLevel::new(7),           // Digital Age
+            Self::StaffSling => TechLevel::new(1),               // Bronze Age
+            Self::Stonebow => TechLevel::new(2),                 // Medieval
+            Self::Boomerang => TechLevel::new(0),                // Stone Age
+            Self::ThrowingAxe => TechLevel::new(0),              // Stone Age
+            Self::ThrowingHammer => TechLevel::new(0),           // Stone Age
+            Self::ThrowingKnife => TechLevel::new(0),            // Stone Age
+            Self::ThrowingSpear => TechLevel::new(0),            // Stone Age
+            Self::ThrowingStick => TechLevel::new(0),            // Stone Age
+            Self::ThompsonM1928 => TechLevel::new(6),            // Atomic Age
+            Self::Trebuchet => TechLevel::new(2),                // Medieval
+            Self::TNT => TechLevel::new(5),                      // Industrial Revolution
+            Self::TOWMissile => TechLevel::new(7),               // Digital Age
+            Self::Uzi => TechLevel::new(7),                      // Digital Age
+            Self::Ultimax100 => TechLevel::new(8),               // Information Age
+            Self::USAS12 => TechLevel::new(8),                   // Information Age
+            Self::VolcanicPistol => TechLevel::new(5),           // Industrial Revolution
+            Self::VickersMachineGun => TechLevel::new(6),        // Atomic Age
+            Self::Warbow => TechLevel::new(2),                   // Medieval
+            Self::WaltherPPK => TechLevel::new(6),               // Atomic Age
+            Self::WebleyRIC => TechLevel::new(5),                // Industrial Revolution
+            Self::WebleyMkVI => TechLevel::new(6),               // Atomic Age
+            Self::Wheellock => TechLevel::new(4),                // Renaissance
+            Self::Winchester1866 => TechLevel::new(5),           // Industrial Revolution
+            Self::Winchester1873 => TechLevel::new(5),           // Industrial Revolution
+            Self::Winchester1887 => TechLevel::new(5),           // Industrial Revolution
+            Self::Winchester1897 => TechLevel::new(6),           // Atomic Age
+            Self::WinchesterRepeater => TechLevel::new(5),       // Industrial Revolution
+            Self::XM8 => TechLevel::new(8),                      // Information Age
+            Self::Yumi => TechLevel::new(2),                     // Medieval Japan
+            Self::ThrownBola => TechLevel::new(0),               // Stone Age
+            Self::ThrownNet => TechLevel::new(1),                // Bronze Age
         }
     }
 
@@ -1262,7 +1262,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(8, 0),
                 damage_type: DamageType::Crushing,
             },
-                        Self::Atlatl => WeaponDamage::Thrust {
+            Self::Atlatl => WeaponDamage::Thrust {
                 modifier: 3,
                 damage_type: DamageType::Impaling,
             },
@@ -1270,11 +1270,11 @@ impl RangedWeapon {
                 dice: DamageDice::new(3, 4),
                 damage_type: DamageType::Impaling,
             },
-                        Self::Blowgun => WeaponDamage::Fixed {
+            Self::Blowgun => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, -3),
                 damage_type: DamageType::Impaling,
             },
-                        Self::Blunderbuss => WeaponDamage::Fixed {
+            Self::Blunderbuss => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
@@ -1282,7 +1282,7 @@ impl RangedWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
-                        Self::Bow => WeaponDamage::Fixed {
+            Self::Bow => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
@@ -1330,7 +1330,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
-                                    Self::Carbine => WeaponDamage::Fixed {
+            Self::Carbine => WeaponDamage::Fixed {
                 dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
@@ -1350,7 +1350,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 3),
                 damage_type: DamageType::Impaling,
             },
-                        Self::Chakram => WeaponDamage::Thrust {
+            Self::Chakram => WeaponDamage::Thrust {
                 modifier: 1,
                 damage_type: DamageType::Cutting,
             },
@@ -1418,7 +1418,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(3, 2),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Derringer => WeaponDamage::Fixed {
+            Self::Derringer => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Piercing,
             },
@@ -1446,7 +1446,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Flamethrower => WeaponDamage::Fixed {
+            Self::Flamethrower => WeaponDamage::Fixed {
                 dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Crushing, // Burning damage
             },
@@ -1506,7 +1506,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(5, 0),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Grenade => WeaponDamage::Fixed {
+            Self::Grenade => WeaponDamage::Fixed {
                 dice: DamageDice::new(3, 0), // 3d×2 fragmentation
                 damage_type: DamageType::Crushing,
             },
@@ -1518,7 +1518,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(3, 0),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Gastraphetes => WeaponDamage::Fixed {
+            Self::Gastraphetes => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 6),
                 damage_type: DamageType::Impaling,
             },
@@ -1554,7 +1554,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Hankyu => WeaponDamage::Fixed {
+            Self::Hankyu => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
@@ -1570,7 +1570,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 0),
                 damage_type: DamageType::Impaling,
             },
-                        Self::HeavyCrossbow => WeaponDamage::Fixed {
+            Self::HeavyCrossbow => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 5),
                 damage_type: DamageType::Impaling,
             },
@@ -1578,7 +1578,7 @@ impl RangedWeapon {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
             },
-                        Self::HuntingRifle => WeaponDamage::Fixed {
+            Self::HuntingRifle => WeaponDamage::Fixed {
                 dice: DamageDice::new(7, 0),
                 damage_type: DamageType::Piercing,
             },
@@ -1630,7 +1630,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Impaling,
             },
-                                    Self::Longbow => WeaponDamage::Fixed {
+            Self::Longbow => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 2),
                 damage_type: DamageType::Impaling,
             },
@@ -1782,7 +1782,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Musket => WeaponDamage::Fixed {
+            Self::Musket => WeaponDamage::Fixed {
                 dice: DamageDice::new(4, 0),
                 damage_type: DamageType::Piercing,
             },
@@ -1810,11 +1810,11 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 4),
                 damage_type: DamageType::Impaling,
             },
-                        Self::Pistol => WeaponDamage::Fixed {
+            Self::Pistol => WeaponDamage::Fixed {
                 dice: DamageDice::new(2, 2),
                 damage_type: DamageType::Piercing,
             },
-                        Self::PelletSling => WeaponDamage::Swing {
+            Self::PelletSling => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
             },
@@ -1906,7 +1906,7 @@ impl RangedWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
-                        Self::RocketLauncher => WeaponDamage::Fixed {
+            Self::RocketLauncher => WeaponDamage::Fixed {
                 dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Crushing,
             },
@@ -1942,7 +1942,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(1, 1),
                 damage_type: DamageType::Piercing,
             },
-                        Self::ShortBow => WeaponDamage::Fixed {
+            Self::ShortBow => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, -1),
                 damage_type: DamageType::Impaling,
             },
@@ -2030,7 +2030,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(12, 0),
                 damage_type: DamageType::Crushing,
             },
-                        Self::StaffSling => WeaponDamage::Swing {
+            Self::StaffSling => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Piercing,
             },
@@ -2042,7 +2042,7 @@ impl RangedWeapon {
                 modifier: 0,
                 damage_type: DamageType::Crushing,
             },
-                        Self::ThrowingAxe => WeaponDamage::Swing {
+            Self::ThrowingAxe => WeaponDamage::Swing {
                 modifier: 2,
                 damage_type: DamageType::Cutting,
             },
@@ -2050,7 +2050,7 @@ impl RangedWeapon {
                 modifier: 2,
                 damage_type: DamageType::Crushing,
             },
-                        Self::ThrowingKnife => WeaponDamage::Thrust {
+            Self::ThrowingKnife => WeaponDamage::Thrust {
                 modifier: -1,
                 damage_type: DamageType::Impaling,
             },
@@ -2058,7 +2058,7 @@ impl RangedWeapon {
                 modifier: 3,
                 damage_type: DamageType::Impaling,
             },
-                        Self::ThrowingStick => WeaponDamage::Swing {
+            Self::ThrowingStick => WeaponDamage::Swing {
                 modifier: 1,
                 damage_type: DamageType::Crushing,
             },
@@ -2098,7 +2098,7 @@ impl RangedWeapon {
                 dice: DamageDice::new(6, 0),
                 damage_type: DamageType::Piercing,
             },
-                        Self::Warbow => WeaponDamage::Fixed {
+            Self::Warbow => WeaponDamage::Fixed {
                 dice: DamageDice::new(1, 3),
                 damage_type: DamageType::Impaling,
             },
@@ -2173,12 +2173,12 @@ impl RangedWeapon {
             Self::AssaultRifle => 5,
             Self::ArisakaType38 => 4,
             Self::AT4 => 3,
-                        Self::Atlatl => 2,
+            Self::Atlatl => 2,
             Self::Ballista => 5,
-                        Self::Blowgun => 1,
-                        Self::Blunderbuss => 1,
+            Self::Blowgun => 1,
+            Self::Blunderbuss => 1,
             Self::Bola => 1,
-                        Self::Bow => 2,
+            Self::Bow => 2,
             Self::BoysAntiTankRifle => 5,
             Self::BAR => 4,
             Self::BrenGun => 4,
@@ -2190,12 +2190,12 @@ impl RangedWeapon {
             Self::BrowningM1917 => 5,
             Self::BrowningM2 => 5,
             Self::BrowningAuto5 => 3,
-                                    Self::Carbine => 4,
+            Self::Carbine => 4,
             Self::Caliver => 3,
             Self::CapLockPistol => 1,
             Self::Catapult => 1,
             Self::CompositeBow => 3,
-                        Self::Chakram => 1,
+            Self::Chakram => 1,
             Self::ClaymoreMine => 1,
             Self::ChassepotRifle => 4,
             Self::CheyTacM200 => 7,
@@ -2212,14 +2212,14 @@ impl RangedWeapon {
             Self::Dart => 2,
             Self::Dynamite => 1,
             Self::DreyseNeedleRifle => 3,
-                        Self::Derringer => 1,
+            Self::Derringer => 1,
             Self::DesertEagle => 2,
             Self::DoubleActionRevolver => 2,
             Self::DoubleBarrelShotgun => 3,
             Self::DragunovSVD => 6,
             Self::Espringal => 3,
             Self::EnfieldPattern1853 => 4,
-                        Self::Flamethrower => 2,
+            Self::Flamethrower => 2,
             Self::FlareGun => 1,
             Self::FieldGun => 2,
             Self::Flintlock => 1,
@@ -2234,10 +2234,10 @@ impl RangedWeapon {
             Self::Fusil => 3,
             Self::GatlingGun => 4,
             Self::GardnerGun => 4,
-                        Self::Grenade => 1,
+            Self::Grenade => 1,
             Self::GreaseGunM3 => 3,
             Self::Hackbut => 2,
-                        Self::Gastraphetes => 4,
+            Self::Gastraphetes => 4,
             Self::GreatBow => 3,
             Self::Glock17 => 2,
             Self::Glock43X => 2,
@@ -2246,13 +2246,13 @@ impl RangedWeapon {
             Self::GaussRifle => 6,
             Self::HornBow => 3,
             Self::HandCannon => 1,
-                        Self::Hankyu => 2,
+            Self::Hankyu => 2,
             Self::HandMortar => 1,
             Self::HenryRifle => 4,
             Self::HandCrossbow => 3,
-                        Self::HeavyCrossbow => 4,
+            Self::HeavyCrossbow => 4,
             Self::Hurlbat => 1,
-                        Self::HuntingRifle => 5,
+            Self::HuntingRifle => 5,
             Self::HK416 => 5,
             Self::HKMP7 => 4,
             Self::HKMark23 => 3,
@@ -2265,7 +2265,7 @@ impl RangedWeapon {
             Self::LeverActionRifle => 4,
             Self::LewisGun => 4,
             Self::LightCrossbow => 4,
-                                    Self::Longbow => 3,
+            Self::Longbow => 3,
             Self::LugerP08 => 2,
             Self::L96A1 => 6,
             Self::LAWM72 => 3,
@@ -2303,15 +2303,15 @@ impl RangedWeapon {
             Self::MP5 => 4,
             Self::MountainGun => 2,
             Self::MTS255 => 3,
-                        Self::Musket => 3,
+            Self::Musket => 3,
             Self::Musketoon => 2,
             Self::NavalGun => 1,
             Self::NegevNG7 => 5,
             Self::NordenfeltGun => 3,
             Self::Pecheneg => 5,
             Self::PelletBow => 4,
-                        Self::Pistol => 2,
-                        Self::PelletSling => 0,
+            Self::Pistol => 2,
+            Self::PelletSling => 0,
             Self::Petronel => 1,
             Self::PepperboxRevolver => 1,
             Self::PercussionRevolver => 2,
@@ -2334,7 +2334,7 @@ impl RangedWeapon {
             Self::RepeatingCrossbow => 2,
             Self::Rifle => 5,
             Self::Rock => 0,
-                        Self::RocketLauncher => 4,
+            Self::RocketLauncher => 4,
             Self::RPG7 => 3,
             Self::Railgun => 7,
             Self::Scorpion => 4,
@@ -2343,7 +2343,7 @@ impl RangedWeapon {
             Self::SakoTRG42 => 6,
             Self::SelfBow => 1,
             Self::Shotgun => 3,
-                        Self::ShortBow => 1,
+            Self::ShortBow => 1,
             Self::SharpsRifle => 4,
             Self::SiegeCrossbow => 5,
             Self::SIGP220 => 2,
@@ -2365,14 +2365,14 @@ impl RangedWeapon {
             Self::Sterling => 3,
             Self::SteyrAUG => 5,
             Self::StingerMissile => 5,
-                        Self::StaffSling => 1,
+            Self::StaffSling => 1,
             Self::Stonebow => 3,
             Self::Boomerang => 1,
-                        Self::ThrowingAxe => 2,
+            Self::ThrowingAxe => 2,
             Self::ThrowingHammer => 2,
-                        Self::ThrowingKnife => 0,
+            Self::ThrowingKnife => 0,
             Self::ThrowingSpear => 2,
-                        Self::ThrowingStick => 1,
+            Self::ThrowingStick => 1,
             Self::ThompsonM1928 => 3,
             Self::Trebuchet => 1,
             Self::TNT => 1,
@@ -2382,7 +2382,7 @@ impl RangedWeapon {
             Self::USAS12 => 3,
             Self::VolcanicPistol => 1,
             Self::VickersMachineGun => 5,
-                        Self::Warbow => 3,
+            Self::Warbow => 3,
             Self::WaltherPPK => 2,
             Self::WebleyRIC => 2,
             Self::WebleyMkVI => 2,
@@ -2415,12 +2415,12 @@ impl RangedWeapon {
             Self::AssaultRifle => Skill::Guns,
             Self::ArisakaType38 => Skill::Guns,
             Self::AT4 => Skill::Guns,
-                        Self::Atlatl => Skill::ThrownWeapon,
+            Self::Atlatl => Skill::ThrownWeapon,
             Self::Ballista => Skill::Crossbow,
-                        Self::Blowgun => Skill::Blowpipe,
-                        Self::Blunderbuss => Skill::Guns,
+            Self::Blowgun => Skill::Blowpipe,
+            Self::Blunderbuss => Skill::Guns,
             Self::Bola => Skill::ThrownWeapon,
-                        Self::Bow => Skill::Bow,
+            Self::Bow => Skill::Bow,
             Self::BoysAntiTankRifle => Skill::Guns,
             Self::BAR => Skill::Guns,
             Self::BrenGun => Skill::Guns,
@@ -2432,12 +2432,12 @@ impl RangedWeapon {
             Self::BrowningM1917 => Skill::Guns,
             Self::BrowningM2 => Skill::Guns,
             Self::BrowningAuto5 => Skill::Guns,
-                                    Self::Carbine => Skill::Guns,
+            Self::Carbine => Skill::Guns,
             Self::Caliver => Skill::Guns,
             Self::CapLockPistol => Skill::Guns,
             Self::Catapult => Skill::Artillery,
             Self::CompositeBow => Skill::Bow,
-                        Self::Chakram => Skill::ThrownWeapon,
+            Self::Chakram => Skill::ThrownWeapon,
             Self::ClaymoreMine => Skill::Guns,
             Self::ChassepotRifle => Skill::Guns,
             Self::CheyTacM200 => Skill::Guns,
@@ -2454,14 +2454,14 @@ impl RangedWeapon {
             Self::Dart => Skill::ThrownWeapon,
             Self::Dynamite => Skill::ThrownWeapon,
             Self::DreyseNeedleRifle => Skill::Guns,
-                        Self::Derringer => Skill::Guns,
+            Self::Derringer => Skill::Guns,
             Self::DesertEagle => Skill::Guns,
             Self::DoubleActionRevolver => Skill::Guns,
             Self::DoubleBarrelShotgun => Skill::Guns,
             Self::DragunovSVD => Skill::Guns,
             Self::Espringal => Skill::Artillery,
             Self::EnfieldPattern1853 => Skill::Guns,
-                        Self::Flamethrower => Skill::Guns,
+            Self::Flamethrower => Skill::Guns,
             Self::FlareGun => Skill::Guns,
             Self::FieldGun => Skill::Artillery,
             Self::Flintlock => Skill::Guns,
@@ -2476,10 +2476,10 @@ impl RangedWeapon {
             Self::Fusil => Skill::Guns,
             Self::GatlingGun => Skill::Guns,
             Self::GardnerGun => Skill::Guns,
-                        Self::Grenade => Skill::ThrownWeapon,
+            Self::Grenade => Skill::ThrownWeapon,
             Self::GreaseGunM3 => Skill::Guns,
             Self::Hackbut => Skill::Guns,
-                        Self::Gastraphetes => Skill::Crossbow,
+            Self::Gastraphetes => Skill::Crossbow,
             Self::GreatBow => Skill::Bow,
             Self::Glock17 => Skill::Guns,
             Self::Glock43X => Skill::Guns,
@@ -2488,13 +2488,13 @@ impl RangedWeapon {
             Self::GaussRifle => Skill::Guns,
             Self::HornBow => Skill::Bow,
             Self::HandCannon => Skill::Guns,
-                        Self::Hankyu => Skill::Bow,
+            Self::Hankyu => Skill::Bow,
             Self::HandMortar => Skill::Artillery,
             Self::HenryRifle => Skill::Guns,
             Self::HandCrossbow => Skill::Crossbow,
-                        Self::HeavyCrossbow => Skill::Crossbow,
+            Self::HeavyCrossbow => Skill::Crossbow,
             Self::Hurlbat => Skill::ThrownWeapon,
-                        Self::HuntingRifle => Skill::Guns,
+            Self::HuntingRifle => Skill::Guns,
             Self::HK416 => Skill::Guns,
             Self::HKMP7 => Skill::Guns,
             Self::HKMark23 => Skill::Guns,
@@ -2507,7 +2507,7 @@ impl RangedWeapon {
             Self::LeverActionRifle => Skill::Guns,
             Self::LewisGun => Skill::Guns,
             Self::LightCrossbow => Skill::Crossbow,
-                                    Self::Longbow => Skill::Bow,
+            Self::Longbow => Skill::Bow,
             Self::LugerP08 => Skill::Guns,
             Self::L96A1 => Skill::Guns,
             Self::LAWM72 => Skill::Guns,
@@ -2545,15 +2545,15 @@ impl RangedWeapon {
             Self::MP5 => Skill::Guns,
             Self::MountainGun => Skill::Artillery,
             Self::MTS255 => Skill::Guns,
-                        Self::Musket => Skill::Guns,
+            Self::Musket => Skill::Guns,
             Self::Musketoon => Skill::Guns,
             Self::NavalGun => Skill::Artillery,
             Self::NegevNG7 => Skill::Guns,
             Self::NordenfeltGun => Skill::Guns,
             Self::Pecheneg => Skill::Guns,
             Self::PelletBow => Skill::Bow,
-                        Self::Pistol => Skill::Guns,
-                        Self::PelletSling => Skill::Sling,
+            Self::Pistol => Skill::Guns,
+            Self::PelletSling => Skill::Sling,
             Self::Petronel => Skill::Guns,
             Self::PepperboxRevolver => Skill::Guns,
             Self::PercussionRevolver => Skill::Guns,
@@ -2576,7 +2576,7 @@ impl RangedWeapon {
             Self::RepeatingCrossbow => Skill::Crossbow,
             Self::Rifle => Skill::Guns,
             Self::Rock => Skill::ThrownWeapon,
-                        Self::RocketLauncher => Skill::Guns,
+            Self::RocketLauncher => Skill::Guns,
             Self::RPG7 => Skill::Guns,
             Self::Railgun => Skill::Guns,
             Self::Scorpion => Skill::Artillery,
@@ -2585,7 +2585,7 @@ impl RangedWeapon {
             Self::SakoTRG42 => Skill::Guns,
             Self::SelfBow => Skill::Bow,
             Self::Shotgun => Skill::Guns,
-                        Self::ShortBow => Skill::Bow,
+            Self::ShortBow => Skill::Bow,
             Self::SharpsRifle => Skill::Guns,
             Self::SiegeCrossbow => Skill::Crossbow,
             Self::SIGP220 => Skill::Guns,
@@ -2607,14 +2607,14 @@ impl RangedWeapon {
             Self::Sterling => Skill::Guns,
             Self::SteyrAUG => Skill::Guns,
             Self::StingerMissile => Skill::Guns,
-                        Self::StaffSling => Skill::Sling,
+            Self::StaffSling => Skill::Sling,
             Self::Stonebow => Skill::Crossbow,
             Self::Boomerang => Skill::ThrownWeapon,
-                        Self::ThrowingAxe => Skill::ThrownWeapon,
+            Self::ThrowingAxe => Skill::ThrownWeapon,
             Self::ThrowingHammer => Skill::ThrownWeapon,
-                        Self::ThrowingKnife => Skill::ThrownWeapon,
+            Self::ThrowingKnife => Skill::ThrownWeapon,
             Self::ThrowingSpear => Skill::ThrownWeapon,
-                        Self::ThrowingStick => Skill::ThrownWeapon,
+            Self::ThrowingStick => Skill::ThrownWeapon,
             Self::ThompsonM1928 => Skill::Guns,
             Self::Trebuchet => Skill::Artillery,
             Self::TNT => Skill::ThrownWeapon,
@@ -2624,7 +2624,7 @@ impl RangedWeapon {
             Self::USAS12 => Skill::Guns,
             Self::VolcanicPistol => Skill::Guns,
             Self::VickersMachineGun => Skill::Guns,
-                        Self::Warbow => Skill::Bow,
+            Self::Warbow => Skill::Bow,
             Self::WaltherPPK => Skill::Guns,
             Self::WebleyRIC => Skill::Guns,
             Self::WebleyMkVI => Skill::Guns,

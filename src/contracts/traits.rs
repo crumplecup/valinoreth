@@ -29,14 +29,14 @@
 //! ```
 
 use crate::contracts::proof_composition::{
-    AdvantagePurchaseEvidence, AttributePurchaseEvidence, AttackCriticalFailureEvidence,
-    AttackCriticalSuccessEvidence, AttackFailureEvidence, AttackResolutionEvidence,
-    AttackSuccessEvidence, BasicDamageEvidence, CeremonialMagicEvidence, CharacterCreationEvidence,
-    CharacterValidationEvidence, CombatHitEvidence, CompleteSpellCastingEvidence,
-    DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence, DefenseFailureEvidence,
-    DefenseResolutionEvidence, DefenseSuccessEvidence, DerivedStatsEvidence,
-    DisadvantageTakenEvidence, EnergyCostEvidence, EnergyPaymentEvidence, FeintEvidence,
-    InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
+    AdvantagePurchaseEvidence, AttackCriticalFailureEvidence, AttackCriticalSuccessEvidence,
+    AttackFailureEvidence, AttackResolutionEvidence, AttackSuccessEvidence,
+    AttributePurchaseEvidence, BasicDamageEvidence, CeremonialMagicEvidence,
+    CharacterCreationEvidence, CharacterValidationEvidence, CombatHitEvidence,
+    CompleteSpellCastingEvidence, DefenseCriticalFailureEvidence, DefenseCriticalSuccessEvidence,
+    DefenseFailureEvidence, DefenseResolutionEvidence, DefenseSuccessEvidence,
+    DerivedStatsEvidence, DisadvantageTakenEvidence, EnergyCostEvidence, EnergyPaymentEvidence,
+    FeintEvidence, InjuryApplicationEvidence, InjuryCalculationEvidence, RapidStrikeEvidence,
     ResistanceOvercomeEvidence, SecondaryCharacteristicEvidence, SkillCheckCriticalFailureEvidence,
     SkillCheckCriticalSuccessEvidence, SkillCheckFailureEvidence, SkillCheckResolutionEvidence,
     SkillCheckSuccessEvidence, SkillImprovementEvidence, SpellCastingFailureEvidence,
@@ -45,13 +45,13 @@ use crate::contracts::proof_composition::{
     SpellMaintenanceEvidence, SpellResistanceEvidence,
 };
 use crate::contracts::types::{
-    AdvantageDescriptor, ArmorDescriptor, AttributeDescriptor, AttackDescriptor, AttackRollResult,
+    AdvantageDescriptor, ArmorDescriptor, AttackDescriptor, AttackRollResult, AttributeDescriptor,
     CasterDescriptor, CeremonialMagicDescriptor, CharacterCreationDescriptor, CharacterDescriptor,
     CombatantDescriptor, DamageDescriptor, DamageResult, DefenseDescriptor, DefenseRollResult,
     DerivedStatsDescriptor, DisadvantageDescriptor, FeintDescriptor, FeintResult, HitLocation,
-    RapidStrikeDescriptor, ResistanceResult, SecondaryCharacteristicDescriptor, SkillCheckDescriptor,
-    SkillCheckResult, SkillDescriptor, SpellCastingDescriptor, SpellCastingResult, SpellDescriptor,
-    SpellEffectDescriptor, SpellResistanceDescriptor,
+    RapidStrikeDescriptor, ResistanceResult, SecondaryCharacteristicDescriptor,
+    SkillCheckDescriptor, SkillCheckResult, SkillDescriptor, SpellCastingDescriptor,
+    SpellCastingResult, SpellDescriptor, SpellEffectDescriptor, SpellResistanceDescriptor,
 };
 use async_trait::async_trait;
 use elicitation::contracts::Established;
@@ -633,7 +633,10 @@ pub trait CharacterBuilder {
         &self,
         character: CharacterDescriptor,
         characteristic: SecondaryCharacteristicDescriptor,
-    ) -> CombatResult<(CharacterDescriptor, Established<SecondaryCharacteristicEvidence>)>;
+    ) -> CombatResult<(
+        CharacterDescriptor,
+        Established<SecondaryCharacteristicEvidence>,
+    )>;
 
     /// Add an advantage.
     ///
@@ -703,7 +706,10 @@ pub trait CharacterBuilder {
     async fn finalize_character(
         &self,
         character: CharacterDescriptor,
-    ) -> CombatResult<(CharacterDescriptor, Established<CharacterValidationEvidence>)>;
+    ) -> CombatResult<(
+        CharacterDescriptor,
+        Established<CharacterValidationEvidence>,
+    )>;
 }
 
 // ── Character Advancement ─────────────────────────────────────────────────────
