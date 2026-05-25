@@ -9,10 +9,10 @@
 use elicitation::Established;
 #[cfg(kani)]
 use valinoreth::{
+    AttackDeclared, AttackResolved, CombatConsistent, CombatInitialized, CombatState,
+    CombatantState, DamageApplied, DefenseResolved, TurnBegan, TurnEnded, VictoryConditionMet,
     apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack, end_turn,
-    initialize_combat, resolve_attack, resolve_defense, AttackDeclared, AttackResolved,
-    CombatConsistent, CombatInitialized, CombatState, CombatantState, DamageApplied,
-    DefenseResolved, TurnBegan, TurnEnded, VictoryConditionMet,
+    initialize_combat, resolve_attack, resolve_defense,
 };
 
 #[cfg(kani)]

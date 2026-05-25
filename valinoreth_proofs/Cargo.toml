@@ -2,14 +2,17 @@
 [package]
 name = "valinoreth_proofs"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [features]
 kani    = []
-creusot = []
+creusot = ["dep:creusot-std"]
 verus   = []
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(creusot)', 'cfg(kani)', 'cfg(verus)'] }
 
 [dependencies]
 valinoreth = { path = "../valinoreth", default-features = false }
 elicitation = { path = "../../elicitation/crates/elicitation" }
-creusot-std = { path = "../../elicitation/vendor/creusot-std" }
+creusot-std = { workspace = true, optional = true }
