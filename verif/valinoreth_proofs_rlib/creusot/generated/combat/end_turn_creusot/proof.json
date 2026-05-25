@@ -1,0 +1,9 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_end_turn": { "prover": "alt-ergo@2.6.2", "time": 0.02 },
+      "vc_end_turn_creusot": { "prover": "alt-ergo@2.6.2", "time": 0.019 }
+    }
+  }
+}

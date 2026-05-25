@@ -38,6 +38,7 @@
 pub mod combat;
 
 pub use combat::{
-    apply_damage, begin_turn, combat_consistent, declare_attack, end_turn, initialize_combat,
-    resolve_attack, resolve_defense, CombatConsistent, CombatMachine, CombatState, CombatantState,
+    apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack, end_turn,
+    initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatMachine,
+    CombatState, CombatantState,
 };

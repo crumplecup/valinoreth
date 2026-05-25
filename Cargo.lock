@@ -2424,6 +2424,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "creusot-std"
+version = "0.10.0"
+dependencies = [
+ "creusot-std-proc",
+ "num-rational",
+]
+
+[[package]]
+name = "creusot-std-proc"
+version = "0.10.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.117",
+]
+
+[[package]]
 name = "critical-section"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8807,6 +8824,7 @@ dependencies = [
 name = "valinoreth_proofs"
 version = "0.1.0"
 dependencies = [
+ "creusot-std",
  "elicitation",
  "valinoreth",
 ]

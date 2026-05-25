@@ -1,0 +1,12 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_conclude_combat": { "prover": "alt-ergo@2.6.2", "time": 0.025 },
+      "vc_conclude_combat_creusot": {
+        "prover": "alt-ergo@2.6.2",
+        "time": 0.019
+      }
+    }
+  }
+}

@@ -6,19 +6,14 @@
 #![allow(unexpected_cfgs)]
 
 #[cfg(kani)]
-use valinoreth::contracts::combat_flow::{
-    AttackDeclared, AttackResolved, CombatInitialized, DamageApplied, DefenseResolved, TurnBegan,
-    TurnEnded, VictoryConditionMet,
-};
-#[cfg(kani)]
-use valinoreth::vsm::combat::conclude_combat;
-#[cfg(kani)]
-use valinoreth::vsm::{
-    apply_damage, begin_turn, combat_consistent, declare_attack, end_turn, initialize_combat,
-    resolve_attack, resolve_defense, CombatConsistent, CombatState, CombatantState,
-};
-#[cfg(kani)]
 use elicitation::Established;
+#[cfg(kani)]
+use valinoreth::{
+    apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack, end_turn,
+    initialize_combat, resolve_attack, resolve_defense, AttackDeclared, AttackResolved,
+    CombatConsistent, CombatInitialized, CombatState, CombatantState, DamageApplied,
+    DefenseResolved, TurnBegan, TurnEnded, VictoryConditionMet,
+};
 
 #[cfg(kani)]
 #[kani::proof]

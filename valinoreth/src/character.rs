@@ -24,8 +24,6 @@
 //! let attrs = Attributes::from_base(12, 11, 10, 10);
 //! ```
 
-#[cfg(creusot)]
-use creusot_std::model::DeepModel;
 use derive_more::Display;
 #[cfg(not(creusot))]
 use serde::{Deserialize, Serialize};
@@ -45,7 +43,6 @@ use strum::EnumIter;
 /// - `DamageDice::new(2, 0)` = "2d"
 /// - `DamageDice::new(3, 1)` = "3d+1"
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize))]
 pub struct DamageDice {
     /// Number of dice to roll
@@ -927,7 +924,6 @@ impl From<&Stats> for EncumbranceDodge {
 /// let level = EncumbranceLevel::Light;
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
 pub enum EncumbranceLevel {
     /// No encumbrance (0 to BL). BS 17

@@ -1,0 +1,179 @@
+(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 180 0 184 49 *)
+
+let%span scombat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 185 4 185 39
+let%span scombat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 181 4 181 9
+let%span scombat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 182 4 182 9
+let%span scombat'2 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 183 4 183 15
+let%span scombat'3 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 177 11 177 50
+let%span scombat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 184 5 184 49
+let%span scombat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 178 10 178 52
+let%span scombat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 173 16 173 21
+let%span scombat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 173 36 173 41
+let%span scombat'8 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 173 74 173 85
+let%span scombat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 171 15 171 54
+let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 368 0 372 49
+let%span scombat'11 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 172 14 172 56
+let%span scombat'12 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 26 8 35 9
+let%span svec = "/home/erik/repos/elicitation/vendor/creusot-std/src/std/vec.rs" 16 14 16 41
+let%span svec'0 = "/home/erik/repos/elicitation/vendor/creusot-std/src/std/vec.rs" 87 20 87 30
+let%span sseq = "/home/erik/repos/elicitation/vendor/creusot-std/src/logic/seq.rs" 921 20 921 91
+let%span sinvariant = "/home/erik/repos/elicitation/vendor/creusot-std/src/invariant.rs" 85 8 85 18
+
+use creusot.int.UInt64
+use creusot.int.UInt32
+use creusot.int.Int32
+use seq.Seq
+use creusot.prelude.Any
+use int.Int
+
+type t_Vec_CombatantState_Global
+
+type t_Vec_usize_Global
+
+type t_String
+
+type t_Option_String = None | Some t_String
+
+type t_CombatState =
+  | Uninitialized
+  | Active t_Vec_CombatantState_Global t_Vec_usize_Global UInt64.t UInt32.t
+  | Concluded t_Option_String
+
+type t_Established_CombatConsistent
+
+type t_Established_TurnEnded
+
+type tup2_CombatState_Established_CombatConsistent = { f0: t_CombatState; f1: t_Established_CombatConsistent }
+
+type t_CombatantState = {
+  id: t_String;
+  team: t_String;
+  current_hp: Int32.t;
+  max_hp: Int32.t;
+  current_fp: Int32.t;
+  max_fp: Int32.t;
+  basic_speed: Int32.t;
+  incapacitated: bool }
+
+predicate inv_String (_1: t_String)
+
+predicate inv_CombatantState (_1: t_CombatantState)
+
+axiom inv_axiom [@rewrite]: forall x: t_CombatantState [inv_CombatantState x]. inv_CombatantState x
+    = (inv_String x.id /\ inv_String x.team)
+
+predicate invariant_ref_CombatantState [@inline:trivial] (self: t_CombatantState) =
+  [%#sinvariant] inv_CombatantState self
+
+meta "rewrite_def" predicate invariant_ref_CombatantState
+
+predicate inv_ref_CombatantState [@inline:trivial] (_1: t_CombatantState) = invariant_ref_CombatantState _1
+
+meta "rewrite_def" predicate inv_ref_CombatantState
+
+predicate invariant_Seq_CombatantState [@inline:trivial] (self: Seq.seq t_CombatantState) =
+  [%#sseq] forall i: int. 0 <= i /\ i < Seq.length self -> inv_ref_CombatantState (Seq.get self i)
+
+meta "rewrite_def" predicate invariant_Seq_CombatantState
+
+predicate inv_Seq_CombatantState [@inline:trivial] (_1: Seq.seq t_CombatantState) = invariant_Seq_CombatantState _1
+
+meta "rewrite_def" predicate inv_Seq_CombatantState
+
+constant const_MAX: UInt64.t = (18446744073709551615: UInt64.t)
+
+function view_Vec_CombatantState_Global (self: t_Vec_CombatantState_Global) : Seq.seq t_CombatantState
+
+axiom view_Vec_CombatantState_Global_spec:
+  forall self: t_Vec_CombatantState_Global. [%#svec] Seq.length (view_Vec_CombatantState_Global self)
+    <= UInt64.t'int const_MAX
+
+predicate invariant_Vec_CombatantState_Global (self: t_Vec_CombatantState_Global) =
+  [%#svec'0] inv_Seq_CombatantState (view_Vec_CombatantState_Global self)
+
+predicate inv_Vec_CombatantState_Global (_1: t_Vec_CombatantState_Global)
+
+axiom inv_axiom'0:
+  forall x: t_Vec_CombatantState_Global [inv_Vec_CombatantState_Global x]. inv_Vec_CombatantState_Global x
+    -> invariant_Vec_CombatantState_Global x
+
+predicate inv_Option_String (_1: t_Option_String)
+
+axiom inv_axiom'1 [@rewrite]: forall x: t_Option_String [inv_Option_String x]. inv_Option_String x
+    = match x with
+      | None -> true
+      | Some f0'0 -> inv_String f0'0
+      end
+
+predicate inv_CombatState (_1: t_CombatState)
+
+axiom inv_axiom'2 [@rewrite]: forall x: t_CombatState [inv_CombatState x]. inv_CombatState x
+    = match x with
+      | Uninitialized -> true
+      | Active combatants turn_order current_actor round -> inv_Vec_CombatantState_Global combatants
+      | Concluded victor -> inv_Option_String victor
+      end
+
+predicate inv_Established_CombatConsistent (_1: t_Established_CombatConsistent)
+
+predicate inv_Established_TurnEnded (_1: t_Established_TurnEnded)
+
+function view_Vec_usize_Global (self: t_Vec_usize_Global) : Seq.seq UInt64.t
+
+axiom view_Vec_usize_Global_spec: forall self: t_Vec_usize_Global. [%#svec] Seq.length (view_Vec_usize_Global self)
+    <= UInt64.t'int const_MAX
+
+predicate combat_consistent_creusot [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 24 0 24 67] (state: t_CombatState) =
+  [%#scombat'12] match state with
+    | Uninitialized -> true
+    | Concluded _ -> true
+    | Active combatants turn_order current_actor round -> Seq.length (view_Vec_CombatantState_Global combatants) > 0
+    /\ Seq.length (view_Vec_usize_Global turn_order) > 0
+    /\ UInt64.t'int current_actor < Seq.length (view_Vec_usize_Global turn_order)
+    /\ UInt32.t'int round > 0
+    /\ (forall i: int. 0 <= i /\ i < Seq.length (view_Vec_usize_Global turn_order)
+      -> UInt64.t'int (Seq.get (view_Vec_usize_Global turn_order) i)
+      < Seq.length (view_Vec_CombatantState_Global combatants))
+    end
+
+predicate inv_tup2_CombatState_Established_CombatConsistent [@inline:trivial] (_1: tup2_CombatState_Established_CombatConsistent) =
+  inv_CombatState _1.f0 /\ inv_Established_CombatConsistent _1.f1
+
+meta "rewrite_def" predicate inv_tup2_CombatState_Established_CombatConsistent
+
+let rec end_turn (state: t_CombatState) (proof: t_Established_CombatConsistent) (_turn_proof: t_Established_TurnEnded)
+  (return (x: tup2_CombatState_Established_CombatConsistent)) =
+  {[@stop_split] [@expl:end_turn requires] ([@stop_split] [@expl:end_turn 'state' type invariant] [%#scombat'6] inv_CombatState state)
+  /\ ([@stop_split] [@expl:end_turn 'proof' type invariant] [%#scombat'7] inv_Established_CombatConsistent proof)
+  /\ ([@stop_split] [@expl:end_turn '_turn_proof' type invariant] [%#scombat'8] inv_Established_TurnEnded _turn_proof)
+  /\ ([@stop_split] [@expl:end_turn requires] [%#scombat'9] combat_consistent_creusot state)}
+  any
+  [ return (result: tup2_CombatState_Established_CombatConsistent) ->
+  {[@stop_split] [@expl:end_turn ensures] ([@stop_split] [@expl:end_turn result type invariant] [%#scombat'10] inv_tup2_CombatState_Established_CombatConsistent result)
+    /\ ([@stop_split] [@expl:end_turn ensures] [%#scombat'11] combat_consistent_creusot result.f0)}
+    (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let rec end_turn_creusot [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 180 0 184 49]
+  (state: t_CombatState) (proof: t_Established_CombatConsistent) (_turn_proof: t_Established_TurnEnded)
+  (return (x: tup2_CombatState_Established_CombatConsistent)) =
+  {[@stop_split] [@expl:end_turn_creusot requires] ([@stop_split] [@expl:end_turn_creusot 'state' type invariant] [%#scombat'0] inv_CombatState state)
+  /\ ([@stop_split] [@expl:end_turn_creusot 'proof' type invariant] [%#scombat'1] inv_Established_CombatConsistent proof)
+  /\ ([@stop_split] [@expl:end_turn_creusot '_turn_proof' type invariant] [%#scombat'2] inv_Established_TurnEnded _turn_proof)
+  /\ ([@stop_split] [@expl:end_turn_creusot requires] [%#scombat'3] combat_consistent_creusot state)}
+  (! bb0
+  [ bb0 = s0
+    [ s0 = end_turn [%#scombat] {state} {proof} {_turn_proof}
+        (fun (_x: tup2_CombatState_Established_CombatConsistent) -> [ &_ret <- _x ] s1)
+    | s1 = return {_ret} ] ]
+  [ & _ret: tup2_CombatState_Established_CombatConsistent = Any.any_l ()
+  | & state: t_CombatState = state
+  | & proof: t_Established_CombatConsistent = proof
+  | & _turn_proof: t_Established_TurnEnded = _turn_proof ])
+  [ return (result: tup2_CombatState_Established_CombatConsistent) ->
+  {[@stop_split] [@expl:end_turn_creusot ensures] ([@stop_split] [@expl:end_turn_creusot result type invariant] [%#scombat'4] inv_tup2_CombatState_Established_CombatConsistent result)
+    /\ ([@stop_split] [@expl:end_turn_creusot ensures] [%#scombat'5] combat_consistent_creusot result.f0)}
+    (! return {result}) ]

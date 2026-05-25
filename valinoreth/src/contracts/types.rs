@@ -11,8 +11,6 @@
 //! - Derive `Serialize`, `Deserialize`, `JsonSchema` for MCP integration
 //! - Serve as inputs to trait methods that produce `Established<P>` proofs
 
-#[cfg(creusot)]
-use creusot_std::model::DeepModel;
 #[cfg(not(creusot))]
 use derive_builder::Builder;
 #[cfg(not(creusot))]
@@ -107,7 +105,6 @@ pub struct DefenseDescriptor {
 
 /// Type of active defense.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum DefenseType {
     /// Dodge: 3d6 ≤ Dodge score (DX + 3 + bonuses)
@@ -169,7 +166,6 @@ pub struct DamageDescriptor {
 
 /// Type of damage for wounding modifier calculation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum DamageTypeDescriptor {
     /// Crushing damage: ×1 wounding
@@ -197,7 +193,6 @@ pub struct ArmorDescriptor {
 
 /// Hit location on the body.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum HitLocation {
     /// Skull: ×4 damage multiplier, -7 to hit
@@ -477,7 +472,6 @@ pub struct SkillDescriptor {
 
 /// Skill difficulty levels.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum SkillDifficulty {
     /// Easy skills (E)
@@ -503,7 +497,6 @@ pub struct SkillDefaultDescriptor {
 
 /// Types of skill defaults.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum SkillDefaultType {
     /// Defaults to an attribute (DX, IQ, etc.)
@@ -539,7 +532,6 @@ pub struct AttributeDescriptor {
 
 /// Primary attribute types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum AttributeType {
     /// Strength
@@ -574,7 +566,6 @@ pub struct SecondaryCharacteristicDescriptor {
 
 /// Secondary characteristic types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub enum SecondaryCharacteristicType {
     /// Hit Points (defaults to ST)
@@ -593,7 +584,6 @@ pub enum SecondaryCharacteristicType {
 
 /// Describes an advantage for a character.
 #[derive(Debug, Clone, PartialEq)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Builder))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 #[cfg_attr(not(creusot), builder(setter(into)))]
@@ -647,7 +637,6 @@ pub struct DisadvantageDescriptor {
 
 /// Describes an enhancement or limitation modifier.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub struct ModifierDescriptor {
     /// Modifier name
@@ -684,7 +673,6 @@ pub struct CharacterCreationDescriptor {
 
 /// Campaign-specific attribute minimums.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(creusot, derive(DeepModel))]
 #[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
 pub struct AttributeMinimums {
     /// Minimum ST

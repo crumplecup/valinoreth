@@ -174,27 +174,12 @@ markdown-fix:
 
 # ── Formal Verification ───────────────────────────────────────────────────────
 
-# Regenerate all proof files for Combat VSM (Kani + Creusot + Verus)
-generate-proofs: generate-proofs-kani generate-proofs-creusot generate-proofs-verus
-    cargo fmt
-
-# Regenerate Kani harnesses for Combat VSM
-generate-proofs-kani:
-    elicitation generate kani \
+# Regenerate the entire proof crate for Combat VSM (Kani + Creusot + Verus)
+generate-proofs:
+    elicitation generate proof-crate \
         --crate-path valinoreth/src/vsm \
-        --out valinoreth_proofs/src/kani/generated
-
-# Regenerate Creusot companions for Combat VSM
-generate-proofs-creusot:
-    elicitation generate creusot \
-        --crate-path valinoreth/src/vsm \
-        --out valinoreth_proofs/src/creusot/generated
-
-# Regenerate Verus companions for Combat VSM
-generate-proofs-verus:
-    elicitation generate verus \
-        --crate-path valinoreth/src/vsm \
-        --out valinoreth_proofs/src/verus/generated
+        --out valinoreth_proofs \
+        --crate-name valinoreth_proofs
 
 # Run Kani verification for Combat VSM
 verify-kani:

@@ -8,21 +8,16 @@
 #![allow(unexpected_cfgs)]
 
 #[cfg(creusot)]
-use valinoreth::contracts::combat_flow::{
-    AttackDeclared, AttackResolved, CombatInitialized, DamageApplied, DefenseResolved, TurnBegan,
-    TurnEnded, VictoryConditionMet,
-};
-#[cfg(creusot)]
-use valinoreth::vsm::combat::conclude_combat;
-#[cfg(creusot)]
-use valinoreth::vsm::{
-    apply_damage, begin_turn, declare_attack, end_turn, initialize_combat, resolve_attack,
-    resolve_defense, CombatConsistent, CombatState, CombatantState,
-};
-#[cfg(creusot)]
 use ::creusot_std::prelude::*;
 #[cfg(creusot)]
 use elicitation::Established;
+#[cfg(creusot)]
+use valinoreth::{
+    apply_damage, begin_turn, conclude_combat, declare_attack, end_turn, initialize_combat,
+    resolve_attack, resolve_defense, AttackDeclared, AttackResolved, CombatConsistent,
+    CombatInitialized, CombatState, CombatantState, DamageApplied, DefenseResolved, TurnBegan,
+    TurnEnded, VictoryConditionMet,
+};
 
 #[cfg(creusot)]
 #[logic]
@@ -60,28 +55,6 @@ extern_spec! {
 #[requires(combat_consistent_creusot_logic(&state))]
 #[requires(combatants@.len() > 0)]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn initialize_combat_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    combatants: Vec<CombatantState>,
-    _init_proof: Established<CombatInitialized>,
-) -> (CombatState, Established<CombatConsistent>) {
-    let turn_order: Vec<usize> = (0..combatants.len()).collect();
-    (
-        CombatState::Active {
-            combatants,
-            turn_order,
-            current_actor: 0,
-            round: 1,
-        },
-        proof,
-    )
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[requires(combatants@.len() > 0)]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn initialize_combat_creusot(
     state: CombatState,
@@ -89,7 +62,7 @@ pub fn initialize_combat_creusot(
     combatants: Vec<CombatantState>,
     _init_proof: Established<CombatInitialized>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    initialize_combat_creusot_local(state, proof, combatants, _init_proof)
+    initialize_combat(state, proof, combatants, _init_proof)
 }
 
 #[cfg(creusot)]
@@ -102,24 +75,13 @@ extern_spec! {
 #[cfg(creusot)]
 #[requires(combat_consistent_creusot_logic(&state))]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn begin_turn_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    _turn_proof: Established<TurnBegan>,
-) -> (CombatState, Established<CombatConsistent>) {
-    (state, proof)
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn begin_turn_creusot(
     state: CombatState,
     proof: Established<CombatConsistent>,
     _turn_proof: Established<TurnBegan>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    begin_turn_creusot_local(state, proof, _turn_proof)
+    begin_turn(state, proof, _turn_proof)
 }
 
 #[cfg(creusot)]
@@ -127,19 +89,6 @@ extern_spec! {
     #[requires(combat_consistent_creusot_logic(&state))]
     #[ensures(combat_consistent_creusot_logic(&result.0))]
     fn declare_attack(state: CombatState, proof: Established<CombatConsistent>, attacker_id: usize, target_id: usize, _attack_proof: Established<AttackDeclared>) -> (CombatState, Established<CombatConsistent>);
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
-fn declare_attack_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    attacker_id: usize,
-    target_id: usize,
-    _attack_proof: Established<AttackDeclared>,
-) -> (CombatState, Established<CombatConsistent>) {
-    (state, proof)
 }
 
 #[cfg(creusot)]
@@ -153,7 +102,7 @@ pub fn declare_attack_creusot(
     target_id: usize,
     _attack_proof: Established<AttackDeclared>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    declare_attack_creusot_local(state, proof, attacker_id, target_id, _attack_proof)
+    declare_attack(state, proof, attacker_id, target_id, _attack_proof)
 }
 
 #[cfg(creusot)]
@@ -166,24 +115,13 @@ extern_spec! {
 #[cfg(creusot)]
 #[requires(combat_consistent_creusot_logic(&state))]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn resolve_attack_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    _resolved_proof: Established<AttackResolved>,
-) -> (CombatState, Established<CombatConsistent>) {
-    (state, proof)
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn resolve_attack_creusot(
     state: CombatState,
     proof: Established<CombatConsistent>,
     _resolved_proof: Established<AttackResolved>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    resolve_attack_creusot_local(state, proof, _resolved_proof)
+    resolve_attack(state, proof, _resolved_proof)
 }
 
 #[cfg(creusot)]
@@ -196,24 +134,13 @@ extern_spec! {
 #[cfg(creusot)]
 #[requires(combat_consistent_creusot_logic(&state))]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn resolve_defense_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    _resolved_proof: Established<DefenseResolved>,
-) -> (CombatState, Established<CombatConsistent>) {
-    (state, proof)
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn resolve_defense_creusot(
     state: CombatState,
     proof: Established<CombatConsistent>,
     _resolved_proof: Established<DefenseResolved>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    resolve_defense_creusot_local(state, proof, _resolved_proof)
+    resolve_defense(state, proof, _resolved_proof)
 }
 
 #[cfg(creusot)]
@@ -228,46 +155,6 @@ extern_spec! {
 #[requires(combat_consistent_creusot_logic(&state))]
 #[requires(injury@ >= 0)]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn apply_damage_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    target_id: usize,
-    injury: i32,
-    _damage_proof: Established<DamageApplied>,
-) -> (CombatState, Established<CombatConsistent>) {
-    match state {
-        CombatState::Active {
-            mut combatants,
-            turn_order,
-            current_actor,
-            round,
-        } => {
-            if let Some(&combatant_idx) = turn_order.get(target_id) {
-                if let Some(combatant) = combatants.get_mut(combatant_idx) {
-                    combatant.current_hp = combatant.current_hp.saturating_sub(injury);
-                    if combatant.current_hp <= 0 {
-                        combatant.incapacitated = true;
-                    }
-                }
-            }
-            (
-                CombatState::Active {
-                    combatants,
-                    turn_order,
-                    current_actor,
-                    round,
-                },
-                proof,
-            )
-        }
-        _ => (state, proof),
-    }
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[requires(injury@ >= 0)]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn apply_damage_creusot(
     state: CombatState,
@@ -276,7 +163,7 @@ pub fn apply_damage_creusot(
     injury: i32,
     _damage_proof: Established<DamageApplied>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    apply_damage_creusot_local(state, proof, target_id, injury, _damage_proof)
+    apply_damage(state, proof, target_id, injury, _damage_proof)
 }
 
 #[cfg(creusot)]
@@ -289,48 +176,13 @@ extern_spec! {
 #[cfg(creusot)]
 #[requires(combat_consistent_creusot_logic(&state))]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn end_turn_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    _turn_proof: Established<TurnEnded>,
-) -> (CombatState, Established<CombatConsistent>) {
-    match state {
-        CombatState::Active {
-            combatants,
-            turn_order,
-            current_actor,
-            round,
-        } => {
-            let is_last_actor = current_actor == turn_order.len() - 1;
-            let (new_actor, new_round) = if is_last_actor {
-                (0, round.saturating_add(1))
-            } else {
-                (current_actor + 1, round)
-            };
-            (
-                CombatState::Active {
-                    combatants,
-                    turn_order,
-                    current_actor: new_actor,
-                    round: new_round,
-                },
-                proof,
-            )
-        }
-        _ => (state, proof),
-    }
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn end_turn_creusot(
     state: CombatState,
     proof: Established<CombatConsistent>,
     _turn_proof: Established<TurnEnded>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    end_turn_creusot_local(state, proof, _turn_proof)
+    end_turn(state, proof, _turn_proof)
 }
 
 #[cfg(creusot)]
@@ -343,18 +195,6 @@ extern_spec! {
 #[cfg(creusot)]
 #[requires(combat_consistent_creusot_logic(&state))]
 #[ensures(combat_consistent_creusot_logic(&result.0))]
-fn conclude_combat_creusot_local(
-    state: CombatState,
-    proof: Established<CombatConsistent>,
-    victor: Option<String>,
-    _victory_proof: Established<VictoryConditionMet>,
-) -> (CombatState, Established<CombatConsistent>) {
-    (CombatState::Concluded { victor }, proof)
-}
-
-#[cfg(creusot)]
-#[requires(combat_consistent_creusot_logic(&state))]
-#[ensures(combat_consistent_creusot_logic(&result.0))]
 #[cfg(creusot)]
 pub fn conclude_combat_creusot(
     state: CombatState,
@@ -362,5 +202,5 @@ pub fn conclude_combat_creusot(
     victor: Option<String>,
     _victory_proof: Established<VictoryConditionMet>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    conclude_combat_creusot_local(state, proof, victor, _victory_proof)
+    conclude_combat(state, proof, victor, _victory_proof)
 }
