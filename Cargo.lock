@@ -3014,8 +3014,6 @@ dependencies = [
 [[package]]
 name = "elicitation"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b2e2ee37ae45b9924e2d65e90f1a939ccbd4ef32ecb5ece8c5f264d3a219db5"
 dependencies = [
  "accesskit 0.24.0",
  "anodized",
@@ -3082,8 +3080,6 @@ dependencies = [
 [[package]]
 name = "elicitation_derive"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dadc511b71d2e39fad3d4023d385a628320ea93bb5e8a3fddd81267fae742779"
 dependencies = [
  "heck",
  "proc-macro2",
@@ -3095,8 +3091,6 @@ dependencies = [
 [[package]]
 name = "elicitation_rand"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c10983854b6b1e329bacc3ba3845366993fb4099f8e5fe80aac476526e0f829d"
 dependencies = [
  "chrono",
  "csv",
@@ -8810,6 +8804,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "valinoreth_proofs"
+version = "0.1.0"
+dependencies = [
+ "elicitation",
+ "valinoreth",
+]
+
+[[package]]
 name = "valuable"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -10320,6 +10322,7 @@ dependencies = [
  "geo-types",
  "log",
  "num-traits",
+ "serde",
  "thiserror 1.0.69",
 ]
 

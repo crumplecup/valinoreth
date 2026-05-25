@@ -181,45 +181,45 @@ generate-proofs: generate-proofs-kani generate-proofs-creusot generate-proofs-ve
 # Regenerate Kani harnesses for Combat VSM
 generate-proofs-kani:
     elicitation generate kani \
-        --crate-path src/vsm \
-        --out src/proofs/kani/generated
+        --crate-path valinoreth/src/vsm \
+        --out valinoreth_proofs/src/kani/generated
 
 # Regenerate Creusot companions for Combat VSM
 generate-proofs-creusot:
     elicitation generate creusot \
-        --crate-path src/vsm \
-        --out src/proofs/creusot/generated
+        --crate-path valinoreth/src/vsm \
+        --out valinoreth_proofs/src/creusot/generated
 
 # Regenerate Verus companions for Combat VSM
 generate-proofs-verus:
     elicitation generate verus \
-        --crate-path src/vsm \
-        --out src/proofs/verus/generated
+        --crate-path valinoreth/src/vsm \
+        --out valinoreth_proofs/src/verus/generated
 
 # Run Kani verification for Combat VSM
 verify-kani:
-    elicitation prove --kani
+    cd valinoreth && elicitation prove --kani
 
 # Run Kani verification with CSV tracking
 verify-kani-csv csv="kani_results.csv" timeout="300":
-    elicitation prove --kani --csv {{csv}} --timeout {{timeout}}
+    cd valinoreth && elicitation prove --kani --csv {{csv}} --timeout {{timeout}}
 
 # Run Kani verification for specific harness
 verify-kani-harness harness:
-    elicitation prove --kani --kani-harness {{harness}}
+    cd valinoreth && elicitation prove --kani --kani-harness {{harness}}
 
 # Resume Kani verification (skips already-passed tests)
 verify-kani-resume csv="kani_results.csv":
-    elicitation prove --kani --csv {{csv}} --resume
+    cd valinoreth && elicitation prove --kani --csv {{csv}} --resume
 
 # Run Creusot verification for Combat VSM
 verify-creusot:
-    elicitation prove --creusot
+    cd valinoreth && elicitation prove --creusot
 
 # Run Verus verification for Combat VSM
 verify-verus:
-    elicitation prove --verus
+    cd valinoreth && elicitation prove --verus
 
 # Run all verification backends
 verify-all:
-    elicitation prove --kani --creusot --verus
+    cd valinoreth && elicitation prove --kani --creusot --verus

@@ -1,0 +1,13 @@
+[package]
+name = "valinoreth_proofs"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+kani    = []
+creusot = []
+verus   = []
+
+[dependencies]
+valinoreth = { path = "../valinoreth" }
+elicitation = { path = "../../elicitation/crates/elicitation", features = ["serde"] }
