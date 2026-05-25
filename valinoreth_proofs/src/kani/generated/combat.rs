@@ -72,13 +72,13 @@ fn declare_attack_kani_closure() {
         let _cred = CombatConsistent::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _attacker_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
-    let _target_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
+    let attacker_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
+    let target_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
     let _attack_proof: Established<AttackDeclared> = {
         let _cred = AttackDeclared::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = declare_attack(state, proof, _attacker_id, _target_id, _attack_proof);
+    let _result = declare_attack(state, proof, attacker_id, target_id, _attack_proof);
     ::std::mem::forget(_result);
 }
 

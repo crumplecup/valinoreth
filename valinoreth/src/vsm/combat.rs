@@ -274,8 +274,8 @@ pub fn begin_turn(
 pub fn declare_attack(
     state: CombatState,
     proof: Established<CombatConsistent>,
-    _attacker_id: usize,
-    _target_id: usize,
+    attacker_id: usize,
+    target_id: usize,
     _attack_proof: Established<AttackDeclared>,
 ) -> (CombatState, Established<CombatConsistent>) {
     // State unchanged - attack declaration is tracked through proof token
