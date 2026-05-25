@@ -3,6 +3,9 @@ name = "valinoreth"
 version = "0.1.0"
 edition = "2021"
 
+[package.metadata.elicitation]
+kani_skip_features = ["bin-extras"]
+
 [lib]
 path = "src/lib.rs"
 
@@ -12,7 +15,7 @@ name = "valinoreth"
 
 [dependencies]
 async-trait = "0.1"
-bio = "2.3.0"
+bio = { version = "2.3.0", optional = true }
 clap = { version = "4.5.41", features = ["derive"] }
 derive-getters = "0.5.0"
 derive-new = "0.7.0"
@@ -34,4 +37,7 @@ schemars = "1"
 
 [dev-dependencies]
 tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
+
+[features]
+bin-extras = ["bio"]
 

@@ -8,8 +8,13 @@ fn main() {
     match cli.command().as_str() {
         "paeva" => Players::paeva(),
         "prob" => {
-            let prob = bio::stats::combinatorics::combinations_with_repl(6, 3);
-            tracing::info!("6 choose 3 equals {}", prob);
+            #[cfg(feature = "bin-extras")]
+            {
+                let prob = bio::stats::combinatorics::combinations_with_repl(6, 3);
+                tracing::info!("6 choose 3 equals {}", prob);
+            }
+            #[cfg(not(feature = "bin-extras"))]
+            tracing::warn!("prob command requires the bin-extras feature");
         }
         "roll" => {
             let roll = ThreeDiceRoll::random_generator(42).generate();

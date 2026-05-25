@@ -10,6 +10,6 @@ creusot = []
 verus   = []
 
 [dependencies]
-valinoreth = { path = "../valinoreth" }
+valinoreth = { path = "../valinoreth", default-features = false }
 elicitation = { path = "../valinoreth/../../elicitation/crates/elicitation" }
 creusot-std = { path = "../valinoreth/../../elicitation/vendor/creusot-std" }
