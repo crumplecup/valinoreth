@@ -72,7 +72,7 @@ verus! {
 #[allow(unused_imports)]
 use vstd::prelude::SpecOrd;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum CombatState {
     _Unspecified,
 }
