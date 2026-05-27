@@ -1,0 +1,78 @@
+(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 80 0 83 45 *)
+
+let%span schat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 84 4 84 32
+let%span schat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 81 4 81 9
+let%span schat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 82 4 82 9
+let%span schat'2 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 77 11 77 48
+let%span schat'3 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 83 5 83 45
+let%span schat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 78 10 78 50
+let%span schat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 73 22 73 27
+let%span schat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 73 40 73 45
+let%span schat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 71 15 71 52
+let%span schat'8 = "/home/erik/repos/valinoreth/valinoreth/src/ui/vsm/chat.rs" 128 0 128 46
+let%span schat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 72 14 72 54
+let%span schat'10 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 23 16 23 20
+
+use creusot.prelude.Any
+
+type t_String
+
+type t_ChatState = Viewing | Composing t_String
+
+type t_Established_ChatConsistent
+
+type tup2_ChatState_Established_ChatConsistent = { f0: t_ChatState; f1: t_Established_ChatConsistent }
+
+predicate inv_String (_1: t_String)
+
+predicate inv_ChatState (_1: t_ChatState)
+
+axiom inv_axiom [@rewrite]: forall x: t_ChatState [inv_ChatState x]. inv_ChatState x
+    = match x with
+      | Viewing -> true
+      | Composing buffer -> inv_String buffer
+      end
+
+predicate inv_Established_ChatConsistent (_1: t_Established_ChatConsistent)
+
+predicate chat_consistent_creusot [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 22 0 22 64] (_state: t_ChatState) =
+  [%#schat'10] true
+
+predicate inv_tup2_ChatState_Established_ChatConsistent [@inline:trivial] (_1: tup2_ChatState_Established_ChatConsistent) =
+  inv_ChatState _1.f0 /\ inv_Established_ChatConsistent _1.f1
+
+meta "rewrite_def" predicate inv_tup2_ChatState_Established_ChatConsistent
+
+let rec cancel_compose (state: t_ChatState) (proof: t_Established_ChatConsistent)
+  (return (x: tup2_ChatState_Established_ChatConsistent)) =
+  {[@stop_split] [@expl:cancel_compose requires] ([@stop_split] [@expl:cancel_compose 'state' type invariant] [%#schat'5] inv_ChatState state)
+  /\ ([@stop_split] [@expl:cancel_compose 'proof' type invariant] [%#schat'6] inv_Established_ChatConsistent proof)
+  /\ ([@stop_split] [@expl:cancel_compose requires] [%#schat'7] chat_consistent_creusot state)}
+  any
+  [ return (result: tup2_ChatState_Established_ChatConsistent) ->
+  {[@stop_split] [@expl:cancel_compose ensures] ([@stop_split] [@expl:cancel_compose result type invariant] [%#schat'8] inv_tup2_ChatState_Established_ChatConsistent result)
+    /\ ([@stop_split] [@expl:cancel_compose ensures] [%#schat'9] chat_consistent_creusot result.f0)}
+    (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let rec cancel_compose_creusot
+  [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 80 0 83 45] (state: t_ChatState)
+  (proof: t_Established_ChatConsistent) (return (x: tup2_ChatState_Established_ChatConsistent)) =
+  {[@stop_split] [@expl:cancel_compose_creusot requires] ([@stop_split] [@expl:cancel_compose_creusot 'state' type invariant] [%#schat'0] inv_ChatState state)
+  /\ ([@stop_split] [@expl:cancel_compose_creusot 'proof' type invariant] [%#schat'1] inv_Established_ChatConsistent proof)
+  /\ ([@stop_split] [@expl:cancel_compose_creusot requires] [%#schat'2] chat_consistent_creusot state)}
+  (! bb0
+  [ bb0 = s0
+    [ s0 = cancel_compose [%#schat] {state} {proof}
+        (fun (_x: tup2_ChatState_Established_ChatConsistent) -> [ &_ret <- _x ] s1)
+    | s1 = return {_ret} ] ]
+  [ & _ret: tup2_ChatState_Established_ChatConsistent = Any.any_l ()
+  | & state: t_ChatState = state
+  | & proof: t_Established_ChatConsistent = proof ])
+  [ return (result: tup2_ChatState_Established_ChatConsistent) ->
+  {[@stop_split] [@expl:cancel_compose_creusot ensures] ([@stop_split] [@expl:cancel_compose_creusot result type invariant] [%#schat'3] inv_tup2_ChatState_Established_ChatConsistent result)
+    /\ ([@stop_split] [@expl:cancel_compose_creusot ensures] [%#schat'4] chat_consistent_creusot result.f0)}
+    (! return {result}) ]

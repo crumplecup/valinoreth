@@ -1,0 +1,18 @@
+(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 29 0 29 52 *)
+
+let%span schat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 30 4 30 8
+let%span schat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 27 11 27 15
+let%span schat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 28 10 28 16
+
+use creusot.prelude.Any
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let rec verify_chat_consistent_prop_creusot
+  [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 29 0 29 52] (return (x: bool)) =
+  (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- [%#schat] true ] s1 | s1 = return {_ret} ] ] [ & _ret: bool = Any.any_l () ])
+  [ return (result: bool) -> {[@stop_split] [@expl:verify_chat_consistent_prop_creusot ensures] [%#schat'1] result}
+    (! return {result}) ]

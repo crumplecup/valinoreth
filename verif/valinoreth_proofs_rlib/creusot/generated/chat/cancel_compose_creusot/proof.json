@@ -1,0 +1,9 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_cancel_compose": { "prover": "z3@4.15.3", "time": 0.006 },
+      "vc_cancel_compose_creusot": { "prover": "z3@4.15.3", "time": 0.005 }
+    }
+  }
+}

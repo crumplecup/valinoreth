@@ -8,11 +8,29 @@
 #[cfg(kani)]
 use elicitation::Established;
 #[cfg(kani)]
+use valinoreth::apply_damage_kani_contracted;
+#[cfg(kani)]
+use valinoreth::begin_turn_kani_contracted;
+#[cfg(kani)]
+use valinoreth::combat_consistent;
+#[cfg(kani)]
+use valinoreth::conclude_combat_kani_contracted;
+#[cfg(kani)]
+use valinoreth::declare_attack_kani_contracted;
+#[cfg(kani)]
+use valinoreth::end_turn_kani_contracted;
+#[cfg(kani)]
+use valinoreth::initialize_combat_kani_contracted;
+#[cfg(kani)]
+use valinoreth::resolve_attack_kani_contracted;
+#[cfg(kani)]
+use valinoreth::resolve_defense_kani_contracted;
+#[cfg(kani)]
 use valinoreth::{
     AttackDeclared, AttackResolved, CombatConsistent, CombatInitialized, CombatState,
     CombatantState, DamageApplied, DefenseResolved, TurnBegan, TurnEnded, VictoryConditionMet,
-    apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack, end_turn,
-    initialize_combat, resolve_attack, resolve_defense,
+    apply_damage, begin_turn, conclude_combat, declare_attack, end_turn, initialize_combat,
+    resolve_attack, resolve_defense,
 };
 
 #[cfg(kani)]
@@ -72,14 +90,14 @@ fn declare_attack_kani_closure() {
         let _cred = CombatConsistent::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let attacker_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
-    let target_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
+    let _attacker_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
+    let _target_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
     let _attack_proof: Established<AttackDeclared> = {
         let _cred = AttackDeclared::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
     let _result =
-        declare_attack_kani_contracted(state, proof, attacker_id, target_id, _attack_proof);
+        declare_attack_kani_contracted(state, proof, _attacker_id, _target_id, _attack_proof);
     ::std::mem::forget(_result);
 }
 

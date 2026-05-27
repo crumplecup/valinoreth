@@ -1,0 +1,9 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_send_message": { "prover": "z3@4.15.3", "time": 0.008 },
+      "vc_send_message_creusot": { "prover": "z3@4.15.3", "time": 0.006 }
+    }
+  }
+}
