@@ -11,7 +11,6 @@
 
 use crate::{Capacity, Currency, TechLevel, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Container types.
@@ -99,7 +98,7 @@ pub enum Container {
 
 impl Container {
     /// Returns base cost for this container.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting container base cost");
         match self {
@@ -146,7 +145,7 @@ impl Container {
     }
 
     /// Returns weight for this container (empty weight).
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting container weight");
         match self {
@@ -193,7 +192,7 @@ impl Container {
     }
 
     /// Returns tech level for this container.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting container tech level");
         match self {
@@ -240,7 +239,7 @@ impl Container {
     }
 
     /// Returns capacity for this container.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn capacity(&self) -> Capacity {
         debug!("Getting container capacity");
         match self {

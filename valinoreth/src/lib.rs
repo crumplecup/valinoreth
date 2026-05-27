@@ -29,6 +29,7 @@ mod movement;
 mod players;
 mod skills;
 mod special_features;
+mod ui;
 mod vsm;
 
 pub use advantages::{
@@ -284,7 +285,6 @@ pub use contracts::{
     WoundingModifierApplied,
 };
 
-#[cfg(not(creusot))]
 pub use contracts::{
     AdvantageDescriptorBuilder, AttackDescriptorBuilder, CasterDescriptorBuilder,
     CeremonialMagicDescriptorBuilder, CharacterCreationDescriptorBuilder,
@@ -307,8 +307,16 @@ pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, 
 pub use players::Players;
 pub use skills::{Family, Skill, SkillBase, SkillDefault};
 pub use special_features::SpecialFeatures;
+pub use ui::{
+    ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage, ChatMessageMode, ChatSender,
+    ChatState, GameDisplay, ChatModel,
+    begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
+};
+#[cfg(feature = "frontend-ratatui")]
+pub use ui::run_chat;
 pub use vsm::{
-    apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack, end_turn,
+    apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
+    damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn,
     initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatMachine,
     CombatState, CombatantState,
 };

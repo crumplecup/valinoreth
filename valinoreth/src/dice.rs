@@ -21,14 +21,10 @@
 //! println!("Rolled {}", roll.sum());
 //! ```
 
-#[cfg(not(creusot))]
 use elicitation::Elicit;
 use elicitation::Generator;
-#[cfg(not(creusot))]
 use schemars::JsonSchema;
-#[cfg(not(creusot))]
 use serde::{Deserialize, Serialize};
-#[cfg(all(not(kani), not(creusot)))]
 use tracing::instrument;
 
 /// A single die face (1–6).
@@ -49,9 +45,8 @@ use tracing::instrument;
     strum::EnumIter,
     elicitation_derive::Rand,
 )]
-#[cfg_attr(not(creusot), derive(Elicit))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(kani, derive(kani::Arbitrary, elicitation::KaniCompose))]
+#[derive(Elicit)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum DieFace {
     /// Face showing 1.
     #[default]
@@ -87,7 +82,7 @@ impl DieFace {
     /// Creates a [`DieFace`] from a numeric value (1–6).
     ///
     /// Returns `None` for values outside 1..=6.
-    #[cfg_attr(all(not(kani), not(creusot)), instrument)]
+    #[instrument]
     pub fn from_value(v: u8) -> Option<Self> {
         match v {
             1 => Some(DieFace::One),
@@ -101,7 +96,6 @@ impl DieFace {
     }
 }
 
-#[cfg(not(creusot))]
 impl std::fmt::Display for DieFace {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.value())
@@ -127,9 +121,8 @@ impl std::fmt::Display for DieFace {
 /// assert!(roll.sum() >= 3 && roll.sum() <= 18);
 /// ```
 #[derive(Debug, Clone, Copy, Hash)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, Elicit))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(kani, derive(kani::Arbitrary, elicitation::KaniCompose))]
+#[derive(PartialEq, Eq, Elicit)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct ThreeDiceRoll {
     /// First die.
     die1: DieFace,
@@ -239,7 +232,6 @@ impl ThreeDiceRoll {
     }
 }
 
-#[cfg(not(creusot))]
 impl std::fmt::Display for ThreeDiceRoll {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(

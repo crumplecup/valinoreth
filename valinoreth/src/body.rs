@@ -75,7 +75,7 @@ pub trait BodyLocation {
 #[derive(
     Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum BodyArea {
     /// Head area, -5 to hit. BS 399
     Head,
@@ -136,7 +136,7 @@ impl BodyLocation for BodyArea {
 #[derive(
     Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Head {
     /// Top/back of head, -7 to hit. BS 399
     Skull,
@@ -197,7 +197,7 @@ impl BodyLocation for Head {
 #[derive(
     Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Torso {
     /// Chest, -2 to hit. BS 399
     Chest,
@@ -257,7 +257,7 @@ impl BodyLocation for Torso {
 #[derive(
     Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Arms {
     /// Shoulders, -2 to hit. BS 399
     Shoulders,
@@ -321,7 +321,7 @@ impl BodyLocation for Arms {
 #[derive(
     Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Legs {
     /// Thighs, -2 to hit. BS 399
     Thighs,

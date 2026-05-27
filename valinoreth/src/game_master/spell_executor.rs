@@ -8,8 +8,8 @@ use crate::contracts::credentials::{
 };
 use crate::contracts::proof_composition::{
     CeremonialMagicEvidence, CompleteSpellCastingEvidence, ConcentrationEvidence,
-    EnergyCostEvidence, EnergyPaymentEvidence, SpellCastingFailureEvidence,
-    SpellCastingResolutionEvidence, SpellCastingSuccessEvidence, SpellEffectEvidence,
+    EnergyCostEvidence, EnergyPaymentEvidence, SpellCastingResolutionEvidence,
+    SpellCastingSuccessEvidence, SpellEffectEvidence,
 };
 use crate::contracts::traits::{
     CombatResult, ContractError, ContractErrorKind, SpellCaster, SpellEffectResolver,
@@ -67,8 +67,8 @@ impl SpellExecutor for GameMaster {
             .confirm_casting_success(result.clone(), casting_evidence)
             .await?;
 
-        // Step 2: Apply spell effect
-        let effect_evidence = self
+        // Step 2: Apply spell effect — type-level proof that the effect was applied.
+        let _effect_evidence = self
             .apply_spell_effect(
                 // Need to get spell descriptor - for now use a minimal one
                 &crate::contracts::types::SpellDescriptor {
@@ -147,8 +147,8 @@ impl SpellExecutor for GameMaster {
             effect,
         };
 
-        // Compose complete evidence
-        let _evidence = CompleteSpellCastingEvidence {
+        // Compose complete evidence — the assembled bundle IS the credential.
+        let evidence = CompleteSpellCastingEvidence {
             casting: casting_success,
             energy,
             effect: effect_evidence_struct,
@@ -158,7 +158,7 @@ impl SpellExecutor for GameMaster {
             result,
             caster: updated_caster,
             effect: effect_descriptor,
-            evidence: Established::assert(),
+            evidence: Established::prove(&evidence),
         })
     }
 
@@ -177,47 +177,26 @@ impl SpellExecutor for GameMaster {
         let leader_skill = descriptor.leader_skill;
         let pooled_energy = descriptor.pooled_energy;
 
-        // Use leader's skill for the casting roll
-        let dice_roll = self.roll_3d6();
-        let roll = dice_roll.sum();
+        // Use leader's skill for the casting roll, boosted by assistant bonuses
+        let effective_skill = leader_skill + descriptor.assistant_bonuses;
 
-        // Calculate effective skill with modifiers
-        let mut effective_skill = leader_skill;
-        effective_skill += descriptor.assistant_bonuses;
+        // Build result; correct energy_spent for edge case where pooled_energy < 1
+        let mut result = SpellCastingResult::new(self.roll_3d6().sum(), effective_skill, pooled_energy);
+        if !result.success {
+            result.energy_spent = 1.min(pooled_energy);
+        }
 
-        // Determine outcome
-        let (success, margin) = Self::calculate_margin(roll, effective_skill);
-        let critical_success = Self::is_critical_success(roll, effective_skill);
-        let critical_failure = Self::is_critical_failure(roll, effective_skill, success, margin);
-
-        // Energy is paid regardless (1 on failure, full cost on success)
-        let energy_spent = if success {
-            pooled_energy
-        } else {
-            1.min(pooled_energy)
-        };
-
-        let result = SpellCastingResult {
-            roll,
-            effective_skill,
-            success,
-            margin,
-            critical_success,
-            critical_failure,
-            energy_spent,
-        };
-
-        // Mint proof tokens
+        // Mint proof tokens and assemble the ceremonial evidence bundle.
         let begun = Established::prove(&CeremonyStarted);
         let energy_pooled = Established::prove(&EnergyPooled);
         let completed = Established::prove(&CeremonyCompleted);
 
-        let _evidence = CeremonialMagicEvidence {
+        let evidence = CeremonialMagicEvidence {
             begun,
             energy_pooled,
             completed,
         };
 
-        Ok((result, Established::assert()))
+        Ok((result, Established::prove(&evidence)))
     }
 }

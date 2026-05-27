@@ -25,9 +25,7 @@
 //! ```
 
 use derive_more::Display;
-#[cfg(not(creusot))]
 use serde::{Deserialize, Serialize};
-#[cfg(not(creusot))]
 use strum::EnumIter;
 
 /// Damage dice specification for GURPS.
@@ -43,7 +41,7 @@ use strum::EnumIter;
 /// - `DamageDice::new(2, 0)` = "2d"
 /// - `DamageDice::new(3, 1)` = "3d+1"
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 pub struct DamageDice {
     /// Number of dice to roll
     pub dice: i64,
@@ -85,7 +83,7 @@ impl DamageDice {
 /// let attrs = Attributes::from_vec(vec![10, 11, 12, 10, 10, 12, 13, 10]);
 /// ```
 #[derive(Debug, Default, Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize))]
+#[derive(Serialize, Deserialize)]
 pub struct Attributes {
     st: usize,
     dx: usize,
@@ -271,8 +269,8 @@ impl Attributes {
 /// assert_eq!(names, vec!["Name", "Value"]);
 /// ```
 #[derive(Debug, Default, Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash, Display)]
-#[cfg_attr(not(creusot), derive(EnumIter))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize))]
+#[derive(EnumIter)]
+#[derive(Serialize, Deserialize)]
 pub enum AttributeColumns {
     /// Attribute name column
     Name,
@@ -326,8 +324,8 @@ impl AttributeColumns {
 /// // Basic Move = floor(5.25) = 5
 /// ```
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(PartialEq, PartialOrd))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, PartialOrd)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct Stats {
     /// The maximum weight you can lift over your head with one hand in one second.
     ///
@@ -389,7 +387,6 @@ impl From<Attributes> for Stats {
 
 impl Stats {
     /// Creates derived statistics from explicit values.
-    #[cfg(not(creusot))]
     pub fn new(basic_lift: usize, basic_move: usize, basic_speed: f64) -> Self {
         Self {
             basic_lift,
@@ -398,27 +395,11 @@ impl Stats {
         }
     }
 
-    /// Creates derived statistics from exact quarter-step Basic Speed.
-    #[cfg(creusot)]
-    pub fn new(basic_lift: usize, basic_move: usize, basic_speed_quarters: usize) -> Self {
-        Self {
-            basic_lift,
-            basic_move,
-            basic_speed_quarters,
-        }
-    }
-
     /// Returns Basic Speed as a floating-point value.
-    #[cfg(not(creusot))]
     pub fn basic_speed(&self) -> f64 {
         self.basic_speed_quarters as f64 / 4.0
     }
 
-    /// Returns Basic Speed in exact quarter-steps.
-    #[cfg(creusot)]
-    pub fn basic_speed_quarters(&self) -> usize {
-        self.basic_speed_quarters
-    }
 }
 
 /// Combat-related character statistics.
@@ -435,8 +416,8 @@ impl Stats {
 /// - BS 269-271 - Damage
 /// - BS 374-377 - Active defenses
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(PartialEq, PartialOrd))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, PartialOrd)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct CombatStats {
     /// Thrust damage from ST-based attacks. BS 269
     damage_thrust: DamageKind,
@@ -470,8 +451,8 @@ pub struct CombatStats {
 /// let swing = DamageKind::Swing(DamageDice::new(1, 2));
 /// ```
 #[derive(Debug, Copy, Clone, derive_new::new)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum DamageKind {
     /// Thrust attack using stabbing motion. BS 269
     Thrust(DamageDice),
@@ -503,8 +484,8 @@ pub enum DamageKind {
 /// // ST 10: Thrust 1d-2, Swing 1d
 /// ```
 #[derive(Debug, Copy, Clone, derive_new::new, derive_getters::Getters)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct BaseDamage {
     /// Thrust damage for stabbing attacks. BS 269
     thrust: DamageKind,
@@ -628,8 +609,8 @@ impl From<Attributes> for BaseDamage {
 /// let enc = Encumbrance::from(&stats);
 /// ```
 #[derive(Debug, Copy, Clone, derive_new::new)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct Encumbrance {
     /// Weight thresholds for each encumbrance level. BS 17
     weight: EncumbranceWeight,
@@ -694,8 +675,8 @@ impl From<&Stats> for Encumbrance {
 /// // None: 0-20, Light: 21-40, Medium: 41-60, Heavy: 61-120, X-Heavy: 121-200
 /// ```
 #[derive(Debug, Copy, Clone, derive_new::new)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct EncumbranceWeight {
     /// Weight threshold for no encumbrance (0 to BL). BS 17
     none: usize,
@@ -768,8 +749,8 @@ impl From<&Stats> for EncumbranceWeight {
 /// // Basic Move 5: None=5, Light=4, Medium=3, Heavy=2, X-Heavy=1
 /// ```
 #[derive(Debug, Copy, Clone, derive_new::new)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct EncumbranceMove {
     /// Move at no encumbrance (×1.0). BS 17
     none: usize,
@@ -846,8 +827,8 @@ impl From<&Stats> for EncumbranceMove {
 /// // None=8, Light=7, Medium=6, Heavy=5, X-Heavy=4
 /// ```
 #[derive(Debug, Copy, Clone, derive_new::new)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct EncumbranceDodge {
     /// Dodge at no encumbrance. BS 17
     none: usize,
@@ -924,7 +905,7 @@ impl From<&Stats> for EncumbranceDodge {
 /// let level = EncumbranceLevel::Light;
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum EncumbranceLevel {
     /// No encumbrance (0 to BL). BS 17
     None,

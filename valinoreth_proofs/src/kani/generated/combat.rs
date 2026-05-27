@@ -23,7 +23,7 @@ fn verify_combat_consistent_prop_marker() {
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(initialize_combat)]
+#[::kani::proof_for_contract(initialize_combat_kani_contracted)]
 fn initialize_combat_kani_closure() {
     let _state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&_state));
@@ -38,12 +38,12 @@ fn initialize_combat_kani_closure() {
         let _cred = CombatInitialized::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = initialize_combat(_state, proof, combatants, _init_proof);
+    let _result = initialize_combat_kani_contracted(_state, proof, combatants, _init_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(begin_turn)]
+#[::kani::proof_for_contract(begin_turn_kani_contracted)]
 fn begin_turn_kani_closure() {
     let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&state));
@@ -57,12 +57,12 @@ fn begin_turn_kani_closure() {
         let _cred = TurnBegan::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = begin_turn(state, proof, _turn_proof);
+    let _result = begin_turn_kani_contracted(state, proof, _turn_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(declare_attack)]
+#[::kani::proof_for_contract(declare_attack_kani_contracted)]
 fn declare_attack_kani_closure() {
     let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&state));
@@ -78,12 +78,13 @@ fn declare_attack_kani_closure() {
         let _cred = AttackDeclared::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = declare_attack(state, proof, attacker_id, target_id, _attack_proof);
+    let _result =
+        declare_attack_kani_contracted(state, proof, attacker_id, target_id, _attack_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(resolve_attack)]
+#[::kani::proof_for_contract(resolve_attack_kani_contracted)]
 fn resolve_attack_kani_closure() {
     let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&state));
@@ -97,12 +98,12 @@ fn resolve_attack_kani_closure() {
         let _cred = AttackResolved::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = resolve_attack(state, proof, _resolved_proof);
+    let _result = resolve_attack_kani_contracted(state, proof, _resolved_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(resolve_defense)]
+#[::kani::proof_for_contract(resolve_defense_kani_contracted)]
 fn resolve_defense_kani_closure() {
     let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&state));
@@ -116,12 +117,12 @@ fn resolve_defense_kani_closure() {
         let _cred = DefenseResolved::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = resolve_defense(state, proof, _resolved_proof);
+    let _result = resolve_defense_kani_contracted(state, proof, _resolved_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(apply_damage)]
+#[::kani::proof_for_contract(apply_damage_kani_contracted)]
 fn apply_damage_kani_closure() {
     let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&state));
@@ -137,12 +138,12 @@ fn apply_damage_kani_closure() {
         let _cred = DamageApplied::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = apply_damage(state, proof, target_id, injury, _damage_proof);
+    let _result = apply_damage_kani_contracted(state, proof, target_id, injury, _damage_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(end_turn)]
+#[::kani::proof_for_contract(end_turn_kani_contracted)]
 fn end_turn_kani_closure() {
     let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&state));
@@ -156,12 +157,12 @@ fn end_turn_kani_closure() {
         let _cred = TurnEnded::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = end_turn(state, proof, _turn_proof);
+    let _result = end_turn_kani_contracted(state, proof, _turn_proof);
     ::std::mem::forget(_result);
 }
 
 #[cfg(kani)]
-#[::kani::proof_for_contract(conclude_combat)]
+#[::kani::proof_for_contract(conclude_combat_kani_contracted)]
 fn conclude_combat_kani_closure() {
     let _state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
     ::kani::assume(combat_consistent(&_state));
@@ -176,6 +177,6 @@ fn conclude_combat_kani_closure() {
         let _cred = VictoryConditionMet::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = conclude_combat(_state, proof, victor, _victory_proof);
+    let _result = conclude_combat_kani_contracted(_state, proof, victor, _victory_proof);
     ::std::mem::forget(_result);
 }

@@ -61,29 +61,29 @@ pub type CombatResult<T> = Result<T, ContractError>;
 
 /// Error kind for combat operations.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(derive_more::Display))]
+#[derive(derive_more::Display)]
 pub enum ContractErrorKind {
     /// Invalid skill value
-    #[cfg_attr(not(creusot), display("Invalid skill value: {}", _0))]
+    #[display("Invalid skill value: {}", _0)]
     InvalidSkill(String),
 
     /// Invalid roll result
-    #[cfg_attr(not(creusot), display("Invalid roll: {}", _0))]
+    #[display("Invalid roll: {}", _0)]
     InvalidRoll(String),
 
     /// Invalid damage value
-    #[cfg_attr(not(creusot), display("Invalid damage: {}", _0))]
+    #[display("Invalid damage: {}", _0)]
     InvalidDamage(String),
 
     /// State violation (e.g., defense when already used)
-    #[cfg_attr(not(creusot), display("State violation: {}", _0))]
+    #[display("State violation: {}", _0)]
     StateViolation(String),
 }
 
 /// Errors that can occur during combat resolution.
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(derive_more::Display, derive_more::Error))]
-#[cfg_attr(not(creusot), display("Contract error: {} at {}:{}", kind, file, line))]
+#[derive(derive_more::Display, derive_more::Error)]
+#[display("Contract error: {} at {}:{}", kind, file, line)]
 pub struct ContractError {
     /// The specific error kind
     pub kind: ContractErrorKind,

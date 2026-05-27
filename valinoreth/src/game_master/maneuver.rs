@@ -8,7 +8,7 @@ use crate::contracts::proof_composition::{
 };
 use crate::contracts::traits::{CombatResult, ManeuverExecutor};
 use crate::contracts::types::{
-    AttackRollResult, FeintDescriptor, FeintResult, RapidStrikeDescriptor,
+    AttackRollResult, FeintDescriptor, FeintResult, RapidStrikeDescriptor, SkillCheckResult,
 };
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
@@ -20,66 +20,33 @@ impl ManeuverExecutor for GameMaster {
         &self,
         descriptor: FeintDescriptor,
     ) -> CombatResult<(FeintResult, Established<FeintEvidence>)> {
-        // Roll for attacker
-        let attacker_dice = self.roll_3d6();
-        let attacker_roll = attacker_dice.sum();
+        let attacker = SkillCheckResult::new(self.roll_3d6().sum(), descriptor.attacker_skill);
+        let defender = SkillCheckResult::new(self.roll_3d6().sum(), descriptor.defender_skill);
 
-        // Roll for defender
-        let defender_dice = self.roll_3d6();
-        let defender_roll = defender_dice.sum();
-
-        // Calculate success and margins for both
-        let (attacker_success, attacker_margin) =
-            Self::calculate_margin(attacker_roll, descriptor.attacker_skill);
-        let (defender_success, defender_margin) =
-            Self::calculate_margin(defender_roll, descriptor.defender_skill);
-
-        // Determine winner in Quick Contest
-        // Both succeed: compare margins (higher margin wins)
-        // One succeeds: that one wins
-        // Both fail: no effect (treat as defender wins to avoid penalty)
-        let (attacker_won, margin) = match (attacker_success, defender_success) {
+        let (attacker_won, margin) = match (attacker.success, defender.success) {
             (true, true) => {
-                // Both succeeded - compare margins
-                if attacker_margin > defender_margin {
-                    (true, attacker_margin)
+                if attacker.margin > defender.margin {
+                    (true, attacker.margin)
                 } else {
-                    (false, defender_margin)
+                    (false, defender.margin)
                 }
             }
-            (true, false) => {
-                // Attacker succeeded, defender failed
-                (true, attacker_margin)
-            }
-            (false, true) => {
-                // Defender succeeded, attacker failed
-                (false, defender_margin)
-            }
-            (false, false) => {
-                // Both failed - no effect
-                (false, 0)
-            }
+            (true, false) => (true, attacker.margin),
+            (false, true) => (false, defender.margin),
+            (false, false) => (false, 0),
         };
 
         let result = FeintResult {
-            attacker_roll,
-            defender_roll,
+            attacker_roll: attacker.roll,
+            defender_roll: defender.roll,
             attacker_success: attacker_won,
             margin,
         };
 
-        // Mint proof (feint only succeeds if attacker wins)
-        if attacker_won {
-            let feint = Established::prove(&FeintWon);
-            let _evidence = FeintEvidence { feint, margin };
-            Ok((result, Established::assert()))
-        } else {
-            // Feint failed - no evidence of successful feint
-            // But we still return the result showing what happened
-            let feint = Established::prove(&FeintWon);
-            let _evidence = FeintEvidence { feint, margin: 0 };
-            Ok((result, Established::assert()))
-        }
+        let feint = Established::prove(&FeintWon);
+        let evidence = FeintEvidence { feint, margin: if attacker_won { margin } else { 0 } };
+
+        Ok((result, Established::prove(&evidence)))
     }
 
     async fn execute_rapid_strike(
@@ -89,45 +56,19 @@ impl ManeuverExecutor for GameMaster {
         let mut attack_results = Vec::new();
         let mut attack_evidences = Vec::new();
 
-        // Execute each attack with penalty
         for _ in 0..descriptor.attack_count {
-            let dice_roll = self.roll_3d6();
-            let roll = dice_roll.sum();
-
-            // Apply Rapid Strike penalty to skill
             let effective_skill = descriptor.base_skill + descriptor.penalty_per_attack;
-
-            // Determine outcome
-            let (success, margin) = Self::calculate_margin(roll, effective_skill);
-            let critical_success = Self::is_critical_success(roll, effective_skill);
-            let critical_failure =
-                Self::is_critical_failure(roll, effective_skill, success, margin);
-
-            let result = AttackRollResult {
-                roll,
-                effective_skill,
-                success,
-                margin,
-                critical_success,
-                critical_failure,
-            };
-
+            let result = AttackRollResult::new(self.roll_3d6().sum(), effective_skill);
             attack_results.push(result);
 
-            // Construct evidence for this attack
             let roll_made = Established::prove(&ValidAttackRoll);
             let outcome = Established::prove(&AttackOutcomeChecked);
-            let evidence = AttackResolutionEvidence { roll_made, outcome };
-            attack_evidences.push(evidence);
+            attack_evidences.push(AttackResolutionEvidence { roll_made, outcome });
         }
 
-        // Mint proof for rapid strike execution
         let rapid_strike = Established::prove(&RapidStrikePerformed);
-        let _evidence = RapidStrikeEvidence {
-            rapid_strike,
-            attacks: attack_evidences,
-        };
+        let evidence = RapidStrikeEvidence { rapid_strike, attacks: attack_evidences };
 
-        Ok((attack_results, Established::assert()))
+        Ok((attack_results, Established::prove(&evidence)))
     }
 }

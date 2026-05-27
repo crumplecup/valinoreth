@@ -12,7 +12,6 @@
 
 use crate::{Currency, TechLevel, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Survival gear types.
@@ -94,7 +93,7 @@ pub enum SurvivalGear {
 
 impl SurvivalGear {
     /// Returns base cost for this survival gear.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting survival gear base cost");
         match self {
@@ -138,7 +137,7 @@ impl SurvivalGear {
     }
 
     /// Returns weight for this survival gear.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting survival gear weight");
         match self {
@@ -182,7 +181,7 @@ impl SurvivalGear {
     }
 
     /// Returns tech level for this survival gear.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting survival gear tech level");
         match self {

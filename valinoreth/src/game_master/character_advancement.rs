@@ -13,7 +13,7 @@ use crate::contracts::traits::{
     ContractErrorKind, SkillManager,
 };
 use crate::contracts::types::{
-    AttributeDescriptor, AttributeType, CharacterDescriptor, SkillDescriptor,
+    AttributeDescriptor, AttributeType, CharacterDescriptor,
 };
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
@@ -195,13 +195,13 @@ impl GameMaster {
         let identified = Established::prove(&CharacterNamed);
         let complete = Established::prove(&CharacterCompleteCredential);
 
-        let _evidence = CharacterCreationEvidence {
+        let evidence = CharacterCreationEvidence {
             attributes,
             derived_stats,
             identified,
             complete,
         };
 
-        Ok(Established::assert())
+        Ok(Established::prove(&evidence))
     }
 }

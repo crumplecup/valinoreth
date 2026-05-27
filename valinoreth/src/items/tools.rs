@@ -12,7 +12,6 @@
 
 use crate::{Currency, TechLevel, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Tool types.
@@ -116,7 +115,7 @@ pub enum Tool {
 
 impl Tool {
     /// Returns base cost for this tool.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting tool base cost");
         match self {
@@ -171,7 +170,7 @@ impl Tool {
     }
 
     /// Returns weight for this tool.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting tool weight");
         match self {
@@ -226,7 +225,7 @@ impl Tool {
     }
 
     /// Returns tech level for this tool.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting tool tech level");
         match self {

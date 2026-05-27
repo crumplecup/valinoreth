@@ -3,31 +3,18 @@
 //! The GameMaster acts as the "lead actor" in state machine plays,
 //! implementing all GURPS rules through the trait contracts.
 
-#[cfg(not(creusot))]
 mod attack;
-#[cfg(not(creusot))]
 mod character_advancement;
-#[cfg(not(creusot))]
 mod character_builder;
-#[cfg(not(creusot))]
 mod combat;
-#[cfg(not(creusot))]
 mod damage;
-#[cfg(not(creusot))]
 mod defense;
-#[cfg(not(creusot))]
 mod maneuver;
-#[cfg(not(creusot))]
 mod skill_check;
-#[cfg(not(creusot))]
 mod skill_manager;
-#[cfg(not(creusot))]
 mod spell_caster;
-#[cfg(not(creusot))]
 mod spell_effect_resolver;
-#[cfg(not(creusot))]
 mod spell_executor;
-#[cfg(not(creusot))]
 mod spell_manager;
 
 use crate::ThreeDiceRoll;
@@ -97,37 +84,6 @@ impl GameMaster {
         ThreeDiceRoll::random_generator(self.config.seed).generate()
     }
 
-    /// Check if roll is critical success.
-    ///
-    /// # GURPS Rules
-    ///
-    /// Critical success when:
-    /// - Roll is 3 or 4, OR
-    /// - Roll is 5 or 6 AND skill ≥ 15
-    pub(crate) fn is_critical_success(roll: i32, skill: i32) -> bool {
-        roll <= 4 || (roll <= 6 && skill >= 15)
-    }
-
-    /// Check if roll is critical failure.
-    ///
-    /// # GURPS Rules
-    ///
-    /// Critical failure when:
-    /// - Roll is 18, OR
-    /// - Roll is 17 AND skill < 16, OR
-    /// - Margin of failure ≥ 10
-    pub(crate) fn is_critical_failure(roll: i32, skill: i32, success: bool, margin: i32) -> bool {
-        roll >= 18 || (roll >= 17 && skill < 16) || (!success && margin >= 10)
-    }
-
-    /// Calculate margin of success or failure.
-    ///
-    /// Returns (success, margin).
-    pub(crate) fn calculate_margin(roll: i32, skill: i32) -> (bool, i32) {
-        let success = roll <= skill;
-        let margin = if success { skill - roll } else { roll - skill };
-        (success, margin)
-    }
 }
 
 impl Default for GameMaster {

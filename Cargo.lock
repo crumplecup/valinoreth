@@ -3029,6 +3029,64 @@ dependencies = [
 ]
 
 [[package]]
+name = "elicit_accesskit"
+version = "0.11.0"
+dependencies = [
+ "accesskit 0.24.0",
+ "derive_more",
+ "elicitation",
+ "elicitation_derive",
+ "futures",
+ "inventory",
+ "rmcp",
+ "schemars",
+ "serde",
+ "serde_json",
+ "strum 0.28.0",
+ "tracing",
+]
+
+[[package]]
+name = "elicit_ratatui"
+version = "0.11.0"
+dependencies = [
+ "accesskit 0.24.0",
+ "elicit_accesskit",
+ "elicit_ui",
+ "elicitation",
+ "elicitation_derive",
+ "inventory",
+ "quote",
+ "ratatui",
+ "rmcp",
+ "schemars",
+ "serde",
+ "serde_json",
+ "tracing",
+]
+
+[[package]]
+name = "elicit_ui"
+version = "0.11.0"
+dependencies = [
+ "accesskit 0.24.0",
+ "derive-getters",
+ "derive-new 0.7.0",
+ "derive_more",
+ "elicit_accesskit",
+ "elicitation",
+ "elicitation_derive",
+ "inventory",
+ "proc-macro2",
+ "quote",
+ "rmcp",
+ "schemars",
+ "serde",
+ "serde_json",
+ "tracing",
+]
+
+[[package]]
 name = "elicitation"
 version = "0.11.0"
 dependencies = [
@@ -6575,6 +6633,7 @@ dependencies = [
  "instability",
  "ratatui-core",
  "ratatui-crossterm",
+ "ratatui-macros",
  "ratatui-termion",
  "ratatui-termwiz",
  "ratatui-widgets",
@@ -6613,6 +6672,16 @@ dependencies = [
  "crossterm 0.29.0",
  "instability",
  "ratatui-core",
+]
+
+[[package]]
+name = "ratatui-macros"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a7f1342a13e83e4bb9d0b793d0ea762be633f9582048c892ae9041ef39c936f4"
+dependencies = [
+ "ratatui-core",
+ "ratatui-widgets",
 ]
 
 [[package]]
@@ -8799,18 +8868,24 @@ dependencies = [
 name = "valinoreth"
 version = "0.1.0"
 dependencies = [
+ "accesskit 0.24.0",
  "async-trait",
  "bio",
  "clap",
+ "crossterm 0.29.0",
  "derive-getters",
  "derive-new 0.7.0",
  "derive_builder",
  "derive_more",
+ "elicit_accesskit",
+ "elicit_ratatui",
+ "elicit_ui",
  "elicitation",
  "elicitation_derive",
  "elicitation_rand",
  "proc-macro2",
  "rand 0.10.1",
+ "ratatui",
  "rmcp",
  "schemars",
  "serde",

@@ -20,39 +20,15 @@ impl AttackResolver for GameMaster {
         &self,
         descriptor: AttackDescriptor,
     ) -> CombatResult<(AttackRollResult, Established<AttackResolutionEvidence>)> {
-        // Roll 3d6 for attack
-        let dice_roll = self.roll_3d6();
-        let roll = dice_roll.sum();
-
-        // Calculate effective skill with modifiers
         let effective_skill =
             descriptor.effective_skill + descriptor.aim_bonus - descriptor.deceptive_penalty;
+        let result = AttackRollResult::new(self.roll_3d6().sum(), effective_skill);
 
-        // Determine outcome
-        let (success, margin) = Self::calculate_margin(roll, effective_skill);
-
-        // Check for critical outcomes
-        let critical_success = Self::is_critical_success(roll, effective_skill);
-        let critical_failure = Self::is_critical_failure(roll, effective_skill, success, margin);
-
-        // Build result
-        let result = AttackRollResult {
-            roll,
-            effective_skill,
-            success,
-            margin,
-            critical_success,
-            critical_failure,
-        };
-
-        // Mint proof tokens using credentials
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
+        let evidence = AttackResolutionEvidence { roll_made, outcome };
 
-        // Compose evidence bundle
-        let _evidence = AttackResolutionEvidence { roll_made, outcome };
-
-        Ok((result, Established::assert()))
+        Ok((result, Established::prove(&evidence)))
     }
 
     async fn confirm_attack_success(
@@ -60,7 +36,6 @@ impl AttackResolver for GameMaster {
         result: AttackRollResult,
         _base_evidence: Established<AttackResolutionEvidence>,
     ) -> CombatResult<Established<AttackSuccessEvidence>> {
-        // Verify the attack actually succeeded
         if !result.success {
             return Err(crate::contracts::traits::ContractError::new(
                 crate::contracts::traits::ContractErrorKind::StateViolation(
@@ -69,21 +44,13 @@ impl AttackResolver for GameMaster {
             ));
         }
 
-        // Reconstruct resolution evidence (zero-sized, exists only for type system)
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
-
-        // Mint success proof
         let success = Established::prove(&AttackHit);
+        let evidence = AttackSuccessEvidence { resolution, success };
 
-        // Compose success evidence
-        let _evidence = AttackSuccessEvidence {
-            resolution,
-            success,
-        };
-
-        Ok(Established::assert())
+        Ok(Established::prove(&evidence))
     }
 
     async fn confirm_attack_failure(
@@ -91,7 +58,6 @@ impl AttackResolver for GameMaster {
         result: AttackRollResult,
         _base_evidence: Established<AttackResolutionEvidence>,
     ) -> CombatResult<Established<AttackFailureEvidence>> {
-        // Verify the attack actually failed
         if result.success {
             return Err(crate::contracts::traits::ContractError::new(
                 crate::contracts::traits::ContractErrorKind::StateViolation(
@@ -100,21 +66,13 @@ impl AttackResolver for GameMaster {
             ));
         }
 
-        // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
-
-        // Mint failure proof
         let failure = Established::prove(&AttackMiss);
+        let evidence = AttackFailureEvidence { resolution, failure };
 
-        // Compose failure evidence
-        let _evidence = AttackFailureEvidence {
-            resolution,
-            failure,
-        };
-
-        Ok(Established::assert())
+        Ok(Established::prove(&evidence))
     }
 
     async fn confirm_critical_success(
@@ -122,7 +80,6 @@ impl AttackResolver for GameMaster {
         result: AttackRollResult,
         _success_evidence: Established<AttackSuccessEvidence>,
     ) -> CombatResult<Established<AttackCriticalSuccessEvidence>> {
-        // Verify this was actually a critical success
         if !result.critical_success {
             return Err(crate::contracts::traits::ContractError::new(
                 crate::contracts::traits::ContractErrorKind::StateViolation(
@@ -131,25 +88,15 @@ impl AttackResolver for GameMaster {
             ));
         }
 
-        // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
-
-        // Reconstruct success evidence
         let success_proof = Established::prove(&AttackHit);
-        let success = AttackSuccessEvidence {
-            resolution,
-            success: success_proof,
-        };
-
-        // Mint critical success proof
+        let success = AttackSuccessEvidence { resolution, success: success_proof };
         let critical = Established::prove(&AttackCriticalHit);
+        let evidence = AttackCriticalSuccessEvidence { success, critical };
 
-        // Compose critical success evidence
-        let _evidence = AttackCriticalSuccessEvidence { success, critical };
-
-        Ok(Established::assert())
+        Ok(Established::prove(&evidence))
     }
 
     async fn confirm_critical_failure(
@@ -157,7 +104,6 @@ impl AttackResolver for GameMaster {
         result: AttackRollResult,
         _base_evidence: Established<AttackResolutionEvidence>,
     ) -> CombatResult<Established<AttackCriticalFailureEvidence>> {
-        // Verify this was actually a critical failure
         if !result.critical_failure {
             return Err(crate::contracts::traits::ContractError::new(
                 crate::contracts::traits::ContractErrorKind::StateViolation(
@@ -166,20 +112,12 @@ impl AttackResolver for GameMaster {
             ));
         }
 
-        // Reconstruct resolution evidence
         let roll_made = Established::prove(&ValidAttackRoll);
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
-
-        // Mint critical failure proof
         let critical = Established::prove(&AttackCriticalMiss);
+        let evidence = AttackCriticalFailureEvidence { resolution, critical };
 
-        // Compose critical failure evidence
-        let _evidence = AttackCriticalFailureEvidence {
-            resolution,
-            critical,
-        };
-
-        Ok(Established::assert())
+        Ok(Established::prove(&evidence))
     }
 }

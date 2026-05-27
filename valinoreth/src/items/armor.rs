@@ -12,7 +12,6 @@
 
 use crate::{Currency, TechLevel, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Armor types.
@@ -136,7 +135,7 @@ pub enum Armor {
 
 impl Armor {
     /// Returns base cost for this armor.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting armor base cost");
         match self {
@@ -201,7 +200,7 @@ impl Armor {
     }
 
     /// Returns weight for this armor.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting armor weight");
         match self {
@@ -266,7 +265,7 @@ impl Armor {
     }
 
     /// Returns tech level for this armor.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting armor tech level");
         match self {
@@ -331,7 +330,7 @@ impl Armor {
     }
 
     /// Returns damage resistance for this armor.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn damage_resistance(&self) -> i32 {
         debug!("Getting armor damage resistance");
         match self {

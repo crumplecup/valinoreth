@@ -100,9 +100,9 @@ impl CharacterBuilder for GameMaster {
         let cost = Established::prove(&AttributeCostComputed);
         let purchased = Established::prove(&AttributeBought);
 
-        let _evidence = AttributePurchaseEvidence { purchased, cost };
+        let evidence = AttributePurchaseEvidence { purchased, cost };
 
-        Ok((character, Established::assert()))
+        Ok((character, Established::prove(&evidence)))
     }
 
     async fn purchase_secondary_characteristic(
@@ -148,9 +148,9 @@ impl CharacterBuilder for GameMaster {
         // Mint proof tokens
         let purchased = Established::prove(&SecondaryCharacteristicBought);
 
-        let _evidence = SecondaryCharacteristicEvidence { purchased };
+        let evidence = SecondaryCharacteristicEvidence { purchased };
 
-        Ok((character, Established::assert()))
+        Ok((character, Established::prove(&evidence)))
     }
 
     async fn add_advantage(
@@ -211,13 +211,13 @@ impl CharacterBuilder for GameMaster {
             None
         };
 
-        let _evidence = AdvantagePurchaseEvidence {
+        let evidence = AdvantagePurchaseEvidence {
             purchased,
             modifiers,
             level,
         };
 
-        Ok((character, Established::assert()))
+        Ok((character, Established::prove(&evidence)))
     }
 
     async fn add_disadvantage(
@@ -280,13 +280,13 @@ impl CharacterBuilder for GameMaster {
         };
         let no_conflicts = Established::prove(&NoConflicts);
 
-        let _evidence = DisadvantageTakenEvidence {
+        let evidence = DisadvantageTakenEvidence {
             taken,
             level,
             no_conflicts,
         };
 
-        Ok((character, Established::assert()))
+        Ok((character, Established::prove(&evidence)))
     }
 
     async fn calculate_derived_stats(
@@ -397,7 +397,7 @@ impl CharacterBuilder for GameMaster {
         let perception = Established::prove(&PerceptionSetCredential);
         let fp = Established::prove(&FpSet);
 
-        let _evidence = DerivedStatsEvidence {
+        let evidence = DerivedStatsEvidence {
             basic_speed,
             basic_move,
             dodge,
@@ -407,7 +407,7 @@ impl CharacterBuilder for GameMaster {
             fp,
         };
 
-        Ok((derived_stats, Established::assert()))
+        Ok((derived_stats, Established::prove(&evidence)))
     }
 
     async fn finalize_character(
@@ -474,13 +474,13 @@ impl CharacterBuilder for GameMaster {
             complete,
         };
 
-        let _evidence = CharacterValidationEvidence {
+        let evidence = CharacterValidationEvidence {
             budget_balanced,
             minimums_met,
             creation,
             valid,
         };
 
-        Ok((character, Established::assert()))
+        Ok((character, Established::prove(&evidence)))
     }
 }

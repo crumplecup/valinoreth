@@ -12,7 +12,6 @@
 
 use crate::{Currency, DamageDice, DamageType, Skill, TechLevel, WeaponDamage, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Ranged weapon types.
@@ -490,7 +489,7 @@ pub enum RangedWeapon {
 
 impl RangedWeapon {
     /// Returns base cost for this ranged weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting ranged weapon base cost");
         match self {
@@ -732,7 +731,7 @@ impl RangedWeapon {
     }
 
     /// Returns weight for this ranged weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting ranged weapon weight");
         match self {
@@ -974,7 +973,7 @@ impl RangedWeapon {
     }
 
     /// Returns tech level for this ranged weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting ranged weapon tech level");
         match self {
@@ -1216,7 +1215,7 @@ impl RangedWeapon {
     }
 
     /// Returns weapon damage for this ranged weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn damage(&self) -> WeaponDamage {
         debug!("Getting ranged weapon damage");
         match self {
@@ -2160,7 +2159,7 @@ impl RangedWeapon {
     }
 
     /// Returns weapon accuracy for this ranged weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn accuracy(&self) -> i32 {
         debug!("Getting ranged weapon accuracy");
         match self {
@@ -2402,7 +2401,7 @@ impl RangedWeapon {
     }
 
     /// Returns required skill for this ranged weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn required_skill(&self) -> Skill {
         debug!("Getting ranged weapon required skill");
         match self {

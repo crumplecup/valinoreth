@@ -98,7 +98,7 @@ impl CombatExecutor for GameMaster {
         let defense_failure_evidence = reconstruct_defense_failure();
         let injury_application_evidence = reconstruct_injury_application();
 
-        let _hit_evidence = CombatHitEvidence {
+        let hit_evidence = CombatHitEvidence {
             attack: attack_success_evidence,
             defense: defense_failure_evidence,
             injury: injury_application_evidence,
@@ -107,7 +107,7 @@ impl CombatExecutor for GameMaster {
         Ok(CombatExchangeResult::Hit {
             defender: updated_defender,
             damage: damage_result,
-            evidence: Established::assert(),
+            evidence: Established::prove(&hit_evidence),
         })
     }
 }

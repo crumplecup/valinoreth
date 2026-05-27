@@ -11,12 +11,29 @@
 //! - Derive `Serialize`, `Deserialize`, `JsonSchema` for MCP integration
 //! - Serve as inputs to trait methods that produce `Established<P>` proofs
 
-#[cfg(not(creusot))]
 use derive_builder::Builder;
-#[cfg(not(creusot))]
 use schemars::JsonSchema;
-#[cfg(not(creusot))]
 use serde::{Deserialize, Serialize};
+
+// ── GURPS Roll Resolution ─────────────────────────────────────────────────────
+
+/// Critical success: roll ≤ 4, or roll ≤ 6 with skill ≥ 15.
+///
+/// # Citations
+///
+/// BS 556 - Critical success table
+fn gurps_critical_success(roll: i32, skill: i32) -> bool {
+    roll <= 4 || (roll <= 6 && skill >= 15)
+}
+
+/// Critical failure: roll ≥ 18, or roll = 17 with skill < 16, or margin ≥ 10.
+///
+/// # Citations
+///
+/// BS 556 - Critical miss table
+fn gurps_critical_failure(roll: i32, skill: i32, success: bool, margin: i32) -> bool {
+    roll >= 18 || (roll >= 17 && skill < 16) || (!success && margin >= 10)
+}
 
 // ── Attack Descriptors ────────────────────────────────────────────────────────
 
@@ -25,27 +42,27 @@ use serde::{Deserialize, Serialize};
 /// Contains all information needed to resolve an attack roll:
 /// skill level, modifiers, and optional target location.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct AttackDescriptor {
     /// Attacker's effective skill level (base skill + modifiers)
     pub effective_skill: i32,
 
     /// Whether this is an All-Out Attack
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub all_out_attack: bool,
 
     /// Deceptive Attack skill penalty (reduces opponent defense by half this)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub deceptive_penalty: i32,
 
     /// Aim bonus accumulated (ranged attacks only)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub aim_bonus: i32,
 
     /// Target hit location (if targeted attack)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub target_location: Option<HitLocation>,
 }
 
@@ -53,7 +70,7 @@ pub struct AttackDescriptor {
 ///
 /// Contains the roll result and outcome determination.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct AttackRollResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -74,15 +91,31 @@ pub struct AttackRollResult {
     pub critical_failure: bool,
 }
 
+impl AttackRollResult {
+    /// Construct from a roll and effective skill, computing all derived fields.
+    pub fn new(roll: i32, effective_skill: i32) -> Self {
+        let success = roll <= effective_skill;
+        let margin = if success { effective_skill - roll } else { roll - effective_skill };
+        Self {
+            roll,
+            effective_skill,
+            success,
+            margin,
+            critical_success: gurps_critical_success(roll, effective_skill),
+            critical_failure: gurps_critical_failure(roll, effective_skill, success, margin),
+        }
+    }
+}
+
 // ── Defense Descriptors ───────────────────────────────────────────────────────
 
 /// Describes a defense attempt.
 ///
 /// Contains all information needed to resolve an active defense roll.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct DefenseDescriptor {
     /// Type of active defense (Dodge, Parry, Block)
     pub defense_type: DefenseType,
@@ -91,21 +124,21 @@ pub struct DefenseDescriptor {
     pub defense_score: i32,
 
     /// Penalty from Feint (if opponent feinted successfully)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub feint_penalty: i32,
 
     /// Penalty from Deceptive Attack
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub deceptive_penalty: i32,
 
     /// Whether defender is retreating (+3 to defense)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub retreating: bool,
 }
 
 /// Type of active defense.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum DefenseType {
     /// Dodge: 3d6 ≤ Dodge score (DX + 3 + bonuses)
     Dodge,
@@ -117,7 +150,7 @@ pub enum DefenseType {
 
 /// Describes the result of a defense roll.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct DefenseRollResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -138,13 +171,29 @@ pub struct DefenseRollResult {
     pub critical_failure: bool,
 }
 
+impl DefenseRollResult {
+    /// Construct from a roll and defense score, computing all derived fields.
+    pub fn new(roll: i32, defense_score: i32) -> Self {
+        let success = roll <= defense_score;
+        let margin = if success { defense_score - roll } else { roll - defense_score };
+        Self {
+            roll,
+            defense_score,
+            success,
+            margin,
+            critical_success: gurps_critical_success(roll, defense_score),
+            critical_failure: gurps_critical_failure(roll, defense_score, success, margin),
+        }
+    }
+}
+
 // ── Damage Descriptors ────────────────────────────────────────────────────────
 
 /// Describes weapon damage to be rolled.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct DamageDescriptor {
     /// Number of dice to roll
     pub dice: i32,
@@ -153,20 +202,20 @@ pub struct DamageDescriptor {
     pub sides: i32,
 
     /// Flat modifier to add to roll
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub modifier: i32,
 
     /// Type of damage (affects wounding multiplier)
     pub damage_type: DamageTypeDescriptor,
 
     /// Bonus damage from critical hit
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub critical_bonus: i32,
 }
 
 /// Type of damage for wounding modifier calculation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum DamageTypeDescriptor {
     /// Crushing damage: ×1 wounding
     Crushing,
@@ -182,7 +231,7 @@ pub enum DamageTypeDescriptor {
 
 /// Describes armor protection.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct ArmorDescriptor {
     /// Damage Resistance value
     pub dr: i32,
@@ -193,7 +242,7 @@ pub struct ArmorDescriptor {
 
 /// Hit location on the body.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum HitLocation {
     /// Skull: ×4 damage multiplier, -7 to hit
     Skull,
@@ -278,7 +327,7 @@ impl HitLocation {
 
 /// Describes the result of damage calculation.
 #[derive(Debug, Clone, Copy, PartialEq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct DamageResult {
     /// Raw damage rolled
     pub raw_damage: i32,
@@ -306,7 +355,7 @@ pub struct DamageResult {
 
 /// Describes a Feint maneuver.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct FeintDescriptor {
     /// Attacker's skill for the Quick Contest
     pub attacker_skill: i32,
@@ -317,7 +366,7 @@ pub struct FeintDescriptor {
 
 /// Describes the result of a Feint contest.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct FeintResult {
     /// Attacker's roll
     pub attacker_roll: i32,
@@ -334,7 +383,7 @@ pub struct FeintResult {
 
 /// Describes a Rapid Strike maneuver.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct RapidStrikeDescriptor {
     /// Number of attacks in the rapid strike
     pub attack_count: usize,
@@ -350,9 +399,9 @@ pub struct RapidStrikeDescriptor {
 
 /// Describes complete combat state for a character.
 #[derive(Debug, Clone, PartialEq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct CombatantDescriptor {
     /// Character's current Hit Points
     pub current_hp: i32,
@@ -364,23 +413,23 @@ pub struct CombatantDescriptor {
     pub dodge: i32,
 
     /// Character's Parry score (if applicable)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub parry: Option<i32>,
 
     /// Character's Block score (if applicable)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub block: Option<i32>,
 
     /// Whether character has acted this turn
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub has_acted: bool,
 
     /// Whether character used All-Out Attack (no defenses until next turn)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub all_out_attack_used: bool,
 
     /// Accumulated penalties from wounds, stunning, etc.
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub shock_penalty: i32,
 }
 
@@ -391,33 +440,33 @@ pub struct CombatantDescriptor {
 /// Contains all information needed to resolve a skill check:
 /// skill level, modifiers, and task difficulty.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct SkillCheckDescriptor {
     /// Character's effective skill level (base skill + modifiers)
     pub effective_skill: i32,
 
     /// Situational modifiers (equipment, lighting, etc.)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub situational_modifier: i32,
 
     /// Task difficulty modifier (-10 to +10)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub task_difficulty: i32,
 
     /// Time spent modifier (rushing or taking extra time)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub time_modifier: i32,
 
     /// Whether using complementary skill bonus
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub complementary_bonus: Option<i32>,
 }
 
 /// Describes the result of a skill check roll.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct SkillCheckResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -438,19 +487,35 @@ pub struct SkillCheckResult {
     pub critical_failure: bool,
 }
 
+impl SkillCheckResult {
+    /// Construct from a roll and effective skill, computing all derived fields.
+    pub fn new(roll: i32, effective_skill: i32) -> Self {
+        let success = roll <= effective_skill;
+        let margin = if success { effective_skill - roll } else { roll - effective_skill };
+        Self {
+            roll,
+            effective_skill,
+            success,
+            margin,
+            critical_success: gurps_critical_success(roll, effective_skill),
+            critical_failure: gurps_critical_failure(roll, effective_skill, success, margin),
+        }
+    }
+}
+
 /// Describes a skill for a character.
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(Eq))]
-#[cfg_attr(not(creusot), derive(PartialEq))]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Eq)]
+#[derive(PartialEq)]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct SkillDescriptor {
     /// Skill name
     pub name: String,
 
     /// Skill specialization (if any)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub specialization: Option<String>,
 
     /// Skill difficulty (Easy, Average, Hard, Very Hard)
@@ -466,13 +531,13 @@ pub struct SkillDescriptor {
     pub level: i32,
 
     /// Whether this is a wildcard skill
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub wildcard: bool,
 }
 
 /// Skill difficulty levels.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum SkillDifficulty {
     /// Easy skills (E)
     Easy,
@@ -486,7 +551,7 @@ pub enum SkillDifficulty {
 
 /// Describes a skill default (fallback when skill not trained).
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct SkillDefaultDescriptor {
     /// What the skill defaults to
     pub default_type: SkillDefaultType,
@@ -497,7 +562,7 @@ pub struct SkillDefaultDescriptor {
 
 /// Types of skill defaults.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum SkillDefaultType {
     /// Defaults to an attribute (DX, IQ, etc.)
     Attribute(AttributeType),
@@ -516,9 +581,9 @@ pub enum SkillDefaultType {
 
 /// Describes a character's primary attribute.
 #[derive(Debug, Clone, Copy)]
-#[cfg_attr(not(creusot), derive(Eq))]
-#[cfg_attr(not(creusot), derive(PartialEq))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Eq)]
+#[derive(PartialEq)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct AttributeDescriptor {
     /// Attribute type (ST, DX, IQ, HT)
     pub attribute_type: AttributeType,
@@ -532,7 +597,7 @@ pub struct AttributeDescriptor {
 
 /// Primary attribute types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum AttributeType {
     /// Strength
     ST,
@@ -550,9 +615,9 @@ pub enum AttributeType {
 
 /// Describes a secondary characteristic purchase.
 #[derive(Debug, Clone, Copy)]
-#[cfg_attr(not(creusot), derive(Eq))]
-#[cfg_attr(not(creusot), derive(PartialEq))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Eq)]
+#[derive(PartialEq)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct SecondaryCharacteristicDescriptor {
     /// Type of secondary characteristic
     pub characteristic_type: SecondaryCharacteristicType,
@@ -566,7 +631,7 @@ pub struct SecondaryCharacteristicDescriptor {
 
 /// Secondary characteristic types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum SecondaryCharacteristicType {
     /// Hit Points (defaults to ST)
     HP,
@@ -584,9 +649,9 @@ pub enum SecondaryCharacteristicType {
 
 /// Describes an advantage for a character.
 #[derive(Debug, Clone, PartialEq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct AdvantageDescriptor {
     /// Advantage name
     pub name: String,
@@ -595,15 +660,15 @@ pub struct AdvantageDescriptor {
     pub base_cost: i32,
 
     /// Level (if leveled advantage)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub level: Option<i32>,
 
     /// Enhancement modifiers (percentage bonuses)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub enhancements: Vec<ModifierDescriptor>,
 
     /// Limitation modifiers (percentage penalties)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub limitations: Vec<ModifierDescriptor>,
 
     /// Final point cost after modifiers
@@ -612,10 +677,10 @@ pub struct AdvantageDescriptor {
 
 /// Describes a disadvantage for a character.
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(PartialEq))]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(PartialEq)]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct DisadvantageDescriptor {
     /// Disadvantage name
     pub name: String,
@@ -624,11 +689,11 @@ pub struct DisadvantageDescriptor {
     pub base_cost: i32,
 
     /// Level (if leveled disadvantage)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub level: Option<i32>,
 
     /// Self-control roll (6, 9, 12, 15) if applicable
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub self_control: Option<i32>,
 
     /// Final point value (negative)
@@ -637,7 +702,7 @@ pub struct DisadvantageDescriptor {
 
 /// Describes an enhancement or limitation modifier.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct ModifierDescriptor {
     /// Modifier name
     pub name: String,
@@ -648,32 +713,32 @@ pub struct ModifierDescriptor {
 
 /// Describes complete character creation parameters.
 #[derive(Debug, Clone, PartialEq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct CharacterCreationDescriptor {
     /// Character name
     pub name: String,
 
     /// Character description
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub description: String,
 
     /// Total character point value (100, 150, 200, etc.)
     pub total_points: i32,
 
     /// Disadvantage point limit (typically -50)
-    #[cfg_attr(not(creusot), builder(default = "-50"))]
+    #[builder(default = "-50")]
     pub disadvantage_limit: i32,
 
     /// Campaign attribute minimums
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub attribute_minimums: Option<AttributeMinimums>,
 }
 
 /// Campaign-specific attribute minimums.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct AttributeMinimums {
     /// Minimum ST
     pub st: i32,
@@ -687,16 +752,16 @@ pub struct AttributeMinimums {
 
 /// Describes a complete character state.
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(PartialEq))]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(PartialEq)]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct CharacterDescriptor {
     /// Character name
     pub name: String,
 
     /// Character description
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub description: String,
 
     /// Total character point value
@@ -709,19 +774,19 @@ pub struct CharacterDescriptor {
     pub attributes: Vec<AttributeDescriptor>,
 
     /// Secondary characteristics (if purchased)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub secondary_characteristics: Vec<SecondaryCharacteristicDescriptor>,
 
     /// Advantages
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub advantages: Vec<AdvantageDescriptor>,
 
     /// Disadvantages
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub disadvantages: Vec<DisadvantageDescriptor>,
 
     /// Skills
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub skills: Vec<SkillDescriptor>,
 
     /// Derived statistics
@@ -730,8 +795,8 @@ pub struct CharacterDescriptor {
 
 /// Describes derived statistics.
 #[derive(Debug, Clone, Copy)]
-#[cfg_attr(not(creusot), derive(PartialEq))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(PartialEq)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct DerivedStatsDescriptor {
     /// Basic Speed
     pub basic_speed: f32,
@@ -759,10 +824,10 @@ pub struct DerivedStatsDescriptor {
 
 /// Describes a spell for learning.
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq))]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(PartialEq, Eq)]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct SpellDescriptor {
     /// Spell name
     pub name: String,
@@ -771,7 +836,7 @@ pub struct SpellDescriptor {
     pub college: SpellCollege,
 
     /// Difficulty level (Hard for all spells)
-    #[cfg_attr(not(creusot), builder(default = "SkillDifficulty::Hard"))]
+    #[builder(default = "SkillDifficulty::Hard")]
     pub difficulty: SkillDifficulty,
 
     /// Current skill level with this spell
@@ -781,18 +846,18 @@ pub struct SpellDescriptor {
     pub points_invested: i32,
 
     /// Prerequisite spell names
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub prerequisites: Vec<String>,
 
     /// Minimum Magery level required (0-3)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub magery_required: i32,
 
     /// Base energy cost to cast
     pub base_casting_cost: i32,
 
     /// Base energy cost to maintain (0 if not maintained)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub base_maintenance_cost: i32,
 
     /// Standard casting time in seconds
@@ -802,17 +867,17 @@ pub struct SpellDescriptor {
     pub spell_class: SpellClass,
 
     /// Whether spell can be resisted
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub resistible: bool,
 
     /// Resistance attribute if resistible (Will, HT, etc.)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub resistance_attribute: Option<String>,
 }
 
 /// Spell colleges.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum SpellCollege {
     /// Air spells
     Air,
@@ -866,7 +931,7 @@ pub enum SpellCollege {
 
 /// Spell classes (casting types).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum SpellClass {
     /// Regular spell affecting single target
     Regular,
@@ -886,9 +951,9 @@ pub enum SpellClass {
 
 /// Describes a spell casting attempt.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct SpellCastingDescriptor {
     /// Spell being cast
     pub spell_name: String,
@@ -903,37 +968,37 @@ pub struct SpellCastingDescriptor {
     pub casting_time: i32,
 
     /// Target identifier (if applicable)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub target: Option<String>,
 
     /// Distance to target in yards
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub range_yards: i32,
 
     /// Size/speed modifier
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub size_speed_modifier: i32,
 
     /// Time modifier (extra time or rushing)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub time_modifier: i32,
 
     /// Environmental modifier
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub environment_modifier: i32,
 
     /// Whether taking extra energy for greater effect
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub extra_energy: i32,
 
     /// Whether spell is being maintained (not initial cast)
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub is_maintenance: bool,
 }
 
 /// Describes the result of a spell casting attempt.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct SpellCastingResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -957,12 +1022,31 @@ pub struct SpellCastingResult {
     pub energy_spent: i32,
 }
 
+impl SpellCastingResult {
+    /// Construct from a roll, effective skill, and base energy cost, computing all derived fields.
+    ///
+    /// Energy spent is the full cost on success, or 1 FP on failure (GURPS Magic p.9).
+    pub fn new(roll: i32, effective_skill: i32, energy_cost: i32) -> Self {
+        let success = roll <= effective_skill;
+        let margin = if success { effective_skill - roll } else { roll - effective_skill };
+        Self {
+            roll,
+            effective_skill,
+            success,
+            margin,
+            critical_success: gurps_critical_success(roll, effective_skill),
+            critical_failure: gurps_critical_failure(roll, effective_skill, success, margin),
+            energy_spent: if success { energy_cost } else { 1 },
+        }
+    }
+}
+
 /// Describes caster's state for spell casting.
 #[derive(Debug, Clone)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq))]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(PartialEq, Eq)]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct CasterDescriptor {
     /// Caster's current Fatigue Points
     pub current_fp: i32,
@@ -983,21 +1067,21 @@ pub struct CasterDescriptor {
     pub iq: i32,
 
     /// Spells known by caster
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub known_spells: Vec<SpellDescriptor>,
 
     /// Whether caster is concentrating on a spell
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub concentrating: bool,
 
     /// Penalties from wounds, stunning, etc.
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub penalties: i32,
 }
 
 /// Describes spell effect details.
 #[derive(Debug, Clone, PartialEq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct SpellEffectDescriptor {
     /// Spell name
     pub spell_name: String,
@@ -1023,7 +1107,7 @@ pub struct SpellEffectDescriptor {
 
 /// Describes spell resistance contest.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct SpellResistanceDescriptor {
     /// Caster's effective spell skill
     pub caster_skill: i32,
@@ -1037,7 +1121,7 @@ pub struct SpellResistanceDescriptor {
 
 /// Describes result of resistance contest.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct ResistanceResult {
     /// Caster's roll
     pub caster_roll: i32,
@@ -1054,9 +1138,9 @@ pub struct ResistanceResult {
 
 /// Describes ceremonial magic attempt.
 #[derive(Debug, Clone, PartialEq, Eq)]
-#[cfg_attr(not(creusot), derive(Builder))]
-#[cfg_attr(not(creusot), derive(Serialize, Deserialize, JsonSchema))]
-#[cfg_attr(not(creusot), builder(setter(into)))]
+#[derive(Builder)]
+#[derive(Serialize, Deserialize, JsonSchema)]
+#[builder(setter(into))]
 pub struct CeremonialMagicDescriptor {
     /// Lead caster
     pub leader: String,
@@ -1074,7 +1158,7 @@ pub struct CeremonialMagicDescriptor {
     pub leader_skill: i32,
 
     /// Skill bonuses from assistants
-    #[cfg_attr(not(creusot), builder(default))]
+    #[builder(default)]
     pub assistant_bonuses: i32,
 
     /// Ceremony duration in seconds

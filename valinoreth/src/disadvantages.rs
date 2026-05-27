@@ -42,11 +42,9 @@
 /// assert_eq!(disadvantage.cost(), -5);
 /// ```
 #[derive(Debug, Copy, Clone, Hash)]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord))]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(PartialEq, Eq, PartialOrd, Ord)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum Disadvantage {
     /// Forgetful, distracted easily. BS 122
     AbsentMinded,
@@ -394,10 +392,8 @@ impl Disadvantage {
 /// assert_eq!(duty.cost(), -10);
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum SenseOfDuty {
     /// One person, -2 points. BS 153
     Individual,
@@ -448,10 +444,8 @@ impl SenseOfDuty {
 /// assert_eq!(duty.cost(), -10);
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum Duty {
     /// 15 or less on 3d6, -15 points. BS 133
     AlmostAlways,
@@ -499,10 +493,8 @@ impl Duty {
 /// assert_eq!(lame.cost(), -10);
 /// ```
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum Lame {
     /// Move reduced to 60%, -5 points. BS 141
     #[default]
@@ -548,10 +540,8 @@ impl Lame {
 /// assert_eq!(addiction.cost(), -20);
 /// ```
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum Addiction {
     /// Mildly addictive, -5 points. BS 122
     Mild,
@@ -597,10 +587,8 @@ impl Addiction {
 /// assert_eq!(phobia.cost(), -15);
 /// ```
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum Phobia {
     /// Mild phobia, self-control at +6, -5 points. BS 148
     Mild,
@@ -649,10 +637,8 @@ impl Phobia {
 /// assert_eq!(vow.cost(), -10);
 /// ```
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[cfg_attr(
-    not(creusot),
-    derive(serde::Serialize, serde::Deserialize, derive_more::Display)
-)]
+#[derive(serde::Serialize, serde::Deserialize, derive_more::Display)
+]
 pub enum Vow {
     /// Minor behavioral restriction, -5 points. BS 160
     Minor,

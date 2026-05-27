@@ -2,7 +2,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 /// Initiates a subscriber for the tracing library. Used to instrument internal library functions
 /// for debugging and diagnostics.
-#[cfg_attr(not(creusot), tracing::instrument)]
+#[tracing::instrument]
 pub fn trace_init() {
     if tracing_subscriber::registry()
         .with(
@@ -13,6 +13,5 @@ pub fn trace_init() {
         .try_init()
         .is_ok()
     {};
-    #[cfg(not(creusot))]
     tracing::trace!("Loading program...");
 }

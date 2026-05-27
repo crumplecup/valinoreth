@@ -37,13 +37,13 @@ impl SpellManager for GameMaster {
         let magery = Established::prove(&MageryMet);
         let learned = Established::prove(&SpellAcquired);
 
-        let _evidence = SpellLearningEvidence {
+        let evidence = SpellLearningEvidence {
             prerequisites,
             magery,
             learned,
         };
 
-        Ok((caster, Established::assert()))
+        Ok((caster, Established::prove(&evidence)))
     }
 
     async fn improve_spell(

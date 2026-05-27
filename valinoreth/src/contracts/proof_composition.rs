@@ -55,7 +55,7 @@ use crate::contracts::skills::{
     SkillPrerequisiteMet, TaskDifficultyModifierApplied, TechniqueUsed, TimeSpentModifierApplied,
     WildcardSkillUsed,
 };
-use elicitation::contracts::Established;
+use elicitation::contracts::{Established, ProvableFrom};
 use elicitation_derive::Prop;
 
 // ── Attack Resolution Evidence ────────────────────────────────────────────────
@@ -1336,3 +1336,78 @@ pub struct CeremonialMagicEvidence {
     /// Proof that ceremony completed
     pub completed: Established<CeremonialSpellCompleted>,
 }
+
+// ── Self-proving evidence bundles ─────────────────────────────────────────────
+//
+// An assembled evidence bundle IS its own credential: having all the constituent
+// proofs in hand is sufficient to mint the proposition of the same type.
+// This allows `Established::prove(&bundle)` instead of `Established::assert()`.
+
+// Attack resolution
+impl ProvableFrom<AttackResolutionEvidence> for AttackResolutionEvidence {}
+impl ProvableFrom<AttackSuccessEvidence> for AttackSuccessEvidence {}
+impl ProvableFrom<AttackFailureEvidence> for AttackFailureEvidence {}
+impl ProvableFrom<AttackCriticalSuccessEvidence> for AttackCriticalSuccessEvidence {}
+impl ProvableFrom<AttackCriticalFailureEvidence> for AttackCriticalFailureEvidence {}
+
+// Defense resolution
+impl ProvableFrom<DefenseResolutionEvidence> for DefenseResolutionEvidence {}
+impl ProvableFrom<DefenseSuccessEvidence> for DefenseSuccessEvidence {}
+impl ProvableFrom<DefenseFailureEvidence> for DefenseFailureEvidence {}
+impl ProvableFrom<DefenseCriticalSuccessEvidence> for DefenseCriticalSuccessEvidence {}
+impl ProvableFrom<DefenseCriticalFailureEvidence> for DefenseCriticalFailureEvidence {}
+
+// Damage resolution
+impl ProvableFrom<BasicDamageEvidence> for BasicDamageEvidence {}
+impl ProvableFrom<InjuryCalculationEvidence> for InjuryCalculationEvidence {}
+impl ProvableFrom<InjuryApplicationEvidence> for InjuryApplicationEvidence {}
+
+// Complete combat
+impl ProvableFrom<CombatHitEvidence> for CombatHitEvidence {}
+impl ProvableFrom<CombatMissEvidence> for CombatMissEvidence {}
+
+// Special maneuvers
+impl ProvableFrom<FeintEvidence> for FeintEvidence {}
+impl ProvableFrom<RapidStrikeEvidence> for RapidStrikeEvidence {}
+impl ProvableFrom<AllOutAttackEvidence> for AllOutAttackEvidence {}
+impl ProvableFrom<DeceptiveAttackEvidence> for DeceptiveAttackEvidence {}
+
+// Skill checks
+impl ProvableFrom<SkillCheckResolutionEvidence> for SkillCheckResolutionEvidence {}
+impl ProvableFrom<SkillCheckSuccessEvidence> for SkillCheckSuccessEvidence {}
+impl ProvableFrom<SkillCheckFailureEvidence> for SkillCheckFailureEvidence {}
+impl ProvableFrom<SkillCheckCriticalSuccessEvidence> for SkillCheckCriticalSuccessEvidence {}
+impl ProvableFrom<SkillCheckCriticalFailureEvidence> for SkillCheckCriticalFailureEvidence {}
+impl ProvableFrom<SkillAttributeDefaultEvidence> for SkillAttributeDefaultEvidence {}
+impl ProvableFrom<SkillRelatedDefaultEvidence> for SkillRelatedDefaultEvidence {}
+impl ProvableFrom<SkillModifiersEvidence> for SkillModifiersEvidence {}
+impl ProvableFrom<SkillImprovementEvidence> for SkillImprovementEvidence {}
+impl ProvableFrom<ComplementarySkillEvidence> for ComplementarySkillEvidence {}
+impl ProvableFrom<WildcardSkillEvidence> for WildcardSkillEvidence {}
+impl ProvableFrom<TechniqueUsageEvidence> for TechniqueUsageEvidence {}
+
+// Character creation
+impl ProvableFrom<AttributePurchaseEvidence> for AttributePurchaseEvidence {}
+impl ProvableFrom<SecondaryCharacteristicEvidence> for SecondaryCharacteristicEvidence {}
+impl ProvableFrom<AdvantagePurchaseEvidence> for AdvantagePurchaseEvidence {}
+impl ProvableFrom<DisadvantageTakenEvidence> for DisadvantageTakenEvidence {}
+impl ProvableFrom<DerivedStatsEvidence> for DerivedStatsEvidence {}
+impl ProvableFrom<CharacterCreationEvidence> for CharacterCreationEvidence {}
+impl ProvableFrom<CharacterValidationEvidence> for CharacterValidationEvidence {}
+
+// Spell learning and casting
+impl ProvableFrom<SpellLearningEvidence> for SpellLearningEvidence {}
+impl ProvableFrom<ConcentrationEvidence> for ConcentrationEvidence {}
+impl ProvableFrom<SpellCastingResolutionEvidence> for SpellCastingResolutionEvidence {}
+impl ProvableFrom<SpellCastingSuccessEvidence> for SpellCastingSuccessEvidence {}
+impl ProvableFrom<SpellCastingFailureEvidence> for SpellCastingFailureEvidence {}
+impl ProvableFrom<SpellCriticalSuccessEvidence> for SpellCriticalSuccessEvidence {}
+impl ProvableFrom<SpellCriticalFailureEvidence> for SpellCriticalFailureEvidence {}
+impl ProvableFrom<EnergyCostEvidence> for EnergyCostEvidence {}
+impl ProvableFrom<EnergyPaymentEvidence> for EnergyPaymentEvidence {}
+impl ProvableFrom<SpellMaintenanceEvidence> for SpellMaintenanceEvidence {}
+impl ProvableFrom<SpellEffectEvidence> for SpellEffectEvidence {}
+impl ProvableFrom<SpellResistanceEvidence> for SpellResistanceEvidence {}
+impl ProvableFrom<ResistanceOvercomeEvidence> for ResistanceOvercomeEvidence {}
+impl ProvableFrom<CeremonialMagicEvidence> for CeremonialMagicEvidence {}
+impl ProvableFrom<CompleteSpellCastingEvidence> for CompleteSpellCastingEvidence {}

@@ -13,7 +13,6 @@
 
 use derive_more::{Display, From};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Tech level (TL 0-12 in GURPS).
@@ -79,7 +78,7 @@ pub enum Quality {
 
 impl Quality {
     /// Returns the cost multiplier for this quality.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn cost_multiplier(&self) -> f64 {
         debug!("Getting cost multiplier for {:?}", self);
         match self {
@@ -93,7 +92,7 @@ impl Quality {
     /// Returns the skill bonus for this quality (weapons/tools).
     ///
     /// Applies to weapon skill rolls and tool use.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn skill_bonus(&self) -> i32 {
         debug!("Getting skill bonus for {:?}", self);
         match self {

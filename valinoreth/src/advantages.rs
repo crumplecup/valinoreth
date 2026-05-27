@@ -45,8 +45,8 @@
 /// assert_eq!(advantage.cost(), 5);
 /// ```
 #[derive(Debug, Copy, Clone, derive_more::Display)]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Advantage {
     /// Innate sense of direction. BS 34
     AbsoluteDirection(AbsoluteDirection),
@@ -550,7 +550,7 @@ impl Advantage {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Wealth {
     /// No starting funds, -25 points. BS 25
     DeadBroke,
@@ -621,7 +621,7 @@ impl Wealth {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum AbsoluteDirection {
     /// Ground-based direction sense, 5 points. BS 34
     #[default]
@@ -666,7 +666,7 @@ impl AbsoluteDirection {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Luck {
     /// Reroll once per hour, 15 points. BS 66
     #[default]
@@ -714,7 +714,7 @@ impl Luck {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Flexible {
     /// +3 bonus to flexibility skills, 5 points. BS 56
     #[default]
@@ -759,7 +759,7 @@ impl Flexible {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum EiditicMemory {
     /// Perfect recall, automatic success on IQ rolls to remember, 5 points. BS 51
     #[default]
@@ -804,7 +804,7 @@ impl EiditicMemory {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Appearance {
     /// -16 to reactions, -4 points. BS 21
     Horrifying,
@@ -873,7 +873,7 @@ impl Appearance {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Claws {
     /// Blunt claws, thrust-1 cutting, 3 points. BS 42
     Blunt,
@@ -921,7 +921,7 @@ impl Claws {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Flight {
     /// Flight with wings, vulnerable to damage, 30 points. BS 56
     #[default]
@@ -966,7 +966,7 @@ impl Flight {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum InjuryTolerance {
     /// Ignore shock penalties, 20 points. BS 60
     #[default]
@@ -1032,7 +1032,7 @@ impl InjuryTolerance {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Regeneration {
     /// Slow regeneration, 10 points. BS 80
     Slow,
@@ -1086,7 +1086,7 @@ impl Regeneration {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Resistant {
     /// +3 to resist disease, 3 points. BS 81
     #[default]
@@ -1140,7 +1140,7 @@ impl Resistant {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Teeth {
     /// Sharp teeth, thrust-1 cutting, 1 point. BS 91
     #[default]
@@ -1188,7 +1188,7 @@ impl Teeth {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum ProtectedSense {
     /// Protected hearing, 5 points. BS 78
     Hearing,
@@ -1239,7 +1239,7 @@ impl ProtectedSense {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Striker {
     /// Crushing striker (tail, limb), 5 points. BS 88
     #[default]
@@ -1287,7 +1287,7 @@ impl Striker {
 #[derive(
     Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
 )]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum SocialRegard {
     /// Feared by society, +1 to Intimidation. BS 86
     Feared,
@@ -1332,7 +1332,7 @@ impl SocialRegard {
 /// let perk = Perk::DeepSleeper;
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display)]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Perk {
     /// Hard to wake, +4 to avoid being awakened. BS 101
     DeepSleeper,

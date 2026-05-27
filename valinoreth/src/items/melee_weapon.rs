@@ -12,7 +12,6 @@
 
 use crate::{Currency, DamageType, Reach, Skill, TechLevel, WeaponDamage, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Melee weapon types.
@@ -340,7 +339,7 @@ pub enum MeleeWeapon {
 
 impl MeleeWeapon {
     /// Returns base cost for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting melee weapon base cost");
         match self {
@@ -507,7 +506,7 @@ impl MeleeWeapon {
     }
 
     /// Returns weight for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting melee weapon weight");
         match self {
@@ -674,7 +673,7 @@ impl MeleeWeapon {
     }
 
     /// Returns tech level for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting melee weapon tech level");
         match self {
@@ -841,7 +840,7 @@ impl MeleeWeapon {
     }
 
     /// Returns weapon damage for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn damage(&self) -> WeaponDamage {
         debug!("Getting melee weapon damage");
         match self {
@@ -1485,7 +1484,7 @@ impl MeleeWeapon {
     }
 
     /// Returns weapon reach for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn reach(&self) -> Reach {
         debug!("Getting melee weapon reach");
         match self {
@@ -1652,7 +1651,7 @@ impl MeleeWeapon {
     }
 
     /// Returns parry modifier for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn parry_modifier(&self) -> i32 {
         debug!("Getting melee weapon parry modifier");
         match self {
@@ -1819,7 +1818,7 @@ impl MeleeWeapon {
     }
 
     /// Returns required skill for this melee weapon.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn required_skill(&self) -> Skill {
         debug!("Getting melee weapon required skill");
         match self {

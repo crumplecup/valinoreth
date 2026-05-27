@@ -30,8 +30,8 @@ use crate::{Advantage, Disadvantage, Perk};
 /// let features = SpecialFeatures::new(vec![], vec![], vec![]);
 /// ```
 #[derive(Debug, Default, Clone, derive_new::new)]
-#[cfg_attr(not(creusot), derive(serde::Serialize, serde::Deserialize))]
-#[cfg_attr(not(creusot), derive(PartialEq, Eq, PartialOrd, Ord, Hash))]
+#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct SpecialFeatures {
     /// Character advantages
     advantages: Vec<Advantage>,

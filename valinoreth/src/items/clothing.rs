@@ -13,7 +13,6 @@
 
 use crate::{Currency, TechLevel, Weight};
 use tracing::debug;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Clothing types.
@@ -123,7 +122,7 @@ pub enum Clothing {
 
 impl Clothing {
     /// Returns base cost for this clothing.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn base_cost(&self) -> Currency {
         debug!("Getting clothing base cost");
         match self {
@@ -181,7 +180,7 @@ impl Clothing {
     }
 
     /// Returns weight for this clothing.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn weight(&self) -> Weight {
         debug!("Getting clothing weight");
         match self {
@@ -239,7 +238,7 @@ impl Clothing {
     }
 
     /// Returns tech level for this clothing.
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn tech_level(&self) -> TechLevel {
         debug!("Getting clothing tech level");
         match self {

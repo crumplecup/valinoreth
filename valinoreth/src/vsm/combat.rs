@@ -19,12 +19,10 @@
 //! Each transition carries proof tokens from GameMaster mechanics and combat flow contracts.
 
 use elicitation::{
-    contracts::ProvableFrom, formal_method, Elicit, Established, KaniVariantState, Prop,
-    VerifiedStateMachine,
+    formal_method, Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine,
 };
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use tracing::instrument;
 
 use crate::contracts::combat_flow::{
     AttackDeclared, AttackResolved, CombatInitialized, DamageApplied, DefenseResolved, TurnBegan,
@@ -34,8 +32,7 @@ use crate::contracts::combat_flow::{
 // ── CombatantState ────────────────────────────────────────────────────────────
 
 /// State of a single combatant in combat.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Elicit)]
-#[cfg_attr(kani, derive(elicitation::KaniCompose))]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Elicit, KaniCompose)]
 pub struct CombatantState {
     /// Unique identifier for this combatant.
     pub id: String,
@@ -67,8 +64,8 @@ pub struct CombatantState {
 /// Lifecycle state of a GURPS combat encounter.
 #[derive(
     Debug, Clone, Default, PartialEq, Serialize, Deserialize, JsonSchema, Elicit, KaniVariantState,
+    KaniCompose,
 )]
-#[cfg_attr(kani, derive(elicitation::KaniCompose))]
 pub enum CombatState {
     /// Combat has not been initialized.
     #[default]
@@ -274,8 +271,8 @@ pub fn begin_turn(
 pub fn declare_attack(
     state: CombatState,
     proof: Established<CombatConsistent>,
-    attacker_id: usize,
-    target_id: usize,
+    _attacker_id: usize,
+    _target_id: usize,
     _attack_proof: Established<AttackDeclared>,
 ) -> (CombatState, Established<CombatConsistent>) {
     // State unchanged - attack declaration is tracked through proof token

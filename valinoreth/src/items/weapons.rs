@@ -12,7 +12,6 @@
 //! - BS 276-278 - Ranged weapons table
 
 use crate::DamageDice;
-#[cfg(not(creusot))]
 use tracing::instrument;
 
 /// Weapon damage specification.
@@ -123,7 +122,7 @@ impl DamageType {
     /// assert_eq!(DamageType::Crushing.torso_multiplier(), 1.0);
     /// assert_eq!(DamageType::Impaling.torso_multiplier(), 2.0);
     /// ```
-    #[cfg_attr(not(creusot), instrument)]
+    #[instrument]
     pub fn torso_multiplier(&self) -> f64 {
         match self {
             Self::Crushing => 1.0,

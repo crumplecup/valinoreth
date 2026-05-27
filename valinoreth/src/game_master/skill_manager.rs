@@ -139,13 +139,13 @@ impl SkillManager for GameMaster {
         let level_increased = Established::prove(&SkillLevelRaised);
         let prerequisite = Some(Established::prove(&PrerequisiteMet));
 
-        let _evidence = SkillImprovementEvidence {
+        let evidence = SkillImprovementEvidence {
             points_spent,
             level_increased,
             prerequisite,
         };
 
-        Ok((character, Established::assert()))
+        Ok((character, Established::prove(&evidence)))
     }
 
     async fn calculate_effective_skill(

@@ -176,7 +176,6 @@ pub use types::{
     SpellClass, SpellCollege, SpellDescriptor, SpellEffectDescriptor, SpellResistanceDescriptor,
 };
 
-#[cfg(not(creusot))]
 pub use types::{
     AdvantageDescriptorBuilder, AttackDescriptorBuilder, CasterDescriptorBuilder,
     CeremonialMagicDescriptorBuilder, CharacterCreationDescriptorBuilder,

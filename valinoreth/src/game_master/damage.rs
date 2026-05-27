@@ -45,7 +45,6 @@ impl DamageCalculator for GameMaster {
         &self,
         descriptor: DamageDescriptor,
     ) -> CombatResult<(i32, Established<BasicDamageEvidence>)> {
-        // Roll damage dice using deterministic generator
         let mut total = 0;
         for i in 0..descriptor.dice {
             let seed = self.config.seed.wrapping_add(i as u64);
@@ -55,23 +54,14 @@ impl DamageCalculator for GameMaster {
         }
         total += descriptor.modifier;
         total += descriptor.critical_bonus;
-
-        // Ensure damage is at least 0
         let damage = total.max(0);
 
-        // Mint proof tokens
         let damage_rolled = Established::prove(&ValidDamageRoll);
         let dr_applied = Established::prove(&DrSubtracted);
         let basic_calculated = Established::prove(&BasicDamageComputed);
+        let evidence = BasicDamageEvidence { damage_rolled, dr_applied, basic_calculated };
 
-        // Compose evidence
-        let _evidence = BasicDamageEvidence {
-            damage_rolled,
-            dr_applied,
-            basic_calculated,
-        };
-
-        Ok((damage, Established::assert()))
+        Ok((damage, Established::prove(&evidence)))
     }
 
     async fn calculate_injury(
@@ -82,21 +72,13 @@ impl DamageCalculator for GameMaster {
         damage_descriptor: DamageDescriptor,
         _damage_evidence: Established<BasicDamageEvidence>,
     ) -> CombatResult<(DamageResult, Established<InjuryCalculationEvidence>)> {
-        // Apply DR
         let penetrating_damage = (raw_damage - armor.dr).max(0);
-
-        // Get location multiplier
         let location_multiplier = location.damage_multiplier(damage_descriptor.damage_type);
-
-        // Get wounding multiplier
         let wounding_multiplier = damage_descriptor.damage_type.wounding_multiplier();
-
-        // Calculate final injury
         let injury = ((penetrating_damage as f32) * location_multiplier * wounding_multiplier)
             .round() as i32;
         let injury = injury.max(0);
 
-        // Build result
         let result = DamageResult {
             raw_damage,
             dr: armor.dr,
@@ -107,24 +89,15 @@ impl DamageCalculator for GameMaster {
             injury,
         };
 
-        // Reconstruct basic damage evidence
         let damage_rolled = Established::prove(&ValidDamageRoll);
         let dr_applied = Established::prove(&DrSubtracted);
         let basic_calculated = Established::prove(&BasicDamageComputed);
-        let basic_damage = BasicDamageEvidence {
-            damage_rolled,
-            dr_applied,
-            basic_calculated,
-        };
-
-        // Mint injury calculation proofs
+        let basic_damage = BasicDamageEvidence { damage_rolled, dr_applied, basic_calculated };
         let location_proof = Established::prove(&LocationDetermined);
         let location_mult = Established::prove(&LocationMultiplierComputed);
         let wounding_mult = Established::prove(&WoundingMultiplierComputed);
         let injury_calculated = Established::prove(&InjuryComputed);
-
-        // Compose evidence
-        let _evidence = InjuryCalculationEvidence {
+        let evidence = InjuryCalculationEvidence {
             basic_damage,
             location: location_proof,
             location_mult,
@@ -132,7 +105,7 @@ impl DamageCalculator for GameMaster {
             injury_calculated,
         };
 
-        Ok((result, Established::assert()))
+        Ok((result, Established::prove(&evidence)))
     }
 
     async fn apply_injury(
@@ -141,25 +114,13 @@ impl DamageCalculator for GameMaster {
         injury: i32,
         _injury_evidence: Established<InjuryCalculationEvidence>,
     ) -> CombatResult<(CombatantDescriptor, Established<InjuryApplicationEvidence>)> {
-        // Apply injury to HP
         let new_hp = combatant.current_hp - injury;
+        let updated_combatant = CombatantDescriptor { current_hp: new_hp, ..combatant };
 
-        // Create updated combatant state
-        let updated_combatant = CombatantDescriptor {
-            current_hp: new_hp,
-            ..combatant
-        };
-
-        // Reconstruct full evidence chain
         let damage_rolled = Established::prove(&ValidDamageRoll);
         let dr_applied = Established::prove(&DrSubtracted);
         let basic_calculated = Established::prove(&BasicDamageComputed);
-        let basic_damage = BasicDamageEvidence {
-            damage_rolled,
-            dr_applied,
-            basic_calculated,
-        };
-
+        let basic_damage = BasicDamageEvidence { damage_rolled, dr_applied, basic_calculated };
         let location_proof = Established::prove(&LocationDetermined);
         let location_mult = Established::prove(&LocationMultiplierComputed);
         let wounding_mult = Established::prove(&WoundingMultiplierComputed);
@@ -171,15 +132,9 @@ impl DamageCalculator for GameMaster {
             wounding_mult,
             injury_calculated,
         };
-
         let applied = Established::prove(&InjurySubtracted);
+        let evidence = InjuryApplicationEvidence { calculation, applied };
 
-        // Compose evidence
-        let _evidence = InjuryApplicationEvidence {
-            calculation,
-            applied,
-        };
-
-        Ok((updated_combatant, Established::assert()))
+        Ok((updated_combatant, Established::prove(&evidence)))
     }
 }
