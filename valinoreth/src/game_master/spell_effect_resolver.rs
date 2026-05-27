@@ -92,13 +92,12 @@ impl SpellEffectResolver for GameMaster {
     ) -> CombatResult<(CasterDescriptor, Established<SpellMaintenanceEvidence>)> {
         let maintenance_cost = spell.base_maintenance_cost;
 
-        if caster.current_fp < maintenance_cost {
-            if caster.current_fp + caster.current_hp < maintenance_cost {
+        if caster.current_fp < maintenance_cost
+            && caster.current_fp + caster.current_hp < maintenance_cost {
                 return Err(ContractError::new(ContractErrorKind::StateViolation(
                     "Insufficient energy for spell maintenance".to_string(),
                 )));
             }
-        }
 
         if caster.current_fp >= maintenance_cost {
             caster.current_fp -= maintenance_cost;

@@ -310,7 +310,7 @@ pub use special_features::SpecialFeatures;
 pub use ui::{
     ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage, ChatMessageMode, ChatSender,
     ChatState, ContextualCommunicator, GameDisplay, ChatModel, KnowledgeCache,
-    ObservableCommunicator, SharedKnowledge, knowledge_cache,
+    ObservableCommunicator, Participant, SharedKnowledge, knowledge_cache,
     begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
 };
 #[cfg(feature = "frontend-ratatui")]

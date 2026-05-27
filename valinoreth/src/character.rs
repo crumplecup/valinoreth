@@ -249,10 +249,10 @@ impl Attributes {
     /// assert_eq!(cols, vec!["Strength", "12"]);
     /// ```
     pub fn columns(&self, attribute: &crate::AttributeType) -> Vec<String> {
-        let mut values = Vec::new();
-        values.push(self.column(attribute, &AttributeColumns::Name));
-        values.push(self.column(attribute, &AttributeColumns::Value));
-        values
+        vec![
+            self.column(attribute, &AttributeColumns::Name),
+            self.column(attribute, &AttributeColumns::Value),
+        ]
     }
 }
 
@@ -291,10 +291,7 @@ impl AttributeColumns {
     /// assert_eq!(names, vec!["Name", "Value"]);
     /// ```
     pub fn names() -> Vec<String> {
-        let mut values = Vec::new();
-        values.push(Self::Name.to_string());
-        values.push(Self::Value.to_string());
-        values
+        vec![Self::Name.to_string(), Self::Value.to_string()]
     }
 }
 

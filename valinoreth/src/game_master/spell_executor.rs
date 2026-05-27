@@ -38,7 +38,7 @@ impl SpellExecutor for GameMaster {
         // Check for critical failure
         if result.critical_failure {
             let failure_evidence = self
-                .confirm_critical_casting_failure(result.clone(), casting_evidence.clone())
+                .confirm_critical_casting_failure(result, casting_evidence)
                 .await?;
 
             return Ok(SpellExecutionResult::CriticalFailure {
@@ -52,7 +52,7 @@ impl SpellExecutor for GameMaster {
         // Check if casting succeeded
         if !result.success {
             let failure_evidence = self
-                .confirm_casting_failure(result.clone(), casting_evidence)
+                .confirm_casting_failure(result, casting_evidence)
                 .await?;
 
             return Ok(SpellExecutionResult::Failure {
@@ -64,7 +64,7 @@ impl SpellExecutor for GameMaster {
 
         // Confirm success and get success evidence
         let success_evidence = self
-            .confirm_casting_success(result.clone(), casting_evidence)
+            .confirm_casting_success(result, casting_evidence)
             .await?;
 
         // Step 2: Apply spell effect — type-level proof that the effect was applied.
@@ -87,7 +87,7 @@ impl SpellExecutor for GameMaster {
                     resistance_attribute: None,
                 },
                 effect_descriptor.clone(),
-                success_evidence.clone(),
+                success_evidence,
             )
             .await?;
 

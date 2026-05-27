@@ -101,7 +101,7 @@ impl ChatModel {
 
     /// Transition to [`ChatState::Composing`] with a fresh buffer.
     pub fn begin_compose(&mut self) {
-        let (s, p) = begin_compose(self.state.clone(), self.proof.clone());
+        let (s, p) = begin_compose(self.state.clone(), self.proof);
         self.state = s;
         self.proof = p;
     }
@@ -114,7 +114,7 @@ impl ChatModel {
             ChatState::Composing { buffer } if !buffer.trim().is_empty() => Some(buffer.clone()),
             _ => None,
         };
-        let (s, p) = send_message(self.state.clone(), self.proof.clone());
+        let (s, p) = send_message(self.state.clone(), self.proof);
         self.state = s;
         self.proof = p;
         if let Some(ref t) = text {
@@ -125,7 +125,7 @@ impl ChatModel {
 
     /// Discard the composing buffer and return to viewing.
     pub fn cancel_compose(&mut self) {
-        let (s, p) = cancel_compose(self.state.clone(), self.proof.clone());
+        let (s, p) = cancel_compose(self.state.clone(), self.proof);
         self.state = s;
         self.proof = p;
     }
@@ -136,7 +136,7 @@ impl ChatModel {
         if self.scroll_offset < max {
             self.scroll_offset += 1;
         }
-        let (s, p) = scroll_up(self.state.clone(), self.proof.clone());
+        let (s, p) = scroll_up(self.state.clone(), self.proof);
         self.state = s;
         self.proof = p;
     }
@@ -146,14 +146,14 @@ impl ChatModel {
         if self.scroll_offset > 0 {
             self.scroll_offset -= 1;
         }
-        let (s, p) = scroll_down(self.state.clone(), self.proof.clone());
+        let (s, p) = scroll_down(self.state.clone(), self.proof);
         self.state = s;
         self.proof = p;
     }
 
     fn post(&mut self, sender: ChatSender, text: impl Into<String>) {
         self.messages.push(ChatMessage::new(sender, text));
-        let (s, p) = receive_message(self.state.clone(), self.proof.clone());
+        let (s, p) = receive_message(self.state.clone(), self.proof);
         self.state = s;
         self.proof = p;
     }
