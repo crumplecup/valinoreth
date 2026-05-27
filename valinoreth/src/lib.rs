@@ -29,6 +29,29 @@ mod movement;
 mod players;
 mod skills;
 mod special_features;
+// BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
+pub use ui::begin_compose_kani_contracted;
+pub use ui::cancel_compose_kani_contracted;
+pub use ui::chat_consistent;
+pub use ui::receive_message_kani_contracted;
+pub use ui::scroll_down_kani_contracted;
+pub use ui::scroll_up_kani_contracted;
+pub use ui::send_message_kani_contracted;
+pub use vsm::apply_damage_kani_contracted;
+pub use vsm::begin_turn_kani_contracted;
+pub use vsm::conclude_combat_kani_contracted;
+pub use vsm::declare_attack_kani_contracted;
+pub use vsm::end_turn_kani_contracted;
+pub use vsm::initialize_combat_kani_contracted;
+pub use vsm::resolve_attack_kani_contracted;
+pub use vsm::resolve_defense_kani_contracted;
+// END ELICITATION KANI REEXPORTS
+
+
+
+
+
+
 mod ui;
 mod vsm;
 

@@ -20,6 +20,7 @@ mod display;
 mod frontends;
 mod keymap;
 mod model;
+// pub so the proof crate can reach `_kani_contracted` fns in ui::vsm::chat.
 mod vsm;
 
 pub use chat::{ChatMessage, ChatMessageMode, ChatSender};
@@ -37,3 +38,12 @@ pub use vsm::{
 
 #[cfg(feature = "frontend-ratatui")]
 pub use frontends::run_chat;
+// BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
+pub use vsm::begin_compose_kani_contracted;
+pub use vsm::cancel_compose_kani_contracted;
+pub use vsm::chat_consistent;
+pub use vsm::receive_message_kani_contracted;
+pub use vsm::scroll_down_kani_contracted;
+pub use vsm::scroll_up_kani_contracted;
+pub use vsm::send_message_kani_contracted;
+// END ELICITATION KANI REEXPORTS
