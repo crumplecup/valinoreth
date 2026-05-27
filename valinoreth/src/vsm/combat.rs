@@ -264,8 +264,8 @@ pub fn begin_turn(
 ///
 /// Validates that the attacker can take action and target is valid.
 #[formal_method(contracts = [CombatConsistent], kani_requires = [
-   "attacker_id < 100",  // Reasonable bound for verification
-   "target_id < 100",
+   "_attacker_id < 100",  // Reasonable bound for verification
+   "_target_id < 100",
 ])]
 #[instrument(skip(proof, _attack_proof))]
 pub fn declare_attack(

@@ -57,8 +57,25 @@ pub enum ChatState {
 ///
 /// Holds whenever the state is a valid `ChatState` variant — one mode
 /// active at a time, no undefined intermediate configurations.
+///
+/// All `ChatState` variants are structurally valid by construction, so
+/// the invariant holds trivially for any well-formed value.
 #[derive(Prop)]
+#[prop(
+    kani_invariant_fn = "chat_consistent",
+    creusot_invariant_fn = "chat_consistent",
+    verus_inv_body = "true",
+    creusot_inv_body = "pearlite! { true }"
+)]
 pub struct ChatConsistent;
+
+/// Structural invariant predicate for [`ChatState`].
+///
+/// All `ChatState` variants are valid by construction; the invariant
+/// holds trivially for any well-formed value.
+pub fn chat_consistent(_state: &ChatState) -> bool {
+    true
+}
 
 // ── ChatMachine ───────────────────────────────────────────────────────────────
 
