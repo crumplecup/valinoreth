@@ -178,6 +178,7 @@ markdown-fix:
 generate-proofs:
     elicitation generate proof-crate \
         --crate-path valinoreth/src/vsm \
+        --crate-path valinoreth/src/ui/vsm \
         --out valinoreth_proofs \
         --crate-name valinoreth_proofs
 
