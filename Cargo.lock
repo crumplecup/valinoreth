@@ -2516,6 +2516,7 @@ dependencies = [
  "crossterm_winapi",
  "derive_more",
  "document-features",
+ "futures-core",
  "mio",
  "parking_lot",
  "rustix 1.1.4",
@@ -3051,6 +3052,7 @@ name = "elicit_ratatui"
 version = "0.11.0"
 dependencies = [
  "accesskit 0.24.0",
+ "crossterm 0.29.0",
  "elicit_accesskit",
  "elicit_ui",
  "elicitation",
@@ -3062,7 +3064,9 @@ dependencies = [
  "schemars",
  "serde",
  "serde_json",
+ "tokio",
  "tracing",
+ "uuid",
 ]
 
 [[package]]
@@ -8869,6 +8873,7 @@ name = "valinoreth"
 version = "0.1.0"
 dependencies = [
  "accesskit 0.24.0",
+ "anyhow",
  "async-trait",
  "bio",
  "clap",

@@ -42,14 +42,15 @@ elicit_accesskit = { path = "../../elicitation/crates/elicit_accesskit" }
 elicit_ui = { path = "../../elicitation/crates/elicit_ui" }
 
 # ratatui frontend (feature = "frontend-ratatui")
-elicit_ratatui = { path = "../../elicitation/crates/elicit_ratatui", optional = true }
+elicit_ratatui = { path = "../../elicitation/crates/elicit_ratatui", features = ["runtime"], optional = true }
 ratatui = { version = "0.30", optional = true }
 crossterm = { version = "0.29", optional = true }
+anyhow = { version = "1", optional = true }
 
 [dev-dependencies]
 tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
 
 [features]
 bin-extras = ["bio"]
-frontend-ratatui = ["dep:elicit_ratatui", "dep:ratatui", "dep:crossterm"]
+frontend-ratatui = ["dep:elicit_ratatui", "dep:ratatui", "dep:crossterm", "dep:anyhow"]
 

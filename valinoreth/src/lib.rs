@@ -54,6 +54,8 @@ pub use vsm::resolve_defense_kani_contracted;
 
 mod ui;
 mod vsm;
+#[cfg(feature = "frontend-ratatui")]
+mod lobby;
 
 pub use advantages::{
     AbsoluteDirection, Advantage, Appearance, Claws, EiditicMemory, Flexible, Flight,
@@ -338,6 +340,8 @@ pub use ui::{
 };
 #[cfg(feature = "frontend-ratatui")]
 pub use ui::run_chat;
+#[cfg(feature = "frontend-ratatui")]
+pub use ui::TuiCommunicator;
 pub use vsm::{
     apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
     damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn,
@@ -349,4 +353,9 @@ pub use contracts::{
     AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
     CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
     RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
+};
+#[cfg(feature = "frontend-ratatui")]
+pub use lobby::{
+    AgentConfig, CombatSetupScreen, CombatSlot, LobbyController, LobbySettings, MainLobbyScreen,
+    PlayerKind, RosterEntry, Screen, ScreenTransition, SettingsScreen, default_roster, run_lobby,
 };

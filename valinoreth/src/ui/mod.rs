@@ -38,6 +38,8 @@ pub use vsm::{
 
 #[cfg(feature = "frontend-ratatui")]
 pub use frontends::run_chat;
+#[cfg(feature = "frontend-ratatui")]
+pub use frontends::TuiCommunicator;
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
 pub use vsm::begin_compose_kani_contracted;
 pub use vsm::cancel_compose_kani_contracted;

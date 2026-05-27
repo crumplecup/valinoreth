@@ -6,6 +6,18 @@ fn main() {
     trace_init();
     let cli = Cli::parse();
     match cli.command().as_str() {
+        "lobby" => {
+            #[cfg(feature = "frontend-ratatui")]
+            {
+                let rt = tokio::runtime::Runtime::new().expect("tokio runtime");
+                if let Err(e) = rt.block_on(valinoreth::run_lobby()) {
+                    eprintln!("Lobby error: {}", e);
+                    std::process::exit(1);
+                }
+            }
+            #[cfg(not(feature = "frontend-ratatui"))]
+            tracing::warn!("lobby command requires the frontend-ratatui feature");
+        }
         "paeva" => Players::paeva(),
         "prob" => {
             #[cfg(feature = "bin-extras")]
