@@ -304,12 +304,13 @@ pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
 };
 pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
-pub use players::Players;
+pub use players::{DefenseChoice, ManeuverChoice, Player, Players};
 pub use skills::{Family, Skill, SkillBase, SkillDefault};
 pub use special_features::SpecialFeatures;
 pub use ui::{
     ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage, ChatMessageMode, ChatSender,
-    ChatState, GameDisplay, ChatModel,
+    ChatState, ContextualCommunicator, GameDisplay, ChatModel, KnowledgeCache,
+    ObservableCommunicator, SharedKnowledge, knowledge_cache,
     begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
 };
 #[cfg(feature = "frontend-ratatui")]
@@ -318,7 +319,8 @@ pub use vsm::{
     apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
     damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn,
     initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatMachine,
-    CombatState, CombatantState,
+    CombatPhase, CombatSession, CombatState, CombatStateView, CombatWorkflow, CombatantState,
+    CombatantView, WorkflowError,
 };
 pub use contracts::{
     AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,

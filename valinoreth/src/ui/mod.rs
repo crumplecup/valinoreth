@@ -16,6 +16,8 @@
 //! [`VerifiedTree`]: elicit_ui::VerifiedTree
 
 mod chat;
+mod communicator;
+mod contextual_communicator;
 mod display;
 mod frontends;
 mod keymap;
@@ -23,6 +25,10 @@ mod model;
 mod vsm;
 
 pub use chat::{ChatMessage, ChatMessageMode, ChatSender};
+pub use communicator::ObservableCommunicator;
+pub use contextual_communicator::{
+    knowledge_cache, ContextualCommunicator, KnowledgeCache, SharedKnowledge,
+};
 pub use display::GameDisplay;
 pub use keymap::{ChatAction, ChatKeyMap};
 pub use model::ChatModel;

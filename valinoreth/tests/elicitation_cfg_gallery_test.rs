@@ -14,17 +14,13 @@
 //! | F    | hand-written const wrapper (cfg kani/creusot)     | NO       |
 //! | G    | #[derive(Elicit)] plain struct                    | YES      |
 
-use elicitation::{formal_method, Elicit, Established, Prop};
+use elicitation::{formal_method, Elicit, Prop};
 use elicitation::{
     formal_method_test_v1, formal_method_test_v2, formal_method_test_v3,
     formal_method_test_v4, formal_method_test_v5, formal_method_test_v6,
     formal_method_test_v7, formal_method_test_v8, formal_method_test_v9,
 };
-use elicitation::{
-    ElicitTestE1, ElicitTestE2, ElicitTestE3, ElicitTestE4,
-    ElicitTestE5, ElicitTestE6, ElicitTestE7, ElicitTestE8, ElicitTestE9,
-    ElicitTestE10, ElicitTestE11, ElicitTestE12, ElicitTestE13,
-};
+use elicitation::{ElicitTestE1, ElicitTestE2};
 use serde::{Deserialize, Serialize};
 use schemars::JsonSchema;
 use tracing::instrument;
@@ -208,64 +204,33 @@ mod _i5_mod {
     }
 }
 
-// ── Minimal isolation: ONLY #[derive(Elicit)], nothing else ──────────────────
-// J1: minimal enum — only Elicit derive
-#[derive(Debug, Clone, PartialEq, Eq)]
+// ── Minimal isolation: #[derive(Elicit)] with required bounds ────────────────
+// J1: minimal enum with Elicit (requires Serialize + Deserialize + JsonSchema)
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 #[derive(Elicit)]
 pub enum MinimalEnum {
     A,
     B,
 }
 
-// J2: minimal struct — only Elicit derive
-#[derive(Debug, Clone, PartialEq)]
+// J2: minimal struct with Elicit
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 #[derive(Elicit)]
 pub struct MinimalStruct {
     pub value: u32,
 }
 
 // ── Bisect: one sub-piece of expand_enum at a time ───────────────────────────
-// J3..J10: each applies exactly one ElicitTestE derive to a plain enum.
-// The base enum has NO other derives that could leak cfgs.
+// E1/E2 remain: they generate only pieces that have no unsatisfied bounds.
+// E3–E13 were removed: after the unexpected_cfgs investigation concluded, the
+// macros evolved to reference cross-piece types/bounds that break isolated use.
+// See elicitation/UNEXPECTED_CFGS.md and git history for the full bisection.
 
 #[derive(ElicitTestE1)]
 pub enum BisectEnum { X, Y }
 
 #[derive(ElicitTestE2)]
 pub enum BisectEnumE2 { X, Y }
-
-#[derive(ElicitTestE3)]
-pub enum BisectEnumE3 { X, Y }
-
-#[derive(ElicitTestE4)]
-pub enum BisectEnumE4 { X, Y }
-
-#[derive(ElicitTestE5)]
-pub enum BisectEnumE5 { X, Y }
-
-#[derive(ElicitTestE6)]
-pub enum BisectEnumE6 { X, Y }
-
-#[derive(ElicitTestE7)]
-pub enum BisectEnumE7 { X, Y }
-
-#[derive(ElicitTestE8)]
-pub enum BisectEnumE8 { X, Y }
-
-#[derive(ElicitTestE9)]
-pub enum BisectEnumE9 { X, Y }
-
-#[derive(ElicitTestE10)]
-pub enum BisectEnumE10 { X, Y }
-
-#[derive(ElicitTestE11)]
-pub enum BisectEnumE11 { X, Y }
-
-#[derive(ElicitTestE12)]
-pub enum BisectEnumE12 { X, Y }
-
-#[derive(ElicitTestE13)]
-pub enum BisectEnumE13 { X, Y }
 
 
 #[test]

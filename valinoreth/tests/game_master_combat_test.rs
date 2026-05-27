@@ -299,7 +299,7 @@ async fn test_execute_attack_with_armor() {
 
     match result {
         CombatExchangeResult::Hit {
-            defender: updated_defender,
+            defender: _,
             damage,
             evidence: _,
         } => {

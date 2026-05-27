@@ -35,8 +35,10 @@
 //! 7. VSM: end_turn() - advances to next combatant
 //! ```
 
-pub mod combat;
-pub mod integration;
+mod combat;
+mod integration;
+mod session;
+mod workflow;
 
 pub use combat::{
     apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack, end_turn,
@@ -44,3 +46,5 @@ pub use combat::{
     CombatState, CombatantState,
 };
 pub use integration::{attack_resolved_from_gm, damage_applied_from_gm, defense_resolved_from_gm};
+pub use session::{CombatPhase, CombatSession, CombatStateView, CombatantView};
+pub use workflow::{CombatWorkflow, WorkflowError};
