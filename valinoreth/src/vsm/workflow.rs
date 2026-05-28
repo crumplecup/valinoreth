@@ -31,7 +31,7 @@
 
 use elicitation::{ChoiceSet, ElicitCommunicator, Established};
 use tokio::sync::mpsc;
-use tracing::instrument;
+use tracing::{debug, info, instrument};
 
 use crate::contracts::types::{
     ArmorDescriptor, AttackDescriptorBuilder, CombatantDescriptorBuilder, DamageDescriptorBuilder,
@@ -247,8 +247,10 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
 
                     // ── Elicit defense ────────────────────────────────────────
                     let defenses = available_defenses(&self.combatants[target_slot].player.character);
+                    debug!(defender = %target_state.id, "eliciting defense choice");
                     let defense_choice =
                         self.combatants[target_slot].player.choose_defense(defenses).await?;
+                    debug!(defender = %target_state.id, choice = ?defense_choice, "defense chosen");
 
                     // ── Build descriptors ─────────────────────────────────────
                     let attacker_char = &self.combatants[actor_slot].player.character;
@@ -289,6 +291,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                     let armor_desc = ArmorDescriptor { dr: 0, flexible: false };
 
                     // ── Execute combat exchange ───────────────────────────────
+                    debug!(attacker = %actor_state.id, defender = %target_state.id, "executing attack");
                     match self
                         .gm
                         .execute_attack(
@@ -302,6 +305,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                         .await?
                     {
                         CombatExchangeResult::Miss { reason, .. } => {
+                            info!(attacker = %actor_state.id, defender = %target_state.id, ?reason, "attack missed");
                             self.narrate(format!(
                                 "{} attacks {} — miss ({:?}).",
                                 actor_state.id, target_state.id, reason
@@ -317,6 +321,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
 
                         CombatExchangeResult::Hit { damage, .. } => {
                             let injury = damage.injury;
+                            info!(attacker = %actor_state.id, defender = %target_state.id, injury, "attack hit");
                             self.narrate(format!(
                                 "{} hits {} for {} injury!",
                                 actor_state.id, target_state.id, injury
@@ -366,6 +371,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
 
     /// Push the current combat state into `combatant_slot`'s knowledge cache,
     /// replacing any stale entry from a previous turn.
+    #[instrument(skip(self, vsm_state), fields(combatant_slot))]
     fn refresh_knowledge(&self, combatant_slot: usize, vsm_state: &CombatState) {
         let phase = CombatPhase::Active(vsm_state.clone());
         let viewer_name = &self.combatants[combatant_slot].player.character.name;
@@ -375,7 +381,10 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
         cache.push(view.to_preamble());
     }
 
+    #[instrument(skip(self, text))]
     fn narrate(&self, text: impl Into<String>) {
+        let text = text.into();
+        info!(narration = %text, "GM narration");
         self.chat_tx
             .send(ChatMessage::new(ChatSender::GameMaster, text))
             .ok();
@@ -385,10 +394,12 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
 // ── Helper functions ──────────────────────────────────────────────────────────
 
 /// Write a new phase into the session for observer reads.
+#[instrument(skip(session, phase))]
 async fn push_phase(session: &CombatSession, phase: CombatPhase) {
     *session.lock().await = phase;
 }
 
+#[instrument(skip(ch), fields(name = %ch.name, team))]
 fn build_combatant_state(ch: &CharacterDescriptor, team: &str) -> CombatantState {
     let hp = ch.derived_stats.hp;
     CombatantState {
@@ -404,6 +415,7 @@ fn build_combatant_state(ch: &CharacterDescriptor, team: &str) -> CombatantState
 }
 
 /// Returns the index of the first non-incapacitated combatant on an opposing team.
+#[instrument(skip(state), fields(actor_slot))]
 fn find_enemy_target(state: &CombatState, actor_slot: usize) -> Option<usize> {
     let CombatState::Active { ref combatants, .. } = state else {
         return None;
@@ -417,6 +429,7 @@ fn find_enemy_target(state: &CombatState, actor_slot: usize) -> Option<usize> {
 }
 
 /// Returns the winning team name if exactly one team has living combatants.
+#[instrument(skip(state))]
 fn winning_team(state: &CombatState) -> Option<String> {
     let CombatState::Active { ref combatants, .. } = state else {
         return None;
@@ -446,6 +459,7 @@ fn available_defenses(ch: &CharacterDescriptor) -> ChoiceSet<DefenseChoice> {
 }
 
 /// Map a [`DefenseChoice`] to a [`crate::contracts::types::DefenseDescriptor`].
+#[instrument(skip(ch), fields(choice = ?choice))]
 fn build_defense_descriptor(
     choice: DefenseChoice,
     ch: &CharacterDescriptor,
@@ -464,6 +478,7 @@ fn build_defense_descriptor(
 }
 
 /// Effective melee attack skill: first DX- or ST-based skill found, else 10.
+#[instrument(skip(ch), fields(name = %ch.name))]
 fn melee_skill(ch: &CharacterDescriptor) -> i32 {
     ch.skills
         .iter()
@@ -475,6 +490,7 @@ fn melee_skill(ch: &CharacterDescriptor) -> i32 {
 }
 
 /// Parry score: weapon_skill / 2 + 3.
+#[instrument(skip(ch), fields(name = %ch.name))]
 fn parry_score(ch: &CharacterDescriptor) -> i32 {
     melee_skill(ch) / 2 + 3
 }

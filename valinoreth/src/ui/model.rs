@@ -151,6 +151,12 @@ impl ChatModel {
         self.proof = p;
     }
 
+    /// Push an incoming [`ChatMessage`] (from the workflow channel) into the log.
+    #[instrument(skip(self, msg))]
+    pub fn receive(&mut self, msg: ChatMessage) {
+        self.post(msg.sender, msg.text);
+    }
+
     fn post(&mut self, sender: ChatSender, text: impl Into<String>) {
         self.messages.push(ChatMessage::new(sender, text));
         let (s, p) = receive_message(self.state.clone(), self.proof);

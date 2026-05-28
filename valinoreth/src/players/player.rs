@@ -35,6 +35,7 @@ pub struct Player<C: ElicitCommunicator> {
 
 impl<C: ElicitCommunicator> Player<C> {
     /// Create a new player from a character and a communicator.
+    #[instrument(skip(character, communicator), fields(name = %character.name))]
     pub fn new(character: CharacterDescriptor, communicator: C) -> Self {
         Self { character, communicator }
     }

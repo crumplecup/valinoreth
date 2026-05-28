@@ -19,6 +19,8 @@ mod chat;
 mod display;
 mod frontends;
 mod keymap;
+#[cfg(feature = "frontend-ratatui")]
+mod llm_client;
 mod model;
 // pub so the proof crate can reach `_kani_contracted` fns in ui::vsm::chat.
 mod vsm;
@@ -37,9 +39,9 @@ pub use vsm::{
 };
 
 #[cfg(feature = "frontend-ratatui")]
-pub use frontends::run_chat;
+pub use frontends::{ChatCommunicator, LlmElicitCommunicator, run_chat, TuiCommunicator};
 #[cfg(feature = "frontend-ratatui")]
-pub use frontends::TuiCommunicator;
+pub use llm_client::{LlmClient, LlmConfig, LlmProvider};
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
 pub use vsm::begin_compose_kani_contracted;
 pub use vsm::cancel_compose_kani_contracted;

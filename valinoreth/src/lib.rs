@@ -339,9 +339,7 @@ pub use ui::{
     begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
 };
 #[cfg(feature = "frontend-ratatui")]
-pub use ui::run_chat;
-#[cfg(feature = "frontend-ratatui")]
-pub use ui::TuiCommunicator;
+pub use ui::{ChatCommunicator, LlmClient, LlmConfig, LlmElicitCommunicator, LlmProvider, TuiCommunicator, run_chat};
 pub use vsm::{
     apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
     damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn,
@@ -356,6 +354,7 @@ pub use contracts::{
 };
 #[cfg(feature = "frontend-ratatui")]
 pub use lobby::{
-    AgentConfig, CombatSetupScreen, CombatSlot, LobbyController, LobbySettings, MainLobbyScreen,
-    PlayerKind, RosterEntry, Screen, ScreenTransition, SettingsScreen, default_roster, run_lobby,
+    AgentConfig, CombatCommunicator, CombatSetupScreen, CombatSlot, ConfigError, LobbyController,
+    LobbySettings, MainLobbyScreen, PlayerKind, RosterEntry, Screen, ScreenTransition,
+    SettingsScreen, default_roster, run_lobby,
 };

@@ -2,24 +2,28 @@
 //!
 //! Call [`run_lobby`] to start the full lobby event loop from `main`.
 
-use std::io::Write as _;
+use std::sync::Arc;
+use std::time::Duration;
 
+use crossterm::event::{self, Event, KeyCode, KeyEventKind};
 use crossterm::{
-    event::{self, Event, KeyEventKind},
     execute,
     terminal::{
         EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode,
     },
 };
+use elicit_ratatui::{RatatuiBackend, render_node};
+use elicit_ui::UiTreeRenderer as _;
 use ratatui::{Terminal, backend::CrosstermBackend};
-use tokio::sync::mpsc;
+use tokio::sync::{Mutex, mpsc};
 use tracing::{debug, info, instrument, warn};
 
 use crate::lobby::screen::{Screen, ScreenTransition};
 use crate::lobby::screens::{CombatSetupScreen, MainLobbyScreen, SettingsScreen};
-use crate::lobby::settings::{CombatSlot, LobbySettings};
+use crate::lobby::settings::{CombatSlot, LobbySettings, PlayerKind};
 use crate::{
-    ChatMessage, ChatSender, CombatWorkflow, GameMaster, Player, TuiCommunicator,
+    ChatCommunicator, ChatMessage, ChatModel, CombatCommunicator, CombatWorkflow,
+    GameMaster, LlmElicitCommunicator, Player,
 };
 
 /// Active screen in the lobby state machine.
@@ -71,7 +75,7 @@ impl LobbyController {
                 ActiveScreen::Settings(s) => s.render(f),
             })?;
 
-            if !event::poll(std::time::Duration::from_millis(50))? {
+            if !event::poll(Duration::from_millis(50))? {
                 continue;
             }
 
@@ -86,7 +90,6 @@ impl LobbyController {
                 ActiveScreen::Settings(s) => s.handle_key(key),
             };
 
-            // StartCombat leaves the ratatui context, runs combat, then returns.
             if let ScreenTransition::StartCombat { ref slots } = transition {
                 let slots = slots.clone();
                 self.execute_combat(terminal, slots).await?;
@@ -104,7 +107,6 @@ impl LobbyController {
         }
     }
 
-    /// Applies a non-combat screen transition.
     #[instrument(skip(self, current))]
     fn apply_transition(
         &mut self,
@@ -142,90 +144,163 @@ impl LobbyController {
         }
     }
 
-    /// Executes a combat encounter and returns to the lobby when done.
+    /// Executes a combat encounter inside the existing ratatui context.
     ///
-    /// Leaves the ratatui alternate screen, runs the [`CombatWorkflow`] in
-    /// normal terminal mode (GM narration via background task, player choices
-    /// via [`TuiCommunicator`]), then re-enters the alternate screen.
+    /// Stays in the alternate screen throughout.  GM narration and human
+    /// elicitation prompts flow through a [`ChatModel`] rendered via the
+    /// AccessKit IR pipeline.  Human players type replies in compose mode;
+    /// agent players call the LLM directly.
+    ///
+    /// Returns to the lobby when the workflow completes and the player presses
+    /// `q` or `Esc`.
+    ///
+    /// # Errors
+    ///
+    /// Returns `Err` on terminal I/O failures or if the workflow task panics.
     #[instrument(skip(self, terminal, slots), fields(num_slots = slots.len()))]
     async fn execute_combat(
         &self,
         terminal: &mut Terminal<CrosstermBackend<std::io::Stdout>>,
         slots: Vec<CombatSlot>,
     ) -> anyhow::Result<()> {
-        info!("Executing combat encounter");
+        info!("Starting combat encounter");
 
-        // Leave ratatui alternate screen so we get a normal scrolling terminal.
-        disable_raw_mode()?;
-        execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
-
-        println!("\n╔══════════════════════════════╗");
-        println!("║   ⚔  GURPS Combat Starting  ⚔ ║");
-        println!("╚══════════════════════════════╝\n");
-        for slot in &slots {
-            println!(
-                "  Team {} — {} ({})",
-                slot.team,
-                slot.character.name,
-                slot.kind.label()
-            );
-        }
-        println!();
-
-        // Build workflow.
-        let gm = GameMaster::new();
+        // ── Channels ──────────────────────────────────────────────────────────
+        // All chat messages (GM narration + human prompts) arrive on chat_rx.
         let (chat_tx, mut chat_rx) = mpsc::unbounded_channel::<ChatMessage>();
+        // compose_rx fires when a ChatCommunicator wants compose mode enabled.
+        let (compose_tx, mut compose_rx) = mpsc::unbounded_channel::<()>();
+        // reply_tx is the event loop end; reply_rx is held by ChatCommunicator.
+        let (reply_tx, reply_rx) = mpsc::unbounded_channel::<String>();
+        let reply_rx = Arc::new(Mutex::new(reply_rx));
 
-        // Background task: print GM narration as it arrives.
-        let print_task = tokio::spawn(async move {
-            let mut stdout = std::io::stdout();
-            while let Some(msg) = chat_rx.recv().await {
-                let prefix = match msg.sender {
-                    ChatSender::GameMaster => "[GM]    ",
-                    ChatSender::Player => "[PLAYER]",
-                    ChatSender::System => "[SYS]   ",
-                };
-                let _ = write!(stdout, "{} {}\r\n", prefix, msg.text);
-                let _ = stdout.flush();
-            }
-        });
+        // ── Build communicators ───────────────────────────────────────────────
+        let chat_comm =
+            ChatCommunicator::new(chat_tx.clone(), compose_tx, reply_rx);
 
-        // Build players — both use TuiCommunicator; agent kind is cosmetic for now.
-        let players: Vec<(Player<TuiCommunicator>, String)> = slots
-            .into_iter()
-            .map(|slot| (Player::new(slot.character, TuiCommunicator::new()), slot.team))
-            .collect();
+        let mut model = ChatModel::new();
+        model.system_event("Combat begins — good luck!");
 
-        enable_raw_mode()?;
-        let result = CombatWorkflow::new(gm, players, chat_tx).run().await;
-        disable_raw_mode()?;
-
-        // Drain remaining messages from the channel.
-        print_task.await?;
-
-        // Show outcome.
-        println!();
-        match &result {
-            Ok(Some(winner)) => println!("═══  Team {} wins!  ═══", winner),
-            Ok(None) => println!("═══  Draw — all combatants incapacitated  ═══"),
-            Err(e) => println!("═══  Combat error: {}  ═══", e),
+        let gm = GameMaster::new();
+        let mut players: Vec<(Player<CombatCommunicator>, String)> = Vec::new();
+        for slot in &slots {
+            let comm = match &slot.kind {
+                PlayerKind::Human => CombatCommunicator::Human(chat_comm.clone()),
+                PlayerKind::Agent(config) => {
+                    match LlmElicitCommunicator::new(config) {
+                        Ok(llm) => CombatCommunicator::Agent(llm),
+                        Err(e) => {
+                            warn!(error = %e, "Failed to create LLM communicator; falling back to Human");
+                            model.system_event(format!(
+                                "Agent init failed ({e}); slot falling back to Human"
+                            ));
+                            CombatCommunicator::Human(chat_comm.clone())
+                        }
+                    }
+                }
+            };
+            players.push((Player::new(slot.character.clone(), comm), slot.team.clone()));
         }
-        println!("\nPress any key to return to lobby…");
 
-        // Wait for one keypress before returning.
-        enable_raw_mode()?;
+        // ── Spawn workflow ────────────────────────────────────────────────────
+        let mut workflow = CombatWorkflow::new(gm, players, chat_tx);
+        let workflow_handle = tokio::spawn(async move { workflow.run().await });
+
+        // ── Render loop ───────────────────────────────────────────────────────
+        let render_backend = RatatuiBackend::new();
+        let combat_result = 'combat: loop {
+            // Drain GM narration and player prompts into the model.
+            while let Ok(msg) = chat_rx.try_recv() {
+                model.receive(msg);
+            }
+
+            // Enter compose mode if a ChatCommunicator requested it.
+            while compose_rx.try_recv().is_ok() {
+                if !model.is_composing() {
+                    model.begin_compose();
+                }
+            }
+
+            // Check if the workflow finished.
+            if workflow_handle.is_finished() {
+                break 'combat workflow_handle.await?;
+            }
+
+            // Render via IR pipeline.
+            let (tree, _ir_proof) = model.to_verified_tree();
+            let (tui_node, _stats, _render_proof) = render_backend
+                .render(&tree)
+                .map_err(|e| anyhow::anyhow!("IR render error: {e}"))?;
+            terminal.draw(|frame| render_node(frame, frame.area(), &tui_node))?;
+
+            // Poll for key events.
+            if !event::poll(Duration::from_millis(50))? {
+                continue;
+            }
+            if let Event::Key(key) = event::read()? {
+                if key.kind != KeyEventKind::Press {
+                    continue;
+                }
+                match key.code {
+                    KeyCode::Char('q') | KeyCode::Esc if !model.is_composing() => {
+                        info!("Combat aborted by user");
+                        workflow_handle.abort();
+                        return Ok(());
+                    }
+                    KeyCode::Up | KeyCode::Char('k') if !model.is_composing() => {
+                        model.scroll_up();
+                    }
+                    KeyCode::Down | KeyCode::Char('j') if !model.is_composing() => {
+                        model.scroll_down();
+                    }
+                    KeyCode::Char('i') if !model.is_composing() => model.begin_compose(),
+                    KeyCode::Enter if model.is_composing() => {
+                        if let Some(text) = model.send_message() {
+                            if reply_tx.send(text).is_err() {
+                                warn!("Reply channel closed — workflow may have ended");
+                            }
+                        }
+                    }
+                    KeyCode::Esc if model.is_composing() => model.cancel_compose(),
+                    KeyCode::Backspace if model.is_composing() => model.pop_char(),
+                    KeyCode::Char(c) if model.is_composing() => model.push_char(c),
+                    _ => {}
+                }
+            }
+        };
+
+        // ── Show result ───────────────────────────────────────────────────────
+        // Drain any final messages from the channel.
+        while let Ok(msg) = chat_rx.try_recv() {
+            model.receive(msg);
+        }
+        match &combat_result {
+            Ok(Some(winner)) => model.gm_say(format!("=== Team {winner} wins! ===")),
+            Ok(None) => {
+                model.gm_say("=== Draw — all combatants incapacitated ===".to_string());
+            }
+            Err(e) => model.gm_say(format!("=== Combat error: {e} ===")),
+        }
+        model.system_event("Press q or Esc to return to the lobby.");
+
+        // ── Wait for acknowledgement ──────────────────────────────────────────
         loop {
-            if event::poll(std::time::Duration::from_millis(500))? {
-                let _ = event::read();
-                break;
+            let (tree, _ir_proof) = model.to_verified_tree();
+            let (tui_node, _stats, _render_proof) = render_backend
+                .render(&tree)
+                .map_err(|e| anyhow::anyhow!("IR render error: {e}"))?;
+            terminal.draw(|frame| render_node(frame, frame.area(), &tui_node))?;
+
+            if event::poll(Duration::from_millis(100))? {
+                if let Event::Key(key) = event::read()? {
+                    if key.kind == KeyEventKind::Press
+                        && matches!(key.code, KeyCode::Char('q') | KeyCode::Esc)
+                    {
+                        break;
+                    }
+                }
             }
         }
-        disable_raw_mode()?;
-
-        // Re-enter ratatui.
-        execute!(terminal.backend_mut(), EnterAlternateScreen)?;
-        enable_raw_mode()?;
-        terminal.clear()?;
 
         info!("Combat complete, returning to lobby");
         Ok(())
@@ -240,14 +315,17 @@ impl Default for LobbyController {
 
 /// Sets up the terminal and runs the lobby until the user quits.
 ///
-/// Handles terminal setup, drives [`LobbyController::run`], and restores the
-/// terminal on exit regardless of how the loop ends.
+/// Loads `.env` via dotenvy (if present), handles terminal setup, drives
+/// [`LobbyController::run`], and restores the terminal on exit regardless of
+/// how the loop ends.
 ///
 /// # Errors
 ///
 /// Returns `Err` on terminal I/O failures or unrecoverable workflow errors.
 #[instrument]
 pub async fn run_lobby() -> anyhow::Result<()> {
+    dotenvy::dotenv().ok();
+
     enable_raw_mode()?;
     let mut stdout = std::io::stdout();
     execute!(stdout, EnterAlternateScreen)?;
@@ -256,7 +334,6 @@ pub async fn run_lobby() -> anyhow::Result<()> {
 
     let result = LobbyController::new().run(&mut terminal).await;
 
-    // Always restore terminal even if we got an error.
     disable_raw_mode()?;
     execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
     terminal.show_cursor()?;

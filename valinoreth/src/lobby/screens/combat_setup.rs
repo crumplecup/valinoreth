@@ -1,17 +1,19 @@
 //! Combat setup screen — configure participants before starting an encounter.
 //!
-//! Shows two slots (Team A vs Team B) in a side-by-side layout.  The player
-//! can cycle through pre-built characters and toggle Human/Agent for each slot.
+//! Players can set the number of combat slots (2–4), cycle through pre-built
+//! characters, toggle Human/Agent per slot, and start the encounter.
 //!
 //! ## Key bindings
 //!
 //! | Key | Action |
 //! |-----|--------|
-//! | ↑ / k | previous slot |
-//! | ↓ / j | next slot |
-//! | ← / h | previous character |
-//! | → / l | next character |
+//! | ← / h | previous slot |
+//! | → / l | next slot |
+//! | ↑ / k | previous character |
+//! | ↓ / j | next character |
 //! | t | toggle Human / Agent |
+//! | + | add slot (max 4) |
+//! | - | remove slot (min 2) |
 //! | Enter | start combat |
 //! | Esc | back to main lobby |
 
@@ -27,39 +29,79 @@ use tracing::{debug, instrument};
 use crate::lobby::screen::{Screen, ScreenTransition};
 use crate::lobby::settings::{CombatSlot, PlayerKind, RosterEntry, default_roster};
 
+/// Minimum number of combat slots.
+const MIN_SLOTS: usize = 2;
+
+/// Team labels cycled round-robin across slots.
+const TEAMS: &[&str] = &["A", "B", "C", "D", "E", "F", "G", "H"];
+
 /// Combat setup screen state.
 #[derive(Debug)]
 pub struct CombatSetupScreen {
-    /// All available characters.
     roster: Vec<RosterEntry>,
-    /// Currently selected roster index per slot.
-    roster_indices: [usize; 2],
-    /// Which slot has keyboard focus (0 = Team A, 1 = Team B).
+    /// Roster index chosen for each slot.
+    roster_indices: Vec<usize>,
+    /// Which slot has keyboard focus.
     focused: usize,
     /// Controller kind for each slot.
-    kinds: [PlayerKind; 2],
+    kinds: Vec<PlayerKind>,
+    /// Default agent config loaded from `agent_config.toml`, if present.
+    default_agent: crate::AgentConfig,
 }
 
 impl CombatSetupScreen {
-    /// Creates a new combat setup screen with default slot configuration.
+    /// Creates a new combat setup screen with 2 default slots.
     ///
-    /// Team A starts as Human/Fighter; Team B starts as Agent/Scout.
+    /// Tries to load `agent_config.toml` from the working directory.  Falls
+    /// back to default Anthropic Haiku settings if the file is absent or
+    /// unreadable.  Slot 0 → Human/Fighter; Slot 1 → Agent (loaded config).
     #[instrument]
     pub fn new() -> Self {
         debug!("Initializing CombatSetupScreen");
         let roster = default_roster();
-        let kinds = [PlayerKind::Human, PlayerKind::Agent(crate::AgentConfig::new("Agent"))];
-        Self { roster, roster_indices: [0, 1], focused: 0, kinds }
+        let default_agent = crate::AgentConfig::from_file("agent_config.toml")
+            .unwrap_or_else(|_| crate::AgentConfig::new("Agent"));
+        Self {
+            roster_indices: vec![0, 1],
+            focused: 0,
+            kinds: vec![
+                PlayerKind::Human,
+                PlayerKind::Agent(default_agent.clone()),
+            ],
+            default_agent,
+            roster,
+        }
     }
 
-    /// Cycles the character selection for the focused slot forward.
+    fn num_slots(&self) -> usize {
+        self.roster_indices.len()
+    }
+
+    #[instrument(skip(self))]
+    fn add_slot(&mut self) {
+        let new_idx = self.num_slots() % self.roster.len();
+        self.roster_indices.push(new_idx);
+        self.kinds.push(PlayerKind::Human);
+    }
+
+    #[instrument(skip(self))]
+    fn remove_slot(&mut self) {
+        if self.num_slots() <= MIN_SLOTS {
+            return;
+        }
+        self.roster_indices.pop();
+        self.kinds.pop();
+        if self.focused >= self.num_slots() {
+            self.focused = self.num_slots() - 1;
+        }
+    }
+
     #[instrument(skip(self))]
     fn next_character(&mut self) {
         let len = self.roster.len();
         self.roster_indices[self.focused] = (self.roster_indices[self.focused] + 1) % len;
     }
 
-    /// Cycles the character selection for the focused slot backward.
     #[instrument(skip(self))]
     fn prev_character(&mut self) {
         let len = self.roster.len();
@@ -67,17 +109,16 @@ impl CombatSetupScreen {
         self.roster_indices[self.focused] = if idx == 0 { len - 1 } else { idx - 1 };
     }
 
-    /// Toggles the controller kind for the focused slot.
     #[instrument(skip(self))]
     fn toggle_kind(&mut self) {
-        let kind = std::mem::replace(&mut self.kinds[self.focused], PlayerKind::Human);
-        self.kinds[self.focused] = kind.toggle();
+        self.kinds[self.focused] = match &self.kinds[self.focused] {
+            PlayerKind::Human => PlayerKind::Agent(self.default_agent.clone()),
+            PlayerKind::Agent(_) => PlayerKind::Human,
+        };
     }
 
-    /// Builds the two [`CombatSlot`]s from the current configuration.
     #[instrument(skip(self))]
     fn build_slots(&self) -> Vec<CombatSlot> {
-        let teams = ["A", "B"];
         self.roster_indices
             .iter()
             .enumerate()
@@ -86,25 +127,17 @@ impl CombatSetupScreen {
                 CombatSlot {
                     name: entry.character.name.clone(),
                     character: entry.character.clone(),
-                    team: teams[i].to_string(),
+                    team: TEAMS[i % TEAMS.len()].to_string(),
                     kind: self.kinds[i].clone(),
                 }
             })
             .collect()
     }
 
-    /// Renders a single slot card.
-    #[instrument(skip(frame))]
-    fn render_slot(
-        &self,
-        frame: &mut Frame,
-        area: Rect,
-        slot_idx: usize,
-        focused: bool,
-    ) {
+    fn render_slot(&self, frame: &mut Frame, area: Rect, slot_idx: usize, focused: bool) {
         let entry = &self.roster[self.roster_indices[slot_idx]];
         let kind = &self.kinds[slot_idx];
-        let team = if slot_idx == 0 { "A" } else { "B" };
+        let team = TEAMS[slot_idx % TEAMS.len()];
 
         let border_style = if focused {
             Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD)
@@ -113,7 +146,7 @@ impl CombatSetupScreen {
         };
 
         let block = Block::default()
-            .title(format!(" Team {} ", team))
+            .title(format!(" Team {team} "))
             .borders(Borders::ALL)
             .border_style(border_style);
 
@@ -128,10 +161,10 @@ impl CombatSetupScreen {
                     Style::default().fg(Color::White).add_modifier(Modifier::BOLD),
                 ),
             ]),
-            ratatui::text::Line::from(vec![ratatui::text::Span::styled(
+            ratatui::text::Line::from(ratatui::text::Span::styled(
                 entry.description,
                 Style::default().fg(Color::DarkGray),
-            )]),
+            )),
             ratatui::text::Line::from(""),
             ratatui::text::Line::from(vec![
                 ratatui::text::Span::styled("Controller: ", Style::default().fg(Color::Gray)),
@@ -148,8 +181,7 @@ impl CombatSetupScreen {
             ]),
         ];
 
-        let para = Paragraph::new(lines);
-        frame.render_widget(para, inner);
+        frame.render_widget(Paragraph::new(lines), inner);
     }
 }
 
@@ -171,22 +203,31 @@ impl Screen for CombatSetupScreen {
             ])
             .split(area);
 
-        let title = Paragraph::new("Combat Setup")
-            .style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD))
-            .alignment(Alignment::Center)
-            .block(Block::default().borders(Borders::BOTTOM));
+        let title = Paragraph::new(format!(
+            "Combat Setup  ({} participants)",
+            self.num_slots()
+        ))
+        .style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD))
+        .alignment(Alignment::Center)
+        .block(Block::default().borders(Borders::BOTTOM));
         frame.render_widget(title, chunks[0]);
 
-        let slots_chunks = Layout::default()
+        // Split the slots area into equal columns.
+        let col_constraints: Vec<Constraint> = (0..self.num_slots())
+            .map(|_| Constraint::Ratio(1, self.num_slots() as u32))
+            .collect();
+
+        let slot_chunks = Layout::default()
             .direction(Direction::Horizontal)
-            .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
+            .constraints(col_constraints)
             .split(chunks[1]);
 
-        self.render_slot(frame, slots_chunks[0], 0, self.focused == 0);
-        self.render_slot(frame, slots_chunks[1], 1, self.focused == 1);
+        for i in 0..self.num_slots() {
+            self.render_slot(frame, slot_chunks[i], i, self.focused == i);
+        }
 
         let help = Paragraph::new(
-            "[↑↓/jk] select slot   [←→/hl] character   [t] toggle kind   [Enter] start   [Esc] back",
+            "[←→/hl] focus  [↑↓/jk] character  [t] Human/Agent  [+/-] add/remove slot  [Enter] start  [Esc] back",
         )
         .style(Style::default().fg(Color::DarkGray))
         .alignment(Alignment::Center);
@@ -195,24 +236,33 @@ impl Screen for CombatSetupScreen {
 
     fn handle_key(&mut self, key: KeyEvent) -> ScreenTransition {
         match key.code {
-            KeyCode::Up | KeyCode::Char('k') => {
-                self.focused = if self.focused == 0 { 1 } else { 0 };
-                ScreenTransition::Stay
-            }
-            KeyCode::Down | KeyCode::Char('j') => {
-                self.focused = (self.focused + 1) % 2;
+            KeyCode::Left | KeyCode::Char('h') => {
+                self.focused =
+                    if self.focused == 0 { self.num_slots() - 1 } else { self.focused - 1 };
                 ScreenTransition::Stay
             }
             KeyCode::Right | KeyCode::Char('l') => {
-                self.next_character();
+                self.focused = (self.focused + 1) % self.num_slots();
                 ScreenTransition::Stay
             }
-            KeyCode::Left | KeyCode::Char('h') => {
+            KeyCode::Up | KeyCode::Char('k') => {
                 self.prev_character();
+                ScreenTransition::Stay
+            }
+            KeyCode::Down | KeyCode::Char('j') => {
+                self.next_character();
                 ScreenTransition::Stay
             }
             KeyCode::Char('t') => {
                 self.toggle_kind();
+                ScreenTransition::Stay
+            }
+            KeyCode::Char('+') => {
+                self.add_slot();
+                ScreenTransition::Stay
+            }
+            KeyCode::Char('-') => {
+                self.remove_slot();
                 ScreenTransition::Stay
             }
             KeyCode::Enter => ScreenTransition::StartCombat { slots: self.build_slots() },

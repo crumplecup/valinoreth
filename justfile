@@ -7,13 +7,21 @@ default:
 
 # ── Development ───────────────────────────────────────────────────────────────
 
-# Basic compilation check
-check:
-    cargo check --all-targets
+# Launch the game lobby
+run:
+    cargo run -p valinoreth --features frontend-ratatui -- --command lobby
 
-# Run all tests
+# Basic compilation check (optional package: just check valinoreth)
+check PACKAGE="":
+    cargo check {{ if PACKAGE != "" { "-p " + PACKAGE } else { "--workspace" } }} --all-targets
+
+# Run all workspace tests
 test:
     cargo test --all-targets
+
+# Run tests for a specific package with tracing output
+test-package PACKAGE:
+    RUST_LOG={{PACKAGE}}=debug cargo test -p {{PACKAGE}} -- --nocapture
 
 # Run specific test by name
 test-one TEST:
@@ -35,8 +43,9 @@ fmt-check:
 fmt:
     cargo fmt --all
 
-# Run all checks (clippy, fmt, test)
-check-all: clippy fmt-check test
+# Run all checks (clippy, fmt, test); optional package: just check-all valinoreth
+check-all PACKAGE="": clippy fmt-check
+    cargo test {{ if PACKAGE != "" { "-p " + PACKAGE } else { "--all-targets" } }}
 
 # Build in release mode
 build:

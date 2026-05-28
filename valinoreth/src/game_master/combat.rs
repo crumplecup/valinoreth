@@ -21,9 +21,11 @@ use crate::contracts::types::{
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
 use elicitation::contracts::Established;
+use tracing::instrument;
 
 #[async_trait]
 impl CombatExecutor for GameMaster {
+    #[instrument(skip(self, _attacker, defender, attack_descriptor, defense_descriptor, damage_descriptor, armor))]
     async fn execute_attack(
         &self,
         _attacker: CombatantDescriptor,

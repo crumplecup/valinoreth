@@ -18,12 +18,14 @@
 //! Call [`run_lobby`] from `main` to start the full TUI loop.
 
 mod agent_config;
+mod combat_communicator;
 mod controller;
 mod screen;
 mod screens;
 mod settings;
 
-pub use agent_config::AgentConfig;
+pub use agent_config::{AgentConfig, ConfigError};
+pub use combat_communicator::CombatCommunicator;
 pub use controller::{LobbyController, run_lobby};
 pub use screen::{Screen, ScreenTransition};
 pub use screens::{CombatSetupScreen, MainLobbyScreen, SettingsScreen};
