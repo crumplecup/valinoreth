@@ -9,7 +9,7 @@ let%span schat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/ge
 let%span schat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 109 17 109 22
 let%span schat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 109 35 109 40
 let%span schat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 107 15 107 52
-let%span schat'8 = "/home/erik/repos/valinoreth/valinoreth/src/ui/vsm/chat.rs" 149 0 149 46
+let%span schat'8 = "/home/erik/repos/valinoreth/valinoreth/src/ui/vsm/chat.rs" 154 0 154 46
 let%span schat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 108 14 108 54
 let%span schat'10 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/chat.rs" 23 16 23 20
 
