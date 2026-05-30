@@ -63,7 +63,9 @@ pub struct LobbySettings {
 impl Default for LobbySettings {
     #[instrument]
     fn default() -> Self {
-        Self { show_combat_state: true }
+        Self {
+            show_combat_state: true,
+        }
     }
 }
 

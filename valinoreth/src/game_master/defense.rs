@@ -32,7 +32,11 @@ impl DefenseResolver for GameMaster {
         &self,
         descriptor: DefenseDescriptor,
     ) -> CombatResult<(DefenseRollResult, Established<DefenseResolutionEvidence>)> {
-        let retreat_bonus = if descriptor.retreating { RETREAT_BONUS } else { 0 };
+        let retreat_bonus = if descriptor.retreating {
+            RETREAT_BONUS
+        } else {
+            0
+        };
         let defense_score = descriptor.defense_score + retreat_bonus
             - descriptor.feint_penalty
             - descriptor.deceptive_penalty;
@@ -62,7 +66,10 @@ impl DefenseResolver for GameMaster {
         let outcome = Established::prove(&DefenseOutcomeChecked);
         let resolution = DefenseResolutionEvidence { roll_made, outcome };
         let success = Established::prove(&DefenseWorked);
-        let evidence = DefenseSuccessEvidence { resolution, success };
+        let evidence = DefenseSuccessEvidence {
+            resolution,
+            success,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -84,7 +91,10 @@ impl DefenseResolver for GameMaster {
         let outcome = Established::prove(&DefenseOutcomeChecked);
         let resolution = DefenseResolutionEvidence { roll_made, outcome };
         let failure = Established::prove(&DefenseDidNotWork);
-        let evidence = DefenseFailureEvidence { resolution, failure };
+        let evidence = DefenseFailureEvidence {
+            resolution,
+            failure,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -106,7 +116,10 @@ impl DefenseResolver for GameMaster {
         let outcome = Established::prove(&DefenseOutcomeChecked);
         let resolution = DefenseResolutionEvidence { roll_made, outcome };
         let success_proof = Established::prove(&DefenseWorked);
-        let success = DefenseSuccessEvidence { resolution, success: success_proof };
+        let success = DefenseSuccessEvidence {
+            resolution,
+            success: success_proof,
+        };
         let critical = Established::prove(&DefenseCriticalWin);
         let evidence = DefenseCriticalSuccessEvidence { success, critical };
 
@@ -130,7 +143,10 @@ impl DefenseResolver for GameMaster {
         let outcome = Established::prove(&DefenseOutcomeChecked);
         let resolution = DefenseResolutionEvidence { roll_made, outcome };
         let critical = Established::prove(&DefenseCriticalMiss);
-        let evidence = DefenseCriticalFailureEvidence { resolution, critical };
+        let evidence = DefenseCriticalFailureEvidence {
+            resolution,
+            critical,
+        };
 
         Ok(Established::prove(&evidence))
     }

@@ -41,9 +41,7 @@ fn gurps_critical_failure(roll: i32, skill: i32, success: bool, margin: i32) -> 
 ///
 /// Contains all information needed to resolve an attack roll:
 /// skill level, modifiers, and optional target location.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct AttackDescriptor {
     /// Attacker's effective skill level (base skill + modifiers)
@@ -69,8 +67,7 @@ pub struct AttackDescriptor {
 /// Describes the result of an attack roll.
 ///
 /// Contains the roll result and outcome determination.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct AttackRollResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -95,7 +92,11 @@ impl AttackRollResult {
     /// Construct from a roll and effective skill, computing all derived fields.
     pub fn new(roll: i32, effective_skill: i32) -> Self {
         let success = roll <= effective_skill;
-        let margin = if success { effective_skill - roll } else { roll - effective_skill };
+        let margin = if success {
+            effective_skill - roll
+        } else {
+            roll - effective_skill
+        };
         Self {
             roll,
             effective_skill,
@@ -112,9 +113,7 @@ impl AttackRollResult {
 /// Describes a defense attempt.
 ///
 /// Contains all information needed to resolve an active defense roll.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct DefenseDescriptor {
     /// Type of active defense (Dodge, Parry, Block)
@@ -137,8 +136,7 @@ pub struct DefenseDescriptor {
 }
 
 /// Type of active defense.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum DefenseType {
     /// Dodge: 3d6 ≤ Dodge score (DX + 3 + bonuses)
     Dodge,
@@ -149,8 +147,7 @@ pub enum DefenseType {
 }
 
 /// Describes the result of a defense roll.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct DefenseRollResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -175,7 +172,11 @@ impl DefenseRollResult {
     /// Construct from a roll and defense score, computing all derived fields.
     pub fn new(roll: i32, defense_score: i32) -> Self {
         let success = roll <= defense_score;
-        let margin = if success { defense_score - roll } else { roll - defense_score };
+        let margin = if success {
+            defense_score - roll
+        } else {
+            roll - defense_score
+        };
         Self {
             roll,
             defense_score,
@@ -190,9 +191,7 @@ impl DefenseRollResult {
 // ── Damage Descriptors ────────────────────────────────────────────────────────
 
 /// Describes weapon damage to be rolled.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct DamageDescriptor {
     /// Number of dice to roll
@@ -214,8 +213,7 @@ pub struct DamageDescriptor {
 }
 
 /// Type of damage for wounding modifier calculation.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum DamageTypeDescriptor {
     /// Crushing damage: ×1 wounding
     Crushing,
@@ -230,8 +228,7 @@ pub enum DamageTypeDescriptor {
 }
 
 /// Describes armor protection.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct ArmorDescriptor {
     /// Damage Resistance value
     pub dr: i32,
@@ -241,8 +238,7 @@ pub struct ArmorDescriptor {
 }
 
 /// Hit location on the body.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum HitLocation {
     /// Skull: ×4 damage multiplier, -7 to hit
     Skull,
@@ -326,8 +322,7 @@ impl HitLocation {
 }
 
 /// Describes the result of damage calculation.
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct DamageResult {
     /// Raw damage rolled
     pub raw_damage: i32,
@@ -354,8 +349,7 @@ pub struct DamageResult {
 // ── Special Maneuver Descriptors ──────────────────────────────────────────────
 
 /// Describes a Feint maneuver.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct FeintDescriptor {
     /// Attacker's skill for the Quick Contest
     pub attacker_skill: i32,
@@ -365,8 +359,7 @@ pub struct FeintDescriptor {
 }
 
 /// Describes the result of a Feint contest.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct FeintResult {
     /// Attacker's roll
     pub attacker_roll: i32,
@@ -382,8 +375,7 @@ pub struct FeintResult {
 }
 
 /// Describes a Rapid Strike maneuver.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct RapidStrikeDescriptor {
     /// Number of attacks in the rapid strike
     pub attack_count: usize,
@@ -398,9 +390,7 @@ pub struct RapidStrikeDescriptor {
 // ── Combat State Descriptors ──────────────────────────────────────────────────
 
 /// Describes complete combat state for a character.
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct CombatantDescriptor {
     /// Character's current Hit Points
@@ -439,9 +429,7 @@ pub struct CombatantDescriptor {
 ///
 /// Contains all information needed to resolve a skill check:
 /// skill level, modifiers, and task difficulty.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct SkillCheckDescriptor {
     /// Character's effective skill level (base skill + modifiers)
@@ -465,8 +453,7 @@ pub struct SkillCheckDescriptor {
 }
 
 /// Describes the result of a skill check roll.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct SkillCheckResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -491,7 +478,11 @@ impl SkillCheckResult {
     /// Construct from a roll and effective skill, computing all derived fields.
     pub fn new(roll: i32, effective_skill: i32) -> Self {
         let success = roll <= effective_skill;
-        let margin = if success { effective_skill - roll } else { roll - effective_skill };
+        let margin = if success {
+            effective_skill - roll
+        } else {
+            roll - effective_skill
+        };
         Self {
             roll,
             effective_skill,
@@ -504,11 +495,7 @@ impl SkillCheckResult {
 }
 
 /// Describes a skill for a character.
-#[derive(Debug, Clone)]
-#[derive(Eq)]
-#[derive(PartialEq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Eq, PartialEq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct SkillDescriptor {
     /// Skill name
@@ -536,8 +523,7 @@ pub struct SkillDescriptor {
 }
 
 /// Skill difficulty levels.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum SkillDifficulty {
     /// Easy skills (E)
     Easy,
@@ -550,8 +536,7 @@ pub enum SkillDifficulty {
 }
 
 /// Describes a skill default (fallback when skill not trained).
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct SkillDefaultDescriptor {
     /// What the skill defaults to
     pub default_type: SkillDefaultType,
@@ -561,8 +546,7 @@ pub struct SkillDefaultDescriptor {
 }
 
 /// Types of skill defaults.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub enum SkillDefaultType {
     /// Defaults to an attribute (DX, IQ, etc.)
     Attribute(AttributeType),
@@ -580,10 +564,7 @@ pub enum SkillDefaultType {
 // ── Character Creation Descriptors ────────────────────────────────────────────
 
 /// Describes a character's primary attribute.
-#[derive(Debug, Clone, Copy)]
-#[derive(Eq)]
-#[derive(PartialEq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct AttributeDescriptor {
     /// Attribute type (ST, DX, IQ, HT)
     pub attribute_type: AttributeType,
@@ -596,8 +577,9 @@ pub struct AttributeDescriptor {
 }
 
 /// Primary attribute types.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(
+    Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize, JsonSchema,
+)]
 pub enum AttributeType {
     /// Strength
     ST,
@@ -614,10 +596,7 @@ pub enum AttributeType {
 }
 
 /// Describes a secondary characteristic purchase.
-#[derive(Debug, Clone, Copy)]
-#[derive(Eq)]
-#[derive(PartialEq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct SecondaryCharacteristicDescriptor {
     /// Type of secondary characteristic
     pub characteristic_type: SecondaryCharacteristicType,
@@ -630,8 +609,7 @@ pub struct SecondaryCharacteristicDescriptor {
 }
 
 /// Secondary characteristic types.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum SecondaryCharacteristicType {
     /// Hit Points (defaults to ST)
     HP,
@@ -648,9 +626,7 @@ pub enum SecondaryCharacteristicType {
 }
 
 /// Describes an advantage for a character.
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct AdvantageDescriptor {
     /// Advantage name
@@ -676,10 +652,7 @@ pub struct AdvantageDescriptor {
 }
 
 /// Describes a disadvantage for a character.
-#[derive(Debug, Clone)]
-#[derive(PartialEq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct DisadvantageDescriptor {
     /// Disadvantage name
@@ -701,8 +674,7 @@ pub struct DisadvantageDescriptor {
 }
 
 /// Describes an enhancement or limitation modifier.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct ModifierDescriptor {
     /// Modifier name
     pub name: String,
@@ -712,9 +684,7 @@ pub struct ModifierDescriptor {
 }
 
 /// Describes complete character creation parameters.
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct CharacterCreationDescriptor {
     /// Character name
@@ -737,8 +707,7 @@ pub struct CharacterCreationDescriptor {
 }
 
 /// Campaign-specific attribute minimums.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct AttributeMinimums {
     /// Minimum ST
     pub st: i32,
@@ -751,10 +720,7 @@ pub struct AttributeMinimums {
 }
 
 /// Describes a complete character state.
-#[derive(Debug, Clone)]
-#[derive(PartialEq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct CharacterDescriptor {
     /// Character name
@@ -794,9 +760,7 @@ pub struct CharacterDescriptor {
 }
 
 /// Describes derived statistics.
-#[derive(Debug, Clone, Copy)]
-#[derive(PartialEq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct DerivedStatsDescriptor {
     /// Basic Speed
     pub basic_speed: f32,
@@ -823,10 +787,7 @@ pub struct DerivedStatsDescriptor {
 // ── Spell Descriptors ─────────────────────────────────────────────────────────
 
 /// Describes a spell for learning.
-#[derive(Debug, Clone)]
-#[derive(PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct SpellDescriptor {
     /// Spell name
@@ -876,8 +837,7 @@ pub struct SpellDescriptor {
 }
 
 /// Spell colleges.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum SpellCollege {
     /// Air spells
     Air,
@@ -930,8 +890,7 @@ pub enum SpellCollege {
 }
 
 /// Spell classes (casting types).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema)]
 pub enum SpellClass {
     /// Regular spell affecting single target
     Regular,
@@ -950,9 +909,7 @@ pub enum SpellClass {
 }
 
 /// Describes a spell casting attempt.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct SpellCastingDescriptor {
     /// Spell being cast
@@ -997,8 +954,7 @@ pub struct SpellCastingDescriptor {
 }
 
 /// Describes the result of a spell casting attempt.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct SpellCastingResult {
     /// The 3d6 roll result
     pub roll: i32,
@@ -1028,7 +984,11 @@ impl SpellCastingResult {
     /// Energy spent is the full cost on success, or 1 FP on failure (GURPS Magic p.9).
     pub fn new(roll: i32, effective_skill: i32, energy_cost: i32) -> Self {
         let success = roll <= effective_skill;
-        let margin = if success { effective_skill - roll } else { roll - effective_skill };
+        let margin = if success {
+            effective_skill - roll
+        } else {
+            roll - effective_skill
+        };
         Self {
             roll,
             effective_skill,
@@ -1042,10 +1002,7 @@ impl SpellCastingResult {
 }
 
 /// Describes caster's state for spell casting.
-#[derive(Debug, Clone)]
-#[derive(PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct CasterDescriptor {
     /// Caster's current Fatigue Points
@@ -1080,8 +1037,7 @@ pub struct CasterDescriptor {
 }
 
 /// Describes spell effect details.
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct SpellEffectDescriptor {
     /// Spell name
     pub spell_name: String,
@@ -1106,8 +1062,7 @@ pub struct SpellEffectDescriptor {
 }
 
 /// Describes spell resistance contest.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct SpellResistanceDescriptor {
     /// Caster's effective spell skill
     pub caster_skill: i32,
@@ -1120,8 +1075,7 @@ pub struct SpellResistanceDescriptor {
 }
 
 /// Describes result of resistance contest.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct ResistanceResult {
     /// Caster's roll
     pub caster_roll: i32,
@@ -1137,9 +1091,7 @@ pub struct ResistanceResult {
 }
 
 /// Describes ceremonial magic attempt.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(Builder)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, PartialEq, Eq, Builder, Serialize, Deserialize, JsonSchema)]
 #[builder(setter(into))]
 pub struct CeremonialMagicDescriptor {
     /// Lead caster

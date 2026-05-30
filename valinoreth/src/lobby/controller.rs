@@ -8,9 +8,7 @@ use std::time::Duration;
 use crossterm::event::{self, Event, KeyCode, KeyEventKind};
 use crossterm::{
     execute,
-    terminal::{
-        EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode,
-    },
+    terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
 use elicit_ratatui::{RatatuiBackend, render_node};
 use elicit_ui::UiTreeRenderer as _;
@@ -22,8 +20,8 @@ use crate::lobby::screen::{Screen, ScreenTransition};
 use crate::lobby::screens::{CombatSetupScreen, MainLobbyScreen, SettingsScreen};
 use crate::lobby::settings::{CombatSlot, LobbySettings, PlayerKind};
 use crate::{
-    ChatCommunicator, ChatMessage, ChatModel, CombatCommunicator, CombatWorkflow,
-    GameMaster, LlmElicitCommunicator, Player,
+    ChatCommunicator, ChatMessage, ChatModel, CombatCommunicator, CombatWorkflow, GameMaster,
+    LlmElicitCommunicator, Player,
 };
 
 /// Active screen in the lobby state machine.
@@ -48,7 +46,9 @@ impl LobbyController {
     #[instrument]
     pub fn new() -> Self {
         info!("Creating LobbyController");
-        Self { settings: LobbySettings::new() }
+        Self {
+            settings: LobbySettings::new(),
+        }
     }
 
     /// Runs the lobby event loop until the user quits.
@@ -79,7 +79,9 @@ impl LobbyController {
                 continue;
             }
 
-            let Event::Key(key) = event::read()? else { continue };
+            let Event::Key(key) = event::read()? else {
+                continue;
+            };
             if key.kind == KeyEventKind::Release {
                 continue;
             }
@@ -175,8 +177,7 @@ impl LobbyController {
         let reply_rx = Arc::new(Mutex::new(reply_rx));
 
         // ── Build communicators ───────────────────────────────────────────────
-        let chat_comm =
-            ChatCommunicator::new(chat_tx.clone(), compose_tx, reply_rx);
+        let chat_comm = ChatCommunicator::new(chat_tx.clone(), compose_tx, reply_rx);
 
         let mut model = ChatModel::new();
         model.system_event("Combat begins — good luck!");
@@ -186,18 +187,16 @@ impl LobbyController {
         for slot in &slots {
             let comm = match &slot.kind {
                 PlayerKind::Human => CombatCommunicator::Human(chat_comm.clone()),
-                PlayerKind::Agent(config) => {
-                    match LlmElicitCommunicator::new(config) {
-                        Ok(llm) => CombatCommunicator::Agent(llm),
-                        Err(e) => {
-                            warn!(error = %e, "Failed to create LLM communicator; falling back to Human");
-                            model.system_event(format!(
-                                "Agent init failed ({e}); slot falling back to Human"
-                            ));
-                            CombatCommunicator::Human(chat_comm.clone())
-                        }
+                PlayerKind::Agent(config) => match LlmElicitCommunicator::new(config) {
+                    Ok(llm) => CombatCommunicator::Agent(llm),
+                    Err(e) => {
+                        warn!(error = %e, "Failed to create LLM communicator; falling back to Human");
+                        model.system_event(format!(
+                            "Agent init failed ({e}); slot falling back to Human"
+                        ));
+                        CombatCommunicator::Human(chat_comm.clone())
                     }
-                }
+                },
             };
             players.push((Player::new(slot.character.clone(), comm), slot.team.clone()));
         }

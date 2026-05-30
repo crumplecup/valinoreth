@@ -47,15 +47,10 @@ pub use vsm::resolve_attack_kani_contracted;
 pub use vsm::resolve_defense_kani_contracted;
 // END ELICITATION KANI REEXPORTS
 
-
-
-
-
-
-mod ui;
-mod vsm;
 #[cfg(feature = "frontend-ratatui")]
 mod lobby;
+mod ui;
+mod vsm;
 
 pub use advantages::{
     AbsoluteDirection, Advantage, Appearance, Claws, EiditicMemory, Flexible, Flight,
@@ -317,6 +312,11 @@ pub use contracts::{
     DefenseDescriptorBuilder, DisadvantageDescriptorBuilder, SkillCheckDescriptorBuilder,
     SkillDescriptorBuilder, SpellCastingDescriptorBuilder, SpellDescriptorBuilder,
 };
+pub use contracts::{
+    AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
+    CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
+    RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
+};
 pub use dice::{DieFace, ThreeDiceRoll};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use free::trace_init;
@@ -324,6 +324,12 @@ pub use game_master::{GameMaster, GameMasterConfig, ManaLevel};
 pub use items::{
     Armor as ItemArmor, Capacity, Clothing, Container, Currency, DamageType, Item, MeleeWeapon,
     Quality, RangedWeapon, Reach, SurvivalGear, TechLevel, Tool, WeaponDamage, Weight,
+};
+#[cfg(feature = "frontend-ratatui")]
+pub use lobby::{
+    AgentConfig, CombatCommunicator, CombatSetupScreen, CombatSlot, ConfigError, LobbyController,
+    LobbySettings, MainLobbyScreen, PlayerKind, RosterEntry, Screen, ScreenTransition,
+    SettingsScreen, default_roster, run_lobby,
 };
 pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
@@ -333,28 +339,20 @@ pub use players::{DefenseChoice, ManeuverChoice, Player, Players};
 pub use skills::{Family, Skill, SkillBase, SkillDefault};
 pub use special_features::SpecialFeatures;
 pub use ui::{
-    ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage, ChatMessageMode, ChatSender,
-    ChatState, ContextualCommunicator, GameDisplay, ChatModel, KnowledgeCache,
-    ObservableCommunicator, Participant, SharedKnowledge, knowledge_cache,
-    begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
+    ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage, ChatMessageMode, ChatModel,
+    ChatSender, ChatState, ContextualCommunicator, GameDisplay, KnowledgeCache,
+    ObservableCommunicator, Participant, SharedKnowledge, begin_compose, cancel_compose,
+    knowledge_cache, receive_message, scroll_down, scroll_up, send_message,
 };
 #[cfg(feature = "frontend-ratatui")]
-pub use ui::{ChatCommunicator, LlmClient, LlmConfig, LlmElicitCommunicator, LlmProvider, TuiCommunicator, run_chat};
+pub use ui::{
+    ChatCommunicator, LlmClient, LlmConfig, LlmElicitCommunicator, LlmProvider, TuiCommunicator,
+    run_chat,
+};
 pub use vsm::{
-    apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
-    damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn,
-    initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatMachine,
-    CombatPhase, CombatSession, CombatState, CombatStateView, CombatWorkflow, CombatantState,
-    CombatantView, WorkflowError,
-};
-pub use contracts::{
-    AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
-    CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
-    RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
-};
-#[cfg(feature = "frontend-ratatui")]
-pub use lobby::{
-    AgentConfig, CombatCommunicator, CombatSetupScreen, CombatSlot, ConfigError, LobbyController,
-    LobbySettings, MainLobbyScreen, PlayerKind, RosterEntry, Screen, ScreenTransition,
-    SettingsScreen, default_roster, run_lobby,
+    CombatConsistent, CombatMachine, CombatPhase, CombatSession, CombatState, CombatStateView,
+    CombatWorkflow, CombatantState, CombatantView, WorkflowError, apply_damage,
+    attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
+    damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn, initialize_combat,
+    resolve_attack, resolve_defense,
 };

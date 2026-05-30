@@ -1575,8 +1575,19 @@ impl Family {
 ///
 /// let base = SkillBase::Attribute(AttributeType::DX);
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::From)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::From,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub enum SkillBase {
     /// Skill defaults to an attribute
     #[from(AttributeType)]
@@ -1605,8 +1616,19 @@ pub enum SkillBase {
 /// // Defaults to DX-5
 /// let default = SkillDefault::new(AttributeType::DX, -5);
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::From)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::From,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub struct SkillDefault {
     /// Base attribute or skill
     base: SkillBase,

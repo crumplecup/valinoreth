@@ -64,10 +64,7 @@ impl CombatSetupScreen {
         Self {
             roster_indices: vec![0, 1],
             focused: 0,
-            kinds: vec![
-                PlayerKind::Human,
-                PlayerKind::Agent(default_agent.clone()),
-            ],
+            kinds: vec![PlayerKind::Human, PlayerKind::Agent(default_agent.clone())],
             default_agent,
             roster,
         }
@@ -140,7 +137,9 @@ impl CombatSetupScreen {
         let team = TEAMS[slot_idx % TEAMS.len()];
 
         let border_style = if focused {
-            Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD)
+            Style::default()
+                .fg(Color::Yellow)
+                .add_modifier(Modifier::BOLD)
         } else {
             Style::default().fg(Color::DarkGray)
         };
@@ -158,7 +157,9 @@ impl CombatSetupScreen {
                 ratatui::text::Span::styled("Character: ", Style::default().fg(Color::Gray)),
                 ratatui::text::Span::styled(
                     entry.label,
-                    Style::default().fg(Color::White).add_modifier(Modifier::BOLD),
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
                 ),
             ]),
             ratatui::text::Line::from(ratatui::text::Span::styled(
@@ -203,13 +204,14 @@ impl Screen for CombatSetupScreen {
             ])
             .split(area);
 
-        let title = Paragraph::new(format!(
-            "Combat Setup  ({} participants)",
-            self.num_slots()
-        ))
-        .style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD))
-        .alignment(Alignment::Center)
-        .block(Block::default().borders(Borders::BOTTOM));
+        let title = Paragraph::new(format!("Combat Setup  ({} participants)", self.num_slots()))
+            .style(
+                Style::default()
+                    .fg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD),
+            )
+            .alignment(Alignment::Center)
+            .block(Block::default().borders(Borders::BOTTOM));
         frame.render_widget(title, chunks[0]);
 
         // Split the slots area into equal columns.
@@ -237,8 +239,11 @@ impl Screen for CombatSetupScreen {
     fn handle_key(&mut self, key: KeyEvent) -> ScreenTransition {
         match key.code {
             KeyCode::Left | KeyCode::Char('h') => {
-                self.focused =
-                    if self.focused == 0 { self.num_slots() - 1 } else { self.focused - 1 };
+                self.focused = if self.focused == 0 {
+                    self.num_slots() - 1
+                } else {
+                    self.focused - 1
+                };
                 ScreenTransition::Stay
             }
             KeyCode::Right | KeyCode::Char('l') => {
@@ -265,7 +270,9 @@ impl Screen for CombatSetupScreen {
                 self.remove_slot();
                 ScreenTransition::Stay
             }
-            KeyCode::Enter => ScreenTransition::StartCombat { slots: self.build_slots() },
+            KeyCode::Enter => ScreenTransition::StartCombat {
+                slots: self.build_slots(),
+            },
             KeyCode::Esc => ScreenTransition::GoToMainLobby,
             _ => ScreenTransition::Stay,
         }

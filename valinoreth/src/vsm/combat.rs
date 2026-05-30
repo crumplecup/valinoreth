@@ -19,7 +19,7 @@
 //! Each transition carries proof tokens from GameMaster mechanics and combat flow contracts.
 
 use elicitation::{
-    formal_method, Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine,
+    Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine, formal_method,
 };
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -63,7 +63,15 @@ pub struct CombatantState {
 
 /// Lifecycle state of a GURPS combat encounter.
 #[derive(
-    Debug, Clone, Default, PartialEq, Serialize, Deserialize, JsonSchema, Elicit, KaniVariantState,
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    JsonSchema,
+    Elicit,
+    KaniVariantState,
     KaniCompose,
 )]
 pub enum CombatState {

@@ -14,13 +14,13 @@ use tracing::{debug, instrument};
 
 use crate::contracts::SpellCollege;
 
+use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 use super::{
     air, animal, body_control, communication_empathy, earth, enchantment, fire, food, gate,
     healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells,
     mind_control, movement, necromantic, plant, protection_warning, sound, technological, water,
     weather,
 };
-use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// GURPS magic spells (Knowledge college canary implementation).
 ///
@@ -1860,9 +1860,7 @@ impl Spell {
             SpellCollege::Air => air::base_energy_cost(self),
             SpellCollege::Animal => animal::base_energy_cost(self),
             SpellCollege::BodyControl => body_control::base_energy_cost(self),
-            SpellCollege::CommunicationEmpathy => {
-                communication_empathy::base_energy_cost(self)
-            }
+            SpellCollege::CommunicationEmpathy => communication_empathy::base_energy_cost(self),
             SpellCollege::Enchantment => enchantment::base_energy_cost(self),
             SpellCollege::Earth => earth::base_energy_cost(self),
             SpellCollege::Fire => fire::base_energy_cost(self),
@@ -2021,9 +2019,7 @@ impl Spell {
             SpellCollege::Air => air::prerequisites(self),
             SpellCollege::Animal => animal::prerequisites(self),
             SpellCollege::BodyControl => body_control::prerequisites(self),
-            SpellCollege::CommunicationEmpathy => {
-                communication_empathy::prerequisites(self)
-            }
+            SpellCollege::CommunicationEmpathy => communication_empathy::prerequisites(self),
             SpellCollege::Enchantment => enchantment::prerequisites(self),
             SpellCollege::Earth => earth::prerequisites(self),
             SpellCollege::Fire => fire::prerequisites(self),

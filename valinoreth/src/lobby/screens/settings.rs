@@ -46,7 +46,10 @@ impl SettingsScreen {
         debug!("Initializing SettingsScreen");
         let mut list_state = ListState::default();
         list_state.select(Some(0));
-        Self { settings, list_state }
+        Self {
+            settings,
+            list_state,
+        }
     }
 
     /// Returns the settings as modified by the user.
@@ -64,7 +67,11 @@ impl SettingsScreen {
     fn value_label(&self, item: SettingItem) -> &'static str {
         match item {
             SettingItem::ShowCombatState => {
-                if self.settings.show_combat_state { "On" } else { "Off" }
+                if self.settings.show_combat_state {
+                    "On"
+                } else {
+                    "Off"
+                }
             }
         }
     }
@@ -112,7 +119,11 @@ impl Screen for SettingsScreen {
             .split(area);
 
         let title = Paragraph::new("Settings")
-            .style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD))
+            .style(
+                Style::default()
+                    .fg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD),
+            )
             .alignment(Alignment::Center)
             .block(Block::default().borders(Borders::BOTTOM));
         frame.render_widget(title, chunks[0]);
@@ -134,9 +145,11 @@ impl Screen for SettingsScreen {
             .collect();
 
         let list = List::new(items)
-            .block(Block::default().borders(Borders::NONE).padding(
-                ratatui::widgets::Padding::horizontal(2),
-            ))
+            .block(
+                Block::default()
+                    .borders(Borders::NONE)
+                    .padding(ratatui::widgets::Padding::horizontal(2)),
+            )
             .highlight_style(
                 Style::default()
                     .fg(Color::Black)

@@ -40,8 +40,7 @@ use strum::EnumIter;
 /// - `DamageDice::new(1, -2)` = "1d-2"
 /// - `DamageDice::new(2, 0)` = "2d"
 /// - `DamageDice::new(3, 1)` = "3d+1"
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct DamageDice {
     /// Number of dice to roll
     pub dice: i64,
@@ -82,8 +81,9 @@ impl DamageDice {
 /// // Specifying all eight attributes
 /// let attrs = Attributes::from_vec(vec![10, 11, 12, 10, 10, 12, 13, 10]);
 /// ```
-#[derive(Debug, Default, Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash)]
-#[derive(Serialize, Deserialize)]
+#[derive(
+    Debug, Default, Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize,
+)]
 pub struct Attributes {
     st: usize,
     dx: usize,
@@ -268,9 +268,21 @@ impl Attributes {
 /// let names = AttributeColumns::names();
 /// assert_eq!(names, vec!["Name", "Value"]);
 /// ```
-#[derive(Debug, Default, Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash, Display)]
-#[derive(EnumIter)]
-#[derive(Serialize, Deserialize)]
+#[derive(
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    PartialOrd,
+    Eq,
+    Ord,
+    Hash,
+    Display,
+    EnumIter,
+    Serialize,
+    Deserialize,
+)]
 pub enum AttributeColumns {
     /// Attribute name column
     Name,
@@ -320,9 +332,7 @@ impl AttributeColumns {
 /// // Basic Speed = (10 + 11) / 4 = 5.25
 /// // Basic Move = floor(5.25) = 5
 /// ```
-#[derive(Debug, Clone)]
-#[derive(PartialEq, PartialOrd)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize)]
 pub struct Stats {
     /// The maximum weight you can lift over your head with one hand in one second.
     ///
@@ -396,7 +406,6 @@ impl Stats {
     pub fn basic_speed(&self) -> f64 {
         self.basic_speed_quarters as f64 / 4.0
     }
-
 }
 
 /// Combat-related character statistics.
@@ -412,9 +421,7 @@ impl Stats {
 ///
 /// - BS 269-271 - Damage
 /// - BS 374-377 - Active defenses
-#[derive(Debug, Clone)]
-#[derive(PartialEq, PartialOrd)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize)]
 pub struct CombatStats {
     /// Thrust damage from ST-based attacks. BS 269
     damage_thrust: DamageKind,
@@ -447,9 +454,19 @@ pub struct CombatStats {
 /// let thrust = DamageKind::Thrust(DamageDice::new(1, -1));
 /// let swing = DamageKind::Swing(DamageDice::new(1, 2));
 /// ```
-#[derive(Debug, Copy, Clone, derive_new::new)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_new::new,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub enum DamageKind {
     /// Thrust attack using stabbing motion. BS 269
     Thrust(DamageDice),
@@ -480,9 +497,20 @@ pub enum DamageKind {
 /// let damage = BaseDamage::from(attrs);
 /// // ST 10: Thrust 1d-2, Swing 1d
 /// ```
-#[derive(Debug, Copy, Clone, derive_new::new, derive_getters::Getters)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_new::new,
+    derive_getters::Getters,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub struct BaseDamage {
     /// Thrust damage for stabbing attacks. BS 269
     thrust: DamageKind,
@@ -605,9 +633,19 @@ impl From<Attributes> for BaseDamage {
 /// let stats = Stats::from(attrs);
 /// let enc = Encumbrance::from(&stats);
 /// ```
-#[derive(Debug, Copy, Clone, derive_new::new)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_new::new,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub struct Encumbrance {
     /// Weight thresholds for each encumbrance level. BS 17
     weight: EncumbranceWeight,
@@ -671,9 +709,19 @@ impl From<&Stats> for Encumbrance {
 /// // BL = 20 lbs
 /// // None: 0-20, Light: 21-40, Medium: 41-60, Heavy: 61-120, X-Heavy: 121-200
 /// ```
-#[derive(Debug, Copy, Clone, derive_new::new)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_new::new,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub struct EncumbranceWeight {
     /// Weight threshold for no encumbrance (0 to BL). BS 17
     none: usize,
@@ -745,9 +793,19 @@ impl From<&Stats> for EncumbranceWeight {
 /// let move_rates = EncumbranceMove::from(&stats);
 /// // Basic Move 5: None=5, Light=4, Medium=3, Heavy=2, X-Heavy=1
 /// ```
-#[derive(Debug, Copy, Clone, derive_new::new)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_new::new,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub struct EncumbranceMove {
     /// Move at no encumbrance (×1.0). BS 17
     none: usize,
@@ -823,9 +881,19 @@ impl From<&Stats> for EncumbranceMove {
 /// // Basic Speed 5.0: Base Dodge = 8
 /// // None=8, Light=7, Medium=6, Heavy=5, X-Heavy=4
 /// ```
-#[derive(Debug, Copy, Clone, derive_new::new)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_new::new,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub struct EncumbranceDodge {
     /// Dodge at no encumbrance. BS 17
     none: usize,
@@ -901,8 +969,9 @@ impl From<&Stats> for EncumbranceDodge {
 ///
 /// let level = EncumbranceLevel::Light;
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, serde::Serialize, serde::Deserialize,
+)]
 pub enum EncumbranceLevel {
     /// No encumbrance (0 to BL). BS 17
     None,

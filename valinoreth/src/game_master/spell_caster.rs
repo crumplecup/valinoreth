@@ -33,14 +33,26 @@ impl SpellCaster for GameMaster {
         effective_skill += descriptor.size_speed_modifier;
         effective_skill += descriptor.time_modifier;
         effective_skill += descriptor.environment_modifier;
-        let result = SpellCastingResult::new(self.roll_3d6().sum(), effective_skill, descriptor.energy_cost);
+        let result = SpellCastingResult::new(
+            self.roll_3d6().sum(),
+            effective_skill,
+            descriptor.energy_cost,
+        );
 
         let begun = Established::prove(&ConcentrationStarted);
         let completed = Established::prove(&ConcentrationFinished);
-        let concentration = ConcentrationEvidence { begun, maintained: None, completed };
+        let concentration = ConcentrationEvidence {
+            begun,
+            maintained: None,
+            completed,
+        };
         let roll_made = Established::prove(&SpellRollMade);
         let outcome = Established::prove(&CastingOutcomeChecked);
-        let evidence = SpellCastingResolutionEvidence { concentration, roll_made, outcome };
+        let evidence = SpellCastingResolutionEvidence {
+            concentration,
+            roll_made,
+            outcome,
+        };
 
         Ok((result, caster, Established::prove(&evidence)))
     }
@@ -58,12 +70,23 @@ impl SpellCaster for GameMaster {
 
         let begun = Established::prove(&ConcentrationStarted);
         let completed = Established::prove(&ConcentrationFinished);
-        let concentration = ConcentrationEvidence { begun, maintained: None, completed };
+        let concentration = ConcentrationEvidence {
+            begun,
+            maintained: None,
+            completed,
+        };
         let roll_made = Established::prove(&SpellRollMade);
         let outcome = Established::prove(&CastingOutcomeChecked);
-        let resolution = SpellCastingResolutionEvidence { concentration, roll_made, outcome };
+        let resolution = SpellCastingResolutionEvidence {
+            concentration,
+            roll_made,
+            outcome,
+        };
         let success = Established::prove(&CastingSucceeded);
-        let evidence = SpellCastingSuccessEvidence { resolution, success };
+        let evidence = SpellCastingSuccessEvidence {
+            resolution,
+            success,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -81,12 +104,23 @@ impl SpellCaster for GameMaster {
 
         let begun = Established::prove(&ConcentrationStarted);
         let completed = Established::prove(&ConcentrationFinished);
-        let concentration = ConcentrationEvidence { begun, maintained: None, completed };
+        let concentration = ConcentrationEvidence {
+            begun,
+            maintained: None,
+            completed,
+        };
         let roll_made = Established::prove(&SpellRollMade);
         let outcome = Established::prove(&CastingOutcomeChecked);
-        let resolution = SpellCastingResolutionEvidence { concentration, roll_made, outcome };
+        let resolution = SpellCastingResolutionEvidence {
+            concentration,
+            roll_made,
+            outcome,
+        };
         let failure = Established::prove(&CastingFailed);
-        let evidence = SpellCastingFailureEvidence { resolution, failure };
+        let evidence = SpellCastingFailureEvidence {
+            resolution,
+            failure,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -104,12 +138,23 @@ impl SpellCaster for GameMaster {
 
         let begun = Established::prove(&ConcentrationStarted);
         let completed = Established::prove(&ConcentrationFinished);
-        let concentration = ConcentrationEvidence { begun, maintained: None, completed };
+        let concentration = ConcentrationEvidence {
+            begun,
+            maintained: None,
+            completed,
+        };
         let roll_made = Established::prove(&SpellRollMade);
         let outcome = Established::prove(&CastingOutcomeChecked);
-        let resolution = SpellCastingResolutionEvidence { concentration, roll_made, outcome };
+        let resolution = SpellCastingResolutionEvidence {
+            concentration,
+            roll_made,
+            outcome,
+        };
         let success_proof = Established::prove(&CastingSucceeded);
-        let success = SpellCastingSuccessEvidence { resolution, success: success_proof };
+        let success = SpellCastingSuccessEvidence {
+            resolution,
+            success: success_proof,
+        };
         let critical = Established::prove(&SpellCritHit);
         let evidence = SpellCriticalSuccessEvidence { success, critical };
 
@@ -129,12 +174,23 @@ impl SpellCaster for GameMaster {
 
         let begun = Established::prove(&ConcentrationStarted);
         let completed = Established::prove(&ConcentrationFinished);
-        let concentration = ConcentrationEvidence { begun, maintained: None, completed };
+        let concentration = ConcentrationEvidence {
+            begun,
+            maintained: None,
+            completed,
+        };
         let roll_made = Established::prove(&SpellRollMade);
         let outcome = Established::prove(&CastingOutcomeChecked);
-        let resolution = SpellCastingResolutionEvidence { concentration, roll_made, outcome };
+        let resolution = SpellCastingResolutionEvidence {
+            concentration,
+            roll_made,
+            outcome,
+        };
         let critical = Established::prove(&SpellCritMiss);
-        let evidence = SpellCriticalFailureEvidence { resolution, critical };
+        let evidence = SpellCriticalFailureEvidence {
+            resolution,
+            critical,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -146,7 +202,11 @@ impl SpellCaster for GameMaster {
         extra_energy: i32,
     ) -> CombatResult<(i32, Established<EnergyCostEvidence>)> {
         let base_cost = spell.base_casting_cost;
-        let reduction = if effective_skill >= 15 { (effective_skill - 10) / 5 } else { 0 };
+        let reduction = if effective_skill >= 15 {
+            (effective_skill - 10) / 5
+        } else {
+            0
+        };
         let final_cost = (base_cost - reduction + extra_energy).max(1);
 
         let base = Established::prove(&BaseCostDetermined);
@@ -189,9 +249,16 @@ impl SpellCaster for GameMaster {
         let base = Established::prove(&BaseCostDetermined);
         let reduction = Established::prove(&SkillReductionApplied);
         let final_cost = Established::prove(&FinalCostCalculated);
-        let cost_evidence = EnergyCostEvidence { base_cost: base, skill_reduction: reduction, final_cost };
+        let cost_evidence = EnergyCostEvidence {
+            base_cost: base,
+            skill_reduction: reduction,
+            final_cost,
+        };
         let paid = Established::prove(&EnergyDeducted);
-        let evidence = EnergyPaymentEvidence { cost: cost_evidence, paid };
+        let evidence = EnergyPaymentEvidence {
+            cost: cost_evidence,
+            paid,
+        };
 
         Ok((caster, Established::prove(&evidence)))
     }

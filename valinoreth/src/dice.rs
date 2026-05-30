@@ -44,9 +44,11 @@ use tracing::instrument;
     Ord,
     strum::EnumIter,
     elicitation_derive::Rand,
+    Elicit,
+    Serialize,
+    Deserialize,
+    JsonSchema,
 )]
-#[derive(Elicit)]
-#[derive(Serialize, Deserialize, JsonSchema)]
 pub enum DieFace {
     /// Face showing 1.
     #[default]
@@ -120,9 +122,7 @@ impl std::fmt::Display for DieFace {
 /// let roll = dice.generate(); // Independent, seeded roll
 /// assert!(roll.sum() >= 3 && roll.sum() <= 18);
 /// ```
-#[derive(Debug, Clone, Copy, Hash)]
-#[derive(PartialEq, Eq, Elicit)]
-#[derive(Serialize, Deserialize, JsonSchema)]
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Elicit, Serialize, Deserialize, JsonSchema)]
 pub struct ThreeDiceRoll {
     /// First die.
     die1: DieFace,

@@ -12,9 +12,7 @@ use crate::contracts::traits::{
     CharacterAdvancement, CharacterBuilder, CharacterImprovement, CombatResult, ContractError,
     ContractErrorKind, SkillManager,
 };
-use crate::contracts::types::{
-    AttributeDescriptor, AttributeType, CharacterDescriptor,
-};
+use crate::contracts::types::{AttributeDescriptor, AttributeType, CharacterDescriptor};
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
 use elicitation::contracts::Established;

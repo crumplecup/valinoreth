@@ -53,7 +53,10 @@ impl SkillCheckExecutor for GameMaster {
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
         let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
         let success = Established::prove(&SkillCheckHit);
-        let evidence = SkillCheckSuccessEvidence { resolution, success };
+        let evidence = SkillCheckSuccessEvidence {
+            resolution,
+            success,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -75,7 +78,10 @@ impl SkillCheckExecutor for GameMaster {
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
         let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
         let failure = Established::prove(&SkillCheckMiss);
-        let evidence = SkillCheckFailureEvidence { resolution, failure };
+        let evidence = SkillCheckFailureEvidence {
+            resolution,
+            failure,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -97,7 +103,10 @@ impl SkillCheckExecutor for GameMaster {
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
         let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
         let success_proof = Established::prove(&SkillCheckHit);
-        let success = SkillCheckSuccessEvidence { resolution, success: success_proof };
+        let success = SkillCheckSuccessEvidence {
+            resolution,
+            success: success_proof,
+        };
         let critical = Established::prove(&SkillCheckCriticalHit);
         let evidence = SkillCheckCriticalSuccessEvidence { success, critical };
 
@@ -121,7 +130,10 @@ impl SkillCheckExecutor for GameMaster {
         let outcome = Established::prove(&SkillCheckOutcomeChecked);
         let resolution = SkillCheckResolutionEvidence { roll_made, outcome };
         let critical = Established::prove(&SkillCheckCriticalMiss);
-        let evidence = SkillCheckCriticalFailureEvidence { resolution, critical };
+        let evidence = SkillCheckCriticalFailureEvidence {
+            resolution,
+            critical,
+        };
 
         Ok(Established::prove(&evidence))
     }

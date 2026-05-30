@@ -33,11 +33,11 @@ use elicitation::{ChoiceSet, ElicitCommunicator, Established};
 use tokio::sync::mpsc;
 use tracing::{debug, info, instrument};
 
+use crate::contracts::traits::{CombatExchangeResult, CombatExecutor};
 use crate::contracts::types::{
     ArmorDescriptor, AttackDescriptorBuilder, CombatantDescriptorBuilder, DamageDescriptorBuilder,
     DamageTypeDescriptor, DefenseDescriptorBuilder, DefenseType,
 };
-use crate::contracts::traits::{CombatExecutor, CombatExchangeResult};
 use crate::vsm::combat::{
     CombatState, CombatantState, apply_damage, begin_turn, conclude_combat, declare_attack,
     end_turn, initialize_combat, resolve_attack, resolve_defense,
@@ -132,7 +132,12 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                 }
             })
             .collect();
-        Self { session, combatants, gm, chat_tx }
+        Self {
+            session,
+            combatants,
+            gm,
+            chat_tx,
+        }
     }
 
     /// Clone the session handle so a TUI observer can poll state independently.
@@ -199,8 +204,19 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                 (vsm_state, vsm_proof) = end_turn(vsm_state, vsm_proof, Established::assert());
                 push_phase(&self.session, CombatPhase::Active(vsm_state.clone())).await;
                 if let Some(victor) = winning_team(&vsm_state) {
-                    conclude_combat(vsm_state, vsm_proof, Some(victor.clone()), Established::assert());
-                    push_phase(&self.session, CombatPhase::Concluded { winner: Some(victor.clone()) }).await;
+                    conclude_combat(
+                        vsm_state,
+                        vsm_proof,
+                        Some(victor.clone()),
+                        Established::assert(),
+                    );
+                    push_phase(
+                        &self.session,
+                        CombatPhase::Concluded {
+                            winner: Some(victor.clone()),
+                        },
+                    )
+                    .await;
                     self.narrate(format!("⚔ {} wins!", victor));
                     return Ok(Some(victor));
                 }
@@ -210,10 +226,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
             self.narrate(format!("--- Round {} — {} ---", round, actor_state.id));
 
             // ── Elicit maneuver ───────────────────────────────────────────────
-            let maneuver = self.combatants[actor_slot]
-                .player
-                .choose_maneuver()
-                .await?;
+            let maneuver = self.combatants[actor_slot].player.choose_maneuver().await?;
 
             self.narrate(format!("{} → {}", actor_state.id, maneuver));
 
@@ -246,10 +259,13 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                     );
 
                     // ── Elicit defense ────────────────────────────────────────
-                    let defenses = available_defenses(&self.combatants[target_slot].player.character);
+                    let defenses =
+                        available_defenses(&self.combatants[target_slot].player.character);
                     debug!(defender = %target_state.id, "eliciting defense choice");
-                    let defense_choice =
-                        self.combatants[target_slot].player.choose_defense(defenses).await?;
+                    let defense_choice = self.combatants[target_slot]
+                        .player
+                        .choose_defense(defenses)
+                        .await?;
                     debug!(defender = %target_state.id, choice = ?defense_choice, "defense chosen");
 
                     // ── Build descriptors ─────────────────────────────────────
@@ -258,7 +274,11 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
 
                     let attack_skill = melee_skill(attacker_char);
                     let attack_desc = AttackDescriptorBuilder::default()
-                        .effective_skill(if all_out { attack_skill + 4 } else { attack_skill })
+                        .effective_skill(if all_out {
+                            attack_skill + 4
+                        } else {
+                            attack_skill
+                        })
                         .all_out_attack(all_out)
                         .build()
                         .expect("valid attack descriptor");
@@ -288,7 +308,10 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                         .build()
                         .expect("valid damage descriptor");
 
-                    let armor_desc = ArmorDescriptor { dr: 0, flexible: false };
+                    let armor_desc = ArmorDescriptor {
+                        dr: 0,
+                        flexible: false,
+                    };
 
                     // ── Execute combat exchange ───────────────────────────────
                     debug!(attacker = %actor_state.id, defender = %target_state.id, "executing attack");
@@ -359,8 +382,19 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
             push_phase(&self.session, CombatPhase::Active(vsm_state.clone())).await;
 
             if let Some(victor) = winning_team(&vsm_state) {
-                conclude_combat(vsm_state, vsm_proof, Some(victor.clone()), Established::assert());
-                push_phase(&self.session, CombatPhase::Concluded { winner: Some(victor.clone()) }).await;
+                conclude_combat(
+                    vsm_state,
+                    vsm_proof,
+                    Some(victor.clone()),
+                    Established::assert(),
+                );
+                push_phase(
+                    &self.session,
+                    CombatPhase::Concluded {
+                        winner: Some(victor.clone()),
+                    },
+                )
+                .await;
                 self.narrate(format!("⚔ {} wins!", victor));
                 return Ok(Some(victor));
             }
@@ -482,9 +516,7 @@ fn build_defense_descriptor(
 fn melee_skill(ch: &CharacterDescriptor) -> i32 {
     ch.skills
         .iter()
-        .find(|s| {
-            matches!(s.base_attribute, AttributeType::DX | AttributeType::ST)
-        })
+        .find(|s| matches!(s.base_attribute, AttributeType::DX | AttributeType::ST))
         .map(|s| s.level)
         .unwrap_or(10)
 }

@@ -73,9 +73,19 @@ pub trait BodyLocation {
 /// assert_eq!(area.to_hit(), 0);
 /// ```
 #[derive(
-    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    strum::EnumIter,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum BodyArea {
     /// Head area, -5 to hit. BS 399
     Head,
@@ -134,9 +144,19 @@ impl BodyLocation for BodyArea {
 /// assert_eq!(target.to_hit(), -9); // Very difficult shot
 /// ```
 #[derive(
-    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    strum::EnumIter,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Head {
     /// Top/back of head, -7 to hit. BS 399
     Skull,
@@ -195,9 +215,19 @@ impl BodyLocation for Head {
 /// assert_eq!(target.to_hit(), -3); // Heart/lungs
 /// ```
 #[derive(
-    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    strum::EnumIter,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Torso {
     /// Chest, -2 to hit. BS 399
     Chest,
@@ -255,9 +285,19 @@ impl BodyLocation for Torso {
 /// assert_eq!(target.to_hit(), -4); // Small, precise target
 /// ```
 #[derive(
-    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    strum::EnumIter,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Arms {
     /// Shoulders, -2 to hit. BS 399
     Shoulders,
@@ -319,9 +359,19 @@ impl BodyLocation for Arms {
 /// assert_eq!(target.to_hit(), -3); // Joint targeting
 /// ```
 #[derive(
-    Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, strum::EnumIter, derive_more::Display,
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    strum::EnumIter,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Legs {
     /// Thighs, -2 to hit. BS 399
     Thighs,

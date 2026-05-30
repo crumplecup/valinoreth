@@ -96,7 +96,11 @@ impl Screen for MainLobbyScreen {
             .split(area);
 
         let title = Paragraph::new("⚔  Valinoreth — GURPS Combat  ⚔")
-            .style(Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD))
+            .style(
+                Style::default()
+                    .fg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD),
+            )
             .alignment(Alignment::Center)
             .block(Block::default().borders(Borders::BOTTOM));
         frame.render_widget(title, chunks[0]);
@@ -106,9 +110,11 @@ impl Screen for MainLobbyScreen {
             .map(|opt| ListItem::new(opt.label()))
             .collect();
         let list = List::new(items)
-            .block(Block::default().borders(Borders::NONE).padding(
-                ratatui::widgets::Padding::horizontal(2),
-            ))
+            .block(
+                Block::default()
+                    .borders(Borders::NONE)
+                    .padding(ratatui::widgets::Padding::horizontal(2)),
+            )
             .highlight_style(
                 Style::default()
                     .fg(Color::Black)

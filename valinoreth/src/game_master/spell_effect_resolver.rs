@@ -31,7 +31,12 @@ impl SpellEffectResolver for GameMaster {
         let range = Established::prove(&RangeChecked);
         let duration = Established::prove(&DurationSet);
         let effect = Established::prove(&EffectApplied);
-        let evidence = SpellEffectEvidence { target, range, duration, effect };
+        let evidence = SpellEffectEvidence {
+            target,
+            range,
+            duration,
+            effect,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -51,17 +56,34 @@ impl SpellEffectResolver for GameMaster {
         };
 
         let margin = if resisted {
-            if target.success { target.margin - caster.margin } else { caster.roll - target.roll }
+            if target.success {
+                target.margin - caster.margin
+            } else {
+                caster.roll - target.roll
+            }
         } else {
-            if caster.success { caster.margin - target.margin } else { target.roll - caster.roll }
+            if caster.success {
+                caster.margin - target.margin
+            } else {
+                target.roll - caster.roll
+            }
         };
 
-        let result = ResistanceResult { caster_roll: caster.roll, target_roll: target.roll, resisted, margin };
+        let result = ResistanceResult {
+            caster_roll: caster.roll,
+            target_roll: target.roll,
+            resisted,
+            margin,
+        };
 
         let required = Established::prove(&ResistanceNeeded);
         let roll_made = Established::prove(&ResistanceRolled);
         let resisted_proof = Established::prove(&SpellResisted);
-        let evidence = SpellResistanceEvidence { required, roll_made, resisted: resisted_proof };
+        let evidence = SpellResistanceEvidence {
+            required,
+            roll_made,
+            resisted: resisted_proof,
+        };
 
         Ok((result, Established::prove(&evidence)))
     }
@@ -80,7 +102,11 @@ impl SpellEffectResolver for GameMaster {
         let required = Established::prove(&ResistanceNeeded);
         let roll_made = Established::prove(&ResistanceRolled);
         let overcome = Established::prove(&ResistanceBroken);
-        let evidence = ResistanceOvercomeEvidence { required, roll_made, overcome };
+        let evidence = ResistanceOvercomeEvidence {
+            required,
+            roll_made,
+            overcome,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -93,11 +119,12 @@ impl SpellEffectResolver for GameMaster {
         let maintenance_cost = spell.base_maintenance_cost;
 
         if caster.current_fp < maintenance_cost
-            && caster.current_fp + caster.current_hp < maintenance_cost {
-                return Err(ContractError::new(ContractErrorKind::StateViolation(
-                    "Insufficient energy for spell maintenance".to_string(),
-                )));
-            }
+            && caster.current_fp + caster.current_hp < maintenance_cost
+        {
+            return Err(ContractError::new(ContractErrorKind::StateViolation(
+                "Insufficient energy for spell maintenance".to_string(),
+            )));
+        }
 
         if caster.current_fp >= maintenance_cost {
             caster.current_fp -= maintenance_cost;
@@ -114,7 +141,10 @@ impl SpellEffectResolver for GameMaster {
 
         let maintained = Established::prove(&SpellKeptActive);
         let energy_paid = Established::prove(&MaintenancePaid);
-        let evidence = SpellMaintenanceEvidence { maintained, energy_paid };
+        let evidence = SpellMaintenanceEvidence {
+            maintained,
+            energy_paid,
+        };
 
         Ok((caster, Established::prove(&evidence)))
     }

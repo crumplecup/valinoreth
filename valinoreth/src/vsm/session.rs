@@ -163,7 +163,11 @@ impl CombatStateView {
                 s.push_str("All combatants:\n");
                 for c in &self.combatants {
                     let you_marker = if c.is_you { " [YOU]" } else { "" };
-                    let status = if c.is_incapacitated { " (INCAPACITATED)" } else { "" };
+                    let status = if c.is_incapacitated {
+                        " (INCAPACITATED)"
+                    } else {
+                        ""
+                    };
                     s.push_str(&format!(
                         "  {} (team: {}): HP {}/{}{}{}.\n",
                         c.name, c.team, c.current_hp, c.max_hp, you_marker, status

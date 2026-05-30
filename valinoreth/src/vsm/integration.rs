@@ -60,9 +60,7 @@ pub fn defense_resolved_from_gm(
 /// After calling `GameMaster::apply_injury()`, use this to obtain the
 /// proof required by `CombatMachine::apply_damage()`.
 #[tracing::instrument(skip(_gm_proof))]
-pub fn damage_applied_from_gm(
-    _gm_proof: Established<InjuryApplied>,
-) -> Established<DamageApplied> {
+pub fn damage_applied_from_gm(_gm_proof: Established<InjuryApplied>) -> Established<DamageApplied> {
     Established::prove(&InjuryApplied)
 }
 

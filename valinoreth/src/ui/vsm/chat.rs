@@ -20,8 +20,8 @@
 //!    └── receive_message, scroll_up, scroll_down (self-loops)
 //! ```
 
-use elicitation::{Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine};
 use elicitation::formal_method;
+use elicitation::{Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
@@ -106,7 +106,12 @@ pub fn begin_compose(
     _state: ChatState,
     proof: Established<ChatConsistent>,
 ) -> (ChatState, Established<ChatConsistent>) {
-    (ChatState::Composing { buffer: String::new() }, proof)
+    (
+        ChatState::Composing {
+            buffer: String::new(),
+        },
+        proof,
+    )
 }
 
 /// Player sends the composed message, returning to [`ChatState::Viewing`].

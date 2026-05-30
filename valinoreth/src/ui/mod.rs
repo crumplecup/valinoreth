@@ -26,11 +26,11 @@ mod model;
 mod vsm;
 
 pub use chat::{ChatMessage, ChatMessageMode, ChatSender};
+pub use display::GameDisplay;
 pub use elicitation::middleware::{
     ContextualCommunicator, KnowledgeCache, ObservableCommunicator, Participant, SharedKnowledge,
     knowledge_cache,
 };
-pub use display::GameDisplay;
 pub use keymap::{ChatAction, ChatKeyMap};
 pub use model::ChatModel;
 pub use vsm::{
@@ -39,7 +39,7 @@ pub use vsm::{
 };
 
 #[cfg(feature = "frontend-ratatui")]
-pub use frontends::{ChatCommunicator, LlmElicitCommunicator, run_chat, TuiCommunicator};
+pub use frontends::{ChatCommunicator, LlmElicitCommunicator, TuiCommunicator, run_chat};
 #[cfg(feature = "frontend-ratatui")]
 pub use llm_client::{LlmClient, LlmConfig, LlmProvider};
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT

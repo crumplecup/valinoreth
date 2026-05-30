@@ -23,7 +23,6 @@
 //! assert_eq!(luck.cost(), 30);
 //! ```
 
-
 /// Character advantages providing beneficial traits.
 ///
 /// # GURPS Rules
@@ -44,9 +43,19 @@
 /// let advantage = Advantage::AbsoluteDirection(AbsoluteDirection::Normal);
 /// assert_eq!(advantage.cost(), 5);
 /// ```
-#[derive(Debug, Copy, Clone, derive_more::Display)]
-#[derive(serde::Serialize, serde::Deserialize)]
-#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+)]
 pub enum Advantage {
     /// Innate sense of direction. BS 34
     AbsoluteDirection(AbsoluteDirection),
@@ -548,9 +557,19 @@ impl Advantage {
 /// assert_eq!(wealth.cost(), 20);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Wealth {
     /// No starting funds, -25 points. BS 25
     DeadBroke,
@@ -619,9 +638,19 @@ impl Wealth {
 /// assert_eq!(direction.cost(), 10);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum AbsoluteDirection {
     /// Ground-based direction sense, 5 points. BS 34
     #[default]
@@ -664,9 +693,19 @@ impl AbsoluteDirection {
 /// assert_eq!(luck.cost(), 30);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Luck {
     /// Reroll once per hour, 15 points. BS 66
     #[default]
@@ -712,9 +751,19 @@ impl Luck {
 /// assert_eq!(flex.cost(), 15);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Flexible {
     /// +3 bonus to flexibility skills, 5 points. BS 56
     #[default]
@@ -757,9 +806,19 @@ impl Flexible {
 /// assert_eq!(memory.cost(), 10);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum EiditicMemory {
     /// Perfect recall, automatic success on IQ rolls to remember, 5 points. BS 51
     #[default]
@@ -802,9 +861,19 @@ impl EiditicMemory {
 /// assert_eq!(appearance.cost(), 4);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Appearance {
     /// -16 to reactions, -4 points. BS 21
     Horrifying,
@@ -871,9 +940,19 @@ impl Appearance {
 /// assert_eq!(claws.cost(), 5);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Claws {
     /// Blunt claws, thrust-1 cutting, 3 points. BS 42
     Blunt,
@@ -919,9 +998,19 @@ impl Claws {
 /// assert_eq!(flight.cost(), 30);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Flight {
     /// Flight with wings, vulnerable to damage, 30 points. BS 56
     #[default]
@@ -964,9 +1053,19 @@ impl Flight {
 /// assert_eq!(tolerance.cost(), 20);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum InjuryTolerance {
     /// Ignore shock penalties, 20 points. BS 60
     #[default]
@@ -1030,9 +1129,19 @@ impl InjuryTolerance {
 /// assert_eq!(regen.cost(), 25);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Regeneration {
     /// Slow regeneration, 10 points. BS 80
     Slow,
@@ -1084,9 +1193,19 @@ impl Regeneration {
 /// assert_eq!(resistant.cost(), 3);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Resistant {
     /// +3 to resist disease, 3 points. BS 81
     #[default]
@@ -1138,9 +1257,19 @@ impl Resistant {
 /// assert_eq!(teeth.cost(), 1);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Teeth {
     /// Sharp teeth, thrust-1 cutting, 1 point. BS 91
     #[default]
@@ -1186,9 +1315,19 @@ impl Teeth {
 /// assert_eq!(protected.cost(), 5);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum ProtectedSense {
     /// Protected hearing, 5 points. BS 78
     Hearing,
@@ -1237,9 +1376,19 @@ impl ProtectedSense {
 /// assert_eq!(striker.cost(), 5);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum Striker {
     /// Crushing striker (tail, limb), 5 points. BS 88
     #[default]
@@ -1285,9 +1434,19 @@ impl Striker {
 /// assert_eq!(regard.cost(), 5);
 /// ```
 #[derive(
-    Debug, Default, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display,
+    Debug,
+    Default,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
 )]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum SocialRegard {
     /// Feared by society, +1 to Intimidation. BS 86
     Feared,
@@ -1331,8 +1490,19 @@ impl SocialRegard {
 ///
 /// let perk = Perk::DeepSleeper;
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, derive_more::Display)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    derive_more::Display,
+    serde::Serialize,
+    serde::Deserialize,
+)]
 pub enum Perk {
     /// Hard to wake, +4 to avoid being awakened. BS 101
     DeepSleeper,

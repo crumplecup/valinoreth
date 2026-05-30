@@ -19,11 +19,11 @@ use elicit_ui::{VerifiedTree, Viewport};
 use elicitation::Established;
 use tracing::instrument;
 
-use crate::{
-    ChatConsistent, ChatKeyMap, ChatMessage, ChatMessageMode, ChatSender, ChatState, GameDisplay,
-};
 use crate::ui::vsm::{
     begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
+};
+use crate::{
+    ChatConsistent, ChatKeyMap, ChatMessage, ChatMessageMode, ChatSender, ChatState, GameDisplay,
 };
 
 /// How many message rows to show in the chat area.
@@ -183,9 +183,7 @@ impl ChatModel {
     ///   Status  — keybinding hints
     /// ```
     #[instrument(skip(self))]
-    pub fn to_verified_tree(
-        &self,
-    ) -> (VerifiedTree, Established<elicit_ui::IrSourced>) {
+    pub fn to_verified_tree(&self) -> (VerifiedTree, Established<elicit_ui::IrSourced>) {
         use accesskit::{Node as AkNode, NodeId as AkNodeId, Role as AkRole};
         use std::collections::BTreeMap;
 

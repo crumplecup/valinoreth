@@ -37,7 +37,10 @@ impl<C: ElicitCommunicator> Player<C> {
     /// Create a new player from a character and a communicator.
     #[instrument(skip(character, communicator), fields(name = %character.name))]
     pub fn new(character: CharacterDescriptor, communicator: C) -> Self {
-        Self { character, communicator }
+        Self {
+            character,
+            communicator,
+        }
     }
 
     /// Elicit a maneuver choice from this player for their combat turn.
@@ -65,7 +68,10 @@ impl<C: ElicitCommunicator> Player<C> {
     ///
     /// Returns an error if the communicator fails or the choice set is empty.
     #[instrument(skip(self, available), fields(character_id = %self.character.name))]
-    pub async fn choose_defense(&self, available: ChoiceSet<DefenseChoice>) -> ElicitResult<DefenseChoice> {
+    pub async fn choose_defense(
+        &self,
+        available: ChoiceSet<DefenseChoice>,
+    ) -> ElicitResult<DefenseChoice> {
         available.elicit(&self.communicator).await
     }
 }

@@ -181,7 +181,8 @@ impl SpellExecutor for GameMaster {
         let effective_skill = leader_skill + descriptor.assistant_bonuses;
 
         // Build result; correct energy_spent for edge case where pooled_energy < 1
-        let mut result = SpellCastingResult::new(self.roll_3d6().sum(), effective_skill, pooled_energy);
+        let mut result =
+            SpellCastingResult::new(self.roll_3d6().sum(), effective_skill, pooled_energy);
         if !result.success {
             result.energy_spent = 1.min(pooled_energy);
         }

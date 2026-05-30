@@ -56,7 +56,11 @@ impl LlmError {
     #[track_caller]
     pub fn new(message: impl Into<String>) -> Self {
         let loc = std::panic::Location::caller();
-        Self { message: message.into(), line: loc.line(), file: loc.file() }
+        Self {
+            message: message.into(),
+            line: loc.line(),
+            file: loc.file(),
+        }
     }
 }
 
@@ -86,12 +90,8 @@ impl LlmClient {
         user_message: &str,
     ) -> Result<String, LlmError> {
         match self.config.provider {
-            LlmProvider::Anthropic => {
-                self.generate_anthropic(system_prompt, user_message).await
-            }
-            LlmProvider::OpenAI => {
-                self.generate_openai(system_prompt, user_message).await
-            }
+            LlmProvider::Anthropic => self.generate_anthropic(system_prompt, user_message).await,
+            LlmProvider::OpenAI => self.generate_openai(system_prompt, user_message).await,
         }
     }
 
@@ -121,7 +121,9 @@ impl LlmClient {
             .map_err(|e| LlmError::new(format!("Anthropic request failed: {e}")))?;
 
         let status = resp.status();
-        let text = resp.text().await
+        let text = resp
+            .text()
+            .await
             .map_err(|e| LlmError::new(format!("Failed to read response: {e}")))?;
 
         if !status.is_success() {
@@ -129,8 +131,8 @@ impl LlmClient {
             return Err(LlmError::new(format!("Anthropic error {status}: {text}")));
         }
 
-        let json: serde_json::Value = serde_json::from_str(&text)
-            .map_err(|e| LlmError::new(format!("Invalid JSON: {e}")))?;
+        let json: serde_json::Value =
+            serde_json::from_str(&text).map_err(|e| LlmError::new(format!("Invalid JSON: {e}")))?;
 
         json["content"]
             .as_array()
@@ -170,7 +172,9 @@ impl LlmClient {
             .map_err(|e| LlmError::new(format!("OpenAI request failed: {e}")))?;
 
         let status = resp.status();
-        let text = resp.text().await
+        let text = resp
+            .text()
+            .await
             .map_err(|e| LlmError::new(format!("Failed to read response: {e}")))?;
 
         if !status.is_success() {
@@ -178,8 +182,8 @@ impl LlmClient {
             return Err(LlmError::new(format!("OpenAI error {status}: {text}")));
         }
 
-        let json: serde_json::Value = serde_json::from_str(&text)
-            .map_err(|e| LlmError::new(format!("Invalid JSON: {e}")))?;
+        let json: serde_json::Value =
+            serde_json::from_str(&text).map_err(|e| LlmError::new(format!("Invalid JSON: {e}")))?;
 
         json["choices"]
             .as_array()

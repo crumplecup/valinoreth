@@ -101,12 +101,10 @@ impl AgentConfig {
     pub fn create_llm_config(&self) -> Result<LlmConfig, ConfigError> {
         debug!("Building LLM config for agent");
         let api_key = match self.llm_provider {
-            LlmProvider::Anthropic => std::env::var("ANTHROPIC_API_KEY").map_err(|_| {
-                ConfigError::new("ANTHROPIC_API_KEY environment variable not set")
-            })?,
-            LlmProvider::OpenAI => std::env::var("OPENAI_API_KEY").map_err(|_| {
-                ConfigError::new("OPENAI_API_KEY environment variable not set")
-            })?,
+            LlmProvider::Anthropic => std::env::var("ANTHROPIC_API_KEY")
+                .map_err(|_| ConfigError::new("ANTHROPIC_API_KEY environment variable not set"))?,
+            LlmProvider::OpenAI => std::env::var("OPENAI_API_KEY")
+                .map_err(|_| ConfigError::new("OPENAI_API_KEY environment variable not set"))?,
         };
         info!(provider = %self.llm_provider, model = %self.llm_model, "LLM config created");
         Ok(LlmConfig {
@@ -135,6 +133,10 @@ impl ConfigError {
     #[track_caller]
     pub fn new(message: impl Into<String>) -> Self {
         let loc = std::panic::Location::caller();
-        Self { message: message.into(), line: loc.line(), file: loc.file() }
+        Self {
+            message: message.into(),
+            line: loc.line(),
+            file: loc.file(),
+        }
     }
 }

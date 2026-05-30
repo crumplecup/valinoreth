@@ -60,8 +60,7 @@ use elicitation::contracts::Established;
 pub type CombatResult<T> = Result<T, ContractError>;
 
 /// Error kind for combat operations.
-#[derive(Debug, Clone, PartialEq, Eq)]
-#[derive(derive_more::Display)]
+#[derive(Debug, Clone, PartialEq, Eq, derive_more::Display)]
 pub enum ContractErrorKind {
     /// Invalid skill value
     #[display("Invalid skill value: {}", _0)]
@@ -81,8 +80,7 @@ pub enum ContractErrorKind {
 }
 
 /// Errors that can occur during combat resolution.
-#[derive(Debug, Clone)]
-#[derive(derive_more::Display, derive_more::Error)]
+#[derive(Debug, Clone, derive_more::Display, derive_more::Error)]
 #[display("Contract error: {} at {}:{}", kind, file, line)]
 pub struct ContractError {
     /// The specific error kind

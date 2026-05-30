@@ -83,7 +83,6 @@ impl GameMaster {
     pub(crate) fn roll_3d6(&self) -> ThreeDiceRoll {
         ThreeDiceRoll::random_generator(self.config.seed).generate()
     }
-
 }
 
 impl Default for GameMaster {

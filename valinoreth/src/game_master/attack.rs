@@ -48,7 +48,10 @@ impl AttackResolver for GameMaster {
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
         let success = Established::prove(&AttackHit);
-        let evidence = AttackSuccessEvidence { resolution, success };
+        let evidence = AttackSuccessEvidence {
+            resolution,
+            success,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -70,7 +73,10 @@ impl AttackResolver for GameMaster {
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
         let failure = Established::prove(&AttackMiss);
-        let evidence = AttackFailureEvidence { resolution, failure };
+        let evidence = AttackFailureEvidence {
+            resolution,
+            failure,
+        };
 
         Ok(Established::prove(&evidence))
     }
@@ -92,7 +98,10 @@ impl AttackResolver for GameMaster {
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
         let success_proof = Established::prove(&AttackHit);
-        let success = AttackSuccessEvidence { resolution, success: success_proof };
+        let success = AttackSuccessEvidence {
+            resolution,
+            success: success_proof,
+        };
         let critical = Established::prove(&AttackCriticalHit);
         let evidence = AttackCriticalSuccessEvidence { success, critical };
 
@@ -116,7 +125,10 @@ impl AttackResolver for GameMaster {
         let outcome = Established::prove(&AttackOutcomeChecked);
         let resolution = AttackResolutionEvidence { roll_made, outcome };
         let critical = Established::prove(&AttackCriticalMiss);
-        let evidence = AttackCriticalFailureEvidence { resolution, critical };
+        let evidence = AttackCriticalFailureEvidence {
+            resolution,
+            critical,
+        };
 
         Ok(Established::prove(&evidence))
     }

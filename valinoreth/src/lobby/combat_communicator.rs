@@ -9,8 +9,8 @@
 
 use std::future::Future;
 
-use elicitation::{ElicitResult, ElicitationContext, StyleContext, StyleMarker};
 use elicitation::ElicitCommunicator;
+use elicitation::{ElicitResult, ElicitationContext, StyleContext, StyleMarker};
 
 use crate::{ChatCommunicator, LlmElicitCommunicator};
 
@@ -24,10 +24,7 @@ pub enum CombatCommunicator {
 }
 
 impl ElicitCommunicator for CombatCommunicator {
-    fn send_prompt(
-        &self,
-        prompt: &str,
-    ) -> impl Future<Output = ElicitResult<String>> + Send {
+    fn send_prompt(&self, prompt: &str) -> impl Future<Output = ElicitResult<String>> + Send {
         let this = self.clone();
         let prompt = prompt.to_string();
         async move {
@@ -41,9 +38,8 @@ impl ElicitCommunicator for CombatCommunicator {
     fn call_tool(
         &self,
         params: rmcp::model::CallToolRequestParams,
-    ) -> impl Future<
-        Output = Result<rmcp::model::CallToolResult, rmcp::service::ServiceError>,
-    > + Send {
+    ) -> impl Future<Output = Result<rmcp::model::CallToolResult, rmcp::service::ServiceError>> + Send
+    {
         let this = self.clone();
         async move {
             match this {

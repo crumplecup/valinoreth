@@ -44,7 +44,10 @@ impl ManeuverExecutor for GameMaster {
         };
 
         let feint = Established::prove(&FeintWon);
-        let evidence = FeintEvidence { feint, margin: if attacker_won { margin } else { 0 } };
+        let evidence = FeintEvidence {
+            feint,
+            margin: if attacker_won { margin } else { 0 },
+        };
 
         Ok((result, Established::prove(&evidence)))
     }
@@ -67,7 +70,10 @@ impl ManeuverExecutor for GameMaster {
         }
 
         let rapid_strike = Established::prove(&RapidStrikePerformed);
-        let evidence = RapidStrikeEvidence { rapid_strike, attacks: attack_evidences };
+        let evidence = RapidStrikeEvidence {
+            rapid_strike,
+            attacks: attack_evidences,
+        };
 
         Ok((attack_results, Established::prove(&evidence)))
     }
