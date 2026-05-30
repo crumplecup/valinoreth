@@ -14,8 +14,8 @@ use crate::contracts::types::{
 };
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
-use elicitation::contracts::Established;
 use elicitation::Generator;
+use elicitation::contracts::Established;
 use elicitation_rand::generators::RandomGenerator;
 
 impl DamageTypeDescriptor {
@@ -48,8 +48,8 @@ impl DamageCalculator for GameMaster {
         let mut total = 0;
         for i in 0..descriptor.dice {
             let seed = self.config.seed.wrapping_add(i as u64);
-            let gen = RandomGenerator::<u64>::with_seed(seed);
-            let roll = (gen.generate() % descriptor.sides as u64) as i32 + 1;
+            let rng = RandomGenerator::<u64>::with_seed(seed);
+            let roll = (rng.generate() % descriptor.sides as u64) as i32 + 1;
             total += roll;
         }
         total += descriptor.modifier;
@@ -59,7 +59,11 @@ impl DamageCalculator for GameMaster {
         let damage_rolled = Established::prove(&ValidDamageRoll);
         let dr_applied = Established::prove(&DrSubtracted);
         let basic_calculated = Established::prove(&BasicDamageComputed);
-        let evidence = BasicDamageEvidence { damage_rolled, dr_applied, basic_calculated };
+        let evidence = BasicDamageEvidence {
+            damage_rolled,
+            dr_applied,
+            basic_calculated,
+        };
 
         Ok((damage, Established::prove(&evidence)))
     }
@@ -92,7 +96,11 @@ impl DamageCalculator for GameMaster {
         let damage_rolled = Established::prove(&ValidDamageRoll);
         let dr_applied = Established::prove(&DrSubtracted);
         let basic_calculated = Established::prove(&BasicDamageComputed);
-        let basic_damage = BasicDamageEvidence { damage_rolled, dr_applied, basic_calculated };
+        let basic_damage = BasicDamageEvidence {
+            damage_rolled,
+            dr_applied,
+            basic_calculated,
+        };
         let location_proof = Established::prove(&LocationDetermined);
         let location_mult = Established::prove(&LocationMultiplierComputed);
         let wounding_mult = Established::prove(&WoundingMultiplierComputed);
@@ -115,12 +123,19 @@ impl DamageCalculator for GameMaster {
         _injury_evidence: Established<InjuryCalculationEvidence>,
     ) -> CombatResult<(CombatantDescriptor, Established<InjuryApplicationEvidence>)> {
         let new_hp = combatant.current_hp - injury;
-        let updated_combatant = CombatantDescriptor { current_hp: new_hp, ..combatant };
+        let updated_combatant = CombatantDescriptor {
+            current_hp: new_hp,
+            ..combatant
+        };
 
         let damage_rolled = Established::prove(&ValidDamageRoll);
         let dr_applied = Established::prove(&DrSubtracted);
         let basic_calculated = Established::prove(&BasicDamageComputed);
-        let basic_damage = BasicDamageEvidence { damage_rolled, dr_applied, basic_calculated };
+        let basic_damage = BasicDamageEvidence {
+            damage_rolled,
+            dr_applied,
+            basic_calculated,
+        };
         let location_proof = Established::prove(&LocationDetermined);
         let location_mult = Established::prove(&LocationMultiplierComputed);
         let wounding_mult = Established::prove(&WoundingMultiplierComputed);
@@ -133,7 +148,10 @@ impl DamageCalculator for GameMaster {
             injury_calculated,
         };
         let applied = Established::prove(&InjurySubtracted);
-        let evidence = InjuryApplicationEvidence { calculation, applied };
+        let evidence = InjuryApplicationEvidence {
+            calculation,
+            applied,
+        };
 
         Ok((updated_combatant, Established::prove(&evidence)))
     }
