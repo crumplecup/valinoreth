@@ -1,13 +1,6 @@
 [workspace]
-members = [
-    "valinoreth",
-    "valinoreth_proofs",
-]
+members = ["valinoreth", "valinoreth_proofs"]
 resolver = "2"
 
 [workspace.dependencies]
-creusot-std = { version = "0.10", features = ["nightly"] }
-
-[patch.crates-io]
-creusot-std = { path = "../elicitation/vendor/creusot-std" }
-pearlite-syn = { path = "../elicitation/vendor/pearlite-syn" }
+creusot-std = { version = "0.11", features = ["nightly"] }

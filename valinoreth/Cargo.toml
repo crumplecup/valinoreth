@@ -15,7 +15,7 @@ name = "valinoreth"
 
 [dependencies]
 async-trait = "0.1"
-bio = { version = "2.3.0", optional = true }
+bio = { version = "4", optional = true }
 clap = { version = "4.5.41", features = ["derive"] }
 derive-getters = "0.5.0"
 derive-new = "0.7.0"
@@ -24,32 +24,32 @@ derive_more = { version = "2.0.1", features = ["full"] }
 rand = "0.10"
 serde = { version = "1.0.219", features = ["derive"] }
 tokio = { version = "1.52", features = ["sync"] }
-strum = { version = "0.27.1", features = ["derive", "strum_macros"] }
+strum = { version = "0.28", features = ["derive", "strum_macros"] }
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 
 # Elicitation framework for contract-based game rules
-elicitation = { path = "../../elicitation/crates/elicitation", features = ["serde"] }
-elicitation_derive = { path = "../../elicitation/crates/elicitation_derive" }
-elicitation_rand = { path = "../../elicitation/crates/elicitation_rand" }
+elicitation = { version = "0.11.1", features = ["serde"] }
+elicitation_derive = { version = "0.11.1" }
+elicitation_rand = { version = "0.11.1" }
 proc-macro2 = "1"
 rmcp = "1"
 schemars = "1"
 
 # UI — AccessKit IR pipeline (always present; frontends are feature-gated)
 accesskit = { version = "0.24", features = ["serde", "schemars"] }
-elicit_accesskit = { path = "../../elicitation/crates/elicit_accesskit" }
-elicit_ui = { path = "../../elicitation/crates/elicit_ui" }
+elicit_accesskit = { version = "0.11.1" }
+elicit_ui = { version = "0.11.1" }
 
 # ratatui frontend (feature = "frontend-ratatui")
-elicit_ratatui = { path = "../../elicitation/crates/elicit_ratatui", features = ["runtime"], optional = true }
+elicit_ratatui = { version = "0.11.1", features = ["runtime"], optional = true }
 ratatui = { version = "0.30", optional = true }
 crossterm = { version = "0.29", optional = true }
 anyhow = { version = "1", optional = true }
-reqwest = { version = "0.12", features = ["json"], optional = true }
+reqwest = { version = "0.13", features = ["json"], optional = true }
 serde_json = { version = "1", optional = true }
 dotenvy = { version = "0.15", optional = true }
-toml = { version = "0.8", optional = true }
+toml = { version = "1", optional = true }
 
 [dev-dependencies]
 tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
@@ -57,7 +57,12 @@ tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
 [features]
 bin-extras = ["bio"]
 frontend-ratatui = [
-    "dep:elicit_ratatui", "dep:ratatui", "dep:crossterm",
-    "dep:anyhow", "dep:reqwest", "dep:serde_json", "dep:dotenvy", "dep:toml",
+  "dep:elicit_ratatui",
+  "dep:ratatui",
+  "dep:crossterm",
+  "dep:anyhow",
+  "dep:reqwest",
+  "dep:serde_json",
+  "dep:dotenvy",
+  "dep:toml",
 ]
-
