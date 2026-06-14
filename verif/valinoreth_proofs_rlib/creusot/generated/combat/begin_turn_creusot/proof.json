@@ -2,8 +2,8 @@
   "profile": [],
   "proofs": {
     "Coma": {
-      "vc_begin_turn": { "prover": "alt-ergo@2.6.2", "time": 0.018 },
-      "vc_begin_turn_creusot": { "prover": "alt-ergo@2.6.2", "time": 0.021 }
+      "vc_begin_turn": { "prover": "alt-ergo", "time": 0.027 },
+      "vc_begin_turn_creusot": { "prover": "alt-ergo", "time": 0.025 }
     }
   }
 }

@@ -2,11 +2,8 @@
   "profile": [],
   "proofs": {
     "Coma": {
-      "vc_resolve_defense": { "prover": "alt-ergo@2.6.2", "time": 0.019 },
-      "vc_resolve_defense_creusot": {
-        "prover": "alt-ergo@2.6.2",
-        "time": 0.018
-      }
+      "vc_resolve_defense": { "prover": "alt-ergo", "time": 0.027 },
+      "vc_resolve_defense_creusot": { "prover": "alt-ergo", "time": 0.025 }
     }
   }
 }
