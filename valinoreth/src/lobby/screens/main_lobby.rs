@@ -122,7 +122,7 @@ impl Screen for MainLobbyScreen {
                     .add_modifier(Modifier::BOLD),
             )
             .highlight_symbol("▶ ");
-        let mut state = self.list_state.clone();
+        let mut state = self.list_state;
         frame.render_stateful_widget(list, chunks[1], &mut state);
 
         let help = Paragraph::new("[↑↓ / jk] navigate   [Enter] select   [q] quit")
