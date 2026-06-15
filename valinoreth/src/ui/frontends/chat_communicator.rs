@@ -22,7 +22,7 @@ use elicitation::{
     ElicitCommunicator, ElicitError, ElicitErrorKind, ElicitResult, ElicitationContext,
     StyleContext, StyleMarker,
 };
-use tokio::sync::{Mutex, mpsc};
+use tokio::sync::{mpsc, Mutex};
 use tracing::{debug, instrument, warn};
 
 use crate::{ChatMessage, ChatSender};

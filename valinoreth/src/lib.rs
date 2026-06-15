@@ -327,9 +327,9 @@ pub use items::{
 };
 #[cfg(feature = "frontend-ratatui")]
 pub use lobby::{
-    AgentConfig, CombatCommunicator, CombatSetupScreen, CombatSlot, ConfigError, LobbyController,
-    LobbySettings, MainLobbyScreen, PlayerKind, RosterEntry, Screen, ScreenTransition,
-    SettingsScreen, default_roster, run_lobby,
+    default_roster, run_lobby, AgentConfig, CombatCommunicator, CombatSetupScreen, CombatSlot,
+    ConfigError, LobbyController, LobbySettings, MainLobbyScreen, PlayerKind, RosterEntry, Screen,
+    ScreenTransition, SettingsScreen,
 };
 pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
@@ -339,15 +339,15 @@ pub use players::{DefenseChoice, ManeuverChoice, Player, Players};
 pub use skills::{Family, Skill, SkillBase, SkillDefault};
 pub use special_features::SpecialFeatures;
 pub use ui::{
-    ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage, ChatMessageMode, ChatModel,
-    ChatSender, ChatState, ContextualCommunicator, GameDisplay, KnowledgeCache,
-    ObservableCommunicator, Participant, SharedKnowledge, begin_compose, cancel_compose,
-    knowledge_cache, receive_message, scroll_down, scroll_up, send_message,
+    begin_compose, cancel_compose, knowledge_cache, receive_message, scroll_down, scroll_up,
+    send_message, ChatAction, ChatConsistent, ChatKeyMap, ChatMachine, ChatMessage,
+    ChatMessageMode, ChatModel, ChatSender, ChatState, ContextualCommunicator, GameDisplay,
+    KnowledgeCache, ObservableCommunicator, Participant, SharedKnowledge,
 };
 #[cfg(feature = "frontend-ratatui")]
 pub use ui::{
-    ChatCommunicator, LlmClient, LlmConfig, LlmElicitCommunicator, LlmProvider, TuiCommunicator,
-    run_chat,
+    run_chat, ChatCommunicator, LlmClient, LlmConfig, LlmElicitCommunicator, LlmProvider,
+    TuiCommunicator,
 };
 pub use vsm::{
     apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,

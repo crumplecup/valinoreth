@@ -8,12 +8,12 @@ use std::time::Duration;
 use crossterm::event::{self, Event, KeyCode, KeyEventKind};
 use crossterm::{
     execute,
-    terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
+    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
-use elicit_ratatui::{RatatuiBackend, render_node};
+use elicit_ratatui::{render_node, RatatuiBackend};
 use elicit_ui::UiTreeRenderer as _;
-use ratatui::{Terminal, backend::CrosstermBackend};
-use tokio::sync::{Mutex, mpsc};
+use ratatui::{backend::CrosstermBackend, Terminal};
+use tokio::sync::{mpsc, Mutex};
 use tracing::{debug, info, instrument, warn};
 
 use crate::lobby::screen::{Screen, ScreenTransition};

@@ -26,7 +26,7 @@ mod settings;
 
 pub use agent_config::{AgentConfig, ConfigError};
 pub use combat_communicator::CombatCommunicator;
-pub use controller::{LobbyController, run_lobby};
+pub use controller::{run_lobby, LobbyController};
 pub use screen::{Screen, ScreenTransition};
 pub use screens::{CombatSetupScreen, MainLobbyScreen, SettingsScreen};
-pub use settings::{CombatSlot, LobbySettings, PlayerKind, RosterEntry, default_roster};
+pub use settings::{default_roster, CombatSlot, LobbySettings, PlayerKind, RosterEntry};

@@ -19,15 +19,15 @@
 
 use crossterm::event::{KeyCode, KeyEvent};
 use ratatui::{
-    Frame,
     layout::{Alignment, Constraint, Direction, Layout, Rect},
     style::{Color, Modifier, Style},
     widgets::{Block, Borders, Paragraph},
+    Frame,
 };
 use tracing::{debug, instrument};
 
 use crate::lobby::screen::{Screen, ScreenTransition};
-use crate::lobby::settings::{CombatSlot, PlayerKind, RosterEntry, default_roster};
+use crate::lobby::settings::{default_roster, CombatSlot, PlayerKind, RosterEntry};
 
 /// Minimum number of combat slots.
 const MIN_SLOTS: usize = 2;

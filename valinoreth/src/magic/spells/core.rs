@@ -14,13 +14,13 @@ use tracing::{debug, instrument};
 
 use crate::contracts::SpellCollege;
 
-use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 use super::{
     air, animal, body_control, communication_empathy, earth, enchantment, fire, food, gate,
     healing, illusion_creation, knowledge, light_darkness, making_breaking, meta_spells,
     mind_control, movement, necromantic, plant, protection_warning, sound, technological, water,
     weather,
 };
+use super::{Duration, EnergyCost, ResistanceType, SpellPrerequisite, SpellType};
 
 /// GURPS magic spells (Knowledge college canary implementation).
 ///

@@ -28,18 +28,18 @@ mod vsm;
 pub use chat::{ChatMessage, ChatMessageMode, ChatSender};
 pub use display::GameDisplay;
 pub use elicitation::middleware::{
-    ContextualCommunicator, KnowledgeCache, ObservableCommunicator, Participant, SharedKnowledge,
-    knowledge_cache,
+    knowledge_cache, ContextualCommunicator, KnowledgeCache, ObservableCommunicator, Participant,
+    SharedKnowledge,
 };
 pub use keymap::{ChatAction, ChatKeyMap};
 pub use model::ChatModel;
 pub use vsm::{
-    ChatConsistent, ChatMachine, ChatState, begin_compose, cancel_compose, receive_message,
-    scroll_down, scroll_up, send_message,
+    begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
+    ChatConsistent, ChatMachine, ChatState,
 };
 
 #[cfg(feature = "frontend-ratatui")]
-pub use frontends::{ChatCommunicator, LlmElicitCommunicator, TuiCommunicator, run_chat};
+pub use frontends::{run_chat, ChatCommunicator, LlmElicitCommunicator, TuiCommunicator};
 #[cfg(feature = "frontend-ratatui")]
 pub use llm_client::{LlmClient, LlmConfig, LlmProvider};
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT

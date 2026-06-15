@@ -104,16 +104,14 @@ pub fn default_roster() -> Vec<RosterEntry> {
                 .total_points(100)
                 .points_spent(100)
                 .attributes(vec![])
-                .skills(vec![
-                    SkillDescriptorBuilder::default()
-                        .name("Broadsword".to_string())
-                        .difficulty(SkillDifficulty::Average)
-                        .base_attribute(AttributeType::DX)
-                        .points(4)
-                        .level(12)
-                        .build()
-                        .expect("valid skill"),
-                ])
+                .skills(vec![SkillDescriptorBuilder::default()
+                    .name("Broadsword".to_string())
+                    .difficulty(SkillDifficulty::Average)
+                    .base_attribute(AttributeType::DX)
+                    .points(4)
+                    .level(12)
+                    .build()
+                    .expect("valid skill")])
                 .derived_stats(DerivedStatsDescriptor {
                     basic_speed: 5.5,
                     basic_move: 5,
@@ -134,16 +132,14 @@ pub fn default_roster() -> Vec<RosterEntry> {
                 .total_points(100)
                 .points_spent(100)
                 .attributes(vec![])
-                .skills(vec![
-                    SkillDescriptorBuilder::default()
-                        .name("Shortsword".to_string())
-                        .difficulty(SkillDifficulty::Average)
-                        .base_attribute(AttributeType::DX)
-                        .points(2)
-                        .level(10)
-                        .build()
-                        .expect("valid skill"),
-                ])
+                .skills(vec![SkillDescriptorBuilder::default()
+                    .name("Shortsword".to_string())
+                    .difficulty(SkillDifficulty::Average)
+                    .base_attribute(AttributeType::DX)
+                    .points(2)
+                    .level(10)
+                    .build()
+                    .expect("valid skill")])
                 .derived_stats(DerivedStatsDescriptor {
                     basic_speed: 6.5,
                     basic_move: 6,
@@ -164,16 +160,14 @@ pub fn default_roster() -> Vec<RosterEntry> {
                 .total_points(100)
                 .points_spent(100)
                 .attributes(vec![])
-                .skills(vec![
-                    SkillDescriptorBuilder::default()
-                        .name("Axe/Mace".to_string())
-                        .difficulty(SkillDifficulty::Average)
-                        .base_attribute(AttributeType::DX)
-                        .points(8)
-                        .level(13)
-                        .build()
-                        .expect("valid skill"),
-                ])
+                .skills(vec![SkillDescriptorBuilder::default()
+                    .name("Axe/Mace".to_string())
+                    .difficulty(SkillDifficulty::Average)
+                    .base_attribute(AttributeType::DX)
+                    .points(8)
+                    .level(13)
+                    .build()
+                    .expect("valid skill")])
                 .derived_stats(DerivedStatsDescriptor {
                     basic_speed: 4.0,
                     basic_move: 4,
@@ -194,16 +188,14 @@ pub fn default_roster() -> Vec<RosterEntry> {
                 .total_points(100)
                 .points_spent(100)
                 .attributes(vec![])
-                .skills(vec![
-                    SkillDescriptorBuilder::default()
-                        .name("Rapier".to_string())
-                        .difficulty(SkillDifficulty::Average)
-                        .base_attribute(AttributeType::DX)
-                        .points(8)
-                        .level(14)
-                        .build()
-                        .expect("valid skill"),
-                ])
+                .skills(vec![SkillDescriptorBuilder::default()
+                    .name("Rapier".to_string())
+                    .difficulty(SkillDifficulty::Average)
+                    .base_attribute(AttributeType::DX)
+                    .points(8)
+                    .level(14)
+                    .build()
+                    .expect("valid skill")])
                 .derived_stats(DerivedStatsDescriptor {
                     basic_speed: 6.0,
                     basic_move: 6,

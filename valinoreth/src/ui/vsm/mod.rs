@@ -3,8 +3,8 @@
 mod chat;
 
 pub use chat::{
-    ChatConsistent, ChatMachine, ChatState, begin_compose, cancel_compose, receive_message,
-    scroll_down, scroll_up, send_message,
+    begin_compose, cancel_compose, receive_message, scroll_down, scroll_up, send_message,
+    ChatConsistent, ChatMachine, ChatState,
 };
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
 pub use chat::begin_compose_kani_contracted;

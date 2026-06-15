@@ -32,11 +32,11 @@
 use crossterm::{
     event::{Event, KeyCode, KeyEventKind},
     execute,
-    terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
+    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
-use elicit_ratatui::{RatatuiBackend, render_node};
+use elicit_ratatui::{render_node, RatatuiBackend};
 use elicit_ui::UiTreeRenderer as _;
-use ratatui::{Terminal, backend::CrosstermBackend};
+use ratatui::{backend::CrosstermBackend, Terminal};
 use tracing::instrument;
 
 use crate::{ChatKeyMap, ChatModel};
