@@ -350,9 +350,9 @@ pub use ui::{
     run_chat,
 };
 pub use vsm::{
-    CombatConsistent, CombatMachine, CombatPhase, CombatSession, CombatState, CombatStateView,
-    CombatWorkflow, CombatantState, CombatantView, WorkflowError, apply_damage,
-    attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
-    damage_applied_from_gm, declare_attack, defense_resolved_from_gm, end_turn, initialize_combat,
-    resolve_attack, resolve_defense,
+    apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
+    damage_applied_from_gm, declare_attack, declared_attack_target, defense_resolved_from_gm,
+    end_turn, initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatMachine,
+    CombatPhase, CombatSession, CombatState, CombatStateView, CombatWorkflow, CombatantSlot,
+    CombatantState, CombatantView, DeclaredAttackTarget, WorkflowError,
 };

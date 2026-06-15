@@ -13,10 +13,10 @@ use ::creusot_std::prelude::*;
 use elicitation::Established;
 #[cfg(creusot)]
 use valinoreth::{
-    AttackDeclared, AttackResolved, CombatConsistent, CombatInitialized, CombatState,
-    CombatantState, DamageApplied, DefenseResolved, TurnBegan, TurnEnded, VictoryConditionMet,
-    apply_damage, begin_turn, conclude_combat, declare_attack, end_turn, initialize_combat,
-    resolve_attack, resolve_defense,
+    AttackResolved, CombatConsistent, CombatInitialized, CombatState, CombatantState,
+    DamageApplied, DeclaredAttackTarget, DefenseResolved, TurnBegan, TurnEnded,
+    VictoryConditionMet, apply_damage, begin_turn, conclude_combat, declare_attack, end_turn,
+    initialize_combat, resolve_attack, resolve_defense,
 };
 
 #[cfg(creusot)]
@@ -88,7 +88,7 @@ pub fn begin_turn_creusot(
 extern_spec! {
     #[requires(combat_consistent_creusot_logic(&state))]
     #[ensures(combat_consistent_creusot_logic(&result.0))]
-    fn declare_attack(state: CombatState, proof: Established<CombatConsistent>, attacker_id: usize, target_id: usize, _attack_proof: Established<AttackDeclared>) -> (CombatState, Established<CombatConsistent>);
+    fn declare_attack(state: CombatState, proof: Established<CombatConsistent>, declared_target: DeclaredAttackTarget) -> (CombatState, Established<CombatConsistent>);
 }
 
 #[cfg(creusot)]
@@ -98,11 +98,9 @@ extern_spec! {
 pub fn declare_attack_creusot(
     state: CombatState,
     proof: Established<CombatConsistent>,
-    attacker_id: usize,
-    target_id: usize,
-    _attack_proof: Established<AttackDeclared>,
+    declared_target: DeclaredAttackTarget,
 ) -> (CombatState, Established<CombatConsistent>) {
-    declare_attack(state, proof, attacker_id, target_id, _attack_proof)
+    declare_attack(state, proof, declared_target)
 }
 
 #[cfg(creusot)]
@@ -148,7 +146,7 @@ extern_spec! {
     #[requires(combat_consistent_creusot_logic(&state))]
     #[requires(injury@ >= 0)]
     #[ensures(combat_consistent_creusot_logic(&result.0))]
-    fn apply_damage(state: CombatState, proof: Established<CombatConsistent>, target_id: usize, injury: i32, _damage_proof: Established<DamageApplied>) -> (CombatState, Established<CombatConsistent>);
+    fn apply_damage(state: CombatState, proof: Established<CombatConsistent>, declared_target: DeclaredAttackTarget, injury: i32, _damage_proof: Established<DamageApplied>) -> (CombatState, Established<CombatConsistent>);
 }
 
 #[cfg(creusot)]
@@ -159,11 +157,11 @@ extern_spec! {
 pub fn apply_damage_creusot(
     state: CombatState,
     proof: Established<CombatConsistent>,
-    target_id: usize,
+    declared_target: DeclaredAttackTarget,
     injury: i32,
     _damage_proof: Established<DamageApplied>,
 ) -> (CombatState, Established<CombatConsistent>) {
-    apply_damage(state, proof, target_id, injury, _damage_proof)
+    apply_damage(state, proof, declared_target, injury, _damage_proof)
 }
 
 #[cfg(creusot)]

@@ -1,8 +1,9 @@
 //! Tests for Combat VSM transitions and invariants.
 
 use valinoreth::{
-    apply_damage, begin_turn, combat_consistent, declare_attack, end_turn, initialize_combat,
-    resolve_attack, resolve_defense, CombatConsistent, CombatState, CombatantState,
+    apply_damage, begin_turn, combat_consistent, declare_attack, declared_attack_target, end_turn,
+    initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatState,
+    CombatantSlot, CombatantState, DeclaredAttackTarget,
 };
 
 // Helper to create test combatants
@@ -39,6 +40,16 @@ fn create_test_combatants() -> Vec<CombatantState> {
             incapacitated: false,
         },
     ]
+}
+
+fn declared_target(attacker: usize, target: usize) -> DeclaredAttackTarget {
+    use elicitation::Established;
+
+    declared_attack_target(
+        CombatantSlot::new(attacker),
+        CombatantSlot::new(target),
+        Established::assert(),
+    )
 }
 
 #[test]
@@ -165,9 +176,9 @@ fn test_declare_attack_maintains_state() {
     let init_proof = Established::assert();
 
     let (state, proof) = initialize_combat(state, proof, combatants, init_proof);
-    let attack_proof = Established::assert();
+    let target = declared_target(0, 1);
 
-    let (new_state, new_proof) = declare_attack(state.clone(), proof, 0, 1, attack_proof);
+    let (new_state, new_proof) = declare_attack(state.clone(), proof, target);
 
     // State should be unchanged (attack declaration tracked via proof)
     assert_eq!(new_state, state);
@@ -226,18 +237,15 @@ fn test_apply_damage_reduces_hp() {
 
     let (state, proof) = initialize_combat(state, proof, combatants, init_proof);
 
-    // Apply 5 damage to target_id 1 (second in turn order)
-    let damage_proof = Established::assert();
-    let (new_state, new_proof) = apply_damage(state, proof, 1, 5, damage_proof);
+    let target = declared_target(0, 1);
+    let (state, proof) = declare_attack(state, proof, target);
 
-    if let CombatState::Active {
-        combatants,
-        turn_order,
-        ..
-    } = &new_state
-    {
-        let target_idx = turn_order[1];
-        let target = &combatants[target_idx];
+    // Apply 5 damage to declared combatant slot 1.
+    let damage_proof = Established::assert();
+    let (new_state, new_proof) = apply_damage(state, proof, target, 5, damage_proof);
+
+    if let CombatState::Active { combatants, .. } = &new_state {
+        let target = &combatants[1];
 
         // Original HP was 8 for wizard, should now be 3
         assert_eq!(target.current_hp, 3);
@@ -261,18 +269,15 @@ fn test_apply_damage_sets_incapacitated() {
 
     let (state, proof) = initialize_combat(state, proof, combatants, init_proof);
 
-    // Apply 10 damage to target_id 1 (should incapacitate wizard with 8 HP)
-    let damage_proof = Established::assert();
-    let (new_state, new_proof) = apply_damage(state, proof, 1, 10, damage_proof);
+    let target = declared_target(0, 1);
+    let (state, proof) = declare_attack(state, proof, target);
 
-    if let CombatState::Active {
-        combatants,
-        turn_order,
-        ..
-    } = &new_state
-    {
-        let target_idx = turn_order[1];
-        let target = &combatants[target_idx];
+    // Apply 10 damage to declared combatant slot 1 (should incapacitate wizard with 8 HP)
+    let damage_proof = Established::assert();
+    let (new_state, new_proof) = apply_damage(state, proof, target, 10, damage_proof);
+
+    if let CombatState::Active { combatants, .. } = &new_state {
+        let target = &combatants[1];
 
         assert_eq!(target.current_hp, -2);
         assert!(target.incapacitated);
@@ -282,6 +287,72 @@ fn test_apply_damage_sets_incapacitated() {
 
     assert!(combat_consistent(&new_state));
     let _ = new_proof;
+}
+
+#[test]
+fn test_apply_damage_hits_declared_combatant_slot_not_turn_order_slot() {
+    use elicitation::Established;
+
+    let combatants = vec![
+        CombatantState {
+            id: "attacker".to_string(),
+            team: "heroes".to_string(),
+            current_hp: 12,
+            max_hp: 12,
+            current_fp: 10,
+            max_fp: 10,
+            basic_speed: 4,
+            incapacitated: false,
+        },
+        CombatantState {
+            id: "intended-target".to_string(),
+            team: "enemies".to_string(),
+            current_hp: 10,
+            max_hp: 10,
+            current_fp: 10,
+            max_fp: 10,
+            basic_speed: 3,
+            incapacitated: false,
+        },
+        CombatantState {
+            id: "fast-bystander".to_string(),
+            team: "enemies".to_string(),
+            current_hp: 10,
+            max_hp: 10,
+            current_fp: 10,
+            max_fp: 10,
+            basic_speed: 9,
+            incapacitated: false,
+        },
+    ];
+
+    let state = CombatState::Uninitialized;
+    let proof = Established::<CombatConsistent>::assert();
+    let init_proof = Established::assert();
+
+    let (state, proof) = initialize_combat(state, proof, combatants, init_proof);
+
+    if let CombatState::Active { turn_order, .. } = &state {
+        assert_eq!(turn_order.as_slice(), &[2, 0, 1]);
+    } else {
+        panic!("Expected Active state");
+    }
+
+    let target = declared_target(0, 1);
+    let (state, proof) = declare_attack(state, proof, target);
+
+    let damage_proof = Established::assert();
+    let (state, _proof) = apply_damage(state, proof, target, 4, damage_proof);
+
+    if let CombatState::Active { combatants, .. } = &state {
+        assert_eq!(combatants[0].current_hp, 12);
+        assert_eq!(combatants[1].current_hp, 6);
+        assert_eq!(combatants[2].current_hp, 10);
+    } else {
+        panic!("Expected Active state");
+    }
+
+    assert!(combat_consistent(&state));
 }
 
 #[test]
@@ -376,9 +447,9 @@ fn test_complete_combat_flow() {
     let turn_proof = Established::assert();
     let (state, proof) = begin_turn(state, proof, turn_proof);
 
-    // Declare attack (attacker 0 → target 2)
-    let attack_proof = Established::assert();
-    let (state, proof) = declare_attack(state, proof, 0, 2, attack_proof);
+    // Declare attack (attacker 0 -> target 2)
+    let target = declared_target(0, 2);
+    let (state, proof) = declare_attack(state, proof, target);
 
     // Resolve attack
     let resolved_proof = Established::assert();
@@ -388,20 +459,19 @@ fn test_complete_combat_flow() {
     let defense_proof = Established::assert();
     let (state, proof) = resolve_defense(state, proof, defense_proof);
 
-    // Apply damage (6 points to target_id 2)
+    // Apply damage (6 points to declared combatant slot 2)
     let damage_proof = Established::assert();
-    let (state, proof) = apply_damage(state, proof, 2, 6, damage_proof);
+    let (state, proof) = apply_damage(state, proof, target, 6, damage_proof);
 
     // Verify damage was applied
     if let CombatState::Active {
         combatants,
-        turn_order,
         current_actor,
         round,
+        ..
     } = &state
     {
-        let target_idx = turn_order[2];
-        let target = &combatants[target_idx];
+        let target = &combatants[2];
 
         assert_eq!(target.current_hp, 4); // 10 - 6 = 4
         assert!(!target.incapacitated);
@@ -453,12 +523,12 @@ fn test_invariant_maintained_through_transitions() {
     let (state, proof) = begin_turn(state, proof, turn_proof);
     assert!(combat_consistent(&state));
 
-    let attack_proof = Established::assert();
-    let (state, proof) = declare_attack(state, proof, 0, 1, attack_proof);
+    let target = declared_target(0, 1);
+    let (state, proof) = declare_attack(state, proof, target);
     assert!(combat_consistent(&state));
 
     let damage_proof = Established::assert();
-    let (state, proof) = apply_damage(state, proof, 1, 3, damage_proof);
+    let (state, proof) = apply_damage(state, proof, target, 3, damage_proof);
     assert!(combat_consistent(&state));
 
     let turn_proof = Established::assert();

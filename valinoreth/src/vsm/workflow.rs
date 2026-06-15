@@ -39,14 +39,14 @@ use crate::contracts::types::{
     DamageTypeDescriptor, DefenseDescriptorBuilder, DefenseType,
 };
 use crate::vsm::combat::{
-    CombatState, CombatantState, apply_damage, begin_turn, conclude_combat, declare_attack,
-    end_turn, initialize_combat, resolve_attack, resolve_defense,
+    apply_damage, begin_turn, conclude_combat, declare_attack, declared_attack_target, end_turn,
+    initialize_combat, resolve_attack, resolve_defense, CombatState, CombatantSlot, CombatantState,
 };
 use crate::vsm::integration::{attack_resolved_from_gm, damage_applied_from_gm};
 use crate::vsm::session::{CombatPhase, CombatSession, CombatStateView};
 use crate::{
-    AttributeType, CharacterDescriptor, ChatMessage, ChatSender, ContextualCommunicator,
-    DefenseChoice, GameMaster, ManeuverChoice, Player, SharedKnowledge, knowledge_cache,
+    knowledge_cache, AttributeType, CharacterDescriptor, ChatMessage, ChatSender,
+    ContextualCommunicator, DefenseChoice, GameMaster, ManeuverChoice, Player, SharedKnowledge,
 };
 
 // ── WorkflowError ─────────────────────────────────────────────────────────────
@@ -250,13 +250,12 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                     // Inject state into the defender's knowledge before eliciting.
                     self.refresh_knowledge(target_slot, &vsm_state);
 
-                    (vsm_state, vsm_proof) = declare_attack(
-                        vsm_state,
-                        vsm_proof,
-                        actor_slot,
-                        target_slot,
+                    let declared_target = declared_attack_target(
+                        CombatantSlot::new(actor_slot),
+                        CombatantSlot::new(target_slot),
                         Established::assert(),
                     );
+                    (vsm_state, vsm_proof) = declare_attack(vsm_state, vsm_proof, declared_target);
 
                     // ── Elicit defense ────────────────────────────────────────
                     let defenses =
@@ -359,7 +358,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                             (vsm_state, vsm_proof) = apply_damage(
                                 vsm_state,
                                 vsm_proof,
-                                target_slot,
+                                declared_target,
                                 injury,
                                 damage_applied_from_gm(Established::assert()),
                             );

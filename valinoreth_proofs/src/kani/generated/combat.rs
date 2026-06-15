@@ -27,10 +27,10 @@ use valinoreth::resolve_attack_kani_contracted;
 use valinoreth::resolve_defense_kani_contracted;
 #[cfg(kani)]
 use valinoreth::{
-    AttackDeclared, AttackResolved, CombatConsistent, CombatInitialized, CombatState,
-    CombatantState, DamageApplied, DefenseResolved, TurnBegan, TurnEnded, VictoryConditionMet,
-    apply_damage, begin_turn, conclude_combat, declare_attack, end_turn, initialize_combat,
-    resolve_attack, resolve_defense,
+    AttackResolved, CombatConsistent, CombatInitialized, CombatState, CombatantState,
+    DamageApplied, DeclaredAttackTarget, DefenseResolved, TurnBegan, TurnEnded,
+    VictoryConditionMet, apply_damage, begin_turn, conclude_combat, declare_attack, end_turn,
+    initialize_combat, resolve_attack, resolve_defense,
 };
 
 #[cfg(kani)]
@@ -90,14 +90,9 @@ fn declare_attack_kani_closure() {
         let _cred = CombatConsistent::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _attacker_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
-    let _target_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
-    let _attack_proof: Established<AttackDeclared> = {
-        let _cred = AttackDeclared::kani_proof_credential();
-        ::elicitation::Established::prove(&_cred)
-    };
-    let _result =
-        declare_attack_kani_contracted(state, proof, _attacker_id, _target_id, _attack_proof);
+    let _declared_target: DeclaredAttackTarget =
+        <DeclaredAttackTarget as ::elicitation::KaniCompose>::kani_depth0();
+    let _result = declare_attack_kani_contracted(state, proof, _declared_target);
     ::std::mem::forget(_result);
 }
 
@@ -150,13 +145,15 @@ fn apply_damage_kani_closure() {
         let _cred = CombatConsistent::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let target_id: usize = <usize as ::elicitation::KaniCompose>::kani_depth0();
+    let declared_target: DeclaredAttackTarget =
+        <DeclaredAttackTarget as ::elicitation::KaniCompose>::kani_depth0();
     let injury: i32 = <i32 as ::elicitation::KaniCompose>::kani_depth0();
     let _damage_proof: Established<DamageApplied> = {
         let _cred = DamageApplied::kani_proof_credential();
         ::elicitation::Established::prove(&_cred)
     };
-    let _result = apply_damage_kani_contracted(state, proof, target_id, injury, _damage_proof);
+    let _result =
+        apply_damage_kani_contracted(state, proof, declared_target, injury, _damage_proof);
     ::std::mem::forget(_result);
 }
 

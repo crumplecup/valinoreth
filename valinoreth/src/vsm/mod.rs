@@ -41,9 +41,10 @@ mod session;
 mod workflow;
 
 pub use combat::{
-    CombatConsistent, CombatMachine, CombatState, CombatantState, apply_damage, begin_turn,
-    combat_consistent, conclude_combat, declare_attack, end_turn, initialize_combat,
-    resolve_attack, resolve_defense,
+    apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack,
+    declared_attack_target, end_turn, initialize_combat, resolve_attack, resolve_defense,
+    CombatConsistent, CombatMachine, CombatState, CombatantSlot, CombatantState,
+    DeclaredAttackTarget,
 };
 pub use integration::{attack_resolved_from_gm, damage_applied_from_gm, defense_resolved_from_gm};
 pub use session::{CombatPhase, CombatSession, CombatStateView, CombatantView};

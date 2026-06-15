@@ -19,7 +19,7 @@
 //! Each transition carries proof tokens from GameMaster mechanics and combat flow contracts.
 
 use elicitation::{
-    Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine, formal_method,
+    formal_method, Elicit, Established, KaniCompose, KaniVariantState, Prop, VerifiedStateMachine,
 };
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -57,6 +57,60 @@ pub struct CombatantState {
 
     /// Whether this combatant is incapacitated (0 HP or worse).
     pub incapacitated: bool,
+}
+
+/// Slot of a combatant in [`CombatState::Active::combatants`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq, KaniCompose)]
+#[cfg_attr(kani, derive(kani::Arbitrary))]
+pub struct CombatantSlot {
+    index: usize,
+}
+
+impl CombatantSlot {
+    /// Construct a combatant slot from an index into `CombatState::Active::combatants`.
+    pub const fn new(index: usize) -> Self {
+        Self { index }
+    }
+
+    /// Return the index into `CombatState::Active::combatants`.
+    pub const fn index(self) -> usize {
+        self.index
+    }
+}
+
+/// Proof sidecar tying a declared attack to the combatant slot it targeted.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, KaniCompose)]
+#[cfg_attr(kani, derive(kani::Arbitrary))]
+pub struct DeclaredAttackTarget {
+    attacker: CombatantSlot,
+    target: CombatantSlot,
+}
+
+impl DeclaredAttackTarget {
+    const fn new(attacker: CombatantSlot, target: CombatantSlot) -> Self {
+        Self { attacker, target }
+    }
+
+    /// Return the combatant slot that declared the attack.
+    pub const fn attacker(self) -> CombatantSlot {
+        self.attacker
+    }
+
+    /// Return the combatant slot targeted by the declared attack.
+    pub const fn target(self) -> CombatantSlot {
+        self.target
+    }
+}
+
+/// Mint the target sidecar for a declared attack.
+///
+/// This is the only public construction path for [`DeclaredAttackTarget`].
+pub fn declared_attack_target(
+    attacker: CombatantSlot,
+    target: CombatantSlot,
+    _attack_proof: Established<AttackDeclared>,
+) -> DeclaredAttackTarget {
+    DeclaredAttackTarget::new(attacker, target)
 }
 
 // ── CombatState ───────────────────────────────────────────────────────────────
@@ -271,19 +325,14 @@ pub fn begin_turn(
 /// Declare an attack action from attacker to target.
 ///
 /// Validates that the attacker can take action and target is valid.
-#[formal_method(contracts = [CombatConsistent], kani_requires = [
-   "_attacker_id < 100",  // Reasonable bound for verification
-   "_target_id < 100",
-])]
-#[instrument(skip(proof, _attack_proof))]
+#[formal_method(contracts = [CombatConsistent])]
+#[instrument(skip(proof, _declared_target))]
 pub fn declare_attack(
     state: CombatState,
     proof: Established<CombatConsistent>,
-    _attacker_id: usize,
-    _target_id: usize,
-    _attack_proof: Established<AttackDeclared>,
+    _declared_target: DeclaredAttackTarget,
 ) -> (CombatState, Established<CombatConsistent>) {
-    // State unchanged - attack declaration is tracked through proof token
+    // State unchanged - attack declaration is tracked through the target sidecar.
     (state, proof)
 }
 
@@ -328,7 +377,7 @@ pub fn resolve_defense(
 pub fn apply_damage(
     state: CombatState,
     proof: Established<CombatConsistent>,
-    target_id: usize,
+    declared_target: DeclaredAttackTarget,
     injury: i32,
     _damage_proof: Established<DamageApplied>,
 ) -> (CombatState, Established<CombatConsistent>) {
@@ -339,15 +388,13 @@ pub fn apply_damage(
             current_actor,
             round,
         } => {
-            // Find target in turn_order and update their HP
-            if let Some(&combatant_idx) = turn_order.get(target_id) {
-                if let Some(combatant) = combatants.get_mut(combatant_idx) {
-                    combatant.current_hp = combatant.current_hp.saturating_sub(injury);
+            let target_idx = declared_target.target().index();
+            if let Some(combatant) = combatants.get_mut(target_idx) {
+                combatant.current_hp = combatant.current_hp.saturating_sub(injury);
 
-                    // Check for incapacitation (0 HP or below)
-                    if combatant.current_hp <= 0 {
-                        combatant.incapacitated = true;
-                    }
+                // Check for incapacitation (0 HP or below)
+                if combatant.current_hp <= 0 {
+                    combatant.incapacitated = true;
                 }
             }
 
