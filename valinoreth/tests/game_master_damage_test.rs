@@ -24,9 +24,8 @@ async fn test_roll_damage_basic() {
 
     // 2d6+1 should be between 3 and 13
     assert!(
-        damage >= 3 && damage <= 13,
-        "2d6+1 should be 3-13, got {}",
-        damage
+        (3..=13).contains(&damage),
+        "2d6+1 should be 3-13, got {damage}"
     );
 }
 
@@ -50,9 +49,45 @@ async fn test_roll_damage_with_critical_bonus() {
 
     // 1d6+0+5 should be between 6 and 11
     assert!(
-        damage >= 6 && damage <= 11,
-        "1d6+5 should be 6-11, got {}",
-        damage
+        (6..=11).contains(&damage),
+        "1d6+5 should be 6-11, got {damage}"
+    );
+}
+
+#[tokio::test]
+async fn test_seeded_damage_rolls_replay_advancing_stream() {
+    let descriptor = DamageDescriptorBuilder::default()
+        .dice(2)
+        .sides(6)
+        .modifier(0)
+        .damage_type(DamageTypeDescriptor::Crushing)
+        .build()
+        .expect("Valid descriptor");
+
+    let gm = GameMaster::with_seed(42);
+    let mut rolls = Vec::new();
+    for _ in 0..8 {
+        let (damage, _evidence) = gm
+            .roll_damage(descriptor.clone())
+            .await
+            .expect("Damage roll succeeded");
+        rolls.push(damage);
+    }
+
+    let replay = GameMaster::with_seed(42);
+    let mut replayed_rolls = Vec::new();
+    for _ in 0..8 {
+        let (damage, _evidence) = replay
+            .roll_damage(descriptor.clone())
+            .await
+            .expect("Damage roll succeeded");
+        replayed_rolls.push(damage);
+    }
+
+    assert_eq!(rolls, replayed_rolls);
+    assert!(
+        rolls.windows(2).any(|pair| pair[0] != pair[1]),
+        "seeded damage rolls must consume one dice stream instead of recreating it per roll"
     );
 }
 

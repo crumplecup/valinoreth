@@ -14,9 +14,7 @@ use crate::contracts::types::{
 };
 use crate::game_master::GameMaster;
 use async_trait::async_trait;
-use elicitation::Generator;
 use elicitation::contracts::Established;
-use elicitation_rand::generators::RandomGenerator;
 
 impl DamageTypeDescriptor {
     /// Returns the wounding multiplier for this damage type (to torso).
@@ -46,11 +44,8 @@ impl DamageCalculator for GameMaster {
         descriptor: DamageDescriptor,
     ) -> CombatResult<(i32, Established<BasicDamageEvidence>)> {
         let mut total = 0;
-        for i in 0..descriptor.dice {
-            let seed = self.config.seed.wrapping_add(i as u64);
-            let rng = RandomGenerator::<u64>::with_seed(seed);
-            let roll = (rng.generate() % descriptor.sides as u64) as i32 + 1;
-            total += roll;
+        for _ in 0..descriptor.dice {
+            total += self.roll_die(descriptor.sides);
         }
         total += descriptor.modifier;
         total += descriptor.critical_bonus;

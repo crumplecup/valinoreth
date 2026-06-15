@@ -317,7 +317,7 @@ pub use contracts::{
     CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
     RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
 };
-pub use dice::{DieFace, ThreeDiceRoll};
+pub use dice::{DiceGenerator, DieFace, ThreeDiceRoll};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
 pub use free::trace_init;
 pub use game_master::{GameMaster, GameMasterConfig, ManaLevel};

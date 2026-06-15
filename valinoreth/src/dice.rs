@@ -21,8 +21,10 @@
 //! println!("Rolled {}", roll.sum());
 //! ```
 
-use elicitation::Elicit;
-use elicitation::Generator;
+use elicitation::{Elicit, Generator};
+use elicitation_rand::generators::RandomGenerator;
+use rand::rngs::StdRng;
+use rand::SeedableRng;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use tracing::instrument;
@@ -101,6 +103,59 @@ impl DieFace {
 impl std::fmt::Display for DieFace {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.value())
+    }
+}
+
+/// Reusable random dice generator.
+///
+/// A `DiceGenerator` owns one random stream and advances that stream on every
+/// generated die or 3d6 roll. Construct it with a seed for reproducible tests
+/// and replays, or from entropy for ordinary runtime use.
+#[derive(Debug)]
+pub struct DiceGenerator {
+    inner: RandomGenerator<u64>,
+}
+
+impl DiceGenerator {
+    /// Creates a deterministic dice generator from a seed.
+    pub fn with_seed(seed: u64) -> Self {
+        Self {
+            inner: RandomGenerator::<u64>::with_seed(seed),
+        }
+    }
+
+    /// Creates a dice generator from an existing RNG.
+    pub fn from_rng(rng: StdRng) -> Self {
+        Self {
+            inner: RandomGenerator::<u64>::new(rng),
+        }
+    }
+
+    /// Creates a dice generator using the default thread-local random source.
+    pub fn from_entropy() -> Self {
+        Self::from_rng(StdRng::from_rng(&mut rand::rng()))
+    }
+
+    /// Rolls one die with the requested number of sides.
+    pub fn roll_die(&self, sides: i32) -> i32 {
+        debug_assert!(sides > 0);
+        (self.inner.generate() % sides as u64) as i32 + 1
+    }
+
+    fn roll_d6_face(&self) -> DieFace {
+        DieFace::from_value(self.roll_die(6) as u8).expect("d6 roll is in 1..=6")
+    }
+}
+
+impl Generator for DiceGenerator {
+    type Target = ThreeDiceRoll;
+
+    fn generate(&self) -> Self::Target {
+        ThreeDiceRoll::new(
+            self.roll_d6_face(),
+            self.roll_d6_face(),
+            self.roll_d6_face(),
+        )
     }
 }
 
@@ -207,17 +262,8 @@ impl ThreeDiceRoll {
     /// let roll2 = dice.generate();
     /// // Deterministic: same seed → same sequence
     /// ```
-    pub fn random_generator(seed: u64) -> impl elicitation::Generator<Target = Self> {
-        elicitation_rand::generators::MapGenerator::new(
-            elicitation_rand::generators::RandomGenerator::<u64>::with_seed(seed),
-            |inner_seed: u64| {
-                // Split seed for independent dice
-                let gen1 = DieFace::random_generator(inner_seed);
-                let gen2 = DieFace::random_generator(inner_seed.wrapping_add(1));
-                let gen3 = DieFace::random_generator(inner_seed.wrapping_add(2));
-                ThreeDiceRoll::new(gen1.generate(), gen2.generate(), gen3.generate())
-            },
-        )
+    pub fn random_generator(seed: u64) -> DiceGenerator {
+        DiceGenerator::with_seed(seed)
     }
 
     /// All 216 possible dice roll combinations (6³).

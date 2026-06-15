@@ -50,10 +50,7 @@ async fn test_execute_feint_defender_wins() {
     if !result.attacker_success {
         // When defender wins, margin is still recorded (could be used for other purposes)
         // The important thing is attacker_success is false
-        assert_eq!(
-            result.attacker_success, false,
-            "Attacker should not succeed"
-        );
+        assert!(!result.attacker_success, "Attacker should not succeed");
     }
 }
 

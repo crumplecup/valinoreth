@@ -17,23 +17,24 @@ mod spell_effect_resolver;
 mod spell_executor;
 mod spell_manager;
 
-use crate::ThreeDiceRoll;
+use crate::{DiceGenerator, ThreeDiceRoll};
 use elicitation::Generator;
+use std::sync::Mutex;
 
 /// Configuration for the GameMaster.
 #[derive(Debug, Clone)]
 pub struct GameMasterConfig {
     /// Mana level for the game world.
     pub mana_level: ManaLevel,
-    /// Random seed for deterministic dice generation.
-    pub seed: u64,
+    /// Optional random seed for deterministic dice generation.
+    pub seed: Option<u64>,
 }
 
 impl Default for GameMasterConfig {
     fn default() -> Self {
         Self {
             mana_level: ManaLevel::Normal,
-            seed: 42, // Default seed for reproducibility
+            seed: None,
         }
     }
 }
@@ -56,11 +57,12 @@ pub enum ManaLevel {
 /// GameMaster implementation.
 ///
 /// Serves as the concrete backend for all GURPS trait interfaces.
-/// Uses elicitation's Generator system for deterministic, seeded dice rolls.
 #[derive(Debug)]
 pub struct GameMaster {
     /// Configuration
-    config: GameMasterConfig,
+    _config: GameMasterConfig,
+    /// Shared random stream consumed by all dice rolls.
+    dice: Mutex<DiceGenerator>,
 }
 
 impl GameMaster {
@@ -71,17 +73,36 @@ impl GameMaster {
 
     /// Create a new GameMaster with custom configuration.
     pub fn with_config(config: GameMasterConfig) -> Self {
-        Self { config }
+        let dice = match config.seed {
+            Some(seed) => ThreeDiceRoll::random_generator(seed),
+            None => DiceGenerator::from_entropy(),
+        };
+
+        Self {
+            _config: config,
+            dice: Mutex::new(dice),
+        }
+    }
+
+    /// Create a new GameMaster with deterministic dice generation.
+    pub fn with_seed(seed: u64) -> Self {
+        Self::with_config(GameMasterConfig {
+            seed: Some(seed),
+            ..GameMasterConfig::default()
+        })
+    }
+
+    pub(crate) fn roll_die(&self, sides: i32) -> i32 {
+        let dice = self.dice.lock().expect("GameMaster dice mutex poisoned");
+        dice.roll_die(sides)
     }
 
     /// Roll 3d6 for GURPS checks.
     ///
     /// Returns a ThreeDiceRoll with sum between 3 and 18.
-    ///
-    /// Creates a fresh generator each time using the configured seed.
-    /// This ensures deterministic rolls for testing and replay.
     pub(crate) fn roll_3d6(&self) -> ThreeDiceRoll {
-        ThreeDiceRoll::random_generator(self.config.seed).generate()
+        let dice = self.dice.lock().expect("GameMaster dice mutex poisoned");
+        dice.generate()
     }
 }
 
