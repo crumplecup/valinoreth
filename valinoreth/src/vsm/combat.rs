@@ -14,6 +14,7 @@
 //!
 //! ```text
 //! begin_turn → declare_attack → resolve_attack → resolve_defense → apply_damage → end_turn
+//!            ↘ complete_movement_action ↗
 //! ```
 //!
 //! Each transition carries proof tokens from GameMaster mechanics and combat flow contracts.
@@ -28,6 +29,7 @@ use crate::contracts::combat_flow::{
     AttackDeclared, AttackResolved, CombatInitialized, DamageApplied, DefenseResolved, TurnBegan,
     TurnEnded, VictoryConditionMet,
 };
+use crate::contracts::movement::MovementCompleted;
 
 // ── CombatantState ────────────────────────────────────────────────────────────
 
@@ -60,7 +62,9 @@ pub struct CombatantState {
 }
 
 /// Slot of a combatant in [`CombatState::Active::combatants`].
-#[derive(Debug, Clone, Copy, PartialEq, Eq, KaniCompose)]
+#[derive(
+    Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, JsonSchema, KaniCompose,
+)]
 #[cfg_attr(kani, derive(kani::Arbitrary))]
 pub struct CombatantSlot {
     index: usize,
@@ -245,6 +249,7 @@ pub fn combat_consistent(state: &CombatState) -> bool {
     resolve_attack,
     resolve_defense,
     apply_damage,
+    complete_movement_action,
     end_turn,
     conclude_combat,
 ])]
@@ -410,6 +415,21 @@ pub fn apply_damage(
         }
         _ => (state, proof),
     }
+}
+
+/// Complete a movement action whose spatial sidecar transition has been proved.
+///
+/// Movement mutates [`crate::CombatSpatialState`], not [`CombatState`]. This
+/// transition gives the combat lifecycle a proof-visible action boundary and
+/// consumes the [`MovementCompleted`] token minted by the movement contract gate.
+#[formal_method(contracts = [CombatConsistent])]
+#[instrument(skip(proof, _movement_proof))]
+pub fn complete_movement_action(
+    state: CombatState,
+    proof: Established<CombatConsistent>,
+    _movement_proof: Established<MovementCompleted>,
+) -> (CombatState, Established<CombatConsistent>) {
+    (state, proof)
 }
 
 /// End current turn and advance to next combatant.

@@ -8,6 +8,11 @@
 //! A separate section (gated behind `frontend-ratatui`) tests the
 //! `ChatCommunicator` channel handoff independently.
 
+use std::{
+    collections::VecDeque,
+    sync::{Arc, Mutex},
+};
+
 use elicitation::{
     ElicitCommunicator, ElicitResult, ElicitationContext, StyleContext, StyleMarker,
 };
@@ -39,20 +44,31 @@ fn init_tracing() {
 struct StubCommunicator {
     style_ctx: StyleContext,
     elicit_ctx: ElicitationContext,
+    responses: Arc<Mutex<VecDeque<String>>>,
 }
 
 impl StubCommunicator {
     fn new() -> Self {
+        Self::with_responses(vec!["1".to_string()])
+    }
+
+    fn with_responses(responses: Vec<String>) -> Self {
         Self {
             style_ctx: StyleContext::default(),
             elicit_ctx: ElicitationContext::default(),
+            responses: Arc::new(Mutex::new(VecDeque::from(responses))),
         }
     }
 }
 
 impl ElicitCommunicator for StubCommunicator {
     async fn send_prompt(&self, _prompt: &str) -> ElicitResult<String> {
-        Ok("1".to_string())
+        Ok(self
+            .responses
+            .lock()
+            .expect("response queue lock")
+            .pop_front()
+            .unwrap_or_else(|| "1".to_string()))
     }
 
     async fn call_tool(
@@ -124,6 +140,22 @@ fn make_fighter(name: &str) -> valinoreth::CharacterDescriptor {
         })
         .build()
         .expect("valid character")
+}
+
+#[tokio::test(flavor = "multi_thread")]
+async fn movement_choice_is_elicited_as_typed_coordinates() {
+    let player = Player::new(
+        make_fighter("Aldric"),
+        StubCommunicator::with_responses(vec!["2.5".to_string(), "-1.0".to_string()]),
+    );
+
+    let movement = player
+        .choose_movement()
+        .await
+        .expect("movement choice parses");
+
+    assert_eq!(movement.destination_x_meters, 2.5);
+    assert_eq!(movement.destination_y_meters, -1.0);
 }
 
 // ── Workflow smoke tests ───────────────────────────────────────────────────────

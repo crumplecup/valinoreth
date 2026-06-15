@@ -142,7 +142,7 @@ trait boundary.
 
 ### MV0: Dependency and Frame Decision
 
-**Status:** Pending review
+**Status:** Implemented in first movement slice
 
 Decide how Valinoreth consumes `elicit_gis`.
 
@@ -162,7 +162,7 @@ Notes:
 
 ### MV1: Spatial State Sidecar
 
-**Status:** Pending
+**Status:** Implemented in first movement slice
 
 Introduce the Valinoreth spatial data model without changing combat behavior.
 
@@ -175,7 +175,7 @@ Acceptance criteria:
 
 ### MV2: Spatial Queries
 
-**Status:** Pending
+**Status:** Implemented in second movement slice
 
 Provide game-facing spatial query helpers backed by `elicit_gis` traits.
 
@@ -187,9 +187,19 @@ Acceptance criteria:
 - query helpers return game-specific results, not raw GIS implementation types
 - tests cover distance, same location, and frame mismatch
 
+Notes:
+
+- `elicit_gis` establishes point validity at construction time; Valinoreth then
+  exposes tactical query helpers that require the established spatial sidecar.
+- `distance_between_combatants` returns a `TacticalDistance` game type paired
+  with the `LocationsHaveSameFrame` proof token minted by the canonical frame
+  check.
+- `tactical_frame_from_source` keeps source CRS to local tactical frame
+  derivation explicit at the Valinoreth boundary.
+
 ### MV3: Movement Contracts
 
-**Status:** Pending
+**Status:** Implemented in third movement slice
 
 Encode GURPS movement facts as contracts.
 
@@ -201,9 +211,19 @@ Acceptance criteria:
 - movement completion requires a proof of declared legal movement
 - illegal movement has no proof-token minting path
 
+Notes:
+
+- `MovementIntent` captures the actor, established start location, declared
+  destination, and budget.
+- Effective Move budgets and one-meter minimum step budgets are explicit helper
+  functions, keeping GURPS distance rules visible at the movement boundary.
+- `complete_movement` requires the declaration, path-validity, and
+  within-budget proof tokens. VSM state mutation remains the MV4 integration
+  step.
+
 ### MV4: VSM Integration
 
-**Status:** Pending
+**Status:** Implemented in fourth movement slice
 
 Thread spatial state through the combat workflow.
 
@@ -215,9 +235,23 @@ Acceptance criteria:
 - `CombatSession` can expose the current visible position data
 - existing attack/defense/damage flow remains behaviorally unchanged
 
+Notes:
+
+- `initial_spatial_state_for_combat` creates deterministic local tactical
+  placements for every active combatant and establishes
+  `SpatialStateConsistent` before the workflow publishes an active phase.
+- `CombatPhase::Active` carries the combat VSM state plus an optional spatial
+  sidecar. Proof tokens remain local to the workflow and are not stored in the
+  shared session.
+- `CombatStateView` exposes each combatant's visible tactical position when a
+  spatial sidecar is present.
+- `ManeuverChoice::Move` elicits a destination and uses the movement
+  declaration, path-validity, within-budget, completion, and
+  spatial-consistency proof gates before the spatial sidecar is updated.
+
 ### MV5: Spatial Attack Preconditions
 
-**Status:** Pending
+**Status:** Implemented in fifth movement slice
 
 Require spatial proof before resolving attacks.
 
@@ -229,9 +263,21 @@ Acceptance criteria:
   proof evidence
 - tests cover the original class of target identity bugs at the spatial layer
 
+Notes:
+
+- `TargetWithinReach` and `TargetWithinRange` are spatial contract propositions
+  minted only by the canonical spatial check helpers.
+- Melee reach is mapped from the existing GURPS `Reach` enum into inclusive
+  tactical-meter intervals; ranged attacks use an explicit `AttackRange` limit.
+- `SpatiallyCheckedMeleeTarget` and `SpatiallyCheckedRangedTarget` wrap the
+  original `DeclaredAttackTarget`, so the measured attacker/target pair is the
+  same identity sidecar later consumed by the combat VSM.
+- The workflow's melee attack branch now checks `TargetWithinReach` before
+  `declare_attack` and before invoking the GM attack resolution.
+
 ### MV6: Obstacles and Occupancy
 
-**Status:** Pending
+**Status:** Implemented
 
 Add map features only after point movement is working.
 
@@ -242,9 +288,20 @@ Acceptance criteria:
 - line of effect or line of sight has a contract boundary
 - terrain modifiers can affect movement budget without bypassing contracts
 
+Implementation notes:
+
+- `CombatSpatialState` now carries explicit combatant occupancy footprints,
+  movement/line-of-effect obstacles, and terrain zones.
+- `validate_movement_path` consumes the established spatial sidecar before it
+  can establish `MovementPathValid`.
+- Terrain modifiers affect `MovementPath::cost_meters`, and the budget proof
+  consumes that adjusted cost.
+- `LineOfEffectClear` provides the contract boundary for unobstructed tactical
+  lines of effect.
+
 ### MV7: Player-Facing Workflow
 
-**Status:** Pending
+**Status:** Implemented
 
 Expose movement choices through the elicitation-based player interface.
 
@@ -255,9 +312,25 @@ Acceptance criteria:
 - hidden or private spatial facts remain controllable by the GM/session model
 - chat and TUI frontends receive the same domain-level movement events
 
+Implementation notes:
+
+- `MovementChoice` is an elicited typed payload containing requested tactical
+  destination coordinates.
+- `Player::choose_movement` uses the same communicator abstraction as maneuver
+  and defense selection, so human and agent frontends receive the same domain
+  request.
+- `CombatWorkflow` no longer invents a default straight-line full move. It
+  elicits a movement destination and then routes it through `declare_movement`,
+  `validate_movement_path`, `establish_movement_within_budget`, and
+  `apply_completed_movement`.
+- `CombatStateView` includes viewer-relative visible distance in meters when
+  both positions are visible. Obstacle, terrain, and other private spatial facts
+  stay out of the player-facing view unless the GM/session model chooses to
+  expose them later.
+
 ### MV8: Proof Generation and Verification
 
-**Status:** Pending
+**Status:** Implemented
 
 Regenerate proof artifacts after the movement contracts settle.
 
@@ -267,6 +340,24 @@ Acceptance criteria:
 - Creusot artifacts remain generated for nightly verification
 - stable verification remains available for Valinoreth, Kani, and Verus work
 - proof crate public API needs are documented rather than treated as leaks
+
+Implementation notes:
+
+- `CombatMachine` now has a `complete_movement_action` formal transition that
+  consumes `Established<MovementCompleted>` and preserves `CombatConsistent`.
+- `CombatWorkflow` calls that VSM transition only after the movement contract
+  pipeline has established declaration, path validity, budget, and completion.
+- Generated Kani, Creusot, and Verus combat proof artifacts include the
+  movement action boundary. The generated proofs cover the lifecycle contract
+  hook; Valinoreth movement and spatial contract gates remain the canonical
+  place where game-specific movement facts are checked.
+- The proof crate imports the new movement action through Valinoreth's public
+  crate-root API. That public surface is intentional because
+  `valinoreth_proofs` is generated as a separate crate.
+- The current `elicitation generate proof-crate` command can still rewrite the
+  generated proof crate's `elicitation` dependency to a local path placeholder;
+  this repository restores the crates.io `0.11.1` dependency after generation
+  until the generator issue is fixed upstream.
 
 ## First Executable Slice
 

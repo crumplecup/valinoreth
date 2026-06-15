@@ -41,17 +41,20 @@ mod session;
 mod workflow;
 
 pub use combat::{
-    apply_damage, begin_turn, combat_consistent, conclude_combat, declare_attack,
-    declared_attack_target, end_turn, initialize_combat, resolve_attack, resolve_defense,
-    CombatConsistent, CombatMachine, CombatState, CombatantSlot, CombatantState,
+    apply_damage, begin_turn, combat_consistent, complete_movement_action, conclude_combat,
+    declare_attack, declared_attack_target, end_turn, initialize_combat, resolve_attack,
+    resolve_defense, CombatConsistent, CombatMachine, CombatState, CombatantSlot, CombatantState,
     DeclaredAttackTarget,
 };
 pub use integration::{attack_resolved_from_gm, damage_applied_from_gm, defense_resolved_from_gm};
-pub use session::{CombatPhase, CombatSession, CombatStateView, CombatantView};
+pub use session::{
+    CombatPhase, CombatSession, CombatStateView, CombatantPositionView, CombatantView,
+};
 pub use workflow::{CombatWorkflow, WorkflowError};
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
 pub use combat::apply_damage_kani_contracted;
 pub use combat::begin_turn_kani_contracted;
+pub use combat::complete_movement_action_kani_contracted;
 pub use combat::conclude_combat_kani_contracted;
 pub use combat::declare_attack_kani_contracted;
 pub use combat::end_turn_kani_contracted;

@@ -12,6 +12,7 @@
 //! [`TuiCommunicator`]: crate::TuiCommunicator
 //! [`LlmElicitCommunicator`]: strictly_server::tui::mcp_communicator::LlmElicitCommunicator
 
+use derive_builder::Builder;
 use derive_more::Display;
 use elicitation::{Elicit, KaniCompose};
 use schemars::JsonSchema;
@@ -117,4 +118,20 @@ pub enum DefenseChoice {
     /// Accept the hit without rolling an active defense.
     #[display("Accept Hit")]
     None,
+}
+
+// ── MovementChoice ───────────────────────────────────────────────────────────
+
+/// A player's requested tactical movement destination.
+///
+/// Coordinates are expressed in the current combat tactical frame and remain a
+/// request until the movement contract layer validates the path and budget.
+#[derive(Debug, Clone, Copy, PartialEq, Builder, Serialize, Deserialize, JsonSchema, Elicit)]
+#[builder(setter(into))]
+pub struct MovementChoice {
+    /// Destination X coordinate in tactical meters.
+    pub destination_x_meters: f64,
+
+    /// Destination Y coordinate in tactical meters.
+    pub destination_y_meters: f64,
 }

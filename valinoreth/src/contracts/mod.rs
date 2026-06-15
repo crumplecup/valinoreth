@@ -70,8 +70,10 @@ pub mod combat;
 pub mod combat_flow;
 pub mod credentials;
 pub mod magic;
+pub mod movement;
 pub mod proof_composition;
 pub mod skills;
+pub mod spatial;
 pub mod traits;
 pub mod types;
 
@@ -126,11 +128,20 @@ pub use magic::{
     SpellSkillLevelSet, SpellSkillRollMade, SpellTargetDetermined, TimeModifierApplied,
 };
 
+// Re-export movement propositions
+pub use movement::{MovementCompleted, MovementDeclared, MovementPathValid, MovementWithinBudget};
+
 // Re-export combat flow propositions (game state management)
 pub use combat_flow::{
     AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
     CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
     RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
+};
+
+// Re-export tactical spatial propositions
+pub use spatial::{
+    CombatantLocated, LineOfEffectClear, LocationsHaveSameFrame, SpatialStateConsistent,
+    TargetWithinRange, TargetWithinReach,
 };
 
 // Re-export evidence bundles

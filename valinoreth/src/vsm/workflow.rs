@@ -39,14 +39,21 @@ use crate::contracts::types::{
     DamageTypeDescriptor, DefenseDescriptorBuilder, DefenseType,
 };
 use crate::vsm::combat::{
-    apply_damage, begin_turn, conclude_combat, declare_attack, declared_attack_target, end_turn,
-    initialize_combat, resolve_attack, resolve_defense, CombatState, CombatantSlot, CombatantState,
+    apply_damage, begin_turn, complete_movement_action, conclude_combat, declare_attack,
+    declared_attack_target, end_turn, initialize_combat, resolve_attack, resolve_defense,
+    CombatState, CombatantSlot, CombatantState,
 };
 use crate::vsm::integration::{attack_resolved_from_gm, damage_applied_from_gm};
 use crate::vsm::session::{CombatPhase, CombatSession, CombatStateView};
 use crate::{
-    knowledge_cache, AttributeType, CharacterDescriptor, ChatMessage, ChatSender,
-    ContextualCommunicator, DefenseChoice, GameMaster, ManeuverChoice, Player, SharedKnowledge,
+    apply_completed_movement, attack_reach_from_reach, build_default_tactical_point,
+    check_target_within_reach, complete_movement, declare_movement,
+    establish_movement_within_budget, initial_spatial_state_for_combat, knowledge_cache,
+    movement_budget_from_effective_move, validate_movement_path, AttributeType,
+    CharacterDescriptor, ChatMessage, ChatSender, CombatSpatialState, ContextualCommunicator,
+    DefenseChoice, GameMaster, ManeuverChoice, MovementChoice, MovementCompleted, MovementError,
+    MovementErrorKind, Player, Reach, SharedKnowledge, SpatialError, SpatialErrorKind,
+    SpatialStateConsistent, TacticalCoordinateBuilder,
 };
 
 // ── WorkflowError ─────────────────────────────────────────────────────────────
@@ -60,6 +67,12 @@ pub enum WorkflowError {
     /// GameMaster contract violation (invalid dice, bad state, etc.).
     #[display("Contract error: {}", _0)]
     Contract(crate::ContractError),
+    /// Spatial sidecar validation failure.
+    #[display("Spatial error: {}", _0)]
+    Spatial(SpatialError),
+    /// Movement contract validation failure.
+    #[display("Movement error: {}", _0)]
+    Movement(MovementError),
 }
 
 impl From<elicitation::ElicitError> for WorkflowError {
@@ -71,6 +84,18 @@ impl From<elicitation::ElicitError> for WorkflowError {
 impl From<crate::ContractError> for WorkflowError {
     fn from(e: crate::ContractError) -> Self {
         Self::Contract(e)
+    }
+}
+
+impl From<SpatialError> for WorkflowError {
+    fn from(e: SpatialError) -> Self {
+        Self::Spatial(e)
+    }
+}
+
+impl From<MovementError> for WorkflowError {
+    fn from(e: MovementError) -> Self {
+        Self::Movement(e)
     }
 }
 
@@ -173,8 +198,9 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
             states,
             Established::assert(),
         );
+        let (mut spatial_state, mut spatial_proof) = initial_spatial_state_for_combat(&vsm_state)?;
 
-        push_phase(&self.session, CombatPhase::Active(vsm_state.clone())).await;
+        push_phase(&self.session, active_phase(&vsm_state, &spatial_state)).await;
         self.narrate("⚔ Combat begins!");
 
         // ── Turn loop ─────────────────────────────────────────────────────────
@@ -195,14 +221,14 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
             };
 
             // Inject current state into the actor's knowledge cache.
-            self.refresh_knowledge(actor_slot, &vsm_state);
+            self.refresh_knowledge(actor_slot, &vsm_state, &spatial_state);
 
             (vsm_state, vsm_proof) = begin_turn(vsm_state, vsm_proof, Established::assert());
 
             if actor_state.incapacitated {
                 self.narrate(format!("{} is incapacitated — skipping.", actor_state.id));
                 (vsm_state, vsm_proof) = end_turn(vsm_state, vsm_proof, Established::assert());
-                push_phase(&self.session, CombatPhase::Active(vsm_state.clone())).await;
+                push_phase(&self.session, active_phase(&vsm_state, &spatial_state)).await;
                 if let Some(victor) = winning_team(&vsm_state) {
                     conclude_combat(
                         vsm_state,
@@ -238,7 +264,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                         self.narrate(format!("{} has no valid target.", actor_state.id));
                         (vsm_state, vsm_proof) =
                             end_turn(vsm_state, vsm_proof, Established::assert());
-                        push_phase(&self.session, CombatPhase::Active(vsm_state.clone())).await;
+                        push_phase(&self.session, active_phase(&vsm_state, &spatial_state)).await;
                         continue;
                     };
 
@@ -248,13 +274,37 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                     };
 
                     // Inject state into the defender's knowledge before eliciting.
-                    self.refresh_knowledge(target_slot, &vsm_state);
+                    self.refresh_knowledge(target_slot, &vsm_state, &spatial_state);
 
                     let declared_target = declared_attack_target(
                         CombatantSlot::new(actor_slot),
                         CombatantSlot::new(target_slot),
                         Established::assert(),
                     );
+                    let melee_reach = attack_reach_from_reach(Reach::One)?;
+                    let (checked_target, _target_within_reach) = match check_target_within_reach(
+                        &spatial_state,
+                        &spatial_proof,
+                        declared_target,
+                        melee_reach,
+                    ) {
+                        Ok(result) => result,
+                        Err(error)
+                            if matches!(error.kind, SpatialErrorKind::TargetOutOfReach { .. }) =>
+                        {
+                            self.narrate(format!(
+                                "{} cannot reach {}.",
+                                actor_state.id, target_state.id
+                            ));
+                            (vsm_state, vsm_proof) =
+                                end_turn(vsm_state, vsm_proof, Established::assert());
+                            push_phase(&self.session, active_phase(&vsm_state, &spatial_state))
+                                .await;
+                            continue;
+                        }
+                        Err(error) => return Err(error.into()),
+                    };
+                    let declared_target = checked_target.declared_target();
                     (vsm_state, vsm_proof) = declare_attack(vsm_state, vsm_proof, declared_target);
 
                     // ── Elicit defense ────────────────────────────────────────
@@ -370,7 +420,39 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
                     self.narrate(format!("{} goes all-out defensive.", actor_state.id));
                 }
                 ManeuverChoice::Move => {
-                    self.narrate(format!("{} moves.", actor_state.id));
+                    let movement_choice =
+                        self.combatants[actor_slot].player.choose_movement().await?;
+                    let (updated_spatial_state, updated_spatial_proof, movement_completed, meters) =
+                        match advance_actor_for_move(
+                            &vsm_state,
+                            &spatial_state,
+                            &spatial_proof,
+                            CombatantSlot::new(actor_slot),
+                            &self.combatants[actor_slot].player.character,
+                            movement_choice,
+                        ) {
+                            Ok(result) => result,
+                            Err(error) => {
+                                self.narrate(format!(
+                                    "{} cannot complete that movement: {}",
+                                    actor_state.id, error
+                                ));
+                                push_phase(&self.session, active_phase(&vsm_state, &spatial_state))
+                                    .await;
+                                continue;
+                            }
+                        };
+                    spatial_state = updated_spatial_state;
+                    spatial_proof = updated_spatial_proof;
+                    (vsm_state, vsm_proof) =
+                        complete_movement_action(vsm_state, vsm_proof, movement_completed);
+                    self.narrate(format!(
+                        "{} moves to ({:.1}, {:.1}) for {:.1} meters.",
+                        actor_state.id,
+                        movement_choice.destination_x_meters,
+                        movement_choice.destination_y_meters,
+                        meters
+                    ));
                 }
                 ManeuverChoice::Wait => {
                     self.narrate(format!("{} waits.", actor_state.id));
@@ -378,7 +460,7 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
             }
 
             (vsm_state, vsm_proof) = end_turn(vsm_state, vsm_proof, Established::assert());
-            push_phase(&self.session, CombatPhase::Active(vsm_state.clone())).await;
+            push_phase(&self.session, active_phase(&vsm_state, &spatial_state)).await;
 
             if let Some(victor) = winning_team(&vsm_state) {
                 conclude_combat(
@@ -405,8 +487,13 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
     /// Push the current combat state into `combatant_slot`'s knowledge cache,
     /// replacing any stale entry from a previous turn.
     #[instrument(skip(self, vsm_state), fields(combatant_slot))]
-    fn refresh_knowledge(&self, combatant_slot: usize, vsm_state: &CombatState) {
-        let phase = CombatPhase::Active(vsm_state.clone());
+    fn refresh_knowledge(
+        &self,
+        combatant_slot: usize,
+        vsm_state: &CombatState,
+        spatial_state: &CombatSpatialState,
+    ) {
+        let phase = active_phase(vsm_state, spatial_state);
         let viewer_name = &self.combatants[combatant_slot].player.character.name;
         let view = CombatStateView::from_phase(&phase, viewer_name);
         let mut cache = self.combatants[combatant_slot].knowledge.lock().unwrap();
@@ -426,10 +513,67 @@ impl<C: ElicitCommunicator + Clone> CombatWorkflow<C> {
 
 // ── Helper functions ──────────────────────────────────────────────────────────
 
+fn active_phase(combat: &CombatState, spatial: &CombatSpatialState) -> CombatPhase {
+    CombatPhase::Active {
+        combat: combat.clone(),
+        spatial: Some(spatial.clone()),
+    }
+}
+
 /// Write a new phase into the session for observer reads.
 #[instrument(skip(session, phase))]
 async fn push_phase(session: &CombatSession, phase: CombatPhase) {
     *session.lock().await = phase;
+}
+
+#[instrument(skip(combat_state, spatial_state, spatial_proof, ch), fields(actor = actor.index()))]
+fn advance_actor_for_move(
+    combat_state: &CombatState,
+    spatial_state: &CombatSpatialState,
+    spatial_proof: &Established<SpatialStateConsistent>,
+    actor: CombatantSlot,
+    ch: &CharacterDescriptor,
+    movement_choice: MovementChoice,
+) -> Result<
+    (
+        CombatSpatialState,
+        Established<SpatialStateConsistent>,
+        Established<MovementCompleted>,
+        f64,
+    ),
+    WorkflowError,
+> {
+    let effective_move = usize::try_from(ch.derived_stats.basic_move).unwrap_or_default();
+    let budget = movement_budget_from_effective_move(effective_move)?;
+    let destination_coordinate = TacticalCoordinateBuilder::default()
+        .x_meters(movement_choice.destination_x_meters)
+        .y_meters(movement_choice.destination_y_meters)
+        .build()
+        .map_err(|error| MovementError::new(MovementErrorKind::Builder(error.to_string())))?;
+    let destination =
+        build_default_tactical_point(destination_coordinate, spatial_state.frame.clone())?;
+    let (intent, movement_declared, _same_frame) =
+        declare_movement(spatial_state, spatial_proof, actor, destination, budget)?;
+    let (path, path_valid) =
+        validate_movement_path(&intent, &movement_declared, spatial_state, spatial_proof)?;
+    let within_budget = establish_movement_within_budget(&path, budget, &path_valid)?;
+    let meters = path.distance.meters;
+    let (destination, movement_completed) =
+        complete_movement(intent, movement_declared, path_valid, within_budget);
+    let (updated_spatial_state, updated_spatial_proof) = apply_completed_movement(
+        combat_state,
+        spatial_state,
+        actor,
+        destination,
+        movement_completed,
+    )?;
+
+    Ok((
+        updated_spatial_state,
+        updated_spatial_proof,
+        movement_completed,
+        meters,
+    ))
 }
 
 #[instrument(skip(ch), fields(name = %ch.name, team))]

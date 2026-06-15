@@ -12,8 +12,9 @@ use std::sync::Arc;
 
 use serde::{Deserialize, Serialize};
 use tokio::sync::Mutex;
+use tracing::instrument;
 
-use crate::{CombatState, CombatantState};
+use crate::{CombatSpatialState, CombatState, CombatantSlot, CombatantState};
 
 // ── CombatPhase ───────────────────────────────────────────────────────────────
 
@@ -25,8 +26,13 @@ use crate::{CombatState, CombatantState};
 pub enum CombatPhase {
     /// No combat has been initialized yet.
     Unstarted,
-    /// Combat is underway.  Holds the authoritative VSM state.
-    Active(CombatState),
+    /// Combat is underway. Holds the authoritative VSM state plus visible spatial sidecar.
+    Active {
+        /// Authoritative combat VSM state.
+        combat: CombatState,
+        /// Optional tactical spatial sidecar for position-aware encounters.
+        spatial: Option<CombatSpatialState>,
+    },
     /// Combat has concluded.
     Concluded {
         /// Winning team name, or `None` for a draw.
@@ -82,10 +88,26 @@ pub struct CombatantView {
     pub is_incapacitated: bool,
     /// True when this is the observer's own entry.
     pub is_you: bool,
+    /// Current visible tactical position, when the encounter has spatial state.
+    pub position: Option<CombatantPositionView>,
+    /// Tactical distance from the viewer in meters, when both positions are visible.
+    pub distance_from_viewer_meters: Option<f64>,
+}
+
+/// Per-combatant tactical position included in a [`CombatantView`].
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CombatantPositionView {
+    /// Local tactical X coordinate in meters.
+    pub x_meters: f64,
+    /// Local tactical Y coordinate in meters.
+    pub y_meters: f64,
+    /// SRID for the tactical frame containing this coordinate.
+    pub frame_srid: i32,
 }
 
 impl CombatStateView {
     /// Build a view from the current combat phase for the given `viewer_name`.
+    #[instrument(skip(phase, viewer_name))]
     pub fn from_phase(phase: &CombatPhase, viewer_name: &str) -> Self {
         match phase {
             CombatPhase::Unstarted => Self {
@@ -96,12 +118,16 @@ impl CombatStateView {
                 combatants: vec![],
             },
 
-            CombatPhase::Active(CombatState::Active {
-                combatants,
-                turn_order,
-                current_actor,
-                round,
-            }) => {
+            CombatPhase::Active {
+                combat:
+                    CombatState::Active {
+                        combatants,
+                        turn_order,
+                        current_actor,
+                        round,
+                    },
+                spatial,
+            } => {
                 let actor_slot = turn_order[*current_actor];
                 let whose_turn = combatants[actor_slot].id.clone();
                 let is_your_turn = whose_turn == viewer_name;
@@ -110,11 +136,11 @@ impl CombatStateView {
                     whose_turn,
                     is_your_turn,
                     phase: "active".to_string(),
-                    combatants: combatant_views(combatants, viewer_name),
+                    combatants: combatant_views(combatants, viewer_name, spatial.as_ref()),
                 }
             }
 
-            CombatPhase::Active(_) => Self {
+            CombatPhase::Active { .. } => Self {
                 round: 0,
                 whose_turn: String::new(),
                 is_your_turn: false,
@@ -138,6 +164,7 @@ impl CombatStateView {
     /// player decision, so the player always sees current combat state.
     ///
     /// [`KnowledgeCache`]: crate::KnowledgeCache
+    #[instrument(skip(self))]
     pub fn to_preamble(&self) -> String {
         match self.phase.as_str() {
             "unstarted" => "Combat has not yet begun.".to_string(),
@@ -168,9 +195,30 @@ impl CombatStateView {
                     } else {
                         ""
                     };
+                    let position = c
+                        .position
+                        .as_ref()
+                        .map(|p| {
+                            format!(
+                                " at ({:.1}, {:.1}) m [SRID {}]",
+                                p.x_meters, p.y_meters, p.frame_srid
+                            )
+                        })
+                        .unwrap_or_default();
+                    let distance = c
+                        .distance_from_viewer_meters
+                        .map(|meters| format!(" [{meters:.1} m from you]"))
+                        .unwrap_or_default();
                     s.push_str(&format!(
-                        "  {} (team: {}): HP {}/{}{}{}.\n",
-                        c.name, c.team, c.current_hp, c.max_hp, you_marker, status
+                        "  {} (team: {}): HP {}/{}{}{}{}{}.\n",
+                        c.name,
+                        c.team,
+                        c.current_hp,
+                        c.max_hp,
+                        you_marker,
+                        status,
+                        position,
+                        distance
                     ));
                 }
                 s
@@ -181,16 +229,64 @@ impl CombatStateView {
     }
 }
 
-fn combatant_views(combatants: &[CombatantState], viewer_name: &str) -> Vec<CombatantView> {
+fn combatant_views(
+    combatants: &[CombatantState],
+    viewer_name: &str,
+    spatial: Option<&CombatSpatialState>,
+) -> Vec<CombatantView> {
+    let viewer_position = spatial.and_then(|spatial_state| {
+        combatants
+            .iter()
+            .position(|combatant| combatant.id == viewer_name)
+            .and_then(|viewer_slot| visible_position(spatial_state, viewer_slot))
+    });
+
     combatants
         .iter()
-        .map(|c| CombatantView {
+        .enumerate()
+        .map(|(slot, c)| CombatantView {
             name: c.id.clone(),
             team: c.team.clone(),
             current_hp: c.current_hp,
             max_hp: c.max_hp,
             is_incapacitated: c.incapacitated,
             is_you: c.id == viewer_name,
+            position: spatial.and_then(|spatial_state| visible_position(spatial_state, slot)),
+            distance_from_viewer_meters: spatial.and_then(|spatial_state| {
+                let viewer_position = viewer_position.as_ref()?;
+                let combatant_position = visible_position(spatial_state, slot)?;
+                if viewer_position.frame_srid != combatant_position.frame_srid {
+                    return None;
+                }
+                Some(distance_between_positions(
+                    viewer_position,
+                    &combatant_position,
+                ))
+            }),
         })
         .collect()
+}
+
+fn visible_position(
+    spatial_state: &CombatSpatialState,
+    slot: usize,
+) -> Option<CombatantPositionView> {
+    spatial_state
+        .placements
+        .iter()
+        .find(|placement| placement.slot == CombatantSlot::new(slot))
+        .map(|placement| CombatantPositionView {
+            x_meters: placement.point.coordinate.x_meters,
+            y_meters: placement.point.coordinate.y_meters,
+            frame_srid: placement.point.frame.srid,
+        })
+}
+
+fn distance_between_positions(
+    viewer: &CombatantPositionView,
+    combatant: &CombatantPositionView,
+) -> f64 {
+    let dx = viewer.x_meters - combatant.x_meters;
+    let dy = viewer.y_meters - combatant.y_meters;
+    dx.hypot(dy)
 }

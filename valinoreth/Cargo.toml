@@ -35,6 +35,7 @@ tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 elicitation = { version = "0.11.1", features = ["serde"] }
 elicitation_derive = { version = "0.11.1" }
 elicitation_rand = { version = "0.11.1" }
+elicit_gis = { version = "0.11.1" }
 proc-macro2 = "1"
 rmcp = "1"
 schemars = "1"

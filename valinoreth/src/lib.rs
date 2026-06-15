@@ -28,6 +28,7 @@ mod magic;
 mod movement;
 mod players;
 mod skills;
+mod spatial;
 mod special_features;
 // BEGIN ELICITATION KANI REEXPORTS — DO NOT EDIT
 pub use ui::begin_compose_kani_contracted;
@@ -39,6 +40,7 @@ pub use ui::scroll_up_kani_contracted;
 pub use ui::send_message_kani_contracted;
 pub use vsm::apply_damage_kani_contracted;
 pub use vsm::begin_turn_kani_contracted;
+pub use vsm::complete_movement_action_kani_contracted;
 pub use vsm::conclude_combat_kani_contracted;
 pub use vsm::declare_attack_kani_contracted;
 pub use vsm::end_turn_kani_contracted;
@@ -199,12 +201,17 @@ pub use contracts::{
     InjuryCalculated,
     InjuryCalculationEvidence,
     Is,
+    LineOfEffectClear,
     LocationMultiplierApplied,
     MageryRequirementMet,
     MaintenanceEnergyPaid,
     ManeuverExecutor,
     MissReason,
     ModifierDescriptor,
+    MovementCompleted,
+    MovementDeclared,
+    MovementPathValid,
+    MovementWithinBudget,
     PerceptionSet,
     PointBudgetBalanced,
     Prop,
@@ -258,6 +265,7 @@ pub use contracts::{
     SkillPointBudgetValid,
     SkillPrerequisiteMet,
     SkillRelatedDefaultEvidence,
+    SpatialStateConsistent,
     SpellCaster,
     SpellCastingDescriptor,
     SpellCastingFailed,
@@ -293,6 +301,8 @@ pub use contracts::{
     SpellSkillLevelSet,
     SpellSkillRollMade,
     SpellTargetDetermined,
+    TargetWithinRange,
+    TargetWithinReach,
     TaskDifficultyModifierApplied,
     TechniqueUsageEvidence,
     TechniqueUsed,
@@ -314,8 +324,9 @@ pub use contracts::{
 };
 pub use contracts::{
     AttackDeclared, AttackResolved, CanApplyDamage, CanTakeAction, CombatConcluded,
-    CombatInitialized, DamageApplied, DefenseRequired, DefenseResolved, ManeuverSelected,
-    RoundCompleted, TurnBegan, TurnEnded, TurnOrderEstablished, VictoryConditionMet,
+    CombatInitialized, CombatantLocated, DamageApplied, DefenseRequired, DefenseResolved,
+    LocationsHaveSameFrame, ManeuverSelected, RoundCompleted, TurnBegan, TurnEnded,
+    TurnOrderEstablished, VictoryConditionMet,
 };
 pub use dice::{DiceGenerator, DieFace, ThreeDiceRoll};
 pub use disadvantages::{Addiction, Disadvantage, Duty, Lame, Phobia, SenseOfDuty, Vow};
@@ -334,9 +345,34 @@ pub use lobby::{
 pub use magic::{
     Duration, EnergyCost, ResistanceType, Spell, SpellCollege, SpellPrerequisite, SpellType,
 };
-pub use movement::{AllOutMeleeAttack, AllOutRangedAttack, FreeAction, Manuever, Posture, Success};
-pub use players::{DefenseChoice, ManeuverChoice, Player, Players};
+pub use movement::{
+    apply_completed_movement, complete_movement, declare_movement,
+    establish_movement_within_budget, movement_budget_from_effective_move,
+    step_budget_from_effective_move, validate_movement_path, AllOutMeleeAttack, AllOutRangedAttack,
+    FreeAction, Manuever, MovementBudget, MovementBudgetBuilder, MovementError, MovementErrorKind,
+    MovementIntent, MovementIntentBuilder, MovementPath, MovementPathBuilder, MovementResult,
+    Posture, Success, GURPS_STEP_MINIMUM_METERS,
+};
+pub use players::{
+    DefenseChoice, ManeuverChoice, MovementChoice, MovementChoiceBuilder, Player, Players,
+};
 pub use skills::{Family, Skill, SkillBase, SkillDefault};
+pub use spatial::{
+    attack_range_limit, attack_reach_from_reach, build_default_tactical_point,
+    build_tactical_point, check_line_of_effect_between_combatants, check_target_within_range,
+    check_target_within_reach, combatant_occupancy_from_placement, distance_between_combatants,
+    distance_between_placements, establish_same_frame, establish_spatial_state,
+    initial_spatial_state_for_combat, local_tactical_frame, locate_combatant, tactical_footprint,
+    tactical_frame_from_source, AttackRange, AttackRangeBuilder, AttackReach, AttackReachBuilder,
+    CombatSpatialState, CombatSpatialStateBuilder, CombatantOccupancy, CombatantOccupancyBuilder,
+    CombatantPlacement, CombatantPlacementBuilder, SpatialError, SpatialErrorKind, SpatialResult,
+    SpatiallyCheckedMeleeTarget, SpatiallyCheckedMeleeTargetBuilder, SpatiallyCheckedRangedTarget,
+    SpatiallyCheckedRangedTargetBuilder, TacticalCoordinate, TacticalCoordinateBuilder,
+    TacticalDistance, TacticalDistanceBuilder, TacticalDistanceUnit, TacticalFootprint,
+    TacticalFootprintBuilder, TacticalFrame, TacticalFrameBuilder, TacticalObstacle,
+    TacticalObstacleBuilder, TacticalPoint, TacticalPointBuilder, TacticalTerrainZone,
+    TacticalTerrainZoneBuilder, VALINORETH_TACTICAL_SRID, WGS84_SRID,
+};
 pub use special_features::SpecialFeatures;
 pub use ui::{
     begin_compose, cancel_compose, knowledge_cache, receive_message, scroll_down, scroll_up,
@@ -350,9 +386,10 @@ pub use ui::{
     TuiCommunicator,
 };
 pub use vsm::{
-    apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, conclude_combat,
-    damage_applied_from_gm, declare_attack, declared_attack_target, defense_resolved_from_gm,
-    end_turn, initialize_combat, resolve_attack, resolve_defense, CombatConsistent, CombatMachine,
-    CombatPhase, CombatSession, CombatState, CombatStateView, CombatWorkflow, CombatantSlot,
-    CombatantState, CombatantView, DeclaredAttackTarget, WorkflowError,
+    apply_damage, attack_resolved_from_gm, begin_turn, combat_consistent, complete_movement_action,
+    conclude_combat, damage_applied_from_gm, declare_attack, declared_attack_target,
+    defense_resolved_from_gm, end_turn, initialize_combat, resolve_attack, resolve_defense,
+    CombatConsistent, CombatMachine, CombatPhase, CombatSession, CombatState, CombatStateView,
+    CombatWorkflow, CombatantPositionView, CombatantSlot, CombatantState, CombatantView,
+    DeclaredAttackTarget, WorkflowError,
 };

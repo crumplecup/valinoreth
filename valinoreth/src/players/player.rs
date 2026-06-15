@@ -18,7 +18,7 @@
 use elicitation::{ChoiceSet, ElicitCommunicator, ElicitResult, Elicitation as _};
 use tracing::instrument;
 
-use crate::{CharacterDescriptor, DefenseChoice, ManeuverChoice};
+use crate::{CharacterDescriptor, DefenseChoice, ManeuverChoice, MovementChoice};
 
 /// A character in an active game session paired with its decision driver.
 ///
@@ -73,5 +73,20 @@ impl<C: ElicitCommunicator> Player<C> {
         available: ChoiceSet<DefenseChoice>,
     ) -> ElicitResult<DefenseChoice> {
         available.elicit(&self.communicator).await
+    }
+
+    /// Elicit a tactical movement destination from this player.
+    ///
+    /// The returned coordinates are a player request only. The workflow must
+    /// pass them through movement declaration, path validation, and budget
+    /// proof gates before mutating spatial state.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the communicator fails or the movement payload
+    /// cannot be parsed.
+    #[instrument(skip(self), fields(character_id = %self.character.name))]
+    pub async fn choose_movement(&self) -> ElicitResult<MovementChoice> {
+        MovementChoice::elicit(&self.communicator).await
     }
 }
