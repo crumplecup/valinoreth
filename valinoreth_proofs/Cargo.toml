@@ -16,5 +16,5 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(creusot)', 'cfg(kani)', 'c
 
 [dependencies]
 valinoreth = { path = "../valinoreth", default-features = false }
-elicitation = { path = "../../elicitation/crates/elicitation" }
+elicitation = { version = "0.11.1" }
 creusot-std = { workspace = true, optional = true }

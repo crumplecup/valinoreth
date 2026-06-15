@@ -1014,10 +1014,30 @@ checksum = "8aad5d3429660703145832f445b18597050213c407fc249aa52e1ee57fc9d95c"
 dependencies = [
  "accesskit",
  "derive_more",
- "elicitation 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "elicitation_derive 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "elicitation",
+ "elicitation_derive",
  "futures",
  "inventory",
+ "rmcp",
+ "schemars",
+ "serde",
+ "serde_json",
+ "strum 0.28.0",
+ "tracing",
+]
+
+[[package]]
+name = "elicit_gis"
+version = "0.11.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c31367afd1f077b1538401992b7d2ba197ad6cdb1f2fb54187917b72babcea5c"
+dependencies = [
+ "derive_more",
+ "elicitation",
+ "elicitation_derive",
+ "futures",
+ "proc-macro2 1.0.106",
+ "quote 1.0.45",
  "rmcp",
  "schemars",
  "serde",
@@ -1036,8 +1056,8 @@ dependencies = [
  "crossterm 0.29.0",
  "elicit_accesskit",
  "elicit_ui",
- "elicitation 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "elicitation_derive 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "elicitation",
+ "elicitation_derive",
  "inventory",
  "quote 1.0.45",
  "ratatui",
@@ -1061,8 +1081,8 @@ dependencies = [
  "derive-new 0.7.0",
  "derive_more",
  "elicit_accesskit",
- "elicitation 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "elicitation_derive 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "elicitation",
+ "elicitation_derive",
  "inventory",
  "parley",
  "peniko",
@@ -1072,35 +1092,6 @@ dependencies = [
  "schemars",
  "serde",
  "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "elicitation"
-version = "0.11.1"
-dependencies = [
- "anodized",
- "anyhow",
- "async-trait",
- "derive-getters",
- "derive-new 0.7.0",
- "derive_builder",
- "derive_more",
- "derive_setters",
- "elicitation_derive 0.11.1",
- "erased-serde",
- "futures",
- "inventory",
- "paste",
- "prettyplease",
- "proc-macro2 1.0.106",
- "quote 1.0.45",
- "rmcp",
- "schemars",
- "serde",
- "serde_json",
- "syn 2.0.117",
- "tokio",
  "tracing",
 ]
 
@@ -1119,7 +1110,7 @@ dependencies = [
  "derive_builder",
  "derive_more",
  "derive_setters",
- "elicitation_derive 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "elicitation_derive",
  "erased-serde",
  "futures",
  "inventory",
@@ -1137,17 +1128,6 @@ dependencies = [
  "tokio",
  "tracing",
  "uuid",
-]
-
-[[package]]
-name = "elicitation_derive"
-version = "0.11.1"
-dependencies = [
- "heck",
- "proc-macro2 1.0.106",
- "quote 1.0.45",
- "syn 2.0.117",
- "toml",
 ]
 
 [[package]]
@@ -1171,7 +1151,7 @@ checksum = "bb68c863ea34c6c49a9cc99e626ab01a41645cd3433df652afca17d5dcf33467"
 dependencies = [
  "chrono",
  "csv",
- "elicitation 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "elicitation",
  "kani-verifier",
  "rand 0.10.1",
  "rand_chacha 0.10.0",
@@ -4495,10 +4475,11 @@ dependencies = [
  "derive_more",
  "dotenvy",
  "elicit_accesskit",
+ "elicit_gis",
  "elicit_ratatui",
  "elicit_ui",
- "elicitation 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "elicitation_derive 0.11.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "elicitation",
+ "elicitation_derive",
  "elicitation_rand",
  "proc-macro2 1.0.106",
  "rand 0.10.1",
@@ -4520,7 +4501,7 @@ name = "valinoreth_proofs"
 version = "0.1.0"
 dependencies = [
  "creusot-std",
- "elicitation 0.11.1",
+ "elicitation",
  "valinoreth",
 ]
 

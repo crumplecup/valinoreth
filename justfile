@@ -31,9 +31,16 @@ test-one TEST:
 test-verbose:
     cargo test --all-targets -- --nocapture
 
-# Run clippy lints
-clippy:
-    cargo clippy --all-targets --all-features -- -D warnings
+# Run clippy lints for the runtime crate on stable and generated proofs on nightly
+clippy: clippy-valinoreth clippy-proofs
+
+# Run clippy lints for Valinoreth on stable
+clippy-valinoreth:
+    cargo +stable clippy -p valinoreth --all-targets --all-features -- -D warnings
+
+# Run clippy lints for generated proof harnesses on nightly
+clippy-proofs:
+    cargo +nightly clippy -p valinoreth_proofs --all-targets --all-features -- -D warnings
 
 # Check code formatting
 fmt-check:
@@ -213,8 +220,7 @@ verify-creusot:
 
 # Run Verus verification for Combat VSM
 verify-verus:
-    cd valinoreth && elicitation prove --verus
+    elicitation prove --verus
 
 # Run all verification backends
-verify-all:
-    cd valinoreth && elicitation prove --kani --creusot --verus
+verify-all: verify-kani verify-creusot verify-verus

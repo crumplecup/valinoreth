@@ -4,3 +4,4 @@ prove_*.log
 rustc-ice-*.txt
 *.csv
 .why3find/
+*.rlib
