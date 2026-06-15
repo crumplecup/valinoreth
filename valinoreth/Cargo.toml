@@ -6,6 +6,9 @@ edition = "2021"
 [package.metadata.elicitation]
 kani_skip_features = ["bin-extras"]
 
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(creusot)', 'cfg(kani)', 'cfg(verus)'] }
+
 [lib]
 path = "src/lib.rs"
 

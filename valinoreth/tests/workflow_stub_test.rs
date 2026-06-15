@@ -8,16 +8,14 @@
 //! A separate section (gated behind `frontend-ratatui`) tests the
 //! `ChatCommunicator` channel handoff independently.
 
-use std::future::Future;
-
 use elicitation::{
     ElicitCommunicator, ElicitResult, ElicitationContext, StyleContext, StyleMarker,
 };
 use rmcp::model::{CallToolResult, Content};
 use tokio::sync::mpsc;
 use valinoreth::{
-    AttributeType, CharacterDescriptorBuilder, CombatWorkflow, DerivedStatsDescriptor,
-    GameMaster, Player, SkillDescriptorBuilder, SkillDifficulty,
+    AttributeType, CharacterDescriptorBuilder, CombatWorkflow, DerivedStatsDescriptor, GameMaster,
+    Player, SkillDescriptorBuilder, SkillDifficulty,
 };
 
 // ── Tracing ───────────────────────────────────────────────────────────────────
@@ -45,44 +43,40 @@ struct StubCommunicator {
 
 impl StubCommunicator {
     fn new() -> Self {
-        Self { style_ctx: StyleContext::default(), elicit_ctx: ElicitationContext::default() }
+        Self {
+            style_ctx: StyleContext::default(),
+            elicit_ctx: ElicitationContext::default(),
+        }
     }
 }
 
 impl ElicitCommunicator for StubCommunicator {
-    fn send_prompt(
-        &self,
-        _prompt: &str,
-    ) -> impl Future<Output = ElicitResult<String>> + Send {
-        async { Ok("1".to_string()) }
+    async fn send_prompt(&self, _prompt: &str) -> ElicitResult<String> {
+        Ok("1".to_string())
     }
 
-    fn call_tool(
+    async fn call_tool(
         &self,
         params: rmcp::model::CallToolRequestParams,
-    ) -> impl Future<
-        Output = Result<rmcp::model::CallToolResult, rmcp::service::ServiceError>,
-    > + Send {
-        async move {
-            // Handle elicit_select by always choosing the first option.
-            if params.name.as_ref() == "elicit_select" {
-                let args = params.arguments.unwrap_or_default();
-                let first = args
-                    .get("options")
-                    .and_then(|v| v.as_array())
-                    .and_then(|arr| arr.first())
-                    .and_then(|v| v.as_str())
-                    .unwrap_or("1")
-                    .to_string();
-                return Ok(CallToolResult::success(vec![Content::text(first)]));
-            }
-            Err(rmcp::service::ServiceError::Cancelled {
-                reason: Some(format!(
-                    "StubCommunicator does not support tool: {}",
-                    params.name
-                )),
-            })
+    ) -> Result<rmcp::model::CallToolResult, rmcp::service::ServiceError> {
+        // Handle elicit_select by always choosing the first option.
+        if params.name.as_ref() == "elicit_select" {
+            let args = params.arguments.unwrap_or_default();
+            let first = args
+                .get("options")
+                .and_then(|v| v.as_array())
+                .and_then(|arr| arr.first())
+                .and_then(|v| v.as_str())
+                .unwrap_or("1")
+                .to_string();
+            return Ok(CallToolResult::success(vec![Content::text(first)]));
         }
+        Err(rmcp::service::ServiceError::Cancelled {
+            reason: Some(format!(
+                "StubCommunicator does not support tool: {}",
+                params.name
+            )),
+        })
     }
 
     fn style_context(&self) -> &StyleContext {
@@ -111,16 +105,14 @@ fn make_fighter(name: &str) -> valinoreth::CharacterDescriptor {
         .total_points(100)
         .points_spent(100)
         .attributes(vec![])
-        .skills(vec![
-            SkillDescriptorBuilder::default()
-                .name("Broadsword".to_string())
-                .difficulty(SkillDifficulty::Average)
-                .base_attribute(AttributeType::DX)
-                .points(4)
-                .level(12)
-                .build()
-                .expect("valid skill"),
-        ])
+        .skills(vec![SkillDescriptorBuilder::default()
+            .name("Broadsword".to_string())
+            .difficulty(SkillDifficulty::Average)
+            .base_attribute(AttributeType::DX)
+            .points(4)
+            .level(12)
+            .build()
+            .expect("valid skill")])
         .derived_stats(DerivedStatsDescriptor {
             basic_speed: 5.5,
             basic_move: 5,
@@ -147,8 +139,14 @@ async fn test_workflow_runs_to_completion_with_stub() {
     let (chat_tx, mut chat_rx) = mpsc::unbounded_channel();
 
     let players = vec![
-        (Player::new(make_fighter("Aldric"), StubCommunicator::new()), "A".to_string()),
-        (Player::new(make_fighter("Mira"), StubCommunicator::new()), "B".to_string()),
+        (
+            Player::new(make_fighter("Aldric"), StubCommunicator::new()),
+            "A".to_string(),
+        ),
+        (
+            Player::new(make_fighter("Mira"), StubCommunicator::new()),
+            "B".to_string(),
+        ),
     ];
 
     let mut workflow = CombatWorkflow::new(gm, players, chat_tx);
@@ -162,12 +160,9 @@ async fn test_workflow_runs_to_completion_with_stub() {
         msgs
     });
 
-    let result = tokio::time::timeout(
-        std::time::Duration::from_secs(30),
-        workflow.run(),
-    )
-    .await
-    .expect("combat timed out after 30 s");
+    let result = tokio::time::timeout(std::time::Duration::from_secs(30), workflow.run())
+        .await
+        .expect("combat timed out after 30 s");
 
     match result {
         Ok(Some(winner)) => {
@@ -184,7 +179,10 @@ async fn test_workflow_runs_to_completion_with_stub() {
     drop(workflow);
 
     let messages = drain.await.expect("drain task panicked");
-    assert!(!messages.is_empty(), "workflow should have emitted at least one chat message");
+    assert!(
+        !messages.is_empty(),
+        "workflow should have emitted at least one chat message"
+    );
 }
 
 /// Three-player, two-team combat — verifies the workflow handles odd counts.
@@ -195,21 +193,27 @@ async fn test_workflow_three_players_two_teams() {
     let (chat_tx, mut chat_rx) = mpsc::unbounded_channel();
 
     let players = vec![
-        (Player::new(make_fighter("Aldric"), StubCommunicator::new()), "A".to_string()),
-        (Player::new(make_fighter("Mira"), StubCommunicator::new()), "B".to_string()),
-        (Player::new(make_fighter("Torvald"), StubCommunicator::new()), "A".to_string()),
+        (
+            Player::new(make_fighter("Aldric"), StubCommunicator::new()),
+            "A".to_string(),
+        ),
+        (
+            Player::new(make_fighter("Mira"), StubCommunicator::new()),
+            "B".to_string(),
+        ),
+        (
+            Player::new(make_fighter("Torvald"), StubCommunicator::new()),
+            "A".to_string(),
+        ),
     ];
 
     let mut workflow = CombatWorkflow::new(gm, players, chat_tx);
 
     tokio::spawn(async move { while chat_rx.recv().await.is_some() {} });
 
-    let result = tokio::time::timeout(
-        std::time::Duration::from_secs(30),
-        workflow.run(),
-    )
-    .await
-    .expect("combat timed out after 30 s");
+    let result = tokio::time::timeout(std::time::Duration::from_secs(30), workflow.run())
+        .await
+        .expect("combat timed out after 30 s");
 
     assert!(result.is_ok(), "workflow should not error: {:?}", result);
 }
@@ -221,7 +225,7 @@ mod chat_communicator_tests {
     use std::sync::Arc;
 
     use elicitation::ElicitCommunicator;
-    use tokio::sync::{Mutex, mpsc};
+    use tokio::sync::{mpsc, Mutex};
     use valinoreth::{ChatCommunicator, ChatMessage, ChatSender};
 
     /// Verify that `send_prompt` posts to the chat log, signals compose mode,
@@ -237,9 +241,8 @@ mod chat_communicator_tests {
 
         // Drive send_prompt from a spawned task so we can interact with the
         // channels from this task.
-        let send_handle = tokio::spawn(async move {
-            comm.send_prompt("Choose: Attack or Defend").await
-        });
+        let send_handle =
+            tokio::spawn(async move { comm.send_prompt("Choose: Attack or Defend").await });
 
         // 1. Prompt should appear in the chat log.
         let msg = chat_rx.recv().await.expect("expected prompt in chat log");

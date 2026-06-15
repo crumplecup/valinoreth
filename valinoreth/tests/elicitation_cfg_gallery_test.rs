@@ -16,13 +16,13 @@
 
 use elicitation::{formal_method, Elicit, Prop};
 use elicitation::{
-    formal_method_test_v1, formal_method_test_v2, formal_method_test_v3,
-    formal_method_test_v4, formal_method_test_v5, formal_method_test_v6,
-    formal_method_test_v7, formal_method_test_v8, formal_method_test_v9,
+    formal_method_test_v1, formal_method_test_v2, formal_method_test_v3, formal_method_test_v4,
+    formal_method_test_v5, formal_method_test_v6, formal_method_test_v7, formal_method_test_v8,
+    formal_method_test_v9,
 };
 use elicitation::{ElicitTestE1, ElicitTestE2};
-use serde::{Deserialize, Serialize};
 use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 use tracing::instrument;
 
 // ── Shared state & contract for Cases C/D ────────────────────────────────────
@@ -41,7 +41,7 @@ pub fn gallery_invariant(state: &GalleryState) -> bool {
     kani_invariant_fn = "gallery_invariant",
     creusot_invariant_fn = "gallery_invariant",
     verus_inv_body = "true",
-    creusot_inv_body = "true",
+    creusot_inv_body = "true"
 )]
 pub struct GalleryInv;
 
@@ -102,46 +102,64 @@ fn gallery_compiles() {
 
 // V1: passthrough — should produce NO warnings
 #[formal_method_test_v1]
-pub fn gallery_v1_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v1_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V2: mod wrapper only — should produce NO warnings
 #[formal_method_test_v2]
-pub fn gallery_v2_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v2_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V3: mod wrapper + instrument→cfg_attr transform — should produce NO warnings if mod wrapping works
 #[formal_method_test_v3]
 #[instrument]
-pub fn gallery_v3_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v3_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V4: V3 + empty const _: () = {} — should still be NO warnings
 #[formal_method_test_v4]
 #[instrument]
-pub fn gallery_v4_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v4_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V5: V4 + real #[cfg(kani)] harness inside const — tests whether cfg(kani) in const causes warning
 #[formal_method_test_v5]
 #[instrument]
-pub fn gallery_v5_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v5_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V6: #[allow(unexpected_cfgs)] on the function directly (no mod wrapper)
 #[formal_method_test_v6]
 #[instrument]
-pub fn gallery_v6_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v6_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V7: #[allow] on both outer mod AND inner function
 #[formal_method_test_v7]
 #[instrument]
-pub fn gallery_v7_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v7_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V8: mod wrapper, #[instrument] passed through unchanged (no cfg_attr)
 #[formal_method_test_v8]
 #[instrument]
-pub fn gallery_v8_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v8_fn(_x: u32) -> u32 {
+    _x
+}
 
 // V9: strip #[instrument], manually inject tracing span into body — no cfg_attr at all
 #[formal_method_test_v9]
 #[instrument]
-pub fn gallery_v9_fn(_x: u32) -> u32 { _x }
+pub fn gallery_v9_fn(_x: u32) -> u32 {
+    _x
+}
 
 // ── Impl-block cfg tests ──────────────────────────────────────────────────────
 // Tests whether #[allow(unexpected_cfgs)] on an impl block suppresses
@@ -154,17 +172,25 @@ pub struct ImplCfgTest;
 #[allow(unexpected_cfgs)]
 impl ImplCfgTest {
     #[cfg(not(creusot))]
-    pub fn i1_method(&self) -> u32 { 1 }
+    pub fn i1_method(&self) -> u32 {
+        1
+    }
     #[cfg(creusot)]
-    pub fn i1_method(&self) -> u32 { 0 }
+    pub fn i1_method(&self) -> u32 {
+        0
+    }
 }
 
 // I2: no allow on impl — should warn
 impl ImplCfgTest {
     #[cfg(not(creusot))]
-    pub fn i2_method(&self) -> u32 { 1 }
+    pub fn i2_method(&self) -> u32 {
+        1
+    }
     #[cfg(creusot)]
-    pub fn i2_method(&self) -> u32 { 0 }
+    pub fn i2_method(&self) -> u32 {
+        0
+    }
 }
 
 // I3: allow on impl, cfg in method body (block scope) — does it suppress?
@@ -172,7 +198,9 @@ impl ImplCfgTest {
 impl ImplCfgTest {
     pub fn i3_method(&self) -> u32 {
         #[cfg(creusot)]
-        { return 0; }
+        {
+            return 0;
+        }
         1
     }
 }
@@ -183,11 +211,15 @@ pub struct SeparateImplTest;
 
 #[cfg(not(creusot))]
 impl SeparateImplTest {
-    pub fn i4_method(&self) -> u32 { 1 }
+    pub fn i4_method(&self) -> u32 {
+        1
+    }
 }
 #[cfg(creusot)]
 impl SeparateImplTest {
-    pub fn i4_method(&self) -> u32 { 0 }
+    pub fn i4_method(&self) -> u32 {
+        0
+    }
 }
 
 // I5: cfg on impl block inside #[allow] mod — does allow propagate?
@@ -196,26 +228,28 @@ mod _i5_mod {
     use super::*;
     #[cfg(not(creusot))]
     impl SeparateImplTest {
-        pub fn i5_method(&self) -> u32 { 1 }
+        pub fn i5_method(&self) -> u32 {
+            1
+        }
     }
     #[cfg(creusot)]
     impl SeparateImplTest {
-        pub fn i5_method(&self) -> u32 { 0 }
+        pub fn i5_method(&self) -> u32 {
+            0
+        }
     }
 }
 
 // ── Minimal isolation: #[derive(Elicit)] with required bounds ────────────────
 // J1: minimal enum with Elicit (requires Serialize + Deserialize + JsonSchema)
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
-#[derive(Elicit)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, JsonSchema, Elicit)]
 pub enum MinimalEnum {
     A,
     B,
 }
 
 // J2: minimal struct with Elicit
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema)]
-#[derive(Elicit)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, JsonSchema, Elicit)]
 pub struct MinimalStruct {
     pub value: u32,
 }
@@ -227,11 +261,16 @@ pub struct MinimalStruct {
 // See elicitation/UNEXPECTED_CFGS.md and git history for the full bisection.
 
 #[derive(ElicitTestE1)]
-pub enum BisectEnum { X, Y }
+pub enum BisectEnum {
+    X,
+    Y,
+}
 
 #[derive(ElicitTestE2)]
-pub enum BisectEnumE2 { X, Y }
-
+pub enum BisectEnumE2 {
+    X,
+    Y,
+}
 
 #[test]
 fn bisect_compiles() {
