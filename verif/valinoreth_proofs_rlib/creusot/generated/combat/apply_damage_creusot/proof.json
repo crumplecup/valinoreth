@@ -2,8 +2,8 @@
   "profile": [],
   "proofs": {
     "Coma": {
-      "vc_apply_damage": { "prover": "alt-ergo", "time": 0.027 },
-      "vc_apply_damage_creusot": { "prover": "alt-ergo", "time": 0.02 }
+      "vc_apply_damage": { "prover": "alt-ergo", "time": 0.029 },
+      "vc_apply_damage_creusot": { "prover": "alt-ergo", "time": 0.026 }
     }
   }
 }

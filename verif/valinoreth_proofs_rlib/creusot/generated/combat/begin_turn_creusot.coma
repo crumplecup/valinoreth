@@ -11,13 +11,13 @@ let%span scombat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/
 let%span scombat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 72 38 72 43
 let%span scombat'8 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 72 76 72 87
 let%span scombat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 70 15 70 54
-let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 260 0 260 48
+let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 319 0 319 48
 let%span scombat'11 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 71 14 71 56
 let%span scombat'12 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 26 8 35 9
-let%span svec = "/home/erik/repos/elicitation/vendor/creusot-std/src/std/vec.rs" 16 14 16 41
-let%span svec'0 = "/home/erik/repos/elicitation/vendor/creusot-std/src/std/vec.rs" 87 20 87 30
-let%span sseq = "/home/erik/repos/elicitation/vendor/creusot-std/src/logic/seq.rs" 921 20 921 91
-let%span sinvariant = "/home/erik/repos/elicitation/vendor/creusot-std/src/invariant.rs" 85 8 85 18
+let%span svec = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/std/vec.rs" 18 14 18 41
+let%span svec'0 = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/std/vec.rs" 89 20 89 30
+let%span sseq = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/logic/seq.rs" 921 20 921 91
+let%span sinvariant = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/invariant.rs" 85 8 85 18
 
 use creusot.int.UInt64
 use creusot.int.UInt32

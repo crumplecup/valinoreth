@@ -1,18 +1,18 @@
-(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 98 0 102 49 *)
+(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 178 0 182 49 *)
 
-let%span scombat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 103 4 103 49
-let%span scombat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 99 4 99 9
-let%span scombat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 100 4 100 9
-let%span scombat'2 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 101 4 101 19
-let%span scombat'3 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 95 11 95 50
-let%span scombat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 102 5 102 49
-let%span scombat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 96 10 96 52
-let%span scombat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 91 22 91 27
-let%span scombat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 91 42 91 47
-let%span scombat'8 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 91 80 91 95
-let%span scombat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 89 15 89 54
-let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 333 0 333 48
-let%span scombat'11 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 90 14 90 56
+let%span scombat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 183 4 183 59
+let%span scombat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 179 4 179 9
+let%span scombat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 180 4 180 9
+let%span scombat'2 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 181 4 181 19
+let%span scombat'3 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 175 11 175 50
+let%span scombat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 182 5 182 49
+let%span scombat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 176 10 176 52
+let%span scombat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 171 32 171 37
+let%span scombat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 171 52 171 57
+let%span scombat'8 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 171 90 171 105
+let%span scombat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 169 15 169 54
+let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 425 0 425 48
+let%span scombat'11 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 170 14 170 56
 let%span scombat'12 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 26 8 35 9
 let%span svec = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/std/vec.rs" 18 14 18 41
 let%span svec'0 = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/std/vec.rs" 89 20 89 30
@@ -41,7 +41,7 @@ type t_CombatState =
 
 type t_Established_CombatConsistent
 
-type t_DeclaredAttackTarget
+type t_Established_MovementCompleted
 
 type tup2_CombatState_Established_CombatConsistent = { f0: t_CombatState; f1: t_Established_CombatConsistent }
 
@@ -116,7 +116,7 @@ axiom inv_axiom'2 [@rewrite]: forall x: t_CombatState [inv_CombatState x]. inv_C
 
 predicate inv_Established_CombatConsistent (_1: t_Established_CombatConsistent)
 
-predicate inv_DeclaredAttackTarget (_1: t_DeclaredAttackTarget)
+predicate inv_Established_MovementCompleted (_1: t_Established_MovementCompleted)
 
 function view_Vec_usize_Global (self: t_Vec_usize_Global) : Seq.seq UInt64.t
 
@@ -141,40 +141,40 @@ predicate inv_tup2_CombatState_Established_CombatConsistent [@inline:trivial] (_
 
 meta "rewrite_def" predicate inv_tup2_CombatState_Established_CombatConsistent
 
-let rec declare_attack (state: t_CombatState) (proof: t_Established_CombatConsistent)
-  (declared_target: t_DeclaredAttackTarget) (return (x: tup2_CombatState_Established_CombatConsistent)) =
-  {[@stop_split] [@expl:declare_attack requires] ([@stop_split] [@expl:declare_attack 'state' type invariant] [%#scombat'6] inv_CombatState state)
-  /\ ([@stop_split] [@expl:declare_attack 'proof' type invariant] [%#scombat'7] inv_Established_CombatConsistent proof)
-  /\ ([@stop_split] [@expl:declare_attack 'declared_target' type invariant] [%#scombat'8] inv_DeclaredAttackTarget declared_target)
-  /\ ([@stop_split] [@expl:declare_attack requires] [%#scombat'9] combat_consistent_creusot state)}
+let rec complete_movement_action (state: t_CombatState) (proof: t_Established_CombatConsistent)
+  (_movement_proof: t_Established_MovementCompleted) (return (x: tup2_CombatState_Established_CombatConsistent)) =
+  {[@stop_split] [@expl:complete_movement_action requires] ([@stop_split] [@expl:complete_movement_action 'state' type invariant] [%#scombat'6] inv_CombatState state)
+  /\ ([@stop_split] [@expl:complete_movement_action 'proof' type invariant] [%#scombat'7] inv_Established_CombatConsistent proof)
+  /\ ([@stop_split] [@expl:complete_movement_action '_movement_proof' type invariant] [%#scombat'8] inv_Established_MovementCompleted _movement_proof)
+  /\ ([@stop_split] [@expl:complete_movement_action requires] [%#scombat'9] combat_consistent_creusot state)}
   any
   [ return (result: tup2_CombatState_Established_CombatConsistent) ->
-  {[@stop_split] [@expl:declare_attack ensures] ([@stop_split] [@expl:declare_attack result type invariant] [%#scombat'10] inv_tup2_CombatState_Established_CombatConsistent result)
-    /\ ([@stop_split] [@expl:declare_attack ensures] [%#scombat'11] combat_consistent_creusot result.f0)}
+  {[@stop_split] [@expl:complete_movement_action ensures] ([@stop_split] [@expl:complete_movement_action result type invariant] [%#scombat'10] inv_tup2_CombatState_Established_CombatConsistent result)
+    /\ ([@stop_split] [@expl:complete_movement_action ensures] [%#scombat'11] combat_consistent_creusot result.f0)}
     (! return {result}) ]
 
 meta "compute_max_steps" 1000000
 
 meta "select_lsinst" "all"
 
-let rec declare_attack_creusot
-  [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 98 0 102 49] (state: t_CombatState)
-  (proof: t_Established_CombatConsistent) (declared_target: t_DeclaredAttackTarget)
+let rec complete_movement_action_creusot
+  [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 178 0 182 49] (state: t_CombatState)
+  (proof: t_Established_CombatConsistent) (_movement_proof: t_Established_MovementCompleted)
   (return (x: tup2_CombatState_Established_CombatConsistent)) =
-  {[@stop_split] [@expl:declare_attack_creusot requires] ([@stop_split] [@expl:declare_attack_creusot 'state' type invariant] [%#scombat'0] inv_CombatState state)
-  /\ ([@stop_split] [@expl:declare_attack_creusot 'proof' type invariant] [%#scombat'1] inv_Established_CombatConsistent proof)
-  /\ ([@stop_split] [@expl:declare_attack_creusot 'declared_target' type invariant] [%#scombat'2] inv_DeclaredAttackTarget declared_target)
-  /\ ([@stop_split] [@expl:declare_attack_creusot requires] [%#scombat'3] combat_consistent_creusot state)}
+  {[@stop_split] [@expl:complete_movement_action_creusot requires] ([@stop_split] [@expl:complete_movement_action_creusot 'state' type invariant] [%#scombat'0] inv_CombatState state)
+  /\ ([@stop_split] [@expl:complete_movement_action_creusot 'proof' type invariant] [%#scombat'1] inv_Established_CombatConsistent proof)
+  /\ ([@stop_split] [@expl:complete_movement_action_creusot '_movement_proof' type invariant] [%#scombat'2] inv_Established_MovementCompleted _movement_proof)
+  /\ ([@stop_split] [@expl:complete_movement_action_creusot requires] [%#scombat'3] combat_consistent_creusot state)}
   (! bb0
   [ bb0 = s0
-    [ s0 = declare_attack [%#scombat] {state} {proof} {declared_target}
+    [ s0 = complete_movement_action [%#scombat] {state} {proof} {_movement_proof}
         (fun (_x: tup2_CombatState_Established_CombatConsistent) -> [ &_ret <- _x ] s1)
     | s1 = return {_ret} ] ]
   [ & _ret: tup2_CombatState_Established_CombatConsistent = Any.any_l ()
   | & state: t_CombatState = state
   | & proof: t_Established_CombatConsistent = proof
-  | & declared_target: t_DeclaredAttackTarget = declared_target ])
+  | & _movement_proof: t_Established_MovementCompleted = _movement_proof ])
   [ return (result: tup2_CombatState_Established_CombatConsistent) ->
-  {[@stop_split] [@expl:declare_attack_creusot ensures] ([@stop_split] [@expl:declare_attack_creusot result type invariant] [%#scombat'4] inv_tup2_CombatState_Established_CombatConsistent result)
-    /\ ([@stop_split] [@expl:declare_attack_creusot ensures] [%#scombat'5] combat_consistent_creusot result.f0)}
+  {[@stop_split] [@expl:complete_movement_action_creusot ensures] ([@stop_split] [@expl:complete_movement_action_creusot result type invariant] [%#scombat'4] inv_tup2_CombatState_Established_CombatConsistent result)
+    /\ ([@stop_split] [@expl:complete_movement_action_creusot ensures] [%#scombat'5] combat_consistent_creusot result.f0)}
     (! return {result}) ]

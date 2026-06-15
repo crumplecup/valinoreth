@@ -1,0 +1,12 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_complete_movement_action": { "prover": "alt-ergo", "time": 0.027 },
+      "vc_complete_movement_action_creusot": {
+        "prover": "alt-ergo",
+        "time": 0.025
+      }
+    }
+  }
+}

@@ -1,23 +1,23 @@
-(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 138 0 142 49 *)
+(* #"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 136 0 140 49 *)
 
-let%span scombat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 143 4 143 50
-let%span scombat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 139 4 139 9
-let%span scombat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 140 4 140 9
-let%span scombat'2 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 141 4 141 19
-let%span scombat'3 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 135 11 135 50
-let%span scombat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 142 5 142 49
-let%span scombat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 136 10 136 52
-let%span scombat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 131 23 131 28
-let%span scombat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 131 43 131 48
-let%span scombat'8 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 131 81 131 96
-let%span scombat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 129 15 129 54
-let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 307 0 307 48
-let%span scombat'11 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 130 14 130 56
+let%span scombat = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 141 4 141 50
+let%span scombat'0 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 137 4 137 9
+let%span scombat'1 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 138 4 138 9
+let%span scombat'2 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 139 4 139 19
+let%span scombat'3 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 133 11 133 50
+let%span scombat'4 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 140 5 140 49
+let%span scombat'5 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 134 10 134 52
+let%span scombat'6 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 129 23 129 28
+let%span scombat'7 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 129 43 129 48
+let%span scombat'8 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 129 81 129 96
+let%span scombat'9 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 127 15 127 54
+let%span scombat'10 = "/home/erik/repos/valinoreth/valinoreth/src/vsm/combat.rs" 361 0 361 48
+let%span scombat'11 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 128 14 128 56
 let%span scombat'12 = "/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 26 8 35 9
-let%span svec = "/home/erik/repos/elicitation/vendor/creusot-std/src/std/vec.rs" 16 14 16 41
-let%span svec'0 = "/home/erik/repos/elicitation/vendor/creusot-std/src/std/vec.rs" 87 20 87 30
-let%span sseq = "/home/erik/repos/elicitation/vendor/creusot-std/src/logic/seq.rs" 921 20 921 91
-let%span sinvariant = "/home/erik/repos/elicitation/vendor/creusot-std/src/invariant.rs" 85 8 85 18
+let%span svec = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/std/vec.rs" 18 14 18 41
+let%span svec'0 = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/std/vec.rs" 89 20 89 30
+let%span sseq = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/logic/seq.rs" 921 20 921 91
+let%span sinvariant = "/home/erik/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/creusot-std-0.11.0/src/invariant.rs" 85 8 85 18
 
 use creusot.int.UInt64
 use creusot.int.UInt32
@@ -158,7 +158,7 @@ meta "compute_max_steps" 1000000
 meta "select_lsinst" "all"
 
 let rec resolve_defense_creusot
-  [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 138 0 142 49] (state: t_CombatState)
+  [#"/home/erik/repos/valinoreth/valinoreth_proofs/src/creusot/generated/combat.rs" 136 0 140 49] (state: t_CombatState)
   (proof: t_Established_CombatConsistent) (_resolved_proof: t_Established_DefenseResolved)
   (return (x: tup2_CombatState_Established_CombatConsistent)) =
   {[@stop_split] [@expl:resolve_defense_creusot requires] ([@stop_split] [@expl:resolve_defense_creusot 'state' type invariant] [%#scombat'0] inv_CombatState state)

@@ -54,6 +54,12 @@ pub fn apply_damage_stub(state: CombatState) -> CombatState {
     todo!()
 }
 
+/// Stub for `complete_movement_action` — body is opaque to Verus.
+#[verifier::external]
+pub fn complete_movement_action_stub(state: CombatState) -> CombatState {
+    todo!()
+}
+
 /// Stub for `end_turn` — body is opaque to Verus.
 #[verifier::external]
 pub fn end_turn_stub(state: CombatState) -> CombatState {
@@ -146,6 +152,12 @@ pub assume_specification[apply_damage_stub](state: CombatState) -> (r: CombatSta
     requires CombatConsistent(&state),
     ensures  combat_post_passthrough(state, r);
 
+/// Contract for `complete_movement_action_stub` — mirrors the formal_method contract that
+/// Kani and Creusot independently verify on the real `complete_movement_action` body.
+pub assume_specification[complete_movement_action_stub](state: CombatState) -> (r: CombatState)
+    requires CombatConsistent(&state),
+    ensures  combat_post_trivial(r);
+
 /// Contract for `end_turn_stub` — mirrors the formal_method contract that
 /// Kani and Creusot independently verify on the real `end_turn` body.
 pub assume_specification[end_turn_stub](state: CombatState) -> (r: CombatState)
@@ -211,6 +223,14 @@ pub fn apply_damage_verified(state: CombatState) -> (r: CombatState)
     apply_damage_stub(state)
 }
 
+/// Proof that `complete_movement_action` preserves the invariant (via assume_specification).
+pub fn complete_movement_action_verified(state: CombatState) -> (r: CombatState)
+    requires CombatConsistent(&state),
+    ensures  CombatConsistent(&r),
+{
+    complete_movement_action_stub(state)
+}
+
 /// Proof that `end_turn` preserves the invariant (via assume_specification).
 pub fn end_turn_verified(state: CombatState) -> (r: CombatState)
     requires CombatConsistent(&state),
@@ -238,6 +258,7 @@ pub enum CombatMachineTrans {
     ResolveAttack,
     ResolveDefense,
     ApplyDamage,
+    CompleteMovementAction,
     EndTurn,
     ConcludeCombat,
 }
@@ -251,6 +272,7 @@ pub open spec fn combat_post(pre: CombatState, post: CombatState, tag: CombatMac
         CombatMachineTrans::ResolveAttack => combat_post_trivial(post),
         CombatMachineTrans::ResolveDefense => combat_post_trivial(post),
         CombatMachineTrans::ApplyDamage => combat_post_passthrough(pre, post),
+        CombatMachineTrans::CompleteMovementAction => combat_post_trivial(post),
         CombatMachineTrans::EndTurn => combat_post_passthrough(pre, post),
         CombatMachineTrans::ConcludeCombat => combat_post_trivial(post),
     }
@@ -270,6 +292,7 @@ pub proof fn combat_composition(pre: CombatState, post: CombatState, tag: Combat
         CombatMachineTrans::ResolveAttack => combat_leaf_trivial(post),
         CombatMachineTrans::ResolveDefense => combat_leaf_trivial(post),
         CombatMachineTrans::ApplyDamage => combat_leaf_passthrough(pre, post),
+        CombatMachineTrans::CompleteMovementAction => combat_leaf_trivial(post),
         CombatMachineTrans::EndTurn => combat_leaf_passthrough(pre, post),
         CombatMachineTrans::ConcludeCombat => combat_leaf_trivial(post),
     }

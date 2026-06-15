@@ -14,9 +14,9 @@ use elicitation::Established;
 #[cfg(creusot)]
 use valinoreth::{
     AttackResolved, CombatConsistent, CombatInitialized, CombatState, CombatantState,
-    DamageApplied, DeclaredAttackTarget, DefenseResolved, TurnBegan, TurnEnded,
-    VictoryConditionMet, apply_damage, begin_turn, conclude_combat, declare_attack, end_turn,
-    initialize_combat, resolve_attack, resolve_defense,
+    DamageApplied, DeclaredAttackTarget, DefenseResolved, MovementCompleted, TurnBegan, TurnEnded,
+    VictoryConditionMet, apply_damage, begin_turn, complete_movement_action, conclude_combat,
+    declare_attack, end_turn, initialize_combat, resolve_attack, resolve_defense,
 };
 
 #[cfg(creusot)]
@@ -162,6 +162,25 @@ pub fn apply_damage_creusot(
     _damage_proof: Established<DamageApplied>,
 ) -> (CombatState, Established<CombatConsistent>) {
     apply_damage(state, proof, declared_target, injury, _damage_proof)
+}
+
+#[cfg(creusot)]
+extern_spec! {
+    #[requires(combat_consistent_creusot_logic(&state))]
+    #[ensures(combat_consistent_creusot_logic(&result.0))]
+    fn complete_movement_action(state: CombatState, proof: Established<CombatConsistent>, _movement_proof: Established<MovementCompleted>) -> (CombatState, Established<CombatConsistent>);
+}
+
+#[cfg(creusot)]
+#[requires(combat_consistent_creusot_logic(&state))]
+#[ensures(combat_consistent_creusot_logic(&result.0))]
+#[cfg(creusot)]
+pub fn complete_movement_action_creusot(
+    state: CombatState,
+    proof: Established<CombatConsistent>,
+    _movement_proof: Established<MovementCompleted>,
+) -> (CombatState, Established<CombatConsistent>) {
+    complete_movement_action(state, proof, _movement_proof)
 }
 
 #[cfg(creusot)]

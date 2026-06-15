@@ -14,6 +14,8 @@ use valinoreth::begin_turn_kani_contracted;
 #[cfg(kani)]
 use valinoreth::combat_consistent;
 #[cfg(kani)]
+use valinoreth::complete_movement_action_kani_contracted;
+#[cfg(kani)]
 use valinoreth::conclude_combat_kani_contracted;
 #[cfg(kani)]
 use valinoreth::declare_attack_kani_contracted;
@@ -28,9 +30,9 @@ use valinoreth::resolve_defense_kani_contracted;
 #[cfg(kani)]
 use valinoreth::{
     AttackResolved, CombatConsistent, CombatInitialized, CombatState, CombatantState,
-    DamageApplied, DeclaredAttackTarget, DefenseResolved, TurnBegan, TurnEnded,
-    VictoryConditionMet, apply_damage, begin_turn, conclude_combat, declare_attack, end_turn,
-    initialize_combat, resolve_attack, resolve_defense,
+    DamageApplied, DeclaredAttackTarget, DefenseResolved, MovementCompleted, TurnBegan, TurnEnded,
+    VictoryConditionMet, apply_damage, begin_turn, complete_movement_action, conclude_combat,
+    declare_attack, end_turn, initialize_combat, resolve_attack, resolve_defense,
 };
 
 #[cfg(kani)]
@@ -154,6 +156,25 @@ fn apply_damage_kani_closure() {
     };
     let _result =
         apply_damage_kani_contracted(state, proof, declared_target, injury, _damage_proof);
+    ::std::mem::forget(_result);
+}
+
+#[cfg(kani)]
+#[::kani::proof_for_contract(complete_movement_action_kani_contracted)]
+fn complete_movement_action_kani_closure() {
+    let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth2();
+    ::kani::assume(combat_consistent(&state));
+    ::std::mem::forget(state);
+    let state: CombatState = <CombatState as ::elicitation::KaniCompose>::kani_depth0();
+    let proof: Established<CombatConsistent> = {
+        let _cred = CombatConsistent::kani_proof_credential();
+        ::elicitation::Established::prove(&_cred)
+    };
+    let _movement_proof: Established<MovementCompleted> = {
+        let _cred = MovementCompleted::kani_proof_credential();
+        ::elicitation::Established::prove(&_cred)
+    };
+    let _result = complete_movement_action_kani_contracted(state, proof, _movement_proof);
     ::std::mem::forget(_result);
 }
 
