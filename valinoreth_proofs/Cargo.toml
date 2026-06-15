@@ -3,6 +3,8 @@
 name = "valinoreth_proofs"
 version = "0.1.0"
 edition = "2024"
+description = "Auto-generated Kani, Creusot, and Verus proof harnesses for valinoreth, produced by elicitation"
+readme = "README.md"
 
 [features]
 kani    = []
